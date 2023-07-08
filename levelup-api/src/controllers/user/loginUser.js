@@ -2,7 +2,7 @@
 
 const jwt = require("jsonwebtoken");
 const { getConnection } = require("../../database/mysqlConnection.js");
-const validateToken = require("../../middlewares/validateToken");
+const validateToken = require("../../middlewares/validateToken.js");
 const {
     validatePassword,
     generateJWT,
