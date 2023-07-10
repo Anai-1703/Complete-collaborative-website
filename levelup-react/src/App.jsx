@@ -11,6 +11,7 @@ import { LoginPage } from './pages/LoginPage'
 import { PostPage } from './pages/PostPage'
 import { UserPage } from './pages/UserPage'
 import { NotFoundPage } from './pages/NotFoundPage'
+import PostPreview from './pages/PostPreview'
 
 function App() {
 
@@ -25,6 +26,8 @@ function App() {
           <Route path="/user/:id" element={<UserPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        <PostPreview />
+  
         <NavBar></NavBar>
       <Footer />
     </>
