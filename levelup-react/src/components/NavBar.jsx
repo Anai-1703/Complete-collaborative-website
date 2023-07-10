@@ -1,8 +1,18 @@
+import { Link } from 'react-router-dom';
+
 export function NavBar() {
 
     return (
-        <>
-            <img src="../assets/svg/menu.svg" alt="Menu"/>
-        </>
-    )
-}
+        <nav>
+            <ul>
+                <li>
+                    <Link to="/login">Login</Link>
+                </li>
+                <li>
+                    <Link to="/register">Registro</Link>
+                </li>
+            </ul>
+        </nav>
+        );
+    }
+
