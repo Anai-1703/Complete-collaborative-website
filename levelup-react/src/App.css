@@ -5,8 +5,17 @@
   text-align: center;
 }
 
+/* 
+Hola
+*/
+
+
+/* 
+CSS Genérico de REACT-VITE
+Podría ser de utilidad para algunas cosas - NO BORRAR TODAVÍA
+
 .logo {
-  height: 6em;
+  height: 7em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
@@ -40,3 +49,5 @@
 .read-the-docs {
   color: #888;
 }
+
+*/
