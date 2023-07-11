@@ -17,5 +17,3 @@ export function PostContent ({ photos, intro, description }) {
         </>
         );
 }
-
-

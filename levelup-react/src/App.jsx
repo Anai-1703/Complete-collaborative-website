@@ -12,6 +12,7 @@ import { PostPage } from './pages/PostPage'
 import { UserPage } from './pages/UserPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import PostPreview from './pages/PostPreview'
+import { PostList } from './components/PostList'
 
 function App() {
 
@@ -27,7 +28,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <PostPreview />
-  
+        <PostList />
         <NavBar></NavBar>
       <Footer />
     </>
