@@ -1,23 +1,13 @@
-"use strict";
+const fileService = require("../../services/fileServices");
 
-const dbService = require("../../services/dbService.js");
-const fileService = require("../../services/fileServices.js");
-const errorService = require("../../services/errorService.js");
-
-function confirm(condition, message) {
-    if (!condition) {
-        return errorService.unauthorizedUser();
-    }
+async function deletePhoto(dbphoto) {
+  try {
+    await fileService.deletePhoto(dbphoto);
+    console.log("deleted photo:", dbphoto.imageURL);
+  } catch (error) {
+    console.error("error deleting photo:", error);
+    throw error;
+  }
 }
-module.exports = async (postId, photoId, userId) => {
-    const post = await dbService.getPostById(postId);
-    confirm(post, "Post not found");
-    confirm(post.userId === userId, "Unauthorized user");
 
-    const photo = await dbService.getPhotoById(photoId);
-    confirm(photo, "Photo not found");
-    confirm(photo.postId === postId, "Invalid photo");
-
-    await dbService.deletePhoto(photoId);
-    await fileService.deletePhoto(photo);
-};
+module.exports = deletePhoto;
