@@ -1,26 +1,8 @@
-import { Comments } from '../components/Comments';
-import { PostContent } from '../components/PostContent';
-import { UserInfo } from '../components/UserInfo';
-import './PostPreview.css'
-
-
-
-const PostPreview = () => {
-  // Componente principal que muestra la preview del post
-    const avatarURL = 'Avatar';
-    const userName = 'UserName';
-    const photos = ['Foto 1', 'Foto 2'];
-    const intro = 'Entradilla';
-    const description = 'Descripción del post';
-    const comments = ['Comentario 1', 'Comentario 2'];
+export function UserInteraction() {
 
     return (
-    <article>
-        <section className="user-detail">
-            <UserInfo avatarURL={avatarURL} userName={userName} />
-        </section>
-
-        <section className="user-interaction">
+        <>
+            
             <div className="votes">
                 <svg
                 width="24"
@@ -67,17 +49,6 @@ const PostPreview = () => {
                 />
                 </svg>
             </div>
-        </section>
-        <section className="post-content">
-            <PostContent photos={photos} intro={intro} description={description} />
-        </section>
-        <section className="post-comments">
-            <Comments comments={comments} />
-        </section>
-    </article>
-    );
-};
-
-
-
-export default PostPreview;
+        </>
+    )
+}

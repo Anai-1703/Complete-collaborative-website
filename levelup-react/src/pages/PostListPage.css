@@ -18,26 +18,39 @@ article {
     flex-direction: row;
     justify-content: flex-end;
     width: 48%;
-    margin-bottom: 20px;
+}
+
+
+.post-text {
+    flex-grow: 1;
+    border: 1px solid green;
+    width: 60%;
+}
+
+.post-comments,
+.post-created {
+    align-self: center;
+    margin-top: auto;
 }
 
 .post-content {
-    display: flex;
-    flex-direction: row;
+    border: 1px solid red;
+    min-width: 0%;
+    max-width: 40%;
 }
-.post-images {
-    justify-content: flex-start;
-}
+
 .post-text {
-    flex-direction: column;
-    justify-content: flex-end;
+    max-width: 100%;
 }
 
-
-.post-content,
-.post-comments {
-    width: 100%;
+.post-title {
+    font-size: 1rem;
+    color: rgb(2, 106, 190);
 }
+.post-entradilla {
+    font-size: 1rem;
+}
+
 
 .user-avatar {
     padding-right: 5px;
