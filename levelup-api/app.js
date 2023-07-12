@@ -12,12 +12,6 @@ const validateToken = require("./src/middlewares/validateToken.js");
 const app = express();
 const PORT = 3000;
 
-app.use(express.json());
-app.use(fileUpload());
-app.use(morgan("dev"));
-app.use(validateToken);
-app.use(appRouter);
-
 app.use(
     cors({
         origin: [
@@ -29,6 +23,12 @@ app.use(
         ],
     })
 );
+
+app.use(express.json());
+app.use(fileUpload());
+app.use(morgan("dev"));
+app.use(validateToken);
+app.use(appRouter);
 
 //middleware de error
 app.use((err, req, res, next) => {
