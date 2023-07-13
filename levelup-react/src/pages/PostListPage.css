@@ -4,6 +4,7 @@ article {
     border: 1px solid rgb(110, 36, 145);
     border-radius: 1rem;
     box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.8);
+    
 
     /* display: flex;
     align-items: center; */
@@ -12,14 +13,18 @@ article {
     justify-content: space-between;
 }
 
-.user-detail,
+.user-detail {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 48%;
+    object-fit: contain;
+}
 .user-interaction {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    width: 48%;
 }
-
 
 .post-text {
     flex-grow: 1;
@@ -48,12 +53,35 @@ article {
     color: rgb(2, 106, 190);
 }
 .post-entradilla {
-    font-size: 1rem;
+    font-size: 0.7rem;
+}
+.post-comments {
+    font-size: 0.6rem;
+    margin: 0 auto;
+}
+.post-created {
+    font-size: 0.5rem;
+    display: flex;
+    margin: 0 auto;
 }
 
-
 .user-avatar {
-    padding-right: 5px;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    padding-left: 5px;
+}
+
+.user-avatar img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    padding-left: 5px;
+}
+
+.user-name {
+    font-size: 0.7rem;
+    padding-left: 5px;
 }
 
 /* 
