@@ -20,12 +20,14 @@
     "express-fileupload": "^1.4.0",
     "faker-js": "^1.0.0",
     "fs": "^0.0.1-security",
+    "fs.promises": "^0.1.2",
     "joi": "^17.9.2",
     "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
     "mysql2": "^3.3.4",
     "node-mailjet": "^6.0.2",
     "nodemailer": "^6.9.3",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "sharp": "^0.32.1"
   }
 }
