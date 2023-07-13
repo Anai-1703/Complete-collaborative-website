@@ -35,14 +35,13 @@ const router = Router();
  */
 
 router.get(
-  "/posts",
-  handleAsyncError(async (req, res) => {
-    const fullPost = await lastPosts();
-    // console.log("fullPost: ", fullPost);
-    const posts = await listPosts();
-    const allPosts = [...fullPost, ...posts];
-    sendResponse(res, allPosts);
-  })
+
+    "/posts",
+    handleAsyncError(async (req, res) => {
+        const posts = await listPosts();
+        sendResponse(res, posts);
+    })
+
 );
 
 router.get(
