@@ -32,8 +32,11 @@ article {
     width: 60%;
 }
 
-.post-comments,
-.post-created {
+.post-date {
+    font-size: 0.3rem;
+}
+
+.post-comments{
     align-self: center;
     margin-top: auto;
 }
@@ -49,7 +52,7 @@ article {
 }
 
 .post-title {
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: rgb(2, 106, 190);
 }
 .post-entradilla {

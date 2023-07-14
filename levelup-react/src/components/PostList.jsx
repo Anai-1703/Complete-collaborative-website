@@ -34,7 +34,7 @@ function PostList() {
                         {post.avatarURL ? (
                         <img className="user-avatar" src={post.avatarURL} alt="Avatar" />
                         ) : (
-                        <DefaultAvatar />
+                        <DefaultAvatar border={true} />
                         )}
                         <span className="user-name">{post.nameMember}</span>
                     </section>
@@ -54,17 +54,19 @@ function PostList() {
                     <section className="post-text">
                         <h3 className="post-title">{post.title}</h3>
                         <p className="post-entradilla">{post.entradilla}</p>
+                        <p className="post-date">{post.createdAt}</p>
                     </section>
                     
                     <section className="post-comments">
                         <p>{post.lastComment}</p>
                     </section>
 
-                <p className="post-created">{post.createdAt}</p>
+
                 </article>
             ))}
         </>
     );
 }
+// añadir el avatar y usuario del COMENTARIO!!!!!!
 
 export default PostList;

@@ -138,32 +138,39 @@ module.exports = {
     async getPostById(postId) {
         const statement = `
         SELECT 
-        p.id, 
-        p.title, 
-        p.entradilla, 
-        p.description, 
-        p.idUser, 
-        p.createdAt, 
-        u.nameMember, 
-        u.avatarURL,
-        JSON_ARRAYAGG(pc.comments) AS comments
-      FROM 
-        posts p
-      JOIN 
-        users u ON p.idUser = u.id
-      LEFT JOIN 
-        postcomments pc ON p.id = pc.idPost
-      WHERE 
-        p.id = ?
-      GROUP BY 
-        p.id, 
-        p.title, 
-        p.entradilla, 
-        p.description, 
-        p.idUser, 
-        p.createdAt, 
-        u.nameMember, 
-        u.avatarURL;
+          p.id, 
+          p.title, 
+          p.entradilla, 
+          p.description, 
+          p.idUser, 
+          p.createdAt, 
+          u.nameMember, 
+          u.avatarURL,
+          JSON_ARRAYAGG(JSON_OBJECT(
+            'comment', pc.comments,
+            'avatarURL', uc.avatarURL,
+            'nameMember', uc.nameMember,
+            'idUser', pc.idUser
+          )) AS comments
+        FROM 
+          posts p
+        JOIN 
+          users u ON p.idUser = u.id
+        LEFT JOIN 
+          postcomments pc ON p.id = pc.idPost
+        LEFT JOIN 
+          users uc ON pc.idUser = uc.id
+        WHERE 
+          p.id = ?
+        GROUP BY 
+          p.id, 
+          p.title, 
+          p.entradilla, 
+          p.description, 
+          p.idUser, 
+          p.createdAt, 
+          u.nameMember, 
+          u.avatarURL;
     `;
         const [rows] = await db.execute(statement, [postId]);
         console.log(rows);
