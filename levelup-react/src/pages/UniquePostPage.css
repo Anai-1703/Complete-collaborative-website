@@ -51,3 +51,62 @@ article {
     flex-grow: 1;
     overflow: auto;
 }
+
+
+
+.post-title-full {
+    color: blue;
+    font-size: 1.5rem;
+}
+.post-entradilla-full {
+    color: blueviolet;
+    font-size: 1.2rem;
+}
+.post-description-full {
+    font-size: 1.1rem;
+    font-weight: bolder;
+}
+
+.separador {
+    width: 80%;
+    border-bottom: 2px solid black;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+}
+.post-comments-full {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment {
+    display: flex;
+    align-items: flex-start;
+    padding-bottom: 10px;
+}
+
+.comment-avatar {
+    width: 30px;
+    height: 30px;
+}
+
+.buble-full {
+    background-color: #4a4949;
+    max-width: 100%;
+    word-wrap: break-word;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: left;
+    margin-left: 10px;
+}
+
+.comment-user {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+.comment-text {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}

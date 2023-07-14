@@ -23,6 +23,8 @@ function UniquePost() {
     }, [id]);
     // TEMPORAL
     const photos = ['Foto 1', 'Foto 2'];
+    console.log(post.nameMember);
+    console.log(post.comments);
 
     return (
         <>
@@ -54,26 +56,28 @@ function UniquePost() {
             <p className="post-created-full">{post.createdAt}</p>
         </section>
 
+        <div className="separador"><p>&nbsp;</p></div>
+
         <section className="post-comments-full">
-        {post.comments.map(comment => (
-            <div key={comment.idUser} className="comment">
+        {post.comments?.map((comment, index) => (
+            <section key={`${comment.idUser}-${index}`} className="comment">
             {comment.avatarURL ? (
                 <img className="comment-avatar" src={comment.avatarURL} alt="Comment Avatar" />
             ) : (
                 <DefaultAvatar />
             )}
-            <div>
+            <section className="buble-full">
                 <span className="comment-user">{comment.nameMember}</span>
                 <p className="comment-text">{comment.comment}</p>
-            </div>
-            </div>
+            </section>
+            </section>
         ))}
         </section>
-
-
         </>
     );
 
 }
 
 export default UniquePost;
+
+
