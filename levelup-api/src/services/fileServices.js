@@ -1,31 +1,37 @@
-// "use strict";
+const path = require("path");
+const fs = require("fs");
+const sharp = require("sharp");
 
-// const path = require("path");
-// const fs = require("fs/promises");
-// const sharp = require("sharp");
+// Asignar fs.promises a una variable
+const fsPromises = fs.promises;
 
-// module.exports = {
-//     async processUploadedPostPhoto(postId, photoId, photoFile) {
-//         const directory = path.join(__dirname, "../../public/photos", postId);
-//         await fs.mkdir(directory, { recursive: true });
+async function saveFile(postId, photoId, photoFile) {
+  const directory = path.join(__dirname, "../../public/photos", postId);
+  await fsPromises.mkdir(directory, { recursive: true });
 
-//         const fileName = `${photoId}.webp`;
-//         const filePath = path.join(directory, fileName);
+  const filename = `${photoId}.webp`;
+  const filePath = path.join(directory, filename);
 
-//         const processedImage = sharp(photoFile.data).resize({width: 720}).webp();
-//         await processedImage.toFile(filePath);
+  const sharpProcess = sharp(photoFile);
+  const metadata = await sharpProcess.metadata();
 
-//         const fileURL = `/photos/${postId}/${fileName}`;
-//         return fileURL;
-//     },
+  if (metadata.width > 1080) {
+    sharpProcess.resize(720);
+  }
 
-//     async deletePhoto(dbPhoto) {
-//         const filePath = path.join(__dirname, "../../public", dbPhoto.imageURL);
-//         await fs.unlink(filePath);
-//     },
+  await sharpProcess.webp().toFile(filePath);
 
-//     async deletePostPhotos(postId) {
-//         const directory = path.join(__dirname, "../../public/photos", postId);
-//         await fs.rm(directory, { recursive: true, force: true });
-//     },
-// };
+  const fileURL = `/photos/${postId}/${filename}`;
+  return fileURL;
+}
+
+async function deletePhoto(dbphoto) {
+  const directory = path.join(__dirname, "../../public/photos");
+  const filePath = path.join(directory, dbphoto.imageURL);
+  await fsPromises.unlink(filePath);
+}
+
+module.exports = {
+  saveFile,
+  deletePhoto,
+};
