@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getAllPosts } from '../services/getAllPost';
 import { DefaultAvatar } from './DefaultAvatar.jsx';
-
+import { Link } from 'react-router-dom';
 
 import { UserInteraction } from './UserIteraction';
 
@@ -23,6 +23,7 @@ function PostList() {
 
     //TEMPORAL
     const photos = ['Foto 1', 'Foto 2'];
+    console.log(posts);
 
     return (
         
@@ -42,24 +43,37 @@ function PostList() {
                     <section className="user-interaction">
                         <UserInteraction />
                     </section>
-
                     <section className="post-content">
+                    <Link className="link-to-post" to={`/posts/${post.id}`}>
                         <figure className="post-images">
                             {photos.map((photo, index) => (
                             <img key={index} src={photo} alt={`Photo ${index + 1}`} />
                             ))}
                         </figure>
+                    </Link>
                     </section>
 
                     <section className="post-text">
+                    <Link className="link-to-post" to={`/posts/${post.id}`}>
                         <h3 className="post-title">{post.title}</h3>
                         <p className="post-entradilla">{post.entradilla}</p>
                         <p className="post-date">{post.createdAt}</p>
+                    </Link>
                     </section>
                     
+                    {post.lastComment && (
                     <section className="post-comments">
-                        <p>{post.lastComment}</p>
+                        {post.commentUserAvatarURL ? (
+                        <img className="comment-avatar" src={post.commentUserAvatarURL} alt="Comment Avatar" />
+                        ) : (
+                            <DefaultAvatar border={true} />
+                        )}
+                        <section className="buble">
+                            <span className="comment-user">{post.commentUserNameMember}</span>
+                            <p className="comment-text">{post.lastComment}</p>
+                        </section>
                     </section>
+                    )}
 
 
                 </article>

@@ -98,14 +98,17 @@ module.exports = {
         console.log("peticion de todos los posts");
         const statement = `
         SELECT 
-        p.id, 
-        p.title, 
-        p.entradilla, 
-        p.idUser, 
-        p.createdAt, 
-        u.nameMember, 
-        u.avatarURL,
-        pc.comments AS lastComment
+          p.id, 
+          p.title, 
+          p.entradilla, 
+          p.idUser, 
+          p.createdAt, 
+          u.nameMember, 
+          u.avatarURL,
+          pc.comments AS lastComment,
+          pc.idUser AS commentUserId,
+          uc.avatarURL AS commentUserAvatarURL,
+          uc.nameMember AS commentUserNameMember
         FROM 
           POSTS p
         JOIN 
@@ -113,13 +116,17 @@ module.exports = {
         LEFT JOIN 
           (SELECT 
             idPost, MAX(createdAt) AS ultimoComentarioFecha
-            FROM 
+          FROM 
             postcomments
-            GROUP BY 
+          GROUP BY 
             idPost) AS subquery ON p.id = subquery.idPost
         LEFT JOIN 
           postcomments pc ON subquery.idPost = pc.idPost AND subquery.ultimoComentarioFecha = pc.createdAt
-        ORDER BY createdAt DESC;
+        LEFT JOIN
+          users uc ON pc.idUser = uc.id
+        ORDER BY 
+          createdAt DESC;
+      
       `;
         const [rows] = await db.execute(statement);
         return rows;
