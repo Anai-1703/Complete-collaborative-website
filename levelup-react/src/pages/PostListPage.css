@@ -4,14 +4,14 @@ article {
     border: 1px solid rgb(110, 36, 145);
     border-radius: 1rem;
     box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.8);
-    
-
-    /* display: flex;
-    align-items: center; */
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    padding-bottom: 5px;
+    /* display: flex;
+    align-items: center; */
 }
+
 
 .user-detail {
     display: flex;
@@ -20,69 +20,114 @@ article {
     width: 48%;
     object-fit: contain;
 }
+
+.user-avatar,
+.comment-avatar {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    padding-left: 5px;
+}
+
+.user-avatar img,
+.comment-avatar img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    padding-left: 5px;
+}
+.user-name {
+    font-size: 0.7rem;
+    padding-left: 5px;
+}
+
 .user-interaction {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
 }
 
+.post-content {
+    border: 1px solid red;
+    flex-basis: 35%;
+    max-width: 35%;
+}
+
+.link-to-post {
+    flex-basis: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
 .post-text {
+    flex-basis: calc(65% - 20px); /* Restar el ancho de post-content y el espacio entre ellos */
+    max-width: calc(65% - 20px);
     flex-grow: 1;
     border: 1px solid green;
     width: 60%;
 }
 
-.post-comments,
-.post-created {
-    align-self: center;
-    margin-top: auto;
-}
-
-.post-content {
-    border: 1px solid red;
-    min-width: 0%;
-    max-width: 40%;
-}
-
-.post-text {
-    max-width: 100%;
-}
-
 .post-title {
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: rgb(2, 106, 190);
 }
+
 .post-entradilla {
     font-size: 0.7rem;
 }
+
+.post-date {
+    font-size: 0.3rem;
+}
+
+
 .post-comments {
     font-size: 0.6rem;
-    margin: 0 auto;
-}
-.post-created {
-    font-size: 0.5rem;
+    flex-basis: 100%;
     display: flex;
-    margin: 0 auto;
+    align-items: flex-start;
 }
 
-.user-avatar {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-    padding-left: 5px;
+.buble {
+    background-color: #4a4949;
+    max-width: 100%;
+    word-wrap: break-word;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: left;
+    margin-left: 10px;
 }
 
-.user-avatar img {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-    padding-left: 5px;
+.comment-user {
+    margin: 0;
+    padding: 0;
+    text-align: left;
 }
 
-.user-name {
-    font-size: 0.7rem;
-    padding-left: 5px;
+.comment-text {
+    margin: 0;
+    padding: 0;
+    text-align: left;
 }
+
+
+
+
+
+
+
+/* */
+
+
+
+
+
+
+
+
+
+
+
 
 /* 
     .user-interaction > div {
