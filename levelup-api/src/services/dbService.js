@@ -95,16 +95,38 @@ module.exports = {
     },
 
     async getAllPosts() {
+        console.log("peticion de todos los posts");
         const statement = `
-        SELECT id, title, entradilla, idUser, createdAt
-        FROM posts
-        WHERE id <> (
-          SELECT id
-          FROM posts
-          ORDER BY createdAt DESC
-          LIMIT 1
-        )
-        ORDER BY createdAt DESC;
+        SELECT 
+          p.id, 
+          p.title, 
+          p.entradilla, 
+          p.idUser, 
+          p.createdAt, 
+          u.nameMember, 
+          u.avatarURL,
+          pc.comments AS lastComment,
+          pc.idUser AS commentUserId,
+          uc.avatarURL AS commentUserAvatarURL,
+          uc.nameMember AS commentUserNameMember
+        FROM 
+          POSTS p
+        JOIN 
+          users u ON p.idUser = u.id
+        LEFT JOIN 
+          (SELECT 
+            idPost, MAX(createdAt) AS ultimoComentarioFecha
+          FROM 
+            postcomments
+          GROUP BY 
+            idPost) AS subquery ON p.id = subquery.idPost
+        LEFT JOIN 
+          postcomments pc ON subquery.idPost = pc.idPost AND subquery.ultimoComentarioFecha = pc.createdAt
+        LEFT JOIN
+          users uc ON pc.idUser = uc.id
+        ORDER BY 
+          createdAt DESC;
+      
       `;
         const [rows] = await db.execute(statement);
         return rows;
@@ -122,11 +144,43 @@ module.exports = {
 
     async getPostById(postId) {
         const statement = `
-      SELECT *
-      FROM posts
-      WHERE id = ?
+        SELECT 
+          p.id, 
+          p.title, 
+          p.entradilla, 
+          p.description, 
+          p.idUser, 
+          p.createdAt, 
+          u.nameMember, 
+          u.avatarURL,
+          JSON_ARRAYAGG(JSON_OBJECT(
+            'comment', pc.comments,
+            'avatarURL', uc.avatarURL,
+            'nameMember', uc.nameMember,
+            'idUser', pc.idUser
+          )) AS comments
+        FROM 
+          posts p
+        JOIN 
+          users u ON p.idUser = u.id
+        LEFT JOIN 
+          postcomments pc ON p.id = pc.idPost
+        LEFT JOIN 
+          users uc ON pc.idUser = uc.id
+        WHERE 
+          p.id = ?
+        GROUP BY 
+          p.id, 
+          p.title, 
+          p.entradilla, 
+          p.description, 
+          p.idUser, 
+          p.createdAt, 
+          u.nameMember, 
+          u.avatarURL;
     `;
         const [rows] = await db.execute(statement, [postId]);
+        console.log(rows);
         return rows[0];
     },
 
