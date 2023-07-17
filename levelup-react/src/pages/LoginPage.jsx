@@ -1,8 +1,12 @@
-export function LoginPage() {
+import '../index.css';
+import { LoginForm } from '../forms/LoginForm';
 
-    return (
-        <>
-            <h2>Login</h2>
-        </>
-    )
+export function  LoginPage() {
+  return (
+    <div className="login-page">
+      <div className="form">
+        <LoginForm />
+      </div>
+    </div>
+  );
 }

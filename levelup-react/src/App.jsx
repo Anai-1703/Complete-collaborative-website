@@ -12,7 +12,7 @@ import { UserPage } from './pages/UserPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import PostListPage from './pages/PostsListPage'
 import { UniquePostPage } from './pages/UniquePostPage'
-
+import { GuestRegisterPage } from './pages/GuestRegisterPage'
 
 
 
@@ -28,6 +28,7 @@ function App() {
           <Route path="/posts" element={<PostListPage />} />
           <Route path="/posts/:id" element={<UniquePostPage />} />
           <Route path="/user/:id" element={<UserPage />} />
+          <Route path="/guest-register" element={<GuestRegisterPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <NavBar />
