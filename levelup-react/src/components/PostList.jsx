@@ -26,7 +26,6 @@ function PostList() {
     console.log(posts);
 
     return (
-        
         <>
             {posts.map(post => (
 
