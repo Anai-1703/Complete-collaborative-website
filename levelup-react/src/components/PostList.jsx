@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { getAllPosts } from '../services/getAllPost';
 import { DefaultAvatar } from './DefaultAvatar.jsx';
@@ -79,6 +80,7 @@ function PostList() {
             ))}
         </>
     );
+
 }
 // añadir el avatar y usuario del COMENTARIO!!!!!!
 

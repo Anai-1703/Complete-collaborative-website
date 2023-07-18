@@ -1,23 +1,13 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
-export function GuestRegisterForm() {
-  const [guestData, setGuestData] = useState({
-    name: '',
-    email: '',
-    password: ''
-  });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setGuestData((prevData) => ({
-      ...prevData,
       [name]: value
+
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
    
   // Validar los campos antes de procesar el registro
   if (
@@ -38,6 +28,7 @@ export function GuestRegisterForm() {
   
   return (
     <form className="guest-register-form"onSubmit={handleSubmit}>
+
       <h2>Guest Register</h2>
       <input
         type="text"
@@ -64,9 +55,12 @@ export function GuestRegisterForm() {
         required
       />
       <button type="submit">Register as Guest</button>
+
       <p className="message"> Already registered? 
+
         <Link to="/login"> Sign In</Link>
       </p>
     </form>
   );
+
 }

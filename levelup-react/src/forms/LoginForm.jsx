@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { saveToken } from '../services/token/saveToken';
@@ -8,12 +9,14 @@ export function LoginForm() {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
+
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
+
       [name]: value
     }));
   };
@@ -47,10 +50,12 @@ export function LoginForm() {
         type="password" 
         name="password"
         placeholder="Password" 
+
         value={formData.password}
         onChange={handleChange}
         required
       />
+
       <button type="submit">Sign in</button>  
       <p className="message">Not registered?{' '}
         <Link to="/guest-register"> Guest</Link>
@@ -61,3 +66,4 @@ export function LoginForm() {
     </form>
   );
 }
+

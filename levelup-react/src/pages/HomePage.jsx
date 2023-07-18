@@ -1,3 +1,4 @@
+
 import PostListPage from './PostsListPage'
 
 export function HomePage() {
@@ -8,3 +9,4 @@ export function HomePage() {
             </>
     )
 }
+

@@ -1,9 +1,10 @@
-import './App.css'
-import { Routes, Route } from 'react-router-dom'
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
 
-import { Footer } from './components/Footer'
-import { Header } from './components/Header'
-import { NavBar } from './components/NavBar.jsx'
+import { Footer } from "./components/Footer";
+import { Header } from "./components/Header";
+import { NavBar } from "./components/NavBar.jsx";
+
 
 import { HomePage } from './pages/HomePage'
 import { RegisterPage } from './pages/RegisterPage'
@@ -16,11 +17,11 @@ import { GuestRegisterPage } from './pages/GuestRegisterPage'
 
 
 
-function App() {
 
+function App() {
   return (
     <>
-      <Header />
+
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -32,9 +33,10 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <NavBar />
+
       <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

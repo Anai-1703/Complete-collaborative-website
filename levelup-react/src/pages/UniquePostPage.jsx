@@ -1,4 +1,5 @@
 import UniquePost from "../components/UniquePost";
+
 import './UniquePostPage.css'
 
 export function UniquePostPage() {
@@ -9,3 +10,4 @@ export function UniquePostPage() {
         </article>
     )
 }
+ 

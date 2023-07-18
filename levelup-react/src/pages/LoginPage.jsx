@@ -1,7 +1,9 @@
+
 import '../index.css';
 import { LoginForm } from '../forms/LoginForm';
 
 export function  LoginPage() {
+
   return (
     <div className="login-page">
       <div className="form">
@@ -9,4 +11,6 @@ export function  LoginPage() {
       </div>
     </div>
   );
+
 }
+

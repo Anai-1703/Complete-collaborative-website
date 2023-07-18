@@ -7,6 +7,7 @@
 }
 
 :root {
+
     font-family: "DM Sans", "Gluten", "Roboto", sans-serif;
     font-size: 18px;
     color-scheme: light dark;
@@ -16,6 +17,7 @@
     --color-regular: #fffffa;
     --color-links: #5b63fb;
     --color-links-hover: #1520ef;
+
 }
 
 h1 {
@@ -35,9 +37,11 @@ a:hover {
 
 .main-title,
 a.main-title:hover {
+
     color: inherit;
     text-decoration: none;
     cursor: pointer;
+
 }
 
 footer {
@@ -104,6 +108,7 @@ h2 {
     color: #b3b3b3;
     font-size: 12px;
 }
+
 
 /* Create an account */
 .form .message a {
@@ -310,6 +315,7 @@ h2 {
 /***********************************/
 /* aquí finalizan los formularios  */
 /***********************************/
+
 
 /*
 CSS Genérico de React

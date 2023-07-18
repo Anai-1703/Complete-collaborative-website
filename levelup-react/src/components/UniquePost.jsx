@@ -1,4 +1,5 @@
 
+
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getUniquePost } from '../services/getUniquePost';
@@ -79,5 +80,6 @@ function UniquePost() {
 }
 
 export default UniquePost;
+
 
 
