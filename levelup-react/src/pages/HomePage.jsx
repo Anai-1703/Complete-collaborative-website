@@ -1,11 +1,10 @@
+import PostListPage from "./PostListPage";
+
 export function HomePage() {
-
-
-    return (
-        <section>
-            <h2>Posts</h2>
-            <p>^^</p>
-
-        </section>
-    )
+  return (
+    <>
+      <h2>Posts</h2>
+      <PostListPage />
+    </>
+  );
 }
