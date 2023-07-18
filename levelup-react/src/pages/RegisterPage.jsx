@@ -1,4 +1,6 @@
-import { RegisterForm } from "../forms/RegisterForm";
+
+import { RegisterForm } from '../forms/RegisterForm';
+
 
 export function RegisterPage() {
   return (
@@ -8,4 +10,6 @@ export function RegisterPage() {
       </div>
     </div>
   );
+
 }
+
