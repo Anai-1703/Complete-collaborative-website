@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { saveToken } from '../services/token/saveToken';
+import { sendLogin } from '../services/sendLogin';
+
 
 export function LoginForm() {
   const [formData, setFormData] = useState({
@@ -15,13 +18,22 @@ export function LoginForm() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Lógica para enviar los datos del formulario al servidor
+    try {
+      const response = await sendLogin(formData);
+      saveToken(response.token); // Guardar el token en el localStorage
+      // Redireccionar a la ruta principal
+      window.location.href = '/';
+    } catch (error) {
+      console.error(error);
+      // Manejar el error de inicio de sesión
+    }
   };
 
   return (
-    <form className="login-form" method="post">
+    <form className="login-form" method="post" onSubmit={handleSubmit}>
       <h2>Login</h2>
       <input 
         type="text" 
@@ -49,7 +61,3 @@ export function LoginForm() {
     </form>
   );
 }
-
-
-
-     
