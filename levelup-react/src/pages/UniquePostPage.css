@@ -28,7 +28,6 @@ article {
 }
 
 .user-interaction-full {
-
     max-width: 50%;
     display: flex;
     flex-direction: row;
@@ -46,22 +45,16 @@ article {
     overflow: auto;
 }
 
-.post-comments-full {
-    width: 100%;
-    flex-grow: 1;
-    overflow: auto;
-}
-
-
-
 .post-title-full {
     color: blue;
     font-size: 1.5rem;
 }
+
 .post-entradilla-full {
     color: blueviolet;
     font-size: 1.2rem;
 }
+
 .post-description-full {
     font-size: 1.1rem;
     font-weight: bolder;
@@ -73,7 +66,11 @@ article {
     margin: 0 auto;
     margin-bottom: 1rem;
 }
+
 .post-comments-full {
+    width: 100%;
+    flex-grow: 1;
+    overflow: auto;
     display: flex;
     flex-direction: column;
 }
@@ -99,6 +96,7 @@ article {
     margin-left: 10px;
 }
 
+
 .comment-user {
     margin: 0;
     padding: 0;
@@ -110,3 +108,4 @@ article {
     padding: 0;
     text-align: left;
 }
+
