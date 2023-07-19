@@ -4,6 +4,7 @@ const validateToken = require("../../middlewares/validateToken.js");
 const { generateUUID, parseJWT } = require("../../services/cryptoServices.js");
 const { savePost } = require("../../services/dbService.js");
 const sendError = require("../../utils/sendError.js");
+const sendResponse = require("../../utils/sendResponse.js");
 
 /**
  * Crea un nuevo post utilizando los datos proporcionados.
@@ -25,7 +26,7 @@ module.exports = async (data, token, res) => {
         if (!token) {
             throw new Error("INVALID TOKEN");
         }
-        const { title, entradilla, description } = data;
+        const { title, entradilla, description, platforms, categories } = data;
 
         if (!title || !entradilla || !description) {
             throw new Error(
@@ -49,6 +50,6 @@ module.exports = async (data, token, res) => {
             newPost,
         };
     } catch (error) {
-        sendError(res, error);
+        sendResponse(error);
     }
 };
