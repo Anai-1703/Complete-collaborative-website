@@ -6,11 +6,6 @@ export async function fetchAPI(path, method = "get", payload) {
         headers: {},
     };
 
-    // const token = getToken();
-    // if (token) {
-    //     requestInit.headers["authorization"] = token;
-    // }
-
     if (method === "get" && payload) {
         const query = new URLSearchParams(payload).toString();
         path += `?${query}`;
