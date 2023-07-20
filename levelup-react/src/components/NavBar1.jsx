@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 import searchIcon from "../assets/svg/lupa.svg";
 import "./navBar.css";
 
 export function NavBar() {
+  const history = useHistory(); // Hook para acceder a la instancia de la historia de enrutamiento
   const [searchQuery, setSearchQuery] = useState("");
   const [searchOption, setSearchOption] = useState("users"); // Opción de búsqueda por defecto: usuarios
 
@@ -20,6 +21,15 @@ export function NavBar() {
     // Lógica para realizar la búsqueda
     console.log("Search query:", searchQuery);
     console.log("Search option:", searchOption);
+
+    // Redirigir al usuario a la página de usuarios después de realizar la búsqueda
+    if (searchOption === "users") {
+      history.push("/users");
+    } else if (searchOption === "posts") {
+      // Aquí puedes redirigir a la página de publicaciones si tienes una ruta configurada para ella
+      // history.push("/posts");
+    }
+
     setSearchQuery("");
   };
 
@@ -45,8 +55,7 @@ export function NavBar() {
               <option value="posts">Publicaciones</option>
             </select>
             <button type="submit">
-              <img src={searchIcon} alt="Search" />{" "}
-              {/* Agrega la imagen SVG al botón */}
+              <img src={searchIcon} alt="Search" />
             </button>
           </form>
         </li>
