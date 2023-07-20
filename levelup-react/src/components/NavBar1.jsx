@@ -1,12 +1,14 @@
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import searchIcon from "../assets/svg/lupa.svg";
+import menuIcon from "../assets/svg/menu.svg";
 import "./navBar.css";
 
 export function NavBar() {
-  const history = useHistory(); // Hook para acceder a la instancia de la historia de enrutamiento
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchOption, setSearchOption] = useState("users"); // Opción de búsqueda por defecto: usuarios
+  const [searchOption, setSearchOption] = useState("users");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -18,29 +20,38 @@ export function NavBar() {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    // Lógica para realizar la búsqueda
     console.log("Search query:", searchQuery);
     console.log("Search option:", searchOption);
 
-    // Redirigir al usuario a la página de usuarios después de realizar la búsqueda
     if (searchOption === "users") {
-      history.push("/users");
+      navigate("/users");
     } else if (searchOption === "posts") {
       // Aquí puedes redirigir a la página de publicaciones si tienes una ruta configurada para ella
-      // history.push("/posts");
+      // navigate("/posts");
     }
 
     setSearchQuery("");
   };
 
+  const handleMenuClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <nav>
       <ul>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-        <li>
-          <Link to="/register">Registro</Link>
+        <li className="menu-icon" onClick={handleMenuClick}>
+          <img src={menuIcon} alt="Menu" />
+          {isMenuOpen && (
+            <ul className="menu-dropdown">
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/register">Registro</Link>
+              </li>
+            </ul>
+          )}
         </li>
         <li>
           <form onSubmit={handleSearchSubmit}>
