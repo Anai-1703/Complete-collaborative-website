@@ -3,7 +3,7 @@ const fs = require("fs/promises");
 const sharp = require("sharp");
 
 async function saveFile(postId, photoId, photoFile) {
-    const directory = path.join(__dirname, "../../public/photos", postId);
+    const directory = path.join(__dirname, "../../public/posts", postId);
 
     await fs.mkdir(directory, { recursive: true });
 
@@ -21,7 +21,7 @@ async function saveFile(postId, photoId, photoFile) {
 
     await sharpImg.webp().toFile(filePath);
 
-    const fileURL = `/photos/${postId}/${filename}`;
+    const fileURL = `/${postId}/${filename}`;
 
     return fileURL;
 }

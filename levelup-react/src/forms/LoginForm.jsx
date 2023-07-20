@@ -56,7 +56,7 @@ export function LoginForm() {
         required
       />
 
-      <button type="submit">Sign in</button>  
+      <button type="submit" className="btn">Sign in</button>  
       <p className="message">Not registered?{' '}
         <Link to="/guest-register"> Guest</Link>
       </p>

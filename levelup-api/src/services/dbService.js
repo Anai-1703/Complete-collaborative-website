@@ -110,7 +110,8 @@ module.exports = {
           pc.comments AS lastComment,
           pc.idUser AS commentUserId,
           uc.avatarURL AS commentUserAvatarURL,
-          uc.nameMember AS commentUserNameMember
+          uc.nameMember AS commentUserNameMember,
+          pi.imageURL
         FROM 
           POSTS p
         JOIN 
@@ -126,9 +127,10 @@ module.exports = {
           postcomments pc ON subquery.idPost = pc.idPost AND subquery.ultimoComentarioFecha = pc.createdAt
         LEFT JOIN
           users uc ON pc.idUser = uc.id
+        LEFT JOIN
+          postimages pi ON p.id = pi.idPost
         ORDER BY 
           createdAt DESC;
-      
       `;
         const [rows] = await db.execute(statement);
         return rows;

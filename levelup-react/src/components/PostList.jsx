@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 
 import { UserInteraction } from './UserIteraction';
 
+const host = import.meta.env.VITE_API_HOST;
+
+
 function PostList() {
     const [posts, setPosts] = useState([]);
 
@@ -22,13 +25,12 @@ function PostList() {
         fetchPosts();
     }, []);
 
-    const photos = ['Foto 1', 'Foto 2'];
+    // const photos = ['Foto 1', 'Foto 2'];
     console.log(posts);
 
     return (
         <>
             {posts.map(post => (
-
                 <article key={post.id}>
                     <section className="user-detail">
                         {post.avatarURL ? (
@@ -38,26 +40,25 @@ function PostList() {
                         )}
                         <span className="user-name">{post.nameMember}</span>
                     </section>
-                    
                     <section className="user-interaction">
                         <UserInteraction />
                     </section>
                     <section className="post-content">
-                    <Link className="link-to-post" to={`/posts/${post.id}`}>
-                        <figure className="post-images">
-                            {photos.map((photo, index) => (
-                            <img key={index} src={photo} alt={`Photo ${index + 1}`} />
-                            ))}
-                        </figure>
-                    </Link>
+                        <Link className="link-to-post" to={`/posts/${post.id}`}>
+                            {console.log(host)}
+                            {console.log(post.imageURL)}
+                            <figure className="post-images">
+                                <img src={`${host}${post.imageURL}`} alt={`Photo about ${post.title}`} />
+                            </figure>
+                        </Link>
                     </section>
 
                     <section className="post-text">
-                    <Link className="link-to-post" to={`/posts/${post.id}`}>
-                        <h3 className="post-title">{post.title}</h3>
-                        <p className="post-entradilla">{post.entradilla}</p>
-                        <p className="post-date">{post.createdAt}</p>
-                    </Link>
+                        <Link className="link-to-post" to={`/posts/${post.id}`}>
+                            <h3 className="post-title">{post.title}</h3>
+                            <p className="post-entradilla">{post.entradilla}</p>
+                            <p className="post-date">{post.createdAt}</p>
+                        </Link>
                     </section>
                     
                     {post.lastComment && (
@@ -73,7 +74,6 @@ function PostList() {
                         </section>
                     </section>
                     )}
-
 
                 </article>
             ))}
