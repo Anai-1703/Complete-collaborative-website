@@ -35,7 +35,7 @@ export function NavBar() {
               onChange={handleSearchChange}
             />
             <button type="submit">
-              <img src={searchIcon} alt="Search" />{" "}
+              <img className="search-button" src={searchIcon} alt="Search" />{" "}
               {/* Agrega la imagen SVG al botón */}
             </button>
           </form>

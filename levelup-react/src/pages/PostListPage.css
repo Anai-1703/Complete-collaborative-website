@@ -1,5 +1,4 @@
 article {
-
     width: 100%;
     padding: 20px;
     border: 1px solid rgb(110, 36, 145);
@@ -10,12 +9,10 @@ article {
     justify-content: space-between;
     padding-bottom: 5px;
     /* display: flex;
-
     align-items: center; */
 }
 
 .user-detail {
-
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -26,22 +23,20 @@ article {
 
 .user-avatar,
 .comment-avatar {
-
     width: 20px;
     height: 20px;
     object-fit: contain;
     padding-left: 5px;
-
 }
 
 .user-avatar img,
 .comment-avatar img {
-
     width: 20px;
     height: 20px;
     object-fit: contain;
     padding-left: 5px;
 }
+
 .user-name {
     font-size: 0.7rem;
     padding-left: 5px;
@@ -66,7 +61,7 @@ article {
 }
 
 .post-text {
-    flex-basis: calc(65% - 20px); /* Restar el ancho de post-content y el espacio entre ellos */
+    flex-basis: calc(65% - 20px);
     max-width: calc(65% - 20px);
     flex-grow: 1;
     border: 1px solid green;

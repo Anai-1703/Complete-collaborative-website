@@ -2,7 +2,7 @@ nav {
   background-color: #f2f2f2;
   padding: 1px;
   position: fixed;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
   display: flex;
@@ -42,4 +42,11 @@ nav form button[type="submit"] {
   cursor: pointer;
   flex-shrink: 0;
   height: 15px;
+}
+
+.search-button {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+  padding-left: 5px;
 }
