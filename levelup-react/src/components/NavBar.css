@@ -1,5 +1,6 @@
 nav {
-  padding: 10px;
+  background-color: #f2f2f2;
+  padding: 1px;
   position: fixed;
   top: 0;
   left: 0;
@@ -13,11 +14,12 @@ nav ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  display: flex; /* Utiliza flexbox para alinear los elementos */
+  display: flex;
+  margin-left: auto;
 }
 
 nav ul li {
-  margin-left: 10px; /* En lugar de margin-right, utiliza margin-left para separar los elementos */
+  margin-left: 10px;
 }
 
 nav ul li a {
@@ -27,10 +29,17 @@ nav ul li a {
 
 nav form {
   display: flex;
-  align-items: center; /* Alinea verticalmente el formulario y el campo de búsqueda */
-  margin-left: auto; /* Empuja el formulario hacia la derecha */
+  align-items: center;
 }
 
 nav form input[type="text"] {
-  height: 30px; /* Ajusta la altura del campo de búsqueda según tus necesidades */
+  height: 20px;
+}
+
+nav form button[type="submit"] {
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  height: 15px;
 }
