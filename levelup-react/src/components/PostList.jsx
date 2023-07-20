@@ -1,10 +1,9 @@
+import { useEffect, useState } from "react";
+import { getAllPosts } from "../services/getAllPost";
+import { DefaultAvatar } from "./DefaultAvatar.jsx";
+import { Link } from "react-router-dom";
 
-import { useEffect, useState } from 'react';
-import { getAllPosts } from '../services/getAllPost';
-import { DefaultAvatar } from './DefaultAvatar.jsx';
-import { Link } from 'react-router-dom';
-
-import { UserInteraction } from './UserIteraction';
+import { UserInteraction } from "./UserInteraction";
 
 const host = import.meta.env.VITE_API_HOST;
 
@@ -18,7 +17,7 @@ function PostList() {
             const data = await getAllPosts();
             setPosts(data);
         } catch (error) {
-            console.error('Error fetching posts:', error);
+            console.error("Error fetching posts:", error);
         }
         }
 
@@ -79,7 +78,6 @@ function PostList() {
             ))}
         </>
     );
-
 }
 
 export default PostList;
