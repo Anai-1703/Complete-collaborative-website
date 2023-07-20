@@ -22,7 +22,6 @@ function PostList() {
         fetchPosts();
     }, []);
 
-    //TEMPORAL
     const photos = ['Foto 1', 'Foto 2'];
     console.log(posts);
 
@@ -82,6 +81,5 @@ function PostList() {
     );
 
 }
-// añadir el avatar y usuario del COMENTARIO!!!!!!
 
 export default PostList;

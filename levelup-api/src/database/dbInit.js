@@ -70,18 +70,27 @@ async function createDatabaseTables(pool) {
     await pool.query(`
     CREATE TABLE IF NOT EXISTS platforms(
         id CHAR(36) PRIMARY KEY,
-        platform ENUM('PC', 'PS5', 'PS4', 'PS3', 'PS2', 'PSOne', 'Xbox Series', 'Xbox One', 'Xbox360', 'Xbox Classic', 'Switch', 'Wii U', 'Wii', 'N64', 'SNES', 'NES', 'Otras'),
+        platform ENUM('PC', 'PS5', 'PS4', 'PS3', 'PS2', 'PSOne', 'Xbox Series', 'Xbox One', 'Xbox360', 'Xbox Classic', 'Switch', 'Wii U', 'Wii', 'N64', 'SNES', 'NES', 'Moviles', 'Otras'),
         description VARCHAR(50) NOT NULL
     );`);
 
     await pool.query(`
-    CREATE TABLE IF NOT EXISTS categoriesposts(
-	id CHAR(36) PRIMARY KEY,
-	idPost CHAR(36) NOT NULL,
-	idCategory CHAR(36) NOT NULL,
-	FOREIGN KEY (idPost) REFERENCES posts (id) ON DELETE CASCADE,
-	FOREIGN KEY (idCategory) REFERENCES categories (id) ON DELETE CASCADE
-);`);
+    CREATE TABLE IF NOT EXISTS postplatforms (
+        postId CHAR(36),
+        platformId CHAR(36),
+        PRIMARY KEY (postId, platformId),
+        FOREIGN KEY (postId) REFERENCES posts (id) ON DELETE CASCADE,
+        FOREIGN KEY (platformId) REFERENCES platforms (id) ON DELETE CASCADE
+    );`);
+
+    await pool.query(`
+    CREATE TABLE IF NOT EXISTS postcategories (
+        postId CHAR(36),
+        categoryId CHAR(36),
+        PRIMARY KEY (postId, categoryId),
+        FOREIGN KEY (postId) REFERENCES posts (id) ON DELETE CASCADE,
+        FOREIGN KEY (categoryId) REFERENCES categories (id) ON DELETE CASCADE
+    );`);
 
     await pool.query(`
     CREATE TABLE IF NOT EXISTS postimages(
@@ -106,7 +115,7 @@ async function createDatabaseTables(pool) {
         id CHAR(36) PRIMARY KEY,
         comments TEXT NOT NULL,
         idPost CHAR(36) NOT NULL,
-        iDUser CHAR(36) NOT NULL,
+        idUser CHAR(36) NOT NULL,
         createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         modifiedAt TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         FOREIGN KEY (idPost) REFERENCES posts (id) ON DELETE CASCADE,

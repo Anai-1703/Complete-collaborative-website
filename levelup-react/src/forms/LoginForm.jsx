@@ -26,7 +26,7 @@ export function LoginForm() {
     // Lógica para enviar los datos del formulario al servidor
     try {
       const response = await sendLogin(formData);
-      saveToken(response.token); // Guardar el token en el localStorage
+      saveToken(response.data.token); // Guardar el token en el localStorage
       // Redireccionar a la ruta principal
       window.location.href = '/';
     } catch (error) {

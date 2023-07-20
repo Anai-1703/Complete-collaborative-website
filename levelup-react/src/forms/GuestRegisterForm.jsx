@@ -1,14 +1,25 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
+export function GuestRegisterForm() {
+  const [guestData, setGuestData] = useState({
+    name: '',
+    email: '',
+    password: ''
+  });
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setGuestData((prevData) => ({
+      ...prevData,
       [name]: value
-
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-   
+
   // Validar los campos antes de procesar el registro
   if (
     guestData.name === '' ||
@@ -23,7 +34,7 @@
   console.log('Guest data:', guestData);
   
    // Redireccionar al usuario a la página de inicio de sesión
-   window.location.href = '/login';
+  window.location.href = '/login';
 };
   
   return (

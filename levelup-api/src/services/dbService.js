@@ -7,6 +7,7 @@ const db = getConnection();
 
 module.exports = {
     async saveUser(user) {
+        console.log("LLegamos a la BBDD");
         const statement = `
         INSERT INTO users(id, nameMember, email, password, birthday, acceptedTOS, validated)
         VALUES(?, ?, ?, ?, ?, ?, ?)
@@ -20,6 +21,7 @@ module.exports = {
             user.acceptedTOS,
             user.validated,
         ]);
+        console.log("Consulta completa");
     },
 
     async getUserById(userId) {
@@ -187,7 +189,7 @@ module.exports = {
     async savePost(post) {
         const statement = `
         INSERT INTO posts(id, idUser, title, entradilla, description)
-        VALUES(?, ?, ?, ?, ?)
+        VALUES(?, ?, ?, ?, ?);
       `;
         await db.execute(statement, [
             post.id,
@@ -196,6 +198,26 @@ module.exports = {
             post.entradilla,
             post.description,
         ]);
+    },
+
+    async savePostPlatforms(postId, platforms) {
+        const statement = `
+        INSERT INTO postplatforms(postId, platformId)
+        VALUES(?, ?);
+      `;
+        for (const platformId of platforms) {
+            await db.execute(statement, [postId, platformId]);
+        }
+    },
+
+    async savePostCategories(postId, categories) {
+        const statement = `
+        INSERT INTO postcategories(postId, categoryId)
+        VALUES(?, ?);
+      `;
+        for (const categoryId of categories) {
+            await db.execute(statement, [postId, categoryId]);
+        }
     },
 
     async updatePost(post) {
@@ -364,11 +386,13 @@ module.exports = {
 
     // cambiar
     async savePhoto(photo) {
+        console.log("llega al savephoto de dbservice");
+        console.log(photo);
         const statement = `
-        INSERT INTO postphotos(id, postId, imageURL)
+        INSERT INTO postimages(id, idPost, imageURL)
         VALUES(?, ?, ?)
       `;
-        await db.execute(statement, Object.values(photo));
+        await db.execute(statement, [photo.id, photo.postId, photo.imageURL]);
     },
 
     async getPhotoById(photoId) {

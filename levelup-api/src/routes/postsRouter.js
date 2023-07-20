@@ -1,8 +1,14 @@
 "use strict";
 
+// Importamos las dependencias.
 const { Router, json } = require("express");
-("use strict");
+const fileUpload = require("express-fileupload");
+const router = Router();
 
+// Importamos las funciones controladoras intermedias.
+const authGuard = require("../middlewares/authGuard.js");
+
+// Importamos las funciones controladoras finales.
 const addComment = require("../controllers/post/addComment.js");
 const viewComments = require("../controllers/post/viewComments.js");
 const addPhoto = require("../controllers/post/addPhoto.js");
@@ -11,29 +17,29 @@ const createPost = require("../controllers/post/createPost.js");
 const deleteComment = require("../controllers/post/deleteComment.js");
 const editComment = require("../controllers/post/editComment.js");
 const editPost = require("../controllers/post/editPost.js");
-const handleAsyncError = require("../services/handleAsyncError.js");
-const authGuard = require("../middlewares/authGuard.js");
-const sendResponse = require("../utils/sendResponse.js");
 const listPosts = require("../controllers/post/listPosts.js");
 const lastPosts = require("../controllers/post/lastPost.js");
 const { searchByCategory } = require("../controllers/post/searchCategory.js");
 // const { viewPostDetails } = require("../controllers/post/viewPostDetails.js");
 const viewPostDetails = require("../controllers/post/viewPostDetails.js");
+const viewUniqueComment = require("../controllers/post/viewUniqueComment.js");
+const toggleVote = require("../controllers/post/toggleVote.js");
+
+// Importamos las funciones que interactúan con la base de datos.
 const {
     updatePost,
     deletePost,
     checkVote,
 } = require("../services/dbService.js");
-const viewUniqueComment = require("../controllers/post/viewUniqueComment.js");
-const toggleVote = require("../controllers/post/toggleVote.js");
+
+// Importamos los servicios necesarios.
 const fileService = require("../services/fileServices.js");
+const handleAsyncError = require("../services/handleAsyncError.js");
 
-const router = Router();
+// Importamos la función que envía una respuesta al cliente.
+const sendResponse = require("../utils/sendResponse.js");
 
-/*
- ****    POSTS   ****
- */
-
+// Obtener un listado de posts.
 router.get(
     "/posts",
     handleAsyncError(async (req, res) => {
@@ -42,6 +48,7 @@ router.get(
     })
 );
 
+// Obtener info de un post concreto.
 router.get(
     "/posts/:id",
     handleAsyncError(async (req, res) => {
@@ -50,6 +57,8 @@ router.get(
     })
 );
 
+// Este endpoint no debería ser necesario. El propio endpoint que permite listar todos los posts debería
+// permitir filtrar.
 router.get(
     "/posts/search-post-categories",
     handleAsyncError(async (req, res) => {
@@ -58,24 +67,32 @@ router.get(
     })
 );
 
+// Crear un nuevo post.
 router.post(
     "/posts",
     authGuard,
     json(),
     handleAsyncError(async (req, res) => {
-        console.log("el usuario que llega al postRouter.js", req.currentUser);
-        console.log("el req.body: ", req.body);
         if (!req.currentUser) {
             throw new Error("INVALID_CREDENTIALS");
         }
-
         const token = req.currentUser.token; // Obtiene el token de la propiedad token del objeto currentUser
-
         await createPost(req.body, token, res); // Pasa res como parámetro
         sendResponse(res, req.body, undefined, 201);
     })
 );
 
+// Agregar una foto a un post.
+router.post(
+    "/posts/:id/photos",
+    authGuard,
+    handleAsyncError(async (req, res) => {
+        await addPhoto(req.params.id, req.currentUser.id, req.files.photo);
+        sendResponse(res);
+    })
+);
+
+// Agregar un comentario a un post.
 router.post(
     "/posts/:id/comments",
     authGuard,
@@ -86,19 +103,8 @@ router.post(
     })
 );
 
-router.post("/posts/:id/photos", async (req, res) => {
-    const postId = req.body.postId;
-    const photoId = req.body.photoId;
-    const photoFile = req.file;
-
-    try {
-        const fileURL = await fileService.saveFile(postId, photoId, photoFile);
-        res.status(200).json({ fileURL });
-    } catch (error) {
-        res.status(500).json({ error: "error al guardar la foto" });
-    }
-});
-
+// Cuando obtengo información detallada de un post "GET - /posts/:id" se debería incluír el listado de post
+// como una propiedad del post (un array de posts).
 router.get(
     "/posts/:id/comments",
     handleAsyncError(async (req, res) => {
@@ -107,6 +113,7 @@ router.get(
     })
 );
 
+// Este endpoint tampoco es necesario.
 router.get(
     "/posts/:id/comments/:id",
     handleAsyncError(async (req, res) => {
@@ -115,6 +122,7 @@ router.get(
     })
 );
 
+// Editar un post.
 router.put(
     "/posts/:id",
     authGuard,
@@ -130,6 +138,7 @@ router.put(
     })
 );
 
+// Editar un comentario.
 router.put(
     "/posts/:id/comments/:id",
     authGuard,
@@ -145,6 +154,7 @@ router.put(
     })
 );
 
+// Eliminar un post.
 router.delete(
     "/posts/:id",
     authGuard,
@@ -162,6 +172,7 @@ router.delete(
     })
 );
 
+// Eliminar un comentario.
 router.delete(
     "/posts/:id/comments/:commentId",
     authGuard,
@@ -179,10 +190,7 @@ router.delete(
     })
 );
 
-/*
- **** VOTOS  ***
- */
-
+// Agregar un voto a un post.
 router.post(
     "/posts/:id/votes",
     authGuard,
@@ -190,11 +198,8 @@ router.post(
     handleAsyncError(async (req, res) => {
         console.log("Se está ejecutando el voto...");
         const idPost = req.params.id; // ID del post
-        console.log("idPost: ", idPost);
         const idUser = req.currentUser.id;
-        console.log("idUser: ", idUser);
         const userVote = req.body.vote;
-        console.log(userVote);
         await toggleVote(idPost, idUser, userVote);
 
         sendResponse(res, undefined, 200);

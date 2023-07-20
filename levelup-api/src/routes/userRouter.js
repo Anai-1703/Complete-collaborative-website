@@ -15,14 +15,16 @@ const { getUserById } = require("../services/dbService.js");
 const { controlPanel } = require("../controllers/user/controlPanel.js");
 const router = Router();
 
-router.get("/news", (req, res) => {
-    console.log("Hola");
-    sendResponse(res);
-});
-
-router.post("/users/register", json(), async (req, res) => {
+router.post("/register", json(), async (req, res) => {
+    console.log("llegando al endpoint");
     const result = await registerUser(req.body);
     res.json(result);
+    console.log("fin");
+});
+
+router.post("/login", json(), async (req, res) => {
+    const token = await loginUser(req.body);
+    sendResponse(res, { token });
 });
 
 router.get("/users/:id", json(), async (req, res) => {
@@ -50,15 +52,6 @@ router.put(
 //         sendResponse(res);
 //     });
 // });
-
-router.post("/users/login", json(), async (req, res) => {
-    const token = await loginUser(req.body);
-    sendResponse(res, { token });
-});
-
-router.get("/users/:id", authGuard, (req, res) => {
-    res.send("Detalle usuario");
-});
 
 router.get("/users", authGuard, (req, res) => {
     res.send("Listado usuarios");

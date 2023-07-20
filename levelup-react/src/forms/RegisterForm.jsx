@@ -1,16 +1,16 @@
 
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { sendRegister } from '../services/sendRegister';
 
 export function RegisterForm() {
   const [formData, setFormData] = useState({
-    name: '',
+    nameMember: '',
     email: '',
     password: '',
     repeatPassword: '',
     birthday: '',
     acceptedTOS: false
-
   });
 
   const handleChange = (e) => {
@@ -20,47 +20,75 @@ export function RegisterForm() {
     setFormData((prevData) => ({
       ...prevData,
       [name]: fieldValue
-
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   // Validar los campos antes de procesar el registro
+  //   if (
+
+  //     formData.name === '' ||
+  //     formData.email === '' ||
+  //     formData.password === '' ||
+  //     formData.repeatPassword === '' ||
+  //     formData.birthday === '' ||
+  //     !formData.acceptedTOS
+  //   ) {
+  //     alert('Completa este campo');
+
+  //     return;
+  //   }
+
+  //   // Redireccionar al usuario a la página de inicio de sesión
+
+  //   window.location.href = '/login';
+  // };
+  
+  const handleCreate = async (e) => {
+    e.preventDefault();
+  
     // Validar los campos antes de procesar el registro
     if (
-
-      formData.name === '' ||
+      formData.nameMember === '' ||
       formData.email === '' ||
       formData.password === '' ||
       formData.repeatPassword === '' ||
       formData.birthday === '' ||
       !formData.acceptedTOS
     ) {
-      alert('Completa este campo');
-
+      alert('Completa todos los campos');
       return;
     }
+  
+    try {
+      // Enviar los datos del formulario al servidor
+      const response = await sendRegister(formData);
+      
+      // Manejar la respuesta del servidor
+      if (response && response.success) {
+        alert('Registro exitoso. ¡Ahora puedes iniciar sesión!');
+        // Redireccionar al usuario a la página de inicio de sesión
+        window.location.href = '/login';
+      }
 
-    // Redireccionar al usuario a la página de inicio de sesión
-
-    window.location.href = '/login';
+    } catch (error) {
+      console.log(error);
+      alert('Hubo un error en el registro. Por favor, inténtalo de nuevo más tarde.');
+    }
   };
   
-  const handleCreate = (e) => {
-    e.preventDefault();
-    // lógica para procesar el registro   
-  };
 
-return (
-
-    <form className="register-form" onSubmit={handleSubmit}>
+  return (
+    <form className="register-form" onSubmit={handleCreate}>
       <h2>Register</h2>
       <input
         type="text"
-        name="name"
+        name="nameMember"
         placeholder="Name *"
-        value={formData.name}
+        value={formData.nameMember}
         onChange={handleChange}
         required
       />
@@ -107,15 +135,14 @@ return (
         />
       </label>
 
+      {/* Botón para crear cuenta */}
+      <button type="submit" className="btn" name="createAccountButton">
+        Create
+      </button>
 
-    {/*  Botón para crear cuenta */}
-    <button type="submit" className="btn" name="createAccountButton">Create</button>
-
- 
-    {/*  Enlace para ir a LoginPage(inicio sesión) */}
-      <p className="message">Already registered? 
-      <Link to="/login">Sign In</Link>
-
+      {/* Enlace para ir a LoginPage(inicio sesión) */}
+      <p className="message">
+        Already registered? <Link to="/login">Sign In</Link>
       </p>
     </form>
   );

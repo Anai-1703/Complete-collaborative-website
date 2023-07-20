@@ -39,9 +39,7 @@ async function loginUser(data) {
     const token = generateJWT(rows[0]);
 
     return {
-        success: true,
-        token: token, // Añade el token en la respuesta
-        message: "Usuario autenticado correctamente",
+        token, // Añade el token en la respuesta
     };
 }
 
