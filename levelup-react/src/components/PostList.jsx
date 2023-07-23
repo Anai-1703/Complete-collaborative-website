@@ -35,37 +35,37 @@ function PostList() {
                         {post.avatarURL ? (
                         <img className="user-avatar" src={post.avatarURL} alt="Avatar" />
                         ) : (
-                        <DefaultAvatar border={true} />
+                        <DefaultAvatar post={true} />
                         )}
                         <span className="user-name">{post.nameMember}</span>
                     </section>
                     <section className="user-interaction">
                         <UserInteraction />
                     </section>
-                    <section className="post-content">
-                        <Link className="link-to-post" to={`/posts/${post.id}`}>
-                            {console.log(host)}
-                            {console.log(post.imageURL)}
-                            <figure className="post-images">
-                                <img src={`${host}${post.imageURL}`} alt={`Photo about ${post.title}`} />
-                            </figure>
-                        </Link>
-                    </section>
 
-                    <section className="post-text">
-                        <Link className="link-to-post" to={`/posts/${post.id}`}>
-                            <h3 className="post-title">{post.title}</h3>
-                            <p className="post-entradilla">{post.entradilla}</p>
-                            <p className="post-date">{post.createdAt}</p>
-                        </Link>
+                    <Link className="link-to-post" to={`/posts/${post.id}`}>
+                    {post.imageURL ? (
+                    <section className="post-content">
+                        {console.log(host)}
+                        {console.log(post.imageURL)}
+                        <figure className="post-images">
+                            <img src={`${host}${post.imageURL}`} alt={`Photo about ${post.title}`} />
+                        </figure>
                     </section>
+                    ) : null}
+                    <section className="post-text">
+                        <h3 className="post-title">{post.title}</h3>
+                        <p className="post-entradilla">{post.entradilla}</p>
+                        <p className="post-date">{post.createdAt}</p>
+                    </section>
+                    </Link>
                     
                     {post.lastComment && (
                     <section className="post-comments">
                         {post.commentUserAvatarURL ? (
                         <img className="comment-avatar" src={post.commentUserAvatarURL} alt="Comment Avatar" />
                         ) : (
-                            <DefaultAvatar border={true} />
+                            <DefaultAvatar post={true} />
                         )}
                         <section className="buble">
                             <span className="comment-user">{post.commentUserNameMember}</span>
@@ -73,7 +73,6 @@ function PostList() {
                         </section>
                     </section>
                     )}
-
                 </article>
             ))}
         </>

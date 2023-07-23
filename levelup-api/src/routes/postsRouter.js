@@ -3,6 +3,8 @@
 // Importamos las dependencias.
 const { Router, json } = require("express");
 const fileUpload = require("express-fileupload");
+// Configuramos límite de tamaño en archivos y otras.
+// ¿Límite de cantidad de archivos también? revisar
 const router = Router();
 
 // Importamos las funciones controladoras intermedias.
@@ -91,6 +93,19 @@ router.post(
         sendResponse(res);
     })
 );
+
+/*
+Prueba AddPhotos, ya que NO está fileUpload y podría ser necesario en el futuro
+router.post(
+    "/posts/:id/photos",
+    authGuard,
+    fileUpload(),
+    handleAsyncError(async (req, res) => {
+        await addPhoto(req.params.id, req.currentUser.id, req.files.photo);
+        sendResponse(res);
+    })
+);
+*/
 
 // Agregar un comentario a un post.
 router.post(

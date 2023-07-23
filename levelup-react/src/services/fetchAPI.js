@@ -26,3 +26,5 @@ export async function fetchAPI(path, method = "get", payload) {
 
     return result;
 }
+
+// comentario
