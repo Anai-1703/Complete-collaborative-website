@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import UserInfo from "../components/UserInfo";
-import UserPosts from "../components/UniquePost";
 import UniquePost from "../components/UniquePost";
 
 export function UserPage() {
@@ -8,14 +7,28 @@ export function UserPage() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    // Aquí puedes realizar una llamada a la API o cargar la información del usuario y las publicaciones
-    // Puedes actualizar el estado de 'user' y 'posts' con los datos obtenidos
-    const fetchUserData = async () => {
+    // Función ficticia para simular una llamada a la API y obtener los datos del usuario
+    const fetchUserDataFromAPI = async () => {
+      // Supongamos que la API devuelve los datos del usuario en formato JSON
+      const response = await fetch("http://localhost:3000/users");
+      const data = await response.json();
+      return data; // Retorna los datos del usuario
+    };
+
+    // Función ficticia para simular una llamada a la API y obtener las publicaciones del usuario
+    const fetchUserPostsFromAPI = async () => {
+      // Supongamos que la API devuelve las publicaciones en formato JSON
+      const response = await fetch("http://localhost:3000/posts");
+      const data = await response.json();
+      return data; // Retorna las publicaciones del usuario
+    };
+
+    const fetchData = async () => {
       try {
-        // Lógica para obtener los datos del usuario desde la API
+        // Llamada a la función ficticia para obtener los datos del usuario
         const userData = await fetchUserDataFromAPI();
 
-        // Lógica para obtener las publicaciones del usuario desde la API
+        // Llamada a la función ficticia para obtener las publicaciones del usuario
         const userPosts = await fetchUserPostsFromAPI();
 
         setUser(userData);
@@ -25,7 +38,7 @@ export function UserPage() {
       }
     };
 
-    fetchUserData();
+    fetchData();
   }, []);
 
   if (!user) {

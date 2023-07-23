@@ -5,8 +5,9 @@ nav {
   bottom: 0;
   left: 0;
   width: 100%;
+  height: 1%;
   display: flex;
-  justify-content: center; /* Alinea los elementos al centro */
+  justify-content: center;
   z-index: 999;
 }
 
@@ -41,7 +42,29 @@ nav form button[type="submit"] {
   border: none;
   cursor: pointer;
   flex-shrink: 0;
-  height: 15px;
+}
+
+nav ul li.menu-icon {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  z-index: 1001;
+}
+
+.menu-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  min-width: 100px;
+  z-index: 1000;
 }
 
 .search-button {
