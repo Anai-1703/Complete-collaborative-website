@@ -13,10 +13,6 @@ function UniquePost() {
   const { id } = useParams();
 
 
-  // console.log(post.data);
-  // console.log(post.data.idUser);
-
-
   useEffect(() => {
     async function fetchPost() {
       try {
@@ -32,22 +28,24 @@ function UniquePost() {
   }, [id]);
   
   if (!post.data) {
-    return <div>Cargando...</div>;
+    return <div>Leveling Up Posts...</div>;
   }
 
 
   return (
       <>
-      <Link className="link-to-user" to={`/users/${post.data.idUser}`}>
+      {console.log(host)}
+      {console.log(post.data.imageURL)}
       <section className="user-detail-full">
-        {post.avatarURL ? (
-          <img className="user-avatar-full" src={post.data.avatarURL} alt="Avatar" />
-        ) : (
-          <DefaultAvatar border={false} />
-        )}
-        <span className="user-name-full">{post.data.nameMember}</span>
+        <Link className="link-to-user" to={`/users/${post.data.idUser}`}>
+          {post.avatarURL ? (
+            <img className="user-avatar-full" src={post.data.avatarURL} alt="Avatar" />
+          ) : (
+            <DefaultAvatar border={false} />
+          )}
+          <span className="user-name-full">{post.data.nameMember}</span>
+        </Link>
       </section>
-      </Link>
       <section className="user-interaction-full">
         <UserInteraction postId={post.data.id} initialUpvotes={post.data.upvotes} initialDownvotes={post.data.downvotes} />
       </section>
