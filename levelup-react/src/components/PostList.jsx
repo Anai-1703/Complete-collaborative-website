@@ -14,12 +14,12 @@ function PostList() {
         async function fetchPosts() {
         try {
             const data = await getAllPosts();
+            console.log(data);
             setPosts(data);
         } catch (error) {
             console.error("Error fetching posts:", error);
         }
         }
-
         fetchPosts();
     }, []);
 
@@ -48,8 +48,6 @@ function PostList() {
                     <Link className="link-to-post" to={`/posts/${post.id}`}>
                     {post.imageURL ? (
                     <section className="post-content">
-                        {console.log(host)}
-                        {console.log(post.imageURL)}
                         <figure className="post-images">
                             <img src={`${host}${post.imageURL}`} alt={`Photo about ${post.title}`} />
                         </figure>

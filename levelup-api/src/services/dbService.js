@@ -112,8 +112,10 @@ module.exports = {
           uc.avatarURL AS commentUserAvatarURL,
           uc.nameMember AS commentUserNameMember,
           pi.imageURL,
-          SUM(v.votes = 1) AS upvotes,
-          SUM(v.votes = 0) AS downvotes
+          v.upvotes,
+          v.downvotes,
+          c.categories,
+          plt.platforms
         FROM 
           POSTS p
         JOIN 
@@ -132,22 +134,36 @@ module.exports = {
         LEFT JOIN
           postimages pi ON p.id = pi.idPost
         LEFT JOIN
-          votes v ON p.id = v.idPost
-        GROUP BY 
-          p.id, 
-          p.title, 
-          p.entradilla, 
-          p.idUser, 
-          p.createdAt, 
-          u.nameMember, 
-          u.avatarURL,
-          pc.comments,
-          pc.idUser,
-          uc.avatarURL,
-          uc.nameMember,
-          pi.imageURL
+          (SELECT 
+            idPost,
+            SUM(votes = 1) AS upvotes,
+            SUM(votes = 0) AS downvotes
+          FROM
+            votes
+          GROUP BY
+            idPost) AS v ON p.id = v.idPost
+        LEFT JOIN
+          (SELECT 
+            pcats.postId,
+            GROUP_CONCAT(DISTINCT c.category) AS categories
+          FROM
+            postcategories pcats
+          JOIN
+            categories c ON pcats.categoryId = c.id
+          GROUP BY
+            pcats.postId) AS c ON p.id = c.postId
+        LEFT JOIN
+          (SELECT 
+            pplat.postId,
+            GROUP_CONCAT(DISTINCT plt.platform) AS platforms
+          FROM
+            postplatforms pplat
+          JOIN
+            platforms plt ON pplat.platformId = plt.id
+          GROUP BY
+            pplat.postId) AS plt ON p.id = plt.postId
         ORDER BY 
-          createdAt DESC;      
+          createdAt DESC;
       `;
         const [rows] = await db.execute(statement);
         return rows;
@@ -220,40 +236,81 @@ module.exports = {
     },
 
     async savePostPlatforms(postId, platforms) {
-        console.log("saveplataforms: ", postId, platforms);
-        const statement = `
-        INSERT INTO postplatforms(postId, platformId)
-        VALUES(?, ?);
-      `;
-        const values = platforms.map((platformId) => [postId, platformId]);
         try {
-            await db.execute(statement, values);
+            const platformIds = await Promise.all(
+                platforms.map(async (platform) => {
+                    const [rows] = await db.execute(
+                        "SELECT id FROM platforms WHERE platform = ?",
+                        [platform]
+                    );
+                    if (rows.length === 0) {
+                        throw new Error(
+                            `La plataforma '${platform}' no existe en la tabla platforms.`
+                        );
+                    }
+                    return rows[0].id;
+                })
+            );
+
+            // Construir la consulta manualmente con los valores que deseamos insertar
+            let values = "";
+            platformIds.forEach((platformId, index) => {
+                values += `(${db.escape(postId)}, ${db.escape(platformId)})`;
+                if (index < platformIds.length - 1) {
+                    values += ", ";
+                }
+            });
+
+            const statement = `
+          INSERT INTO postplatforms(postId, platformId)
+          VALUES ${values};
+        `;
+
+            await db.execute(statement);
             console.log("savePostPlatforms ha finalizado");
         } catch (error) {
             console.error("Error en savePostPlatforms:", error);
             throw error;
         }
-
-        console.log("savePostPlatforms ha finalizado");
     },
 
     async savePostCategories(postId, categories) {
-        console.log("savecategories: ", postId, categories);
-        const statement = `
-        INSERT INTO postcategories(postId, categoryId)
-        VALUES(?, ?);
-      `;
-        const values = categories.map((categoryId) => [postId, categoryId]);
-
         try {
-            await db.execute(statement, values);
+            const categoryIds = await Promise.all(
+                categories.map(async (category) => {
+                    const [rows] = await db.execute(
+                        "SELECT id FROM categories WHERE category = ?",
+                        [category]
+                    );
+                    if (rows.length === 0) {
+                        throw new Error(
+                            `La categoría '${category}' no existe en la tabla categories.`
+                        );
+                    }
+                    return rows[0].id;
+                })
+            );
+
+            // Construir la consulta manualmente con los valores que deseamos insertar
+            let values = "";
+            categoryIds.forEach((categoryId, index) => {
+                values += `(${db.escape(postId)}, ${db.escape(categoryId)})`;
+                if (index < categoryIds.length - 1) {
+                    values += ", ";
+                }
+            });
+
+            const statement = `
+          INSERT INTO postcategories(postId, categoryId)
+          VALUES ${values};
+        `;
+
+            await db.execute(statement);
             console.log("savePostCategories ha finalizado");
         } catch (error) {
             console.error("Error en savePostCategories:", error);
             throw error;
         }
-
-        console.log("savePostCategories ha finalizado");
     },
 
     async updatePost(post) {
