@@ -185,7 +185,7 @@ module.exports = {
           p.id, 
           p.title, 
           p.entradilla, 
-          p.description, 
+          p.description,
           p.idUser, 
           p.createdAt, 
           u.nameMember, 
@@ -195,26 +195,81 @@ module.exports = {
             'avatarURL', uc.avatarURL,
             'nameMember', uc.nameMember,
             'idUser', pc.idUser
-          )) AS comments
+          )) AS comments,
+          pc.idUser AS commentUserId,
+          uc.avatarURL AS commentUserAvatarURL,
+          uc.nameMember AS commentUserNameMember,
+          pi.imageURL,
+          v.upvotes,
+          v.downvotes,
+          c.categories,
+          plt.platforms
         FROM 
-          posts p
+          POSTS p
         JOIN 
           users u ON p.idUser = u.id
         LEFT JOIN 
-          postcomments pc ON p.id = pc.idPost
+          (SELECT 
+            idPost, MAX(createdAt) AS ultimoComentarioFecha
+          FROM 
+            postcomments
+          GROUP BY 
+            idPost) AS subquery ON p.id = subquery.idPost
         LEFT JOIN 
+          postcomments pc ON subquery.idPost = pc.idPost AND subquery.ultimoComentarioFecha = pc.createdAt
+        LEFT JOIN
           users uc ON pc.idUser = uc.id
+        LEFT JOIN
+          postimages pi ON p.id = pi.idPost
+        LEFT JOIN
+          (SELECT 
+            idPost,
+            SUM(votes = 1) AS upvotes,
+            SUM(votes = 0) AS downvotes
+          FROM
+            votes
+          GROUP BY
+            idPost) AS v ON p.id = v.idPost
+        LEFT JOIN
+          (SELECT 
+            pcats.postId,
+            GROUP_CONCAT(DISTINCT c.category) AS categories
+          FROM
+            postcategories pcats
+          JOIN
+            categories c ON pcats.categoryId = c.id
+          GROUP BY
+            pcats.postId) AS c ON p.id = c.postId
+        LEFT JOIN
+          (SELECT 
+            pplat.postId,
+            GROUP_CONCAT(DISTINCT plt.platform) AS platforms
+          FROM
+            postplatforms pplat
+          JOIN
+            platforms plt ON pplat.platformId = plt.id
+          GROUP BY
+            pplat.postId) AS plt ON p.id = plt.postId
         WHERE 
-          p.id = ?
+          p.id = ? 
         GROUP BY 
           p.id, 
           p.title, 
           p.entradilla, 
-          p.description, 
           p.idUser, 
           p.createdAt, 
           u.nameMember, 
-          u.avatarURL;
+          u.avatarURL,
+          pc.idUser,
+          uc.avatarURL,
+          uc.nameMember,
+          pi.imageURL,
+          v.upvotes,
+          v.downvotes,
+          c.categories,
+          plt.platforms
+        ORDER BY 
+          createdAt DESC;
     `;
         const [rows] = await db.execute(statement, [postId]);
         console.log(rows);
