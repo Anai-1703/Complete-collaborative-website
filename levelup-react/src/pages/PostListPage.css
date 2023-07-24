@@ -11,6 +11,11 @@ article {
     align-items: center; */
 }
 
+.link-to-user {
+    text-decoration: none;
+    color: inherit;
+}
+
 .user-detail {
     flex: 1;
     display: flex;

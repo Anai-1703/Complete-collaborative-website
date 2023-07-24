@@ -2,7 +2,11 @@
 
 const validateToken = require("../../middlewares/validateToken.js");
 const { generateUUID, parseJWT } = require("../../services/cryptoServices.js");
-const { savePost } = require("../../services/dbService.js");
+const {
+    savePost,
+    savePostPlatforms,
+    savePostCategories,
+} = require("../../services/dbService.js");
 const sendError = require("../../utils/sendError.js");
 const sendResponse = require("../../utils/sendResponse.js");
 
@@ -37,6 +41,17 @@ module.exports = async (data, token, res) => {
         console.log("Entradilla: ", data.entradilla);
         console.log("Descripcion: ", data.description);
 
+        if (
+            !data.platforms ||
+            data.platforms.length === 0 ||
+            !data.categories ||
+            data.categories.length === 0
+        ) {
+            throw new Error(
+                "Debe proporcionar al menos una plataforma y una categoría para el post"
+            );
+        }
+
         const newPost = {
             id: generateUUID(),
             idUser: user.id,
@@ -45,11 +60,18 @@ module.exports = async (data, token, res) => {
             description: data.description,
         };
         await savePost(newPost);
+        console.log("miau");
+        console.log("newPost ID", newPost.id);
+        console.log("plataformas: ", data.platforms);
+        console.log("categorias: ", data.categories);
+        await savePostPlatforms(newPost.id, data.platforms);
+        await savePostCategories(newPost.id, data.categories);
 
         return {
             newPost,
         };
     } catch (error) {
         sendResponse(error);
+        console.log("error al canto");
     }
 };

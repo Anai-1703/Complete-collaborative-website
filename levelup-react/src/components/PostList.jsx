@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { getAllPosts } from "../services/getAllPost";
 import { DefaultAvatar } from "./DefaultAvatar.jsx";
 import { Link } from "react-router-dom";
-
 import { UserInteraction } from "./UserInteraction";
 
 const host = import.meta.env.VITE_API_HOST;
@@ -24,13 +23,12 @@ function PostList() {
         fetchPosts();
     }, []);
 
-    // const photos = ['Foto 1', 'Foto 2'];
-    console.log(posts);
-
     return (
         <>
             {posts.map(post => (
+
                 <article key={post.id}>
+                    <Link className="link-to-user" to={`/users/${post.idUser}`}>
                     <section className="user-detail">
                         {post.avatarURL ? (
                         <img className="user-avatar" src={post.avatarURL} alt="Avatar" />
@@ -39,8 +37,12 @@ function PostList() {
                         )}
                         <span className="user-name">{post.nameMember}</span>
                     </section>
+                    </Link>
                     <section className="user-interaction">
-                        <UserInteraction />
+                    {console.log(post.id)}
+                    {console.log(post.upvotes)}
+                    {console.log(post.downvotes)}
+                        <UserInteraction postId={post.id} initialUpvotes={post.upvotes} initialDownvotes={post.downvotes} />
                     </section>
 
                     <Link className="link-to-post" to={`/posts/${post.id}`}>

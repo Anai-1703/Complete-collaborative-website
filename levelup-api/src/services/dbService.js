@@ -111,7 +111,9 @@ module.exports = {
           pc.idUser AS commentUserId,
           uc.avatarURL AS commentUserAvatarURL,
           uc.nameMember AS commentUserNameMember,
-          pi.imageURL
+          pi.imageURL,
+          SUM(v.votes = 1) AS upvotes,
+          SUM(v.votes = 0) AS downvotes
         FROM 
           POSTS p
         JOIN 
@@ -129,8 +131,23 @@ module.exports = {
           users uc ON pc.idUser = uc.id
         LEFT JOIN
           postimages pi ON p.id = pi.idPost
+        LEFT JOIN
+          votes v ON p.id = v.idPost
+        GROUP BY 
+          p.id, 
+          p.title, 
+          p.entradilla, 
+          p.idUser, 
+          p.createdAt, 
+          u.nameMember, 
+          u.avatarURL,
+          pc.comments,
+          pc.idUser,
+          uc.avatarURL,
+          uc.nameMember,
+          pi.imageURL
         ORDER BY 
-          createdAt DESC;
+          createdAt DESC;      
       `;
         const [rows] = await db.execute(statement);
         return rows;
@@ -203,23 +220,40 @@ module.exports = {
     },
 
     async savePostPlatforms(postId, platforms) {
+        console.log("saveplataforms: ", postId, platforms);
         const statement = `
         INSERT INTO postplatforms(postId, platformId)
         VALUES(?, ?);
       `;
-        for (const platformId of platforms) {
-            await db.execute(statement, [postId, platformId]);
+        const values = platforms.map((platformId) => [postId, platformId]);
+        try {
+            await db.execute(statement, values);
+            console.log("savePostPlatforms ha finalizado");
+        } catch (error) {
+            console.error("Error en savePostPlatforms:", error);
+            throw error;
         }
+
+        console.log("savePostPlatforms ha finalizado");
     },
 
     async savePostCategories(postId, categories) {
+        console.log("savecategories: ", postId, categories);
         const statement = `
         INSERT INTO postcategories(postId, categoryId)
         VALUES(?, ?);
       `;
-        for (const categoryId of categories) {
-            await db.execute(statement, [postId, categoryId]);
+        const values = categories.map((categoryId) => [postId, categoryId]);
+
+        try {
+            await db.execute(statement, values);
+            console.log("savePostCategories ha finalizado");
+        } catch (error) {
+            console.error("Error en savePostCategories:", error);
+            throw error;
         }
+
+        console.log("savePostCategories ha finalizado");
     },
 
     async updatePost(post) {
@@ -290,14 +324,13 @@ module.exports = {
         }
     },
 
-    async checkVote(postId) {
-        console.log("esto se está ejecutando");
+    async checkVote(postId, userId) {
         const statement = `
-      SELECT * FROM votes
-      WHERE idpost = ?
+        SELECT *
+        FROM votes
+        WHERE idPost = ? AND idUser = ?
       `;
-        const [rows] = await db.execute(statement, [postId]);
-        console.log("Esto es lo que devuelve la consulta de CheckVote: ", rows);
+        const [rows] = await db.execute(statement, [postId, userId]);
         return rows;
     },
 

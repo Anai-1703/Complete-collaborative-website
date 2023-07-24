@@ -38,7 +38,6 @@ module.exports = async (userData) => {
             error: "Invalid birthday",
         };
     }
-    console.log("Ha pasado el cumpleaños!");
     const currentDate = new Date();
     const age = differenceInYears(currentDate, parsedBirthday);
     if (age < 18) {
@@ -47,12 +46,9 @@ module.exports = async (userData) => {
             error: "User must be at least 18 years old",
         };
     }
-    console.log("Ha pasado el cumpleaños! v2 ");
     const hashedPassword = await hashPassword(userData.password);
     const randomCode = generaterandomvalidationcode();
     const newUserId = generateUUID();
-
-    console.log("Ha hecho los hashes pertinentes.");
 
     const user = {
         ...userData,
