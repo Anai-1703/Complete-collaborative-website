@@ -11,7 +11,7 @@ const authGuard = require("../middlewares/authGuard.js");
 const handleAsyncError = require("../services/handleAsyncError.js");
 const validateBody = require("../middlewares/validateBody.js");
 const registerPayload = require("../validators/registerPayload.js");
-const { getUserById } = require("../services/dbService.js");
+const { getUserById, getPostByUserId } = require("../services/dbService.js");
 const { controlPanel } = require("../controllers/user/controlPanel.js");
 const router = Router();
 
@@ -28,13 +28,16 @@ router.post("/login", json(), async (req, res) => {
 });
 
 router.get("/users/:id", json(), async (req, res) => {
+    console.log(req.params.id);
     const user = await getUserById(req.params.id);
-    sendResponse(res, user, undefined, 201);
+    const posts = await getPostByUserId(req.params.id);
+    const userAndPost = [{ user }, { posts }];
+    sendResponse(res, userAndPost, undefined, 201);
 });
 
 // EN DESARROLLO
 router.put(
-    "/users/:id/controlpanel",
+    "/users/:id",
     authGuard,
     json(),
     handleAsyncError(async (req, res) => {

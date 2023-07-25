@@ -10,4 +10,3 @@ export function UniquePostPage() {
         </article>
     )
 }
- 

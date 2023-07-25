@@ -1,14 +1,14 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 
-import { Footer } from "./components/Footer";
+// import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { NavBar } from "./components/NavBar.jsx";
 
 import { HomePage } from "./pages/HomePage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { LoginPage } from "./pages/LoginPage";
-import { UserPage } from "./pages/UserPage";
+import UserPage from "./pages/UserPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import PostListPage from "./pages/PostsListPage";
 import { UniquePostPage } from "./pages/UniquePostPage";
@@ -24,7 +24,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/posts" element={<PostListPage />} />
         <Route path="/posts/:id" element={<UniquePostPage />} />
-        <Route path="/user/:id" element={<UserPage />} />
+        <Route path="/users/:id" element={<UserPage />} />
         <Route path="/guest-register" element={<GuestRegisterPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

@@ -276,6 +276,18 @@ module.exports = {
         return rows[0];
     },
 
+    async getPostByUserId(userId) {
+        console.log("conseguir post por user id");
+        console.log(userId);
+        const statement = `
+      SELECT * FROM posts
+      WHERE idUser = ?
+      `;
+        const [rows] = await db.execute(statement, [userId]);
+        console.log(rows);
+        return rows;
+    },
+
     async savePost(post) {
         const statement = `
         INSERT INTO posts(id, idUser, title, entradilla, description)
