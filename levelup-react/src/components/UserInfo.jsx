@@ -1,13 +1,18 @@
 import { DefaultAvatar } from "./DefaultAvatar";
 import PropTypes from 'prop-types';
+import { UserInteraction } from "./UserInteraction";
+import { Link } from "react-router-dom";
+const host = import.meta.env.VITE_API_HOST;
+
 
 
 
 const UserInfo = ({ user }) => {
 
   const userData =  user[0].user[0];
-  console.log(userData);
-  console.log(userData.nameMember);
+  const userPost = user[1].posts;
+  console.log("userpost");
+  console.log(userPost);
   
   return (
     <>
@@ -30,6 +35,47 @@ const UserInfo = ({ user }) => {
         <p>Pais: {userData.country || "No Definido"}</p>
 
       </article>
+      <section>
+        <h3> Post de {userData.nameMember}</h3>
+      </section>
+
+        {userPost.map(post => (
+
+      <article key={post.id + 1} className="user-post-list">
+        {console.log(post)}
+
+          <section className="user-detail">
+              {post.avatarURL ? (
+              <img className="user-avatar" src={post.avatarURL} alt="Avatar" />
+              ) : (
+              <DefaultAvatar post={true} />
+              )}
+              <span className="user-name">{post.nameMember}</span>
+          </section>
+
+        <section className="user-interaction">
+
+            <UserInteraction postId={post.id} initialUpvotes={post.upvotes} initialDownvotes={post.downvotes} />
+        </section>
+
+        <Link className="link-to-post" to={`/posts/${post.id}`}>
+        {post.imageURL ? (
+        <section className="post-content">
+            <figure className="post-images">
+                <img src={`${host}${post.imageURL}`} alt={`Photo about ${post.title}`} />
+            </figure>
+        </section>
+        ) : null}
+        <section className="post-text">
+            <h3 className="post-title">{post.title}</h3>
+            <p className="post-entradilla">{post.entradilla}</p>
+            <p className="post-date">{post.createdAt}</p>
+        </section>
+        </Link>
+
+
+      </article>
+        ))}
 
 
     </>
