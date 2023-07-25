@@ -18,7 +18,6 @@ function UniquePost() {
       try {
         const data = await getUniquePost(id);
         setPost(data);
-        console.log(data);
       } catch (error) {
         console.error("Error fetching post:", error);
       }
@@ -34,8 +33,7 @@ function UniquePost() {
 
   return (
       <>
-      {console.log(host)}
-      {console.log(post.data.imageURL)}
+
       <section className="user-detail-full">
         <Link className="link-to-user" to={`/users/${post.data.idUser}`}>
           {post.avatarURL ? (

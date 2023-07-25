@@ -7,7 +7,6 @@ const db = getConnection();
 
 module.exports = {
     async saveUser(user) {
-        console.log("LLegamos a la BBDD");
         const statement = `
         INSERT INTO users(id, nameMember, email, password, birthday, acceptedTOS, validated)
         VALUES(?, ?, ?, ?, ?, ?, ?)
@@ -21,7 +20,6 @@ module.exports = {
             user.acceptedTOS,
             user.validated,
         ]);
-        console.log("Consulta completa");
     },
 
     async getUserById(userId) {
@@ -30,7 +28,6 @@ module.exports = {
       FROM users
       WHERE id = ?`;
         const [rows] = await db.execute(statement, [userId]);
-        console.log(rows);
         return rows;
     },
 
@@ -95,7 +92,6 @@ module.exports = {
     },
 
     async getAllPosts() {
-        console.log("peticion de todos los posts");
         const statement = `
         SELECT 
           p.id, 
@@ -270,13 +266,10 @@ module.exports = {
           createdAt DESC;
     `;
         const [rows] = await db.execute(statement, [postId]);
-        console.log(rows);
         return rows[0];
     },
 
     async getPostByUserId(userId) {
-        console.log("conseguir post por user id");
-        console.log(userId);
         const statement = `
         SELECT 
           p.id, 
@@ -348,7 +341,6 @@ module.exports = {
       
       `;
         const [rows] = await db.execute(statement, [userId]);
-        console.log(rows);
         return rows;
     },
 
@@ -398,7 +390,6 @@ module.exports = {
         `;
 
             await db.execute(statement);
-            console.log("savePostPlatforms ha finalizado");
         } catch (error) {
             console.error("Error en savePostPlatforms:", error);
             throw error;
@@ -437,7 +428,6 @@ module.exports = {
         `;
 
             await db.execute(statement);
-            console.log("savePostCategories ha finalizado");
         } catch (error) {
             console.error("Error en savePostCategories:", error);
             throw error;
@@ -460,7 +450,6 @@ module.exports = {
           WHERE idPost = ?
         `;
         const [rows] = await db.execute(statement, [postId]);
-        console.log("rows: ", rows);
 
         return rows;
     },
@@ -481,7 +470,6 @@ module.exports = {
         INSERT INTO postcomments(id, iDUser, idPost, comments)
         VALUES(?, ?, ?, ?)
       `;
-        console.log(newComment);
         await db.execute(statement, [
             newComment.id,
             newComment.userId,
@@ -533,7 +521,6 @@ module.exports = {
             vote.idPost,
             vote.userVote,
         ]);
-        console.log(rows);
         return rows;
     },
 
@@ -544,7 +531,6 @@ module.exports = {
       `;
 
         const [rows] = await db.execute(statement, [idPost, idUser]);
-        console.log("Rows DeleteVote: ", rows);
         return rows;
     },
 
@@ -584,7 +570,6 @@ module.exports = {
     },
 
     async updateComment(post) {
-        console.log("post: ", post);
         const statement = ` 
         UPDATE postcomments
         SET comments = ?
@@ -594,7 +579,6 @@ module.exports = {
             post["comment"],
             post["0"]["id"],
         ]);
-        console.log(rows);
         return rows;
     },
 
@@ -607,10 +591,7 @@ module.exports = {
         await db.execute(statement, [commentId]);
     },
 
-    // cambiar
     async savePhoto(photo) {
-        console.log("llega al savephoto de dbservice");
-        console.log(photo);
         const statement = `
         INSERT INTO postimages(id, idPost, imageURL)
         VALUES(?, ?, ?)

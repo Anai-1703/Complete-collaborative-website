@@ -14,7 +14,6 @@ function PostList() {
         async function fetchPosts() {
         try {
             const data = await getAllPosts();
-            console.log(data);
             setPosts(data);
         } catch (error) {
             console.error("Error fetching posts:", error);
@@ -39,9 +38,7 @@ function PostList() {
                     </section>
                     </Link>
                     <section className="user-interaction">
-                    {console.log(post.id)}
-                    {console.log(post.upvotes)}
-                    {console.log(post.downvotes)}
+
                         <UserInteraction postId={post.id} initialUpvotes={post.upvotes} initialDownvotes={post.downvotes} />
                     </section>
 

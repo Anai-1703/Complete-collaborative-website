@@ -18,7 +18,6 @@ const {
 const { isValid, parseISO, differenceInYears } = require("date-fns");
 
 module.exports = async (userData) => {
-    console.log("Estamos en el register user...");
     if (!userData.acceptedTOS) {
         return {
             success: false,
@@ -57,7 +56,6 @@ module.exports = async (userData) => {
         validated: false,
         role: "Usuario",
     };
-    console.log(user);
     await saveUser(user);
 
     const expiraTimestamp = timeService.getTimestampMinutesFromNow(6);

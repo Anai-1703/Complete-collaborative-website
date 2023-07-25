@@ -11,8 +11,6 @@ const UserInfo = ({ user }) => {
 
   const userData =  user[0].user[0];
   const userPost = user[1].posts;
-  console.log("userpost");
-  console.log(userPost);
   
   return (
     <>
@@ -42,7 +40,6 @@ const UserInfo = ({ user }) => {
         {userPost.map(post => (
 
       <article key={post.id + 1} className="user-post-list">
-        {console.log(post)}
 
           <section className="user-detail">
               {post.avatarURL ? (

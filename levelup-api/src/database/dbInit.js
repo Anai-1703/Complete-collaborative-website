@@ -33,7 +33,6 @@ const initDB = async () => {
 async function createDatabaseTables(pool) {
     const plainPassword = process.env.ADMINPASS;
     const hashedPassword = await hashPassword(plainPassword);
-    console.log("password hasheado: ", hashedPassword);
 
     const adminID = generateUUID();
     const modID = generateUUID();

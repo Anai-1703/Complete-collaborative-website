@@ -37,9 +37,6 @@ module.exports = async (data, token, res) => {
                 "Debe proporcionar un título y una descripción para el post"
             );
         }
-        console.log("Titulo: ", data.title);
-        console.log("Entradilla: ", data.entradilla);
-        console.log("Descripcion: ", data.description);
 
         if (
             !data.platforms ||
@@ -60,10 +57,6 @@ module.exports = async (data, token, res) => {
             description: data.description,
         };
         await savePost(newPost);
-        console.log("miau");
-        console.log("newPost ID", newPost.id);
-        console.log("plataformas: ", data.platforms);
-        console.log("categorias: ", data.categories);
         await savePostPlatforms(newPost.id, data.platforms);
         await savePostCategories(newPost.id, data.categories);
 

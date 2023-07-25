@@ -16,10 +16,8 @@ const { controlPanel } = require("../controllers/user/controlPanel.js");
 const router = Router();
 
 router.post("/register", json(), async (req, res) => {
-    console.log("llegando al endpoint");
     const result = await registerUser(req.body);
     res.json(result);
-    console.log("fin");
 });
 
 router.post("/login", json(), async (req, res) => {
@@ -28,7 +26,6 @@ router.post("/login", json(), async (req, res) => {
 });
 
 router.get("/users/:id", json(), async (req, res) => {
-    console.log(req.params.id);
     const user = await getUserById(req.params.id);
     const posts = await getPostByUserId(req.params.id);
     const userAndPost = [{ user }, { posts }];

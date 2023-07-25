@@ -163,7 +163,6 @@ router.put(
             throw new Error("INVALID_CREDENTIALS");
         }
         const token = req.currentUser.token;
-        console.log("hola");
         await editComment(req.params.id, req.currentUser.id, req.body);
         sendResponse(res, undefined, 201);
     })
@@ -175,9 +174,6 @@ router.delete(
     authGuard,
     json(),
     handleAsyncError(async (req, res) => {
-        console.log("req.params.id: ", req.params.id); // Esto es el postId
-        console.log("req.currentuser: ", req.currentUser);
-        console.log("req.body: ", req.body);
         if (!req.currentUser) {
             throw new Error("INVALID_CREDENTIALS");
         }
@@ -193,9 +189,6 @@ router.delete(
     authGuard,
     json(),
     handleAsyncError(async (req, res) => {
-        console.log("req.params.commentId: ", req.params.commentId);
-        console.log("req.params.id: ", req.params.id); // Esto es el postId
-        console.log("req.currentuser: ", req.currentUser);
         if (!req.currentUser) {
             throw new Error("INVALID_CREDENTIALS");
         }
@@ -211,7 +204,6 @@ router.post(
     authGuard,
     json(),
     handleAsyncError(async (req, res) => {
-        console.log(req.params.id, req.currentUser.id, req.body.vote);
         await toggleVote(req.params.id, req.currentUser.id, req.body.vote);
 
         sendResponse(res, undefined, 200);
