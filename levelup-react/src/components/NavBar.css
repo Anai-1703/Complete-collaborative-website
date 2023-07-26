@@ -2,12 +2,12 @@ nav {
   background-color: #f2f2f2;
   padding: 1px;
   position: fixed;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
-  height: 1%;
+  height: 60px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   z-index: 999;
 }
 
@@ -16,7 +16,7 @@ nav ul {
   margin: 0;
   padding: 0;
   display: flex;
-  margin-left: auto;
+  bottom: 0;
 }
 
 nav ul li {
@@ -35,6 +35,7 @@ nav form {
 
 nav form input[type="text"] {
   height: 20px;
+  order: -1;
 }
 
 nav form button[type="submit"] {
@@ -44,19 +45,17 @@ nav form button[type="submit"] {
   flex-shrink: 0;
 }
 
-nav ul li.menu-icon {
-  position: fixed;
+.menu-icon {
+  bottom: unset;
   top: 10px;
   left: 10px;
-  display: flex;
-  align-items: center;
-  z-index: 1001;
 }
 
 .menu-dropdown {
+  bottom: unset;
+  top: 60px;
+  left: 10px;
   position: absolute;
-  top: 100%;
-  left: 0;
   display: flex;
   flex-direction: column;
   background-color: black;
@@ -65,4 +64,27 @@ nav ul li.menu-icon {
   padding: 5px;
   min-width: 100px;
   z-index: 1000;
+  align-items: flex-start;
+}
+
+@media screen and (min-width: 1200px) {
+  nav {
+    bottom: unset;
+    top: 0;
+    justify-content: flex-start;
+  }
+
+  nav .menu-icon {
+    bottom: unset;
+    top: 10px;
+    right: unset;
+    left: 0;
+  }
+
+  nav .menu-dropdown {
+    bottom: unset;
+    top: unset;
+    left: 0;
+    position: relative;
+  }
 }

@@ -11,7 +11,7 @@ import { RegisterPage } from "./pages/RegisterPage";
 import { LoginPage } from "./pages/LoginPage";
 import { UserPage } from "./pages/UserPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
-import PostListPage from "./pages/PostListPage";
+import { PostListPage } from "./pages/PostListPage";
 import { UniquePostPage } from "./pages/UniquePostPage";
 import { GuestRegisterPage } from "./pages/GuestRegisterPage";
 
