@@ -3,14 +3,15 @@ import { Routes, Route } from "react-router-dom";
 
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
-import { NavBar } from "./components/NavBar1.jsx";
+import { NavBar } from "./components/NavBar.jsx";
+import Modal from "./components/Modal";
 
 import { HomePage } from "./pages/HomePage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { LoginPage } from "./pages/LoginPage";
 import { UserPage } from "./pages/UserPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
-import { PostListPage } from "./pages/PostListPage";
+import PostListPage from "./pages/PostListPage";
 import { UniquePostPage } from "./pages/UniquePostPage";
 import { GuestRegisterPage } from "./pages/GuestRegisterPage";
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/guest-register" element={<GuestRegisterPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <Modal />
       <NavBar />
 
       <Footer />

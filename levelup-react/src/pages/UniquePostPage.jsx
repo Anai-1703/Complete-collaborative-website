@@ -1,13 +1,11 @@
 import UniquePost from "../components/UniquePost";
 
-import './UniquePostPage.css'
+import "./UniquePostPage.css";
 
 export function UniquePostPage() {
-
-    return (
-        <article>
-            <UniquePost />
-        </article>
-    )
+  return (
+    <article>
+      <UniquePost />
+    </article>
+  );
 }
- 
