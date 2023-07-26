@@ -3,14 +3,14 @@ import { Routes, Route } from "react-router-dom";
 
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
-import { NavBar } from "./components/NavBar.jsx";
+import { NavBar } from "./components/NavBar1.jsx";
 
 import { HomePage } from "./pages/HomePage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { LoginPage } from "./pages/LoginPage";
 import { UserPage } from "./pages/UserPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
-import PostListPage from "./pages/PostsListPage";
+import { PostListPage } from "./pages/PostListPage";
 import { UniquePostPage } from "./pages/UniquePostPage";
 import { GuestRegisterPage } from "./pages/GuestRegisterPage";
 
