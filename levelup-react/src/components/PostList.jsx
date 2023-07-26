@@ -3,7 +3,7 @@ import { getAllPosts } from "../services/getAllPost";
 import { DefaultAvatar } from "./DefaultAvatar.jsx";
 import { Link } from "react-router-dom";
 
-import { UserInteraction } from "./UserInteraction";
+import { UserInteraction } from "./userInteraction";
 
 const host = import.meta.env.VITE_API_HOST;
 
