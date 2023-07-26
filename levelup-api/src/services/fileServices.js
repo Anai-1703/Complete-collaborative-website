@@ -3,7 +3,7 @@ const fs = require("fs/promises");
 const sharp = require("sharp");
 
 async function saveFile(postId, photoId, photoFile) {
-    const directory = path.join(__dirname, "../../public/posts", postId);
+    const directory = path.join(__dirname, "../../public/photos", postId);
 
     await fs.mkdir(directory, { recursive: true });
 

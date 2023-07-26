@@ -10,9 +10,6 @@ module.exports = {
     },
 
     async validatePassword(plainPassword, hash) {
-        console.log("validando....");
-        console.log(plainPassword);
-        console.log(hash);
         return await bcrypt.compare(plainPassword, hash);
     },
 

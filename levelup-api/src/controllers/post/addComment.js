@@ -7,9 +7,6 @@ const sendError = require("../../utils/sendError.js");
 const dbService = require("../../services/dbService.js");
 
 module.exports = async (postId, currentUserId, res) => {
-    console.log("postId", postId);
-    console.log("currentUserId", currentUserId);
-    console.log("res.comment", res.comment);
     const post = await dbService.getPostById(postId);
     if (!post) {
         errorService.notFound();
@@ -21,7 +18,6 @@ module.exports = async (postId, currentUserId, res) => {
         postId,
         comment: res.comment,
     };
-    console.log(newComment);
 
     await saveComment(newComment);
     return {

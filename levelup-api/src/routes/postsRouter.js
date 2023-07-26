@@ -3,6 +3,8 @@
 // Importamos las dependencias.
 const { Router, json } = require("express");
 const fileUpload = require("express-fileupload");
+// Configuramos límite de tamaño en archivos y otras.
+// ¿Límite de cantidad de archivos también? revisar
 const router = Router();
 
 // Importamos las funciones controladoras intermedias.
@@ -92,6 +94,19 @@ router.post(
     })
 );
 
+/*
+Prueba AddPhotos, ya que NO está fileUpload y podría ser necesario en el futuro
+router.post(
+    "/posts/:id/photos",
+    authGuard,
+    fileUpload(),
+    handleAsyncError(async (req, res) => {
+        await addPhoto(req.params.id, req.currentUser.id, req.files.photo);
+        sendResponse(res);
+    })
+);
+*/
+
 // Agregar un comentario a un post.
 router.post(
     "/posts/:id/comments",
@@ -148,7 +163,6 @@ router.put(
             throw new Error("INVALID_CREDENTIALS");
         }
         const token = req.currentUser.token;
-        console.log("hola");
         await editComment(req.params.id, req.currentUser.id, req.body);
         sendResponse(res, undefined, 201);
     })
@@ -160,9 +174,6 @@ router.delete(
     authGuard,
     json(),
     handleAsyncError(async (req, res) => {
-        console.log("req.params.id: ", req.params.id); // Esto es el postId
-        console.log("req.currentuser: ", req.currentUser);
-        console.log("req.body: ", req.body);
         if (!req.currentUser) {
             throw new Error("INVALID_CREDENTIALS");
         }
@@ -178,9 +189,6 @@ router.delete(
     authGuard,
     json(),
     handleAsyncError(async (req, res) => {
-        console.log("req.params.commentId: ", req.params.commentId);
-        console.log("req.params.id: ", req.params.id); // Esto es el postId
-        console.log("req.currentuser: ", req.currentUser);
         if (!req.currentUser) {
             throw new Error("INVALID_CREDENTIALS");
         }
@@ -196,11 +204,7 @@ router.post(
     authGuard,
     json(),
     handleAsyncError(async (req, res) => {
-        console.log("Se está ejecutando el voto...");
-        const idPost = req.params.id; // ID del post
-        const idUser = req.currentUser.id;
-        const userVote = req.body.vote;
-        await toggleVote(idPost, idUser, userVote);
+        await toggleVote(req.params.id, req.currentUser.id, req.body.vote);
 
         sendResponse(res, undefined, 200);
     })

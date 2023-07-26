@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllPosts } from "../services/getAllPost";
 import { DefaultAvatar } from "./DefaultAvatar.jsx";
 import { Link } from "react-router-dom";
-
-import { UserInteraction } from "./userInteraction";
+import { UserInteraction } from "./UserInteraction";
 
 const host = import.meta.env.VITE_API_HOST;
 
@@ -20,52 +19,50 @@ function PostList() {
             console.error("Error fetching posts:", error);
         }
         }
-
         fetchPosts();
     }, []);
-
-    // const photos = ['Foto 1', 'Foto 2'];
-    console.log(posts);
 
     return (
         <>
             {posts.map(post => (
+
                 <article key={post.id}>
+                    <Link className="link-to-user" to={`/users/${post.idUser}`}>
                     <section className="user-detail">
                         {post.avatarURL ? (
                         <img className="user-avatar" src={post.avatarURL} alt="Avatar" />
                         ) : (
-                        <DefaultAvatar border={true} />
+                        <DefaultAvatar post={true} />
                         )}
                         <span className="user-name">{post.nameMember}</span>
                     </section>
+                    </Link>
                     <section className="user-interaction">
-                        <UserInteraction />
-                    </section>
-                    <section className="post-content">
-                        <Link className="link-to-post" to={`/posts/${post.id}`}>
-                            {console.log(host)}
-                            {console.log(post.imageURL)}
-                            <figure className="post-images">
-                                <img src={`${host}${post.imageURL}`} alt={`Photo about ${post.title}`} />
-                            </figure>
-                        </Link>
+
+                        <UserInteraction postId={post.id} initialUpvotes={post.upvotes} initialDownvotes={post.downvotes} />
                     </section>
 
-                    <section className="post-text">
-                        <Link className="link-to-post" to={`/posts/${post.id}`}>
-                            <h3 className="post-title">{post.title}</h3>
-                            <p className="post-entradilla">{post.entradilla}</p>
-                            <p className="post-date">{post.createdAt}</p>
-                        </Link>
+                    <Link className="link-to-post" to={`/posts/${post.id}`}>
+                    {post.imageURL ? (
+                    <section className="post-content">
+                        <figure className="post-images">
+                            <img src={`${host}${post.imageURL}`} alt={`Photo about ${post.title}`} />
+                        </figure>
                     </section>
+                    ) : null}
+                    <section className="post-text">
+                        <h3 className="post-title">{post.title}</h3>
+                        <p className="post-entradilla">{post.entradilla}</p>
+                        <p className="post-date">{post.createdAt}</p>
+                    </section>
+                    </Link>
                     
                     {post.lastComment && (
                     <section className="post-comments">
                         {post.commentUserAvatarURL ? (
                         <img className="comment-avatar" src={post.commentUserAvatarURL} alt="Comment Avatar" />
                         ) : (
-                            <DefaultAvatar border={true} />
+                            <DefaultAvatar post={true} />
                         )}
                         <section className="buble">
                             <span className="comment-user">{post.commentUserNameMember}</span>
@@ -73,7 +70,6 @@ function PostList() {
                         </section>
                     </section>
                     )}
-
                 </article>
             ))}
         </>

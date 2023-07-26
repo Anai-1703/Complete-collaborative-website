@@ -18,7 +18,6 @@ const {
 const { isValid, parseISO, differenceInYears } = require("date-fns");
 
 module.exports = async (userData) => {
-    console.log("Estamos en el register user...");
     if (!userData.acceptedTOS) {
         return {
             success: false,
@@ -38,7 +37,6 @@ module.exports = async (userData) => {
             error: "Invalid birthday",
         };
     }
-    console.log("Ha pasado el cumpleaños!");
     const currentDate = new Date();
     const age = differenceInYears(currentDate, parsedBirthday);
     if (age < 18) {
@@ -47,12 +45,9 @@ module.exports = async (userData) => {
             error: "User must be at least 18 years old",
         };
     }
-    console.log("Ha pasado el cumpleaños! v2 ");
     const hashedPassword = await hashPassword(userData.password);
     const randomCode = generaterandomvalidationcode();
     const newUserId = generateUUID();
-
-    console.log("Ha hecho los hashes pertinentes.");
 
     const user = {
         ...userData,
@@ -61,7 +56,6 @@ module.exports = async (userData) => {
         validated: false,
         role: "Usuario",
     };
-    console.log(user);
     await saveUser(user);
 
     const expiraTimestamp = timeService.getTimestampMinutesFromNow(6);
