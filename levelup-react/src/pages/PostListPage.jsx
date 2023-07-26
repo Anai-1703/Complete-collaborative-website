@@ -1,7 +1,7 @@
 import PostList from "../components/PostList";
 import "./PostListPage.css";
 
-function PostListPage() {
+export function PostListPage() {
   return (
     <>
       <PostList />
@@ -9,4 +9,4 @@ function PostListPage() {
   );
 }
 
-export default PostListPage;
+

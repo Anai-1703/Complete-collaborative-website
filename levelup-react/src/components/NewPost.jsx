@@ -1,5 +1,8 @@
 const NewPost = () => {
-  return <div></div>;
+  return 
+  <div>
+    
+  </div>;
 };
 
 export default NewPost;
