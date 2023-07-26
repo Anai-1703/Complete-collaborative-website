@@ -88,3 +88,10 @@ nav form button[type="submit"] {
     position: relative;
   }
 }
+
+.search-button {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+  padding-left: 5px;
+}

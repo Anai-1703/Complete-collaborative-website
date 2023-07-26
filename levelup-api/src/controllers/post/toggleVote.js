@@ -11,28 +11,36 @@ const { generateUUID } = require("../../services/cryptoServices.js");
 const errorService = require("../../services/errorService");
 
 module.exports = async (idPost, idUser, userVote) => {
-    const voteExist = await checkVote(idPost);
-    // console.log(voteExist[0].votes);
-    // console.log(userVote);
-    // console.log(voteExist[0].votes == userVote);
+    const voteExist = await checkVote(idPost, idUser);
     console.log("¿Existe el voto?: ", voteExist);
+
     if (voteExist.length === 0) {
-        console.log("entra en el primer if");
+        // No hay voto existente, así que creamos un nuevo voto.
+        console.log("El voto no existe. Procedemos a la creación");
         const vote = {
             id: generateUUID(),
             idUser: idUser,
             idPost: idPost,
-            userVote: userVote,
+            userVote: userVote ? 1 : 0, // Convertimos el voto a 1 o 0 según sea true o false.
         };
         console.log("esto es VOTE: ", vote);
         return await createVote(vote);
     }
 
-    if (voteExist[0].votes === (userVote ? 1 : 0)) {
-        deleteVote(idPost, idUser);
+    if (voteExist[0].votes == 1) {
+        voteExist[0].votes = true;
     }
 
-    if (voteExist[0].votes != (userVote ? 1 : 0)) {
-        toggleVote(idPost, idUser, userVote);
+    if (voteExist[0].votes == 0) {
+        voteExist[0].votes = false;
+    }
+
+    // Ya hay un voto existente, verifiquemos si necesitamos hacer un toggle o eliminarlo.
+    if (voteExist[0].votes === userVote) {
+        await deleteVote(idPost, idUser);
+        console.log("voto eliminado");
+    } else {
+        await toggleVote(idPost, idUser, userVote ? 1 : 0); // Convertimos el voto a 1 o 0 según sea true o false.
+        console.log("voto cambiado");
     }
 };

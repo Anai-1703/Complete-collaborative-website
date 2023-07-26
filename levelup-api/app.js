@@ -1,6 +1,7 @@
 "use strict";
 
 require("dotenv").config();
+const path = require("path");
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const morgan = require("morgan");
@@ -29,6 +30,9 @@ app.use(fileUpload());
 app.use(morgan("dev"));
 app.use(validateToken);
 app.use(appRouter);
+
+const staticDirectory = path.join(__dirname, "/public/photos");
+app.use(express.static(staticDirectory));
 
 //middleware de error
 app.use((err, req, res, next) => {
