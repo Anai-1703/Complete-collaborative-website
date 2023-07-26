@@ -40,6 +40,14 @@ a.main-title:hover {
   cursor: pointer;
 }
 
+.img-logo {
+  width: 30%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 footer {
   position: fixed;
   bottom: 0;
