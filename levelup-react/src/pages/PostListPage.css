@@ -1,14 +1,13 @@
 article {
     width: 100%;
     padding: 20px;
+    margin-bottom: 15px;
     border: 1px solid rgb(110, 36, 145);
     border-radius: 1rem;
-    box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: space-between;
-    padding-bottom: 5px;
-    /* display: flex;
-    align-items: center; */
 }
 
 .link-to-user {
@@ -48,23 +47,7 @@ article {
     align-items: center;
 }
 
-/*
-
-.user-detail {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-    .user-interaction {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-}
-*/
-
 .post-content {
-    border: 1px solid red;
     flex: 0 0 35%; /* 35% del ancho, pero no crecerá ni se encogerá */
     max-width: 35%;
 }
@@ -85,7 +68,6 @@ article {
 
 .post-text {
     flex: 1; /* Ocupar el resto del ancho disponible */
-    border: 1px solid green;
 }
 
 .post-title {
@@ -131,18 +113,3 @@ article {
   padding: 0;
   text-align: left;
 }
-
-/* 
-    .user-interaction > div {
-    width: 70%;
-    }
-
-    .user-interaction > div:last-child {
-    width: 30%;
-    }
-
-    .post-content,
-    .post-comments {
-    margin-top: 20px;
-
-    } */
