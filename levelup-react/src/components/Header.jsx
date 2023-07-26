@@ -8,7 +8,8 @@ export function Header() {
         <h1>
           <img src={Logo} alt="Level Up!" className="img-logo" />
         </h1>
-      </Link>
+      </Link>´
+      <Link to="/new-post">Al formulario/</Link>
     </header>
   );
 }
