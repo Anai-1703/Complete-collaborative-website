@@ -3,10 +3,15 @@ import { useParams } from "react-router-dom";
 import { getUniquePost } from "../services/getUniquePost";
 import { DefaultAvatar } from "./DefaultAvatar.jsx";
 import { UserInteraction } from "./UserInteraction";
+import { Link } from "react-router-dom";
+
+const host = import.meta.env.VITE_API_HOST;
+
 
 function UniquePost() {
   const [post, setPost] = useState({});
   const { id } = useParams();
+
 
   useEffect(() => {
     async function fetchPost() {
@@ -20,47 +25,48 @@ function UniquePost() {
 
     fetchPost();
   }, [id]);
-  // TEMPORAL
-  const photos = ["Foto 1", "Foto 2"];
-  console.log(post.nameMember);
-  console.log(post.comments);
+  
+  if (!post.data) {
+    return <div>Leveling Up Posts...</div>;
+  }
+
 
   return (
-    <>
+      <>
+
       <section className="user-detail-full">
-        {post.avatarURL ? (
-          <img className="user-avatar-full" src={post.avatarURL} alt="Avatar" />
-        ) : (
-          <DefaultAvatar border={false} />
-        )}
-        <span className="user-name-full">{post.nameMember}</span>
+        <Link className="link-to-user" to={`/users/${post.data.idUser}`}>
+          {post.avatarURL ? (
+            <img className="user-avatar-full" src={post.data.avatarURL} alt="Avatar" />
+          ) : (
+            <DefaultAvatar border={false} />
+          )}
+          <span className="user-name-full">{post.data.nameMember}</span>
+        </Link>
+      </section>
+      <section className="user-interaction-full">
+        <UserInteraction postId={post.data.id} initialUpvotes={post.data.upvotes} initialDownvotes={post.data.downvotes} />
       </section>
 
-      <section className="user-interaction-full">
-        <UserInteraction />
+      <section className="post-text-full">
+        <h3 className="post-title-full">{post.data.title}</h3>
+        <p className="post-entradilla-full">{post.data.entradilla}</p>
+        <p className="post-description-full">{post.data.description}</p>
       </section>
 
       <section className="post-content-full">
         <figure className="post-images-full">
-          {photos.map((photo, index) => (
-            <img key={index} src={photo} alt={`Photo ${index + 1}`} />
-          ))}
+            <img src={`${host}${post.data.imageURL}`} alt={`Photo ${post.data.title}`} />
         </figure>
       </section>
-
-      <section className="post-text-full">
-        <h3 className="post-title-full">{post.title}</h3>
-        <p className="post-entradilla-full">{post.entradilla}</p>
-        <p className="post-description-full">{post.description}</p>
-        <p className="post-created-full">{post.createdAt}</p>
-      </section>
+      <p className="post-created-full">{post.data.createdAt}</p>
 
       <div className="separador">
         <p>&nbsp;</p>
       </div>
-
-      <section className="post-comments-full">
-        {post.comments?.map((comment, index) => (
+        <section className="post-comments-full">
+        {post.data.comments?.map((comment, index) => (
+          <Link key={comment.id + 1 } className="link-to-user-comment" to={`/users/${comment.idUser}`}>
           <section key={`${comment.idUser}-${index}`} className="comment">
             {comment.avatarURL ? (
               <img
@@ -76,6 +82,7 @@ function UniquePost() {
               <p className="comment-text">{comment.comment}</p>
             </section>
           </section>
+          </Link>
         ))}
       </section>
     </>

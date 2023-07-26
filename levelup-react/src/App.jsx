@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 
-import { Footer } from "./components/Footer";
+// import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { NavBar } from "./components/NavBar.jsx";
 import Modal from "./components/Modal";
@@ -9,9 +9,9 @@ import Modal from "./components/Modal";
 import { HomePage } from "./pages/HomePage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { LoginPage } from "./pages/LoginPage";
-import { UserPage } from "./pages/UserPage";
+import UserPage from "./pages/UserPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
-import PostListPage from "./pages/PostListPage";
+import { PostListPage } from "./pages/PostListPage";
 import { UniquePostPage } from "./pages/UniquePostPage";
 import { GuestRegisterPage } from "./pages/GuestRegisterPage";
 
@@ -25,14 +25,14 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/posts" element={<PostListPage />} />
         <Route path="/posts/:id" element={<UniquePostPage />} />
-        <Route path="/user/:id" element={<UserPage />} />
+        <Route path="/users/:id" element={<UserPage />} />
         <Route path="/guest-register" element={<GuestRegisterPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Modal />
       <NavBar />
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

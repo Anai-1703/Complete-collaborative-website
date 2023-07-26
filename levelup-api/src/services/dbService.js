@@ -7,7 +7,6 @@ const db = getConnection();
 
 module.exports = {
     async saveUser(user) {
-        console.log("LLegamos a la BBDD");
         const statement = `
         INSERT INTO users(id, nameMember, email, password, birthday, acceptedTOS, validated)
         VALUES(?, ?, ?, ?, ?, ?, ?)
@@ -21,18 +20,14 @@ module.exports = {
             user.acceptedTOS,
             user.validated,
         ]);
-        console.log("Consulta completa");
     },
 
     async getUserById(userId) {
-        console.log("accediendo a la BBDD");
-        console.log(userId);
         const statement = `
       SELECT id, nameMember, biography, avatarURL, country, role
       FROM users
       WHERE id = ?`;
         const [rows] = await db.execute(statement, [userId]);
-        console.log(rows);
         return rows;
     },
 
@@ -97,7 +92,6 @@ module.exports = {
     },
 
     async getAllPosts() {
-        console.log("peticion de todos los posts");
         const statement = `
         SELECT 
           p.id, 
@@ -110,7 +104,12 @@ module.exports = {
           pc.comments AS lastComment,
           pc.idUser AS commentUserId,
           uc.avatarURL AS commentUserAvatarURL,
-          uc.nameMember AS commentUserNameMember
+          uc.nameMember AS commentUserNameMember,
+          pi.imageURL,
+          v.upvotes,
+          v.downvotes,
+          c.categories,
+          plt.platforms
         FROM 
           POSTS p
         JOIN 
@@ -126,9 +125,39 @@ module.exports = {
           postcomments pc ON subquery.idPost = pc.idPost AND subquery.ultimoComentarioFecha = pc.createdAt
         LEFT JOIN
           users uc ON pc.idUser = uc.id
+        LEFT JOIN
+          postimages pi ON p.id = pi.idPost
+        LEFT JOIN
+          (SELECT 
+            idPost,
+            SUM(votes = 1) AS upvotes,
+            SUM(votes = 0) AS downvotes
+          FROM
+            votes
+          GROUP BY
+            idPost) AS v ON p.id = v.idPost
+        LEFT JOIN
+          (SELECT 
+            pcats.postId,
+            GROUP_CONCAT(DISTINCT c.category) AS categories
+          FROM
+            postcategories pcats
+          JOIN
+            categories c ON pcats.categoryId = c.id
+          GROUP BY
+            pcats.postId) AS c ON p.id = c.postId
+        LEFT JOIN
+          (SELECT 
+            pplat.postId,
+            GROUP_CONCAT(DISTINCT plt.platform) AS platforms
+          FROM
+            postplatforms pplat
+          JOIN
+            platforms plt ON pplat.platformId = plt.id
+          GROUP BY
+            pplat.postId) AS plt ON p.id = plt.postId
         ORDER BY 
           createdAt DESC;
-      
       `;
         const [rows] = await db.execute(statement);
         return rows;
@@ -150,7 +179,7 @@ module.exports = {
           p.id, 
           p.title, 
           p.entradilla, 
-          p.description, 
+          p.description,
           p.idUser, 
           p.createdAt, 
           u.nameMember, 
@@ -160,30 +189,159 @@ module.exports = {
             'avatarURL', uc.avatarURL,
             'nameMember', uc.nameMember,
             'idUser', pc.idUser
-          )) AS comments
+          )) AS comments,
+          pc.idUser AS commentUserId,
+          uc.avatarURL AS commentUserAvatarURL,
+          uc.nameMember AS commentUserNameMember,
+          pi.imageURL,
+          v.upvotes,
+          v.downvotes,
+          c.categories,
+          plt.platforms
+        FROM 
+          POSTS p
+        JOIN 
+          users u ON p.idUser = u.id
+        LEFT JOIN 
+          (SELECT 
+            idPost, MAX(createdAt) AS ultimoComentarioFecha
+          FROM 
+            postcomments
+          GROUP BY 
+            idPost) AS subquery ON p.id = subquery.idPost
+        LEFT JOIN 
+          postcomments pc ON subquery.idPost = pc.idPost AND subquery.ultimoComentarioFecha = pc.createdAt
+        LEFT JOIN
+          users uc ON pc.idUser = uc.id
+        LEFT JOIN
+          postimages pi ON p.id = pi.idPost
+        LEFT JOIN
+          (SELECT 
+            idPost,
+            SUM(votes = 1) AS upvotes,
+            SUM(votes = 0) AS downvotes
+          FROM
+            votes
+          GROUP BY
+            idPost) AS v ON p.id = v.idPost
+        LEFT JOIN
+          (SELECT 
+            pcats.postId,
+            GROUP_CONCAT(DISTINCT c.category) AS categories
+          FROM
+            postcategories pcats
+          JOIN
+            categories c ON pcats.categoryId = c.id
+          GROUP BY
+            pcats.postId) AS c ON p.id = c.postId
+        LEFT JOIN
+          (SELECT 
+            pplat.postId,
+            GROUP_CONCAT(DISTINCT plt.platform) AS platforms
+          FROM
+            postplatforms pplat
+          JOIN
+            platforms plt ON pplat.platformId = plt.id
+          GROUP BY
+            pplat.postId) AS plt ON p.id = plt.postId
+        WHERE 
+          p.id = ? 
+        GROUP BY 
+          p.id, 
+          p.title, 
+          p.entradilla, 
+          p.idUser, 
+          p.createdAt, 
+          u.nameMember, 
+          u.avatarURL,
+          pc.idUser,
+          uc.avatarURL,
+          uc.nameMember,
+          pi.imageURL,
+          v.upvotes,
+          v.downvotes,
+          c.categories,
+          plt.platforms
+        ORDER BY 
+          createdAt DESC;
+    `;
+        const [rows] = await db.execute(statement, [postId]);
+        return rows[0];
+    },
+
+    async getPostByUserId(userId) {
+        const statement = `
+        SELECT 
+          p.id, 
+          p.title, 
+          p.entradilla, 
+          p.description,
+          p.idUser, 
+          p.createdAt, 
+          u.nameMember, 
+          u.avatarURL, 
+          pi.imageURL,
+          v.upvotes,
+          v.downvotes,
+          c.categories,
+          plt.platforms
         FROM 
           posts p
         JOIN 
           users u ON p.idUser = u.id
         LEFT JOIN 
-          postcomments pc ON p.id = pc.idPost
+          (SELECT 
+            idPost,
+            SUM(votes = 1) AS upvotes,
+            SUM(votes = 0) AS downvotes
+          FROM
+            votes
+          GROUP BY
+            idPost) AS v ON p.id = v.idPost
+        LEFT JOIN
+          (SELECT 
+            pcats.postId,
+            GROUP_CONCAT(DISTINCT c.category) AS categories
+          FROM
+            postcategories pcats
+          JOIN
+            categories c ON pcats.categoryId = c.id
+          GROUP BY
+            pcats.postId) AS c ON p.id = c.postId
+        LEFT JOIN
+          (SELECT 
+            pplat.postId,
+            GROUP_CONCAT(DISTINCT plt.platform) AS platforms
+          FROM
+            postplatforms pplat
+          JOIN
+            platforms plt ON pplat.platformId = plt.id
+          GROUP BY
+            pplat.postId) AS plt ON p.id = plt.postId
         LEFT JOIN 
-          users uc ON pc.idUser = uc.id
+          postimages pi ON p.id = pi.idPost
         WHERE 
-          p.id = ?
+          p.idUser = ?
         GROUP BY 
           p.id, 
           p.title, 
           p.entradilla, 
-          p.description, 
+          p.description,
           p.idUser, 
           p.createdAt, 
           u.nameMember, 
-          u.avatarURL;
-    `;
-        const [rows] = await db.execute(statement, [postId]);
-        console.log(rows);
-        return rows[0];
+          u.avatarURL, 
+          pi.imageURL,
+          v.upvotes,
+          v.downvotes,
+          c.categories,
+          plt.platforms
+        ORDER BY 
+          createdAt DESC;
+      
+      `;
+        const [rows] = await db.execute(statement, [userId]);
+        return rows;
     },
 
     async savePost(post) {
@@ -201,22 +359,78 @@ module.exports = {
     },
 
     async savePostPlatforms(postId, platforms) {
-        const statement = `
-        INSERT INTO postplatforms(postId, platformId)
-        VALUES(?, ?);
-      `;
-        for (const platformId of platforms) {
-            await db.execute(statement, [postId, platformId]);
+        try {
+            const platformIds = await Promise.all(
+                platforms.map(async (platform) => {
+                    const [rows] = await db.execute(
+                        "SELECT id FROM platforms WHERE platform = ?",
+                        [platform]
+                    );
+                    if (rows.length === 0) {
+                        throw new Error(
+                            `La plataforma '${platform}' no existe en la tabla platforms.`
+                        );
+                    }
+                    return rows[0].id;
+                })
+            );
+
+            // Construir la consulta manualmente con los valores que deseamos insertar
+            let values = "";
+            platformIds.forEach((platformId, index) => {
+                values += `(${db.escape(postId)}, ${db.escape(platformId)})`;
+                if (index < platformIds.length - 1) {
+                    values += ", ";
+                }
+            });
+
+            const statement = `
+          INSERT INTO postplatforms(postId, platformId)
+          VALUES ${values};
+        `;
+
+            await db.execute(statement);
+        } catch (error) {
+            console.error("Error en savePostPlatforms:", error);
+            throw error;
         }
     },
 
     async savePostCategories(postId, categories) {
-        const statement = `
-        INSERT INTO postcategories(postId, categoryId)
-        VALUES(?, ?);
-      `;
-        for (const categoryId of categories) {
-            await db.execute(statement, [postId, categoryId]);
+        try {
+            const categoryIds = await Promise.all(
+                categories.map(async (category) => {
+                    const [rows] = await db.execute(
+                        "SELECT id FROM categories WHERE category = ?",
+                        [category]
+                    );
+                    if (rows.length === 0) {
+                        throw new Error(
+                            `La categoría '${category}' no existe en la tabla categories.`
+                        );
+                    }
+                    return rows[0].id;
+                })
+            );
+
+            // Construir la consulta manualmente con los valores que deseamos insertar
+            let values = "";
+            categoryIds.forEach((categoryId, index) => {
+                values += `(${db.escape(postId)}, ${db.escape(categoryId)})`;
+                if (index < categoryIds.length - 1) {
+                    values += ", ";
+                }
+            });
+
+            const statement = `
+          INSERT INTO postcategories(postId, categoryId)
+          VALUES ${values};
+        `;
+
+            await db.execute(statement);
+        } catch (error) {
+            console.error("Error en savePostCategories:", error);
+            throw error;
         }
     },
 
@@ -236,7 +450,6 @@ module.exports = {
           WHERE idPost = ?
         `;
         const [rows] = await db.execute(statement, [postId]);
-        console.log("rows: ", rows);
 
         return rows;
     },
@@ -257,7 +470,6 @@ module.exports = {
         INSERT INTO postcomments(id, iDUser, idPost, comments)
         VALUES(?, ?, ?, ?)
       `;
-        console.log(newComment);
         await db.execute(statement, [
             newComment.id,
             newComment.userId,
@@ -288,14 +500,13 @@ module.exports = {
         }
     },
 
-    async checkVote(postId) {
-        console.log("esto se está ejecutando");
+    async checkVote(postId, userId) {
         const statement = `
-      SELECT * FROM votes
-      WHERE idpost = ?
+        SELECT *
+        FROM votes
+        WHERE idPost = ? AND idUser = ?
       `;
-        const [rows] = await db.execute(statement, [postId]);
-        console.log("Esto es lo que devuelve la consulta de CheckVote: ", rows);
+        const [rows] = await db.execute(statement, [postId, userId]);
         return rows;
     },
 
@@ -310,7 +521,6 @@ module.exports = {
             vote.idPost,
             vote.userVote,
         ]);
-        console.log(rows);
         return rows;
     },
 
@@ -321,7 +531,6 @@ module.exports = {
       `;
 
         const [rows] = await db.execute(statement, [idPost, idUser]);
-        console.log("Rows DeleteVote: ", rows);
         return rows;
     },
 
@@ -361,7 +570,6 @@ module.exports = {
     },
 
     async updateComment(post) {
-        console.log("post: ", post);
         const statement = ` 
         UPDATE postcomments
         SET comments = ?
@@ -371,7 +579,6 @@ module.exports = {
             post["comment"],
             post["0"]["id"],
         ]);
-        console.log(rows);
         return rows;
     },
 
@@ -384,10 +591,7 @@ module.exports = {
         await db.execute(statement, [commentId]);
     },
 
-    // cambiar
     async savePhoto(photo) {
-        console.log("llega al savephoto de dbservice");
-        console.log(photo);
         const statement = `
         INSERT INTO postimages(id, idPost, imageURL)
         VALUES(?, ?, ?)

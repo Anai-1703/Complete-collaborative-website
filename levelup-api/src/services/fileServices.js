@@ -21,7 +21,7 @@ async function saveFile(postId, photoId, photoFile) {
 
     await sharpImg.webp().toFile(filePath);
 
-    const fileURL = `/photos/${postId}/${filename}`;
+    const fileURL = `/${postId}/${filename}`;
 
     return fileURL;
 }

@@ -1,59 +1,39 @@
-import React, { useState, useEffect } from "react";
-import UserInfo from "../components/UserInfo";
-import UniquePost from "../components/UniquePost";
+// UserPage.jsx
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getUser } from "../services/GetUser";
+import UserInfo from "../components/UserInfo.jsx";
+import { UserPanel } from "../components/UserPanel.jsx"
 
-export function UserPage() {
+const UserPage = () => {
   const [user, setUser] = useState(null);
-  const [posts, setPosts] = useState([]);
+  const token = localStorage.getItem("userToken"); // Suponiendo que has almacenado el token en el localStorage.
+  const { id } = useParams();
 
   useEffect(() => {
-    // Función ficticia para simular una llamada a la API y obtener los datos del usuario
-    const fetchUserDataFromAPI = async () => {
-      // Supongamos que la API devuelve los datos del usuario en formato JSON
-      const response = await fetch("http://localhost:3000/users");
-      const data = await response.json();
-      return data; // Retorna los datos del usuario
-    };
-
-    // Función ficticia para simular una llamada a la API y obtener las publicaciones del usuario
-    const fetchUserPostsFromAPI = async () => {
-      // Supongamos que la API devuelve las publicaciones en formato JSON
-      const response = await fetch("http://localhost:3000/posts");
-      const data = await response.json();
-      return data; // Retorna las publicaciones del usuario
-    };
-
-    const fetchData = async () => {
-      try {
-        // Llamada a la función ficticia para obtener los datos del usuario
-        const userData = await fetchUserDataFromAPI();
-
-        // Llamada a la función ficticia para obtener las publicaciones del usuario
-        const userPosts = await fetchUserPostsFromAPI();
-
-        setUser(userData);
-        setPosts(userPosts);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+    getUser(id, token)
+      .then((userData) => setUser(userData))
+      .catch((error) => {
+        console.log(error);
+        // Manejo de errores, por ejemplo, mostrar un mensaje de error o redirigir a una página de error.
+      });
+  }, [id, token]);
 
   if (!user) {
-    return (
-      <div>
-        <h1>Loading...</h1>
-      </div>
-    );
+    return <div>Loading...</div>; // O podrías mostrar un spinner o lo que prefieras mientras se obtienen los datos del usuario.
   }
+
+  const isCurrentUser = false
 
   return (
     <div>
-      <h1>User Profile</h1>
-      <UserInfo user={user} />
-      <UniquePost posts={posts} />
+      {isCurrentUser ? (
+        <UserPanel user={user} />
+      ) : (
+        <UserInfo user={user} />
+      )}
     </div>
   );
-}
+};
+
+export default UserPage;
