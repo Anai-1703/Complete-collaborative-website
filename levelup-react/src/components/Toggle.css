@@ -1,0 +1,27 @@
+
+.toggle-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed; 
+  top: 10px; 
+  right: 10px; 
+}
+
+.toggle-button img {
+  width: 20px;
+  height: 20px;
+}
+
+
+/*.light-mode {
+  background: linear-gradient(#3b1103, #e64611);
+}
+
+.dark-mode {
+  background: linear-gradient(#30142b, #2772a1);
+}
