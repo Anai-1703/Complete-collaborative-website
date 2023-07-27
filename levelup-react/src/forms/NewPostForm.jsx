@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { createNewPost } from '../services/createNewPost';
 import './NewPostForm.css';
 
-export const NewPostForm = () => {
+const NewPostForm = () => {
   const [text, setText] = useState('');
   const [photo, setPhoto] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
@@ -24,16 +24,11 @@ export const NewPostForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!text.trim()) {
-      alert('Please enter text for the post.');
+    if (!title.trim() || !summary.trim() || !description.trim() || !platform || !category || !photo) {
+      alert('Please enter all fields.');
       return;
     }
-
-    if (!photo) {
-      alert('Please select a photo for the post.');
-      return;
-    }
-
+    
     try {
       const newPostData = {
         title: title, 
@@ -133,24 +128,30 @@ export const NewPostForm = () => {
       <h2>New Post</h2>
       <form onSubmit={handleSubmit} className="new-post-form">
         <div className="input-container">
+          <div className="title">
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Title"
           />
+          </div>
+          <div className="summary">
           <textarea
             value={summary}
             onChange={(e) => setSummary(e.target.value)}
             placeholder="Entradilla (Resumen)"
             className="post-text-input"
           />
+          </div>
+          <div className="description">
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Descripción (texto)"
             className="post-text-input"
           />
+          </div>
         </div>
 
           {photoPreview && (
@@ -249,3 +250,5 @@ export const NewPostForm = () => {
 NewPostForm.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
+
+export default NewPostForm;

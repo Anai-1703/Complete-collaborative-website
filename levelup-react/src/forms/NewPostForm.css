@@ -4,7 +4,7 @@ h2 {
 }
 
 /* Estilos generales */
-.new-post-form {
+.input-container {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -12,11 +12,13 @@ h2 {
     margin: 0 auto;
     background-color: white;
 }
-
-.input-container {
+/* Título */
+.title {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    border-radius: 10px;
+    color: rgb(154, 214, 183);
 }
 
 /* Estilos del textarea */
@@ -40,7 +42,7 @@ h2 {
     /* internos puedan usar position absolute */
 }
 
-/* Estilos del botón para seleccionar el archivo */
+/* Estilos del botón para seleccionar photo */
 .file-input-button {
     cursor: pointer;
     background-color: #3b6f7c;
