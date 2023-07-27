@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { getUser } from "../services/token/getUser.js";
+import { getUserToken } from "../services/token/getUserToken.js";
 import { getToken } from "../services/token/getToken.js";
 import { deleteToken } from "../services/token/deleteToken.js";
 import { saveToken } from "../services/token/saveToken.js";
@@ -25,7 +25,7 @@ function logout() {
 
 function login(token) {
     saveToken(token);
-    const user = getUser();
+    const user = getUserToken();
     setCurrentContext({
     token,
     currentUser: user,
@@ -35,7 +35,7 @@ function login(token) {
 useEffect(() => {
     const token = getToken();
     if (token) {
-    const user = getUser();
+    const user = getUserToken();
     setCurrentContext({
         token,
         currentUser: user,
