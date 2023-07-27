@@ -1,0 +1,191 @@
+h2 {
+    text-align: center;
+    color: #289bb8;
+}
+
+/* Estilos generales */
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: white;
+}
+/* Título */
+.title {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 10px;
+    color: rgb(154, 214, 183);
+}
+
+/* Estilos del textarea */
+.post-text-input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100px;
+}
+
+/* Estilos del contenedor para el input tipo "file"*/
+.custom-file-input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 100%;
+    cursor: pointer;
+    background-color: #3b6f7c;
+    color: #fff;
+    border-radius: 5px;
+    position: relative; /* Agregamos position relative para que los elementos */
+    /* internos puedan usar position absolute */
+}
+
+/* Estilos del botón para seleccionar photo */
+.file-input-button {
+    cursor: pointer;
+    background-color: #3b6f7c;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Ocultar el input de tipo "file" */
+.photo-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Estilos de la foto previa */
+.photo-preview-container {
+    width: 100%;
+}
+
+.photo-preview {
+    width: 100%; /* La imagen se ajustará automáticamente al tamaño del contenedor */
+    max-height: 200px; /* Ajusta la altura máxima según tus necesidades */
+    object-fit: cover; /* Ajustar el tamaño de la imagen para cubrir el contenedor */
+}
+
+/* Estilos generales botones envio/cancelar */
+.buttons-container {
+    display: flex;
+    gap: 10px;
+    justify-content: space-around;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Estilos del boton de envío */
+.submit-button {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #289bb8;
+    font-size: 16px;
+    text-decoration: none;
+    overflow: hidden;
+    transition: 0.5s;
+    margin-top: 15px;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    animation: pulse 2s infinite;
+}
+
+.submit-button:hover {
+    background: #289bb8;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #289bb8, 0 0 25px #289bb8, 0 0 50px #289bb8,
+        0 0 100px #289bb8;
+}
+
+/* Estilos del boton de cancelar envío */
+.cancel-button {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #d64449;
+    font-size: 16px;
+    text-decoration: none;
+    overflow: hidden;
+    transition: 0.5s;
+    margin-top: 15px;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    animation: pulse 2s infinite;
+}
+
+.cancel-button:hover {
+    background: #d64449;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #d64449, 0 0 25px #d64449, 0 0 50px #d64449,
+        0 0 100px #d64449;
+}
+
+@media (max-width: 767px) {
+    .new-post-form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .input-container {
+        width: 100%;
+    }
+
+    .custom-file-input {
+        max-width: 100%; /* Ancho completo del botón de selección de foto */
+        margin-right: 0; /* Eliminar el espacio entre el botón y el textarea */
+    }
+
+    .photo-preview-container {
+        max-width: 100%; /* Ancho completo del contenedor de la vista previa de la foto */
+    }
+}
+
+/* Media Query para ajustar el formulario en pantallas más grandes */
+@media (min-width: 768px) {
+    .new-post-form {
+        max-width: 600px;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .input-container {
+        flex: 1;
+        margin-right: 20px; /* Espacio entre el textarea y el botón */
+    }
+
+    .custom-file-input {
+        max-width: 33%;
+        margin-right: 20px; /* Espacio entre el botón de selección de foto y el textarea */
+    }
+
+    .photo-preview-container {
+        max-width: 33%; /* Ancho del contenedor de la vista previa de la foto */
+    }
+}
+
+.input-buttons-container {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
