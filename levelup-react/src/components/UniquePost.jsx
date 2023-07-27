@@ -39,7 +39,7 @@ function UniquePost() {
           {post.avatarURL ? (
             <img className="user-avatar-full" src={post.data.avatarURL} alt="Avatar" />
           ) : (
-            <DefaultAvatar border={false} />
+            <DefaultAvatar post={false} />
           )}
           <span className="user-name-full">{post.data.nameMember}</span>
         </Link>

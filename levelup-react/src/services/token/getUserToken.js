@@ -1,3 +1,3 @@
-export function getUser() {
+export function getUserToken() {
     return JSON.parse(localStorage.getItem("USER"));
 }
