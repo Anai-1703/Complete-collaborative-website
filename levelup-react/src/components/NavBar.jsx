@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Toggle from "./Toggle";
 import searchIcon from "../assets/svg/lupa.svg";
 import menuIcon from "../assets/svg/menu.svg";
 import "./navBar.css";
@@ -71,6 +72,8 @@ export function NavBar() {
           </form>
         </li>
       </ul>
+      {/* Colocar el componente Toggle fuera de los elementos <ul> y <li> */}
+      <Toggle />
     </nav>
   );
 }
