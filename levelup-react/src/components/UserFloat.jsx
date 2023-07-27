@@ -38,7 +38,7 @@ const UserFloat = () => {
 
     return (
         <section className="user-float">
-            <Link className="link-to-user-float" to={`/users/${userData.idUser}`}>
+            <Link className="link-to-user-float" to={`/users/${userData.id}`}>
                 {userData.avatarURL ? (
                 <img className="user-avatar" src={userData.avatarURL} alt="Avatar" />
                 ) : (

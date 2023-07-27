@@ -14,22 +14,25 @@ import { NotFoundPage } from "./pages/NotFoundPage";
 import { PostListPage } from "./pages/PostListPage";
 import { UniquePostPage } from "./pages/UniquePostPage";
 import { GuestRegisterPage } from "./pages/GuestRegisterPage";
+import UserFloat from "./components/UserFloat";
+
 
 function App() {
   return (
     <>
-      <Header />
+    <UserFloat /> 
+    <Header />
 
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/posts" element={<PostListPage />} />
-        <Route path="/posts/:id" element={<UniquePostPage />} />
-        <Route path="/users/:id" element={<UserPage />} />
-        <Route path="/guest-register" element={<GuestRegisterPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/posts" element={<PostListPage />} />
+      <Route path="/posts/:id" element={<UniquePostPage />} />
+      <Route path="/users/:id" element={<UserPage />} />
+      <Route path="/guest-register" element={<GuestRegisterPage />} />
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
       <Modal />
       <NavBar />
 

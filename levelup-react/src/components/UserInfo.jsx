@@ -1,5 +1,4 @@
 import { DefaultAvatar } from "./DefaultAvatar";
-import PropTypes from 'prop-types';
 import { UserInteraction } from "./UserInteraction";
 import { Link } from "react-router-dom";
 const host = import.meta.env.VITE_API_HOST;
@@ -80,9 +79,3 @@ const UserInfo = ({ user }) => {
 };
 
 export default UserInfo;
-
-UserInfo.propTypes = {
-  user: PropTypes,
-};
-
-
