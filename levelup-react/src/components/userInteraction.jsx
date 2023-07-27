@@ -6,6 +6,7 @@ import { useState } from "react";
 export function UserInteraction({ postId, initialUpvotes, initialDownvotes  }) {
   const [upvotes, setUpvotes] = useState(initialUpvotes ?? 0);
   const [downvotes, setDownvotes] = useState(initialDownvotes ?? 0);
+  
   const handleVote = async (voteType) => {
     try {
       const response = await sendVote(postId, voteType);

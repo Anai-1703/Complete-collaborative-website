@@ -12,6 +12,7 @@ body {
     padding: 8% 0 0;
     margin: auto;
 }
+
 /* cuadro login */
 .form {
     position: relative;
@@ -29,7 +30,7 @@ body {
     border-radius: 10px;
 }
 
-/* imput login */
+/* input login */
 .form input {
     width: 100%;
     padding: 10px 0;
