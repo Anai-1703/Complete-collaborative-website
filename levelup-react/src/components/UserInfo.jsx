@@ -16,7 +16,7 @@ const UserInfo = ({ user }) => {
   const { id: urlUserId } = useParams();
   const [isLoggedInUser, setIsLoggedInUser] = useState(false);
   const [showControlPanel, setShowControlPanel] = useState(false);
-
+  const [isExpanded, setIsExpanded] = useState(false); // Nuevo estado para controlar si UserControlPanel está expandido o contraído
 
   const token = getToken();
   const userToken = getUserToken();
@@ -31,54 +31,51 @@ const UserInfo = ({ user }) => {
     }
   }, [tokenInfo, userToken, urlUserId]);
 
-  const userData =  user[0].user[0];
+  const userData = user[0].user[0];
   const userPost = user[1].posts;
-  
 
   const handleEditClick = () => {
     // Mostrar el componente de control cuando se haga clic en "Editar"
-    setShowControlPanel(true);
+    setShowControlPanel(!showControlPanel); // Cambiar el estado de showControlPanel al contrario del valor actual
+    setIsExpanded(!showControlPanel); // Cambiar el estado de isExpanded al contrario del valor actual
   };
 
   return (
     <>
       <h2>Perfil de {userData.nameMember}</h2>
-      <article>
+      <article className="user-panel">
         <section className="user-id">
-          <p>{userData.nameMember}</p>
-
           {userData.avatarURL ? (
             <img className="user-avatar-full" src={userData.avatarURL} alt="Avatar" />
           ) : (
-            <DefaultAvatar className="full-avatar" />
+            <DefaultAvatar post={false} className="userinfo-avatar" />
           )}
-
-          <p>Role:</p>
-          <p>{userData.role}</p>
+          <p className="panel-username">{userData.nameMember}</p>
+          <p className="panel-role">{userData.role}</p>
         </section>
-        <p>Biografía: {userData.biography || "No Definido"}</p>
 
-        <p>Pais: {userData.country || "No Definido"}</p>
+        <section className="user-detail">
+          <p className="panel-bio-title">Biografía:</p>
+          <p className="panel-bio">{userData.biography || "No Definido"}</p>
 
-        {/* Mostrar el elemento <p>Editar</p> como un enlace <Link> si el usuario es el mismo que el usuario autenticado */}
-        {isLoggedInUser ? (
-        <button className="btn-edit" onClick={handleEditClick}>Editar</button>
-        ) : null}
-
+          <p className="panel-country-title">Pais:</p>
+          <p className="panel-country">{userData.country || "No Definido"}</p>
+          {isLoggedInUser ? (
+            <button className="btn-edit" onClick={handleEditClick}>
+              {isExpanded ? "Contraer" : "Editar"}
+            </button>
+          ) : null}
+        </section>
       </article>
 
       {showControlPanel && <UserControlPanel userData={userData} />}
-
-
 
       <section>
         <h3> Post de {userData.nameMember}</h3>
       </section>
 
-        {userPost.map(post => (
-
-      <article key={post.id + 1} className="user-post-list">
-
+      {userPost.map(post => (
+        <article key={post.id + 1} className="user-post-list">
           <section className="user-detail">
               {post.avatarURL ? (
               <img className="user-avatar" src={post.avatarURL} alt="Avatar" />
@@ -106,7 +103,6 @@ const UserInfo = ({ user }) => {
             <p className="post-date">{post.createdAt}</p>
         </section>
         </Link>
-
 
       </article>
         ))}

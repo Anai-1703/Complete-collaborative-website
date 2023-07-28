@@ -4,6 +4,7 @@ import './UserControlPanel.css'
 const UserControlPanel = ({ userData }) => {
     // Estado local para almacenar los valores del formulario
     const [nameMember, setNameMember] = useState("");
+    const [password, setPassword] = useState("");
     const [biography, setBiography] = useState("");
     const [country, setCountry] = useState("");
     const [imageFile, setImageFile] = useState(null);
@@ -12,6 +13,7 @@ const UserControlPanel = ({ userData }) => {
     useEffect(() => {
         if (userData) {
         setNameMember(userData.nameMember || "");
+        setPassword(userData.password || "")
         setBiography(userData.biography || "");
         setCountry(userData.country || "");
         }
@@ -19,6 +21,10 @@ const UserControlPanel = ({ userData }) => {
 
     const handleNameChange = (e) => {
         setNameMember(e.target.value);
+    };
+
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value);
     };
 
     const handleBiographyChange = (e) => {
@@ -39,6 +45,7 @@ const UserControlPanel = ({ userData }) => {
         // Aquí puedes enviar los datos actualizados del usuario al servidor o realizar otras acciones necesarias
         // Puedes acceder a los valores actualizados del formulario desde las variables de estado (nameMember, biography, country, imageFile)
         console.log("Name:", nameMember);
+        console.log("Password (unhashed): ", password);
         console.log("Biography:", biography);
         console.log("Country:", country);
         console.log("Image File:", imageFile);
@@ -52,6 +59,10 @@ const UserControlPanel = ({ userData }) => {
                 <label>
                     Name:
                     <input type="text" value={nameMember} onChange={handleNameChange} />
+                </label>
+                <label>
+                    Password:
+                    <input type="password" onChange={handlePasswordChange} />
                 </label>
                 <label>
                     Biography:

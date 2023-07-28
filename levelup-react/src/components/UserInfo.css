@@ -1,28 +1,60 @@
-article {
-    position: relative;
+.user-panel {
+    display: flex;
+    justify-content: space-between;
+    max-width: 100%;
 }
 
 .user-id {
+    flex: 0 0 40%;
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
+
+.user-detail {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.panel-username {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.panel-role {
+    font-size: 0.5rem;
+}
+
+/* Resto de estilos que ya tienes */
 
 .user-avatar-full {
     max-width: 40px;
     max-height: 40px;
     object-fit: contain;
-    margin-right: 10px;
 }
 
 .full-avatar {
     width: 40px;
     height: 40px;
-    margin-right: 10px;
 }
 
 p {
     color: white;
     margin: 5px 0;
+}
+
+.panel-bio-title,
+.panel-country-title {
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+.panel-bio,
+.panel-country {
+    font-size: 0.5rem;
 }
 
 .btn-edit {
