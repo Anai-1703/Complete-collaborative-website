@@ -28,11 +28,7 @@ const viewUniqueComment = require("../controllers/post/viewUniqueComment.js");
 const toggleVote = require("../controllers/post/toggleVote.js");
 
 // Importamos las funciones que interactúan con la base de datos.
-const {
-    updatePost,
-    deletePost,
-    checkVote,
-} = require("../services/dbService.js");
+const { deletePost, countVotes } = require("../services/dbService.js");
 
 // Importamos los servicios necesarios.
 const fileService = require("../services/fileServices.js");
@@ -205,8 +201,9 @@ router.post(
     json(),
     handleAsyncError(async (req, res) => {
         await toggleVote(req.params.id, req.currentUser.id, req.body.vote);
-
-        sendResponse(res, undefined, 200);
+        const votes = await countVotes(req.params.id);
+        console.log(votes);
+        sendResponse(res, votes, undefined, 200);
     })
 );
 

@@ -124,7 +124,7 @@ const NewPostForm = () => {
   };
 
   return (
-    <div>
+    <>
       <h2>New Post</h2>
       <form onSubmit={handleSubmit} className="new-post-form">
         <div className="input-container">
@@ -244,7 +244,7 @@ const NewPostForm = () => {
         </button>
       </div>
     </form>
-    </div>
+    </>
   );
 };
 NewPostForm.propTypes = {

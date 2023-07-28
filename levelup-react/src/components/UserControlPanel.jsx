@@ -1,48 +1,74 @@
-// UserControlPanel.jsx
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import './UserControlPanel.css'
 
-const UserControlPanel = ({ user }) => {
-    const [name, setName] = useState(user.nameMember);
-    const [biography, setBiography] = useState(user.biography || "");
-    const [avatarURL, setAvatarURL] = useState(user.avatarURL || "");
-    const [country, setCountry] = useState(user.country || "");
+const UserControlPanel = ({ userData }) => {
+    // Estado local para almacenar los valores del formulario
+    const [nameMember, setNameMember] = useState("");
+    const [biography, setBiography] = useState("");
+    const [country, setCountry] = useState("");
+    const [imageFile, setImageFile] = useState(null);
 
-    const handleNameChange = (e) => setName(e.target.value);
-    const handleBiographyChange = (e) => setBiography(e.target.value);
-    const handleAvatarURLChange = (e) => setAvatarURL(e.target.value);
-    const handleCountryChange = (e) => setCountry(e.target.value);
+    // Establecer los valores iniciales de los campos del formulario utilizando userData
+    useEffect(() => {
+        if (userData) {
+        setNameMember(userData.nameMember || "");
+        setBiography(userData.biography || "");
+        setCountry(userData.country || "");
+        }
+    }, [userData]);
 
-    const handleSubmit = () => {
-        // Aquí puedes enviar los cambios al servidor utilizando el endpoint de actualización de usuario.
-        // Por ejemplo, podrías usar el fetchAPI con el método "put" para enviar los datos actualizados.
-        // Recuerda enviar el token como parte del encabezado de autenticación para las peticiones seguras.
+    const handleNameChange = (e) => {
+        setNameMember(e.target.value);
+    };
 
-        // Luego de guardar los cambios, podrías mostrar un mensaje de éxito o actualizar la vista de alguna manera.
+    const handleBiographyChange = (e) => {
+        setBiography(e.target.value);
+    };
+
+    const handleCountryChange = (e) => {
+        setCountry(e.target.value);
+    };
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setImageFile(file);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Aquí puedes enviar los datos actualizados del usuario al servidor o realizar otras acciones necesarias
+        // Puedes acceder a los valores actualizados del formulario desde las variables de estado (nameMember, biography, country, imageFile)
+        console.log("Name:", nameMember);
+        console.log("Biography:", biography);
+        console.log("Country:", country);
+        console.log("Image File:", imageFile);
     };
 
     return (
-        <div>
-        <h2>User Control Panel</h2>
-        <form onSubmit={handleSubmit}>
-            <label>
-            Name:
-            <input type="text" value={name} onChange={handleNameChange} />
-            </label>
-            <label>
-            Biography:
-            <textarea value={biography} onChange={handleBiographyChange} />
-            </label>
-            <label>
-            Avatar URL:
-            <input type="text" value={avatarURL} onChange={handleAvatarURLChange} />
-            </label>
-            <label>
-            Country:
-            <input type="text" value={country} onChange={handleCountryChange} />
-            </label>
-            <button type="submit">Save Changes</button>
-        </form>
-        </div>
+        <>
+        <h2>Editor de Usuario</h2>
+        <article className="form-user">
+            <form className="user-edit-form" method="post" onSubmit={handleSubmit}>
+                <label>
+                    Name:
+                    <input type="text" value={nameMember} onChange={handleNameChange} />
+                </label>
+                <label>
+                    Biography:
+                    <textarea value={biography} onChange={handleBiographyChange} />
+                </label>
+                <label>
+                    Country:
+                    <input type="text" value={country} onChange={handleCountryChange} />
+                </label>
+                <label>
+                    Image:
+                    <input type="file" accept="image/*" onChange={handleImageChange} />
+                </label>
+                <button className="btn-edit-user" type="submit">Save Changes</button>
+            </form>
+        </article>
+        </>
     );
 };
 

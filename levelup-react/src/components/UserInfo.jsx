@@ -1,37 +1,76 @@
 import { DefaultAvatar } from "./DefaultAvatar";
 import { UserInteraction } from "./UserInteraction";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getUserToken } from "../services/token/GetUserToken";
+import { getTokenInfo } from "../services/token/GetTokenInfo";
+import { getToken } from "../services/token/getToken";
+import UserControlPanel from "./UserControlPanel";
+import './UserInfo.css'
+
+
 const host = import.meta.env.VITE_API_HOST;
 
 
-
-
 const UserInfo = ({ user }) => {
+  const { id: urlUserId } = useParams();
+  const [isLoggedInUser, setIsLoggedInUser] = useState(false);
+  const [showControlPanel, setShowControlPanel] = useState(false);
+
+
+  const token = getToken();
+  const userToken = getUserToken();
+  const tokenInfo = getTokenInfo(token);
+
+  useEffect(() => {
+    if (tokenInfo && userToken) {
+      const authenticatedUserId = tokenInfo.id;
+      setIsLoggedInUser(authenticatedUserId === urlUserId);
+    } else {
+      setIsLoggedInUser(false);
+    }
+  }, [tokenInfo, userToken, urlUserId]);
 
   const userData =  user[0].user[0];
   const userPost = user[1].posts;
   
+
+  const handleEditClick = () => {
+    // Mostrar el componente de control cuando se haga clic en "Editar"
+    setShowControlPanel(true);
+  };
+
   return (
     <>
       <h2>Perfil de {userData.nameMember}</h2>
       <article>
         <section className="user-id">
-        <p>{userData.nameMember}</p>
+          <p>{userData.nameMember}</p>
 
-        {userData.avatarURL ? (
+          {userData.avatarURL ? (
             <img className="user-avatar-full" src={userData.avatarURL} alt="Avatar" />
           ) : (
-            <DefaultAvatar className="full-avatar"/>
+            <DefaultAvatar className="full-avatar" />
           )}
 
-        <p>Role:</p>
-        <p>{userData.role}</p>
+          <p>Role:</p>
+          <p>{userData.role}</p>
         </section>
         <p>Biografía: {userData.biography || "No Definido"}</p>
 
         <p>Pais: {userData.country || "No Definido"}</p>
 
+        {/* Mostrar el elemento <p>Editar</p> como un enlace <Link> si el usuario es el mismo que el usuario autenticado */}
+        {isLoggedInUser ? (
+        <button className="btn-edit" onClick={handleEditClick}>Editar</button>
+        ) : null}
+
       </article>
+
+      {showControlPanel && <UserControlPanel userData={userData} />}
+
+
+
       <section>
         <h3> Post de {userData.nameMember}</h3>
       </section>
@@ -50,7 +89,6 @@ const UserInfo = ({ user }) => {
           </section>
 
         <section className="user-interaction">
-
             <UserInteraction postId={post.id} initialUpvotes={post.upvotes} initialDownvotes={post.downvotes} />
         </section>
 

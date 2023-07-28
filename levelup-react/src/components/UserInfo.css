@@ -1,0 +1,38 @@
+article {
+    position: relative;
+}
+
+.user-id {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar-full {
+    max-width: 40px;
+    max-height: 40px;
+    object-fit: contain;
+    margin-right: 10px;
+}
+
+.full-avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+p {
+    color: white;
+    margin: 5px 0;
+}
+
+.btn-edit {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    padding: 10px;
+    background-color: rgb(110, 36, 145);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}

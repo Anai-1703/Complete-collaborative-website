@@ -10,6 +10,32 @@ const host = import.meta.env.VITE_API_HOST;
 function PostList() {
     const [posts, setPosts] = useState([]);
 
+    async function updatePostVotes(id, upvotes, downvotes) {
+        try {
+            const index = posts.findIndex((post) => post.id === id);
+            if (index !== -1) {
+                // Actualizar los votos del post en el estado
+                const updatedPost = { ...posts[index], upvotes, downvotes };
+                setPosts((prevPosts) => {
+                    const updatedPosts = [...prevPosts];
+                    updatedPosts[index] = updatedPost;
+                    return updatedPosts;
+                });
+            }
+        } catch (error) {
+            console.error("Error updating post votes:", error);
+        }
+    }
+    
+    /*
+    function updatePostVotes(id, upvotes, downvotes) {
+        posts.findIndex()
+        // buscar en el array por ID (la posicion findIndex - )
+        // acceder a ese post posts[index] = {...posts[index], upvotes, downvotes}
+        // setposts([...posts])
+    }
+    */
+
     useEffect(() => {
         async function fetchPosts() {
         try {
@@ -38,8 +64,7 @@ function PostList() {
                     </section>
                     </Link>
                     <section className="user-interaction">
-
-                        <UserInteraction postId={post.id} initialUpvotes={post.upvotes} initialDownvotes={post.downvotes} />
+                        <UserInteraction postId={post.id} initialUpvotes={post.upvotes} initialDownvotes={post.downvotes} updatePostVotes={updatePostVotes}  />
                     </section>
 
                     <Link className="link-to-post" to={`/posts/${post.id}`}>

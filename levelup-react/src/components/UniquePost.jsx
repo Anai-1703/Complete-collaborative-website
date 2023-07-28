@@ -12,6 +12,9 @@ function UniquePost() {
   const [post, setPost] = useState({});
   const { id } = useParams();
 
+  function updatePostVotes(upvotes, downvotes) {
+    setPost({...post, upvotes, downvotes})
+  }
 
   useEffect(() => {
     async function fetchPost() {
@@ -45,7 +48,7 @@ function UniquePost() {
         </Link>
       </section>
       <section className="user-interaction-full">
-        <UserInteraction postId={post.data.id} initialUpvotes={post.data.upvotes} initialDownvotes={post.data.downvotes} />
+        <UserInteraction postId={post.data.id} upvotes={post.data.upvotes} downvotes={post.data.downvotes} updatePostVotes={updatePostVotes} />
       </section>
 
       <section className="post-text-full">
