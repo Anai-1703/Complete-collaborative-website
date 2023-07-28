@@ -1,12 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Toggle from "./Toggle";
 import searchIcon from "../assets/svg/lupa.svg";
 import menuIcon from "../assets/svg/menu.svg";
-import { getToken } from "../services/token/getToken";
-import { getUserToken } from "../services/token/getUserToken";
-import { getTokenInfo } from "../services/token/getTokenInfo";
-import { deleteToken } from "../services/token/deleteToken";
 import "./navBar.css";
 
 export function NavBar() {
@@ -14,21 +10,6 @@ export function NavBar() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchOption, setSearchOption] = useState("users");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const token = getToken();
-    const userToken = getUserToken();
-
-    if (token && userToken) {
-      const tokenInfo = getTokenInfo(token);
-      if (tokenInfo) {
-        setIsLoggedIn(true);
-      }
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, []);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -53,17 +34,8 @@ export function NavBar() {
     setSearchQuery("");
   };
 
-
-  const handleMenuClick = (e) => {
-    e.stopPropagation(); // Evita que el evento se propague al elemento li
+  const handleMenuClick = () => {
     setIsMenuOpen(!isMenuOpen);
-  };
-  
-
-  const handleLogout = () => {
-    deleteToken();
-    setIsLoggedIn(false);
-    navigate("/"); // Redirige a la página de login después de hacer logout
   };
 
   return (
@@ -73,23 +45,11 @@ export function NavBar() {
           <img src={menuIcon} alt="Menu" />
           {isMenuOpen && (
             <ul className="menu-dropdown">
-              {!isLoggedIn && (
-                <>
-                  <li>
-                    <Link to="/login">Login</Link>
-                  </li>
-                  <li>
-                    <Link to="/register">Registro</Link>
-                  </li>
-                </>
-              )}
-              {isLoggedIn && (
-                <li>
-                  <button onClick={handleLogout}>Logout</button>
-                </li>
-              )}
               <li>
-                <Link to="/newpost">New Post</Link>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/register">Registro</Link>
               </li>
             </ul>
           )}
