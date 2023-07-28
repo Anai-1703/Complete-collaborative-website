@@ -15,6 +15,8 @@ import { PostListPage } from "./pages/PostListPage";
 import { UniquePostPage } from "./pages/UniquePostPage";
 import UserFloat from "./components/UserFloat";
 
+import  NewPostPage from "./pages/NewPostPage";
+
 
 function App() {
   return (
