@@ -1,7 +1,7 @@
 
 import { sendVote } from '../services/sendVote';
-import './UserInteraction.css';
 import { useState } from "react";
+import '../styles/UserInteraction.css';
 
 
 export function UserInteraction({ postId, initialUpvotes, initialDownvotes, updatePostVotes }) {

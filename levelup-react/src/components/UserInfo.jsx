@@ -6,7 +6,7 @@ import { getUserToken } from "../services/token/getUserToken";
 import { getTokenInfo } from "../services/token/getTokenInfo";
 import { getToken } from "../services/token/getToken";
 import UserControlPanel from "./UserControlPanel";
-import './UserInfo.css'
+import '../styles/UserInfo.css'
 
 
 const host = import.meta.env.VITE_API_HOST;

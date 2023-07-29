@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import './UserControlPanel.css'
+import '../styles/UserControlPanel.css'
 
 const UserControlPanel = ({ userData }) => {
     // Estado local para almacenar los valores del formulario

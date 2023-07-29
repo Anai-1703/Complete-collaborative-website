@@ -7,7 +7,7 @@ import { getToken } from "../services/token/getToken";
 import { getUserToken } from "../services/token/getUserToken";
 import { getTokenInfo } from "../services/token/getTokenInfo";
 import { deleteToken } from "../services/token/deleteToken";
-import "./navBar.css";
+import "../styles/navBar.css";
 
 export function NavBar() {
   const navigate = useNavigate();

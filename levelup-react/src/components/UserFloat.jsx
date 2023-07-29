@@ -6,7 +6,7 @@ import { getUser } from "../services/GetUser";
 import { Link } from "react-router-dom";
 import { DefaultAvatar } from "./DefaultAvatar";
 
-import './UserFloat.css';
+import '../styles/UserFloat.css';
 
 
 const UserFloat = () => {

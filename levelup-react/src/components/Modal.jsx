@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./Modal.css";
+import "../styles/Modal.css";
 import { Header } from "./Header";
 
 const Modal = () => {
