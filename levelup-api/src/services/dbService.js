@@ -349,13 +349,14 @@ module.exports = {
         INSERT INTO posts(id, idUser, title, entradilla, description)
         VALUES(?, ?, ?, ?, ?);
       `;
-        await db.execute(statement, [
+        const rows = await db.execute(statement, [
             post.id,
             post.idUser,
             post.title,
             post.entradilla,
             post.description,
         ]);
+        return rows;
     },
 
     async savePostPlatforms(postId, platforms) {

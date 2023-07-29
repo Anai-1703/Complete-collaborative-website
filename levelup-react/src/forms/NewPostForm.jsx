@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react';
-import PropTypes from 'prop-types';
 import { createNewPost } from '../services/createNewPost';
 import Select from 'react-select';
 import './NewPostForm.css';
@@ -9,10 +8,10 @@ const NewPostForm = () => {
   const [photo, setPhoto] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
   const [title, setTitle] = useState('');
-  const [summary, setSummary] = useState('');
+  const [entradilla, setSummary] = useState('');
   const [description, setDescription] = useState('');
-  const [platform, setPlatform] = useState([]);
-  const [category, setCategory] = useState([]);
+  const [platforms, setPlatform] = useState([]);
+  const [categories, setCategory] = useState([]);
   const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
   const [cancelButtonClicked, setCancelButtonClicked] = useState(false);
   
@@ -25,37 +24,36 @@ const NewPostForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!title.trim() || !summary.trim() || !description.trim() || !platform || !category || !photo) {
+    if (!title.trim() || !entradilla.trim() || !description.trim() || !platforms || !categories) {
       alert('Please enter all fields.');
       return;
     }
     
     try {
       const newPostData = {
-        title: title, 
-        summary: summary, 
-        description: description, 
-        platform: platform, 
-        category: category, 
-        text: text,
-        photo: photo,
+        title: title,
+        entradilla: entradilla,
+        description: description,
+        platforms: platforms.map((platform) => platform.value), 
+        categories: categories.map((category) => category.value),
+        photo: photo || null,
       };
-    
-      // Llama a la función para crear un nuevo post utilizando la API
-      const createdPost = await createNewPost(newPostData);
 
-      // Realiza alguna acción con el post creado, si es necesario
-      console.log('Post creado:', createdPost);
-      console.log('Texto añadido:', text);
-      console.log('Foto seleccionada:', photo);
+    console.log('Post titulo:', newPostData.title);
+    console.log('Post entradilla:', newPostData.entradilla);
+    console.log('Post descripcion:', newPostData.description);
+    console.log('Post plataformas:', newPostData.platforms);
+    console.log('Post categorias:', newPostData.categories);
+    const createdPost = await createNewPost(newPostData);
+    // console.log("CreateD postTR: ", createdPost);
 
 
     // Limpiar entradas después de enviarlo
     setTitle('');
     setSummary('');
     setDescription('');
-    setPlatform('');
-    setCategory('');
+    setPlatform([]);
+    setCategory([]);
     setText('');
     setPhoto(null);
     setPhotoPreview(null);
@@ -64,17 +62,17 @@ const NewPostForm = () => {
     fileInputRef.current.value = '';
 
     // Establecer el estado de los botones
-      setSubmitButtonClicked(true);
+    setSubmitButtonClicked(true);
+    setSubmitMessage('Submitted');
 
         setSubmitMessage('Submitted');
     // Después de un tiempo, restablecer el estado de los botones
     setTimeout(() => {
       setSubmitMessage('');
-
       setSubmitButtonClicked(false);
     }, 1000); // Cambia 1000 por el tiempo deseado (en milisegundos) para mantener el estado cambiado
-  
- }  catch (error) {
+
+  }  catch (error) {
     console.error('Error al crear el post:', error.message);
     }
   };
@@ -118,7 +116,6 @@ const NewPostForm = () => {
 
     setTimeout(() => {
       setCancelMessage('');
-     
       setCancelButtonClicked(false);
     }, 1000);
   
@@ -145,7 +142,7 @@ const NewPostForm = () => {
           className="title"
         />
         <textarea
-          value={summary}
+          value={entradilla}
           onChange={(e) => setSummary(e.target.value)}
           placeholder="Entradilla (Resumen)"
           className="summary"
@@ -161,7 +158,7 @@ const NewPostForm = () => {
           <label className="select-label-2">Platform:</label>
           <Select
             className="platform-select"
-            value={platform}
+            value={platforms}
             onChange={handlePlatformChange}    
             options={[
               { value: "PS4", label: "PS4" },
@@ -188,7 +185,7 @@ const NewPostForm = () => {
           <label className="select-label-1">Category:</label>
           <Select
             className="category-select "
-            value={category}
+            value={categories}
             onChange={handleCategoryChange}   
             options={[
               { value: "RPG", label: "RPG" },
@@ -205,7 +202,7 @@ const NewPostForm = () => {
               { value: "Rol", label: "Rol" },
               { value: "Puzzle", label: "Puzzle" },
             ]}
-            isMulti    
+            isMulti
           />
         
       
@@ -248,7 +245,3 @@ const NewPostForm = () => {
 }
 
 export default NewPostForm;
-
-NewPostForm.propTypes = {
-    onClose: PropTypes.func.isRequired,
-}

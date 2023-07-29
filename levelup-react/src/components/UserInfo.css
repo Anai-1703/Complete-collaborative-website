@@ -12,11 +12,12 @@
     justify-content: center;
 }
 
-.user-detail {
+.panel-user-detail {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    position: relative;
 }
 
 .panel-username {
@@ -28,12 +29,11 @@
     font-size: 0.5rem;
 }
 
-/* Resto de estilos que ya tienes */
-
 .user-avatar-full {
     max-width: 40px;
     max-height: 40px;
     object-fit: contain;
+    padding-left: 5px;
 }
 
 .full-avatar {
@@ -59,12 +59,24 @@ p {
 
 .btn-edit {
     position: absolute;
-    bottom: 5px;
-    right: 5px;
     padding: 10px;
     background-color: rgb(110, 36, 145);
     color: white;
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
+    bottom: 5px;
+    right: 5px;
 }
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px; /* Espacio entre los párrafos y el botón */
+}
+
+.panel-user-detail p {
+    margin: 0;
+}
+

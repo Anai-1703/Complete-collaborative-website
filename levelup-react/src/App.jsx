@@ -14,7 +14,6 @@ import { NotFoundPage } from "./pages/NotFoundPage";
 import { PostListPage } from "./pages/PostListPage";
 import { UniquePostPage } from "./pages/UniquePostPage";
 import UserFloat from "./components/UserFloat";
-
 import  NewPostPage from "./pages/NewPostPage";
 
 
@@ -31,6 +30,7 @@ function App() {
       <Route path="/posts" element={<PostListPage />} />
       <Route path="/posts/:id" element={<UniquePostPage />} />
       <Route path="/users/:id" element={<UserPage />} />
+      <Route path="/new-post" element={<NewPostPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
       <Modal />

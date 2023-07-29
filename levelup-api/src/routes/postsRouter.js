@@ -75,8 +75,9 @@ router.post(
             throw new Error("INVALID_CREDENTIALS");
         }
         const token = req.currentUser.token; // Obtiene el token de la propiedad token del objeto currentUser
-        await createPost(req.body, token, res); // Pasa res como parámetro
-        sendResponse(res, req.body, undefined, 201);
+        const post = await createPost(req.body, token, res); // Pasa res como parámetro
+        const fullPost = { ...req.body, ...post.newPost };
+        sendResponse(res, fullPost, undefined, 201);
     })
 );
 

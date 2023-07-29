@@ -18,11 +18,13 @@ export async function fetchAPI(path, method = "get", payload, token) {
         requestInit.headers["Content-Type"] = "application/json";
         requestInit.body = JSON.stringify(payload);
     }
-    console.log(host);
+    console.log(host + path, requestInit);
     const response = await fetch(host + path, requestInit);
     const result = await response.json();
 
     if (!result.success) {
+        console.log(result.error);
+        console.log(result.error.code);
         throw new Error(result.error.code);
     }
 

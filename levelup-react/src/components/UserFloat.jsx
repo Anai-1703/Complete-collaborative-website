@@ -46,6 +46,7 @@ const UserFloat = () => {
                 )}
                 <span className="user-name-float">{userData.nameMember}</span>
             </Link>
+            <Link className="float-btn" to="/new-post">
             <svg className="float-btn"
             width="24"
             height="24"
@@ -64,6 +65,7 @@ const UserFloat = () => {
                     fill="blue"
                 />
             </svg>
+            </Link>
         </section>
     );
 };

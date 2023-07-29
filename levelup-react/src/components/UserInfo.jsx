@@ -2,8 +2,8 @@ import { DefaultAvatar } from "./DefaultAvatar";
 import { UserInteraction } from "./UserInteraction";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getUserToken } from "../services/token/GetUserToken";
-import { getTokenInfo } from "../services/token/GetTokenInfo";
+import { getUserToken } from "../services/token/getUserToken";
+import { getTokenInfo } from "../services/token/getTokenInfo";
 import { getToken } from "../services/token/getToken";
 import UserControlPanel from "./UserControlPanel";
 import './UserInfo.css'
@@ -54,7 +54,7 @@ const UserInfo = ({ user }) => {
           <p className="panel-role">{userData.role}</p>
         </section>
 
-        <section className="user-detail">
+        <section className="panel-user-detail">
           <p className="panel-bio-title">Biografía:</p>
           <p className="panel-bio">{userData.biography || "No Definido"}</p>
 
