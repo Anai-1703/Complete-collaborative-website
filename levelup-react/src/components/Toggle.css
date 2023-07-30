@@ -10,6 +10,7 @@
   position: fixed; 
   top: 10px; 
   right: 10px; 
+  
 }
 
 .toggle-button img {
@@ -25,3 +26,4 @@
 .dark-mode {
   background: linear-gradient(#30142b, #2772a1);
 }
+

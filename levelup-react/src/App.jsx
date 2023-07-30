@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import { Header } from "./components/Header";
 import { NavBar } from "./components/NavBar.jsx";
 import Modal from "./components/Modal";
+import Toggle from "./components/Toggle";
 
 import { HomePage } from "./pages/HomePage";
 import { RegisterPage } from "./pages/RegisterPage";
@@ -19,7 +20,7 @@ function App() {
   return (
     <>
       <Header />
-
+      <Toggle />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<RegisterPage />} />
