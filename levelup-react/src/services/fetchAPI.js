@@ -7,8 +7,9 @@ export async function fetchAPI(path, method = "get", payload, token) {
     };
 
     if (token) {
-        requestInit.headers["Authorization"] = `Bearer ${token}`;
+        requestInit.headers["Authorization"] = `${token}`;
     }
+    console.log(requestInit);
 
     if (method === "get" && payload) {
         const query = new URLSearchParams(payload).toString();
@@ -19,7 +20,7 @@ export async function fetchAPI(path, method = "get", payload, token) {
         requestInit.headers["Content-Type"] = "application/json";
         requestInit.body = JSON.stringify(payload);
     }
-
+    console.log(host);
     const response = await fetch(host + path, requestInit);
     const result = await response.json();
 

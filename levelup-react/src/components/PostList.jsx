@@ -58,19 +58,25 @@ function PostList() {
                     </Link>
                     
                     {post.lastComment && (
-                    <section className="post-comments">
-                        {post.commentUserAvatarURL ? (
-                        <img className="comment-avatar" src={post.commentUserAvatarURL} alt="Comment Avatar" />
-                        ) : (
-                            <DefaultAvatar post={true} />
-                        )}
-                        <section className="buble">
-                            <span className="comment-user">{post.commentUserNameMember}</span>
-                            <p className="comment-text">{post.lastComment}</p>
+                    <>
+                        <div className="separador">
+                            <p>&nbsp;</p>
+                        </div>
+                        <section className="post-comments">
+                            {post.commentUserAvatarURL ? (
+                            <img className="comment-avatar" src={post.commentUserAvatarURL} alt="Comment Avatar" />
+                            ) : (
+                                <DefaultAvatar post={true} />
+                            )}
+                            <section className="buble">
+                                <span className="comment-user">{post.commentUserNameMember}</span>
+                                <p className="comment-text">{post.lastComment}</p>
+                            </section>
                         </section>
-                    </section>
+                    </>
                     )}
                 </article>
+                
             ))}
         </>
     );

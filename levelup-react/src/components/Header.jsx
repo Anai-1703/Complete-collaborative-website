@@ -15,8 +15,14 @@ export function Header() {
   return (
     <header>
       <Link className="main-title" to="/">
+
         <h1>
           <img src={currentLogo} alt="Level Up!" className="img-logo" />
+
+         
+       <h1>
+         
+
         </h1>
       </Link>
     </header>

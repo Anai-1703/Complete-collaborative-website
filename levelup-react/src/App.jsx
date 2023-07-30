@@ -14,7 +14,8 @@ import UserPage from "./pages/UserPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { PostListPage } from "./pages/PostListPage";
 import { UniquePostPage } from "./pages/UniquePostPage";
-import { GuestRegisterPage } from "./pages/GuestRegisterPage";
+import  NewPostPage from "./pages/NewPostPage";
+
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
         <Route path="/posts" element={<PostListPage />} />
         <Route path="/posts/:id" element={<UniquePostPage />} />
         <Route path="/users/:id" element={<UserPage />} />
-        <Route path="/guest-register" element={<GuestRegisterPage />} />
+        <Route path="/new-post" element={<NewPostPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Modal />
