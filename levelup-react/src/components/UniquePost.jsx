@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { getUserToken } from "../services/token/getUserToken";
 import { getTokenInfo } from "../services/token/getTokenInfo";
 import { getToken } from "../services/token/getToken";
+import EditForm from "../forms/EditForm";
+
 
 const host = import.meta.env.VITE_API_HOST;
 
@@ -15,7 +17,9 @@ function UniquePost() {
   const [post, setPost] = useState({});
   const [showFullDate, setShowFullDate] = useState(false);
   const { id } = useParams();
-  const [isCurrentUserPost, setIsCurrentUserPost] = useState(false);
+
+  const [showControlPanel, setShowControlPanel] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false); 
     
   const formatDate = (dateString) => {
     const postDate = new Date(dateString);
@@ -56,19 +60,21 @@ function UniquePost() {
     fetchPost();
   }, [id]);
 
-  useEffect(() => {
-    // Verificar si el usuario actual es el creador del post
-    const token = getToken();
-    const tokenInfo = getTokenInfo(token);
-
-    setIsCurrentUserPost(post && post.data && post.data.idUser === tokenInfo.userId);
-  }, [post]);
 
 
   
   if (!post.data) {
     return <div>Leveling Up Posts...</div>;
   }
+
+  const token = getToken();
+  const tokenInfo = getTokenInfo(token);
+
+  const userIdFromToken = tokenInfo ? tokenInfo.id : null;
+  const createdByUserId = post.data.idUser;
+
+  const isCurrentUserPostCreator = userIdFromToken === createdByUserId;
+
 
   const formattedDate = formatDate(post.data.createdAt);
   const fullDate = new Date(post.data.createdAt).toLocaleString('es-ES', {
@@ -105,6 +111,11 @@ function UniquePost() {
   
   const hasComments = post.data.comments[0].idUser;
 
+  const handleEditClick = () => {
+    // Mostrar el componente de control cuando se haga clic en "Editar"
+    setShowControlPanel(!showControlPanel); // Cambiar el estado de showControlPanel al contrario del valor actual
+    setIsExpanded(!showControlPanel); // Cambiar el estado de isExpanded al contrario del valor actual
+  };
 
   return (
       <>
@@ -152,17 +163,25 @@ function UniquePost() {
         <p className="tags-plat">Plataformas: {platformsLinks}</p>
       </section>
 
-      {isCurrentUserPost && (
-        <section className="btn-editpost">
-          <button>Editar Post</button>
+      {isCurrentUserPostCreator && (
+        <section className="section-editpost">
+          <button className="btn-editpost" onClick={handleEditClick}> {isExpanded ? "Contraer" : "Editar Post"}</button>
         </section>
       )}
+
+      <div className="contain-form">
+        {showControlPanel && <EditForm postData={post.data} />}
+      </div>
 
       <div className="separador">
         <p>&nbsp;</p>
       </div>
 
-      {!hasComments && <p>No hay comentarios. ¡Se el primero en dejar uno!</p>}
+      {!hasComments &&
+      <>
+        <p>No hay comentarios. ¡Se el primero en dejar uno!</p>
+      </>
+      }
       {hasComments && (
         <section className="post-comments-full">
           {post.data.comments.map((comment, index) => (
@@ -188,10 +207,9 @@ function UniquePost() {
               </section>
             </Link>
           ))}
+          {/*aqui dejas el componente del comentario*/}
         </section>
       )}
-
-
     </>
   );
 }
