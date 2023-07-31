@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './CommentForm.css';
 
 const CommentForm = ({ onAddComment, postId }) => {
@@ -18,17 +19,17 @@ const CommentForm = ({ onAddComment, postId }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="comment">Agregar comentario:</label>
+      <div className="comment">
         <textarea
           type="text"
-          id="comment"
+          placeholder="Agregar comentario"
           value={comment}
           onChange={handleChange}
           required
         />
       </div>
-      <button type="submit">Agregar</button>
+      <button type="submit" className="btn">Agregar</button>
+      <Link to="/post/:id/comment"></Link>
     </form>
   );
 };
