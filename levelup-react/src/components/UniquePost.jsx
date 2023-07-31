@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 import { getUserToken } from "../services/token/getUserToken";
 import { getTokenInfo } from "../services/token/getTokenInfo";
 import { getToken } from "../services/token/getToken";
-
+import CommentPage from "../pages/CommentPage";
+import "./UniquePost.css";
 const host = import.meta.env.VITE_API_HOST;
 
 
@@ -16,15 +17,15 @@ function UniquePost() {
   const [showFullDate, setShowFullDate] = useState(false);
   const { id } = useParams();
   const [isCurrentUserPost, setIsCurrentUserPost] = useState(false);
-    
+
   const formatDate = (dateString) => {
     const postDate = new Date(dateString);
     const now = new Date();
-  
+
     const timeDiffInMinutes = Math.floor((now - postDate) / (1000 * 60));
     const timeDiffInHours = Math.floor(timeDiffInMinutes / 60);
     const timeDiffInDays = Math.floor(timeDiffInHours / 24);
-  
+
     if (timeDiffInMinutes < 5) {
       return 'hace un momento';
     } else if (timeDiffInMinutes < 60) {
@@ -37,9 +38,9 @@ function UniquePost() {
       return postDate.toLocaleDateString('es-ES');
     }
   };
-  
+
   function updatePostVotes(upvotes, downvotes) {
-    setPost({...post, upvotes, downvotes})
+    setPost({ ...post, upvotes, downvotes })
   }
 
 
@@ -65,10 +66,17 @@ function UniquePost() {
   }, [post]);
 
 
-  
+
   if (!post.data) {
     return <div>Leveling Up Posts...</div>;
   }
+
+  const [showCommentForm, setShowCommentForm] = useState(false);
+
+  // Función para mostrar/ocultar el formulario de comentarios
+  const toggleCommentForm = () => {
+    setShowCommentForm(!showCommentForm);
+  };
 
   const formattedDate = formatDate(post.data.createdAt);
   const fullDate = new Date(post.data.createdAt).toLocaleString('es-ES', {
@@ -96,18 +104,18 @@ function UniquePost() {
       <Link to={`${host}/searchcat/${category}`}>{category}</Link>{' '}
     </span>
   ));
-  
+
   const platformsLinks = platforms.map(platform => (
     <span key={platform}>
       <Link to={`${host}/searchplatform/${platform}`}>{platform}</Link>{' '}
     </span>
   ));
-  
+
   const hasComments = post.data.comments[0].idUser;
 
 
   return (
-      <>
+    <>
       <section className="user-detail-full">
         <Link className="link-to-user" to={`/users/${post.data.idUser}`}>
           {post.avatarURL ? (
@@ -143,10 +151,11 @@ function UniquePost() {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
+
           {formattedDate}
         </p>
       </section>
-      
+
       <section className="tags-full">
         <p className="tags-cat">Categorías: {categoriesLinks}</p>
         <p className="tags-plat">Plataformas: {platformsLinks}</p>
@@ -157,6 +166,7 @@ function UniquePost() {
           <button>Editar Post</button>
         </section>
       )}
+
 
       <div className="separador">
         <p>&nbsp;</p>

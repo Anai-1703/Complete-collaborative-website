@@ -1,20 +1,21 @@
 import { useState } from 'react';
+import './CommentForm.css';
 
-const CommentForm = ({onAddComment}) => {
-  const [ newComment, setNewComment] = useState('');
+const CommentForm = ({ onAddComment, postId }) => {
+  const [comment, setComment] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Pasar el nuevo comentario al componente padre a través de la prop onAddComment
-    onAddComment(newComment);
+    // Pasar el postId al componente padre a través de la prop onAddComment, para llamarlo
+    onAddComment(postId, comment);
     // Limpiar el campo del formulario después de agregar el comentario
-    setNewComment('');
+    setComment('');
   };
 
   const handleChange = (event) => {
-    setNewComment(event.target.value);
+    setComment(event.target.value);
   }
-  
+
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -22,7 +23,7 @@ const CommentForm = ({onAddComment}) => {
         <textarea
           type="text"
           id="comment"
-          value={newComment}
+          value={comment}
           onChange={handleChange}
           required
         />
