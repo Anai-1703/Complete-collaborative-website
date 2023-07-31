@@ -88,6 +88,8 @@ function PostList() {
         }
     };
 
+    let categories = null
+    let platforms = null
 
     return (
         <>
@@ -130,6 +132,24 @@ function PostList() {
                     </section>
                     </Link>
                     
+                    <section className="tags-full">
+                        {(() => {
+                            categories = post.categories.split(",");
+                            platforms = post.platforms.split(",");
+                            return null;
+                        })()}
+                        <p className="tags-cat">Categorías: {categories.map((category) => (
+                        <span key={category}>
+                            <Link to={`${host}/searchcat/${category}`}>{category}</Link>{' '}
+                        </span>
+                        ))}</p>
+                        <p className="tags-plat">Plataformas: {platforms.map((platform) => (
+                        <span key={platform}>
+                            <Link to={`${host}/searchplatform/${platform}`}>{platform}</Link>{' '}
+                        </span>
+                        ))}</p>
+                    </section>
+
                     {post.lastComment && (
                     <>
                         <div className="separador">

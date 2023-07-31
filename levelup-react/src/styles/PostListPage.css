@@ -52,6 +52,12 @@ article {
     max-width: 35%;
 }
 
+
+
+.post-created-full {
+  text-align: end;
+}
+
 .link-to-post {
     width: 100%;
     display: flex;

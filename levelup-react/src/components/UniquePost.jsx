@@ -73,9 +73,26 @@ function UniquePost() {
     setShowFullDate(false);
   };
 
+  const categories = post.data.categories.split(",");
+  const platforms = post.data.platforms.split(",");
+
+  const categoriesLinks = categories.map(category => (
+    <span key={category}>
+      <Link to={`${host}/searchcat/${category}`}>{category}</Link>{' '}
+    </span>
+  ));
+  
+  const platformsLinks = platforms.map(platform => (
+    <span key={platform}>
+      <Link to={`${host}/searchplatform/${platform}`}>{platform}</Link>{' '}
+    </span>
+  ));
+  
+  const hasComments = post.data.comments[0].idUser;
+
+
   return (
       <>
-
       <section className="user-detail-full">
         <Link className="link-to-user" to={`/users/${post.data.idUser}`}>
           {post.avatarURL ? (
@@ -97,43 +114,66 @@ function UniquePost() {
       </section>
 
       <section className="post-content-full">
-        <figure className="post-images-full">
+        {post.data.imageURL ? (
+          <figure className="post-images-full">
             <img src={`${host}${post.data.imageURL}`} alt={`Photo ${post.data.title}`} />
-        </figure>
+          </figure>
+        ) : null}
       </section>
-      <p
-        className="post-created-full"
-        title={showFullDate ? fullDate : null}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        {formattedDate}
-      </p>
 
+      <section className="post-date-full">
+        <p
+          className="post-created-full"
+          title={showFullDate ? fullDate : null}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          {formattedDate}
+        </p>
+      </section>
+      <section className="tags-post">
+        <p className="tags-cat">Categorías: {categoriesLinks}</p>
+        <p className="tags-plat">Plataformas: {platformsLinks}</p>
+      </section>
+      
+      <section className="tags-full">
+        <p className="platforms-full"></p>
+        <p className="categories-full"></p>
+      </section>
       <div className="separador">
         <p>&nbsp;</p>
       </div>
+
+      {!hasComments && <p>No hay comentarios. ¡Se el primero en dejar uno!</p>}
+      {hasComments && (
         <section className="post-comments-full">
-        {post.data.comments?.map((comment, index) => (
-          <Link key={comment.id + 1 } className="link-to-user-comment" to={`/users/${comment.idUser}`}>
-          <section key={`${comment.idUser}-${index}`} className="comment">
-            {comment.avatarURL ? (
-              <img
-                className="comment-avatar"
-                src={comment.avatarURL}
-                alt="Comment Avatar"
-              />
-            ) : (
-              <DefaultAvatar />
-            )}
-            <section className="buble-full">
-              <span className="comment-user">{comment.nameMember}</span>
-              <p className="comment-text">{comment.comment}</p>
-            </section>
-          </section>
-          </Link>
-        ))}
-      </section>
+          {post.data.comments.map((comment, index) => (
+            <Link key={comment.id + 1} className="link-to-user-comment" to={`/users/${comment.idUser}`}>
+              <section key={`${comment.idUser}-${index}`} className="comment">
+                {comment.avatarURL ? (
+                  <img
+                    className="comment-avatar"
+                    src={comment.avatarURL}
+                    alt="Comment Avatar"
+                  />
+                ) : (
+                  <DefaultAvatar />
+                )}
+                <section className="buble-full">
+                  {comment.nameMember && (
+                    <span className="comment-user">{comment.nameMember}</span>
+                  )}
+                  {comment.comment && (
+                    <p className="comment-text">{comment.comment}</p>
+                  )}
+                </section>
+              </section>
+            </Link>
+          ))}
+        </section>
+      )}
+
+
     </>
   );
 }

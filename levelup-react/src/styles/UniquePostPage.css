@@ -48,9 +48,18 @@ article {
     font-size: 1.5rem;
 }
 
-.post-text-full {
+.post-text-full,
+.post-content-full,
+.post-date-full,
+.tags-full {
     width: 100%;
     padding: 5px 0;
+}
+
+.post-content-full,
+.post-images-full {
+    display: flex;
+    justify-content: center;
 }
 
 .post-entradilla-full {
@@ -66,6 +75,24 @@ article {
 .post-images-full > img {
     flex: 1;
     max-width: 100%;
+}
+
+.post-date-full,
+.post-created-full {
+    text-align: right;
+    font-size: 0.4rem;
+}
+
+.tags-full {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.tags-cat,
+.tags-plat {
+    text-align: center;
+    font-size: 0.6rem;
 }
 
 .separador {
