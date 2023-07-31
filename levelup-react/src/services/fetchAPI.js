@@ -20,7 +20,7 @@ export async function fetchAPI(path, method = "get", payload, token) {
         requestInit.headers["Content-Type"] = "application/json";
         requestInit.body = JSON.stringify(payload);
     }
-    console.log(host);
+
     const response = await fetch(host + path, requestInit);
     const result = await response.json();
 

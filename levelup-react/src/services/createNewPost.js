@@ -6,7 +6,9 @@ export async function createNewPost(newPostData) {
         // Manejar la respuesta de la creación del post aquí si es necesario
         return response.data; // devuelve el nuevo post creado desde la api
     } catch (error) {
+        console.error("Error creating post:", error);
+
         // Manejar errores de la solicitud aquí si es necesario
-        throw new Error("Error al crear el post: " + error.message);
+        throw new Error("Error creating post: " + error);
     }
 }

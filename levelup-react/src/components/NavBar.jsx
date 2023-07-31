@@ -89,7 +89,7 @@ export function NavBar() {
                 </li>
               )}
               <li>
-                <Link to="/new-post">New Post</Link>
+                <Link to="/newpost">New Post</Link>
               </li>
             </ul>
           )}
