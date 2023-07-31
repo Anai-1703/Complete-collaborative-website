@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import "./Modal.css";
+import "../styles/Modal.css";
+import { Header } from "./Header";
 
 const Modal = () => {
   const [showModal, setShowModal] = useState(true);
@@ -13,15 +14,18 @@ const Modal = () => {
   }, []);
 
   return (
-    <div>
+    <>
       {showModal && (
+        <>
+        <Header />
         <div className="modal">
           <div className="modal-content">
             <img src="/src/assets/gif/loading.gif" alt="GIF" />
           </div>
         </div>
+        </>
       )}
-    </div>
+    </>
   );
 };
 

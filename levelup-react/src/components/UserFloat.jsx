@@ -6,7 +6,7 @@ import { getUser } from "../services/GetUser";
 import { Link } from "react-router-dom";
 import { DefaultAvatar } from "./DefaultAvatar";
 
-import './UserFloat.css';
+import '../styles/UserFloat.css';
 
 
 const UserFloat = () => {
@@ -38,7 +38,7 @@ const UserFloat = () => {
 
     return (
         <section className="user-float">
-            <Link className="link-to-user-float" to={`/users/${userData.idUser}`}>
+            <Link className="link-to-user-float" to={`/users/${userData.id}`}>
                 {userData.avatarURL ? (
                 <img className="user-avatar" src={userData.avatarURL} alt="Avatar" />
                 ) : (
@@ -46,6 +46,7 @@ const UserFloat = () => {
                 )}
                 <span className="user-name-float">{userData.nameMember}</span>
             </Link>
+            <Link className="float-btn" to="/new-post">
             <svg className="float-btn"
             width="24"
             height="24"
@@ -64,6 +65,7 @@ const UserFloat = () => {
                     fill="blue"
                 />
             </svg>
+            </Link>
         </section>
     );
 };

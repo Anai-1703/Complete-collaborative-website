@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { createNewPost } from '../services/createNewPost';
 import Select from 'react-select';
-import './NewPostForm.css';
+import '../styles/NewPostForm.css';
 
 const NewPostForm = () => {
   const [text, setText] = useState('');
@@ -112,7 +112,7 @@ const NewPostForm = () => {
     fileInputRef.current.value = '';
     setCancelButtonClicked(true);
 
-    setCancelMessage('Canceled');
+      setCancelMessage('Canceled');
 
     setTimeout(() => {
       setCancelMessage('');

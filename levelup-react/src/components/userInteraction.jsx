@@ -1,28 +1,25 @@
+
 import { sendVote } from '../services/sendVote';
-import './UserInteraction.css';
 import { useState } from "react";
+import '../styles/UserInteraction.css';
 
 
-export function UserInteraction({ postId, initialUpvotes, initialDownvotes  }) {
-  const [upvotes, setUpvotes] = useState(initialUpvotes ?? 0);
-  const [downvotes, setDownvotes] = useState(initialDownvotes ?? 0);
-  
-  const handleVote = async (voteType) => {
-    try {
-      const response = await sendVote(postId, voteType);
+export function UserInteraction({ postId, initialUpvotes, initialDownvotes, updatePostVotes }) {
+    const [upvotes, setUpvotes] = useState(Number(initialUpvotes) || 0);
+    const [downvotes, setDownvotes] = useState(Number(initialDownvotes) || 0);
 
-      // Actualizar los votos según la respuesta del servidor
-      if (response.success) {
-        if (voteType) {
-          setUpvotes((prevUpvotes) => prevUpvotes + 1);
-        } else {
-          setDownvotes((prevDownvotes) => prevDownvotes + 1);
-        }
+    const handleVote = async (voteType) => {
+      try {
+          const response = await sendVote(postId, voteType);
+          if (response.success) {
+              const { upvotes, downvotes } = response.data;
+              setUpvotes(Number(upvotes));
+              setDownvotes(Number(downvotes));
+              updatePostVotes(postId, upvotes, downvotes);
+          }
+      } catch (error) {
+          console.error("Error al enviar el voto:", error);
       }
-    } catch (error) {
-      console.error("Error al enviar el voto:", error);
-      // Manejar el error si es necesario
-    }
   };
 
   return (
