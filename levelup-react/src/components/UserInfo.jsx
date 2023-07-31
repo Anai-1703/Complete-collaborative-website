@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { getUserToken } from "../services/token/getUserToken";
 import { getTokenInfo } from "../services/token/getTokenInfo";
 import { getToken } from "../services/token/getToken";
-import UserControlPanel from "./UserControlPanel";
+import UserEditForm from "../forms/UserEditForm";
 import '../styles/UserInfo.css'
 
 
@@ -68,7 +68,7 @@ const UserInfo = ({ user }) => {
         </section>
       </article>
 
-      {showControlPanel && <UserControlPanel userData={userData} />}
+      {showControlPanel && <UserEditForm userData={userData} />}
 
       <section>
         <h3> Post de {userData.nameMember}</h3>

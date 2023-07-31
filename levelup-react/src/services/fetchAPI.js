@@ -9,6 +9,7 @@ export async function fetchAPI(path, method = "get", payload, token) {
     if (token) {
         requestInit.headers["Authorization"] = `${token}`;
     }
+
     if (method === "get" && payload) {
         const query = new URLSearchParams(payload).toString();
         path += `?${query}`;
@@ -18,6 +19,7 @@ export async function fetchAPI(path, method = "get", payload, token) {
         requestInit.headers["Content-Type"] = "application/json";
         requestInit.body = JSON.stringify(payload);
     }
+    console.log(method);
     console.log(host + path, requestInit);
     const response = await fetch(host + path, requestInit);
     const result = await response.json();
