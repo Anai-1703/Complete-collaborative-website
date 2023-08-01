@@ -8,7 +8,7 @@ const NewPostForm = () => {
   const [photo, setPhoto] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
   const [title, setTitle] = useState('');
-  const [entradilla, setSummary] = useState('');
+  const [entradilla, setEntradilla] = useState('');
   const [description, setDescription] = useState('');
   const [platforms, setPlatform] = useState([]);
   const [categories, setCategory] = useState([]);
@@ -50,7 +50,7 @@ const NewPostForm = () => {
 
     // Limpiar entradas después de enviarlo
     setTitle('');
-    setSummary('');
+    setEntradilla('');
     setDescription('');
     setPlatform([]);
     setCategory([]);
@@ -143,9 +143,9 @@ const NewPostForm = () => {
         />
         <textarea
           value={entradilla}
-          onChange={(e) => setSummary(e.target.value)}
+          onChange={(e) => setEntradilla(e.target.value)}
           placeholder="Entradilla (Resumen)"
-          className="summary"
+          className="entradilla"
         />
         <textarea
           value={description}
@@ -155,7 +155,7 @@ const NewPostForm = () => {
         />
         
         {/** Campo de la plataforma */}
-          <label className="select-label-2">Platform:</label>
+        <label className="select-label-2">Platform:</label>
           <Select
             className="platform-select"
             value={platforms}
@@ -182,7 +182,7 @@ const NewPostForm = () => {
           /> 
   
         {/* Campo de la categoría */}
-          <label className="select-label-1">Category:</label>
+        <label className="select-label-1">Category:</label>
           <Select
             className="category-select "
             value={categories}

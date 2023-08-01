@@ -22,6 +22,7 @@ const CommentForm = ({ onAddComment, postId }) => {
       <div className="comment">
         <textarea
           type="text"
+          name="comment"
           placeholder="Agregar comentario"
           value={comment}
           onChange={handleChange}

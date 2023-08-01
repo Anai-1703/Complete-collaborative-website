@@ -7,7 +7,7 @@ body {
     font-family: sans-serif;
     background: linear-gradient(#30142b, #2772a1);
 }
-.login-page {
+.login-form {
     width: 400px;
     padding: 8% 0 0;
     margin: auto;
