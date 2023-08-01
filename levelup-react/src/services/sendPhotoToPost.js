@@ -5,18 +5,14 @@ export async function sendPhotoToPost(photo, postId) {
     try {
         const token = getToken();
         console.log(photo);
-        // Crear un objeto formData para enviar la foto
-        // const formData = new FormData();
-        // formData.append("photo", photo);
-        // console.log("¿Imprime el formData?");
-        // console.log(formData);
-        // console.log("¿No?");
+
         const response = await fetchAPI(
             `/posts/${postId}/photos`,
             "post",
-            { foto: photo },
+            photo,
             token
         );
+        // objeto con metodo, body y header
         console.log(response);
         return response;
     } catch (error) {

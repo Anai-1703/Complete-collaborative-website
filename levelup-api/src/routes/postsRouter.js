@@ -86,7 +86,9 @@ router.post(
     "/posts/:id/photos",
     authGuard,
     handleAsyncError(async (req, res) => {
-        await addPhoto(req.params.id, req.currentUser.id, req.files.photo);
+        const photo = req.files.photo;
+        console.log(photo);
+        await addPhoto(req.params.id, req.currentUser.id, photo);
         sendResponse(res);
     })
 );

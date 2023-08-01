@@ -111,7 +111,7 @@ module.exports = {
           c.categories,
           plt.platforms
         FROM 
-          POSTS p
+          posts p
         JOIN 
           users u ON p.idUser = u.id
         LEFT JOIN 
@@ -199,7 +199,7 @@ module.exports = {
           c.categories,
           plt.platforms
         FROM 
-          POSTS p
+          posts p
         JOIN 
           users u ON p.idUser = u.id
         LEFT JOIN 

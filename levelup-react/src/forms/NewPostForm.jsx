@@ -47,6 +47,7 @@ const NewPostForm = () => {
     const createdPost = await createNewPost(newPostData);
     // console.log("CreateD postTR: ", createdPost);
 
+console.log(createdPost)
 
     // Limpiar entradas después de enviarlo
     setTitle('');
@@ -72,6 +73,7 @@ const NewPostForm = () => {
       setSubmitButtonClicked(false);
     }, 1000); // Cambia 1000 por el tiempo deseado (en milisegundos) para mantener el estado cambiado
 
+    
   }  catch (error) {
     console.error('Error al crear el post:', error.message);
     }
