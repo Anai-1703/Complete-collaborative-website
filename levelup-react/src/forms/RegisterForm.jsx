@@ -22,29 +22,6 @@ export function RegisterForm() {
     }));
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   // Validar los campos antes de procesar el registro
-  //   if (
-
-  //     formData.name === '' ||
-  //     formData.email === '' ||
-  //     formData.password === '' ||
-  //     formData.repeatPassword === '' ||
-  //     formData.birthday === '' ||
-  //     !formData.acceptedTOS
-  //   ) {
-  //     alert('Completa este campo');
-
-  //     return;
-  //   }
-
-  //   // Redireccionar al usuario a la página de inicio de sesión
-
-  //   window.location.href = '/login';
-  // };
-
   const handleCreate = async (e) => {
     e.preventDefault();
 

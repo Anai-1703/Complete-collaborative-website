@@ -1,7 +1,7 @@
 // UserPage.jsx
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getUser } from "../services/GetUser";
+import { getUser } from "../services/getUser";
 import UserInfo from "../components/UserInfo.jsx";
 import { UserPanel } from "../components/UserPanel.jsx"
 

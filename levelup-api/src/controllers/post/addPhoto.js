@@ -19,7 +19,8 @@ async function addPhoto(postId, userId, photo) {
 
         //generar el id de la foto
         const photoId = generateUUID();
-
+        console.log("foto en addphoto");
+        console.log(photo);
         // Guarda la foto en el disco y obtenemos la URL de la misma.
         const fileURL = await fileServices.saveFile(postId, photoId, photo);
 

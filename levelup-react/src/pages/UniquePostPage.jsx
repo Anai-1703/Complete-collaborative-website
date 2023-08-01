@@ -1,6 +1,6 @@
 import UniquePost from "../components/UniquePost";
 
-import "./UniquePostPage.css";
+import "../styles/UniquePostPage.css";
 
 export function UniquePostPage() {
 

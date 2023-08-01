@@ -111,7 +111,7 @@ module.exports = {
           c.categories,
           plt.platforms
         FROM 
-          POSTS p
+          posts p
         JOIN 
           users u ON p.idUser = u.id
         LEFT JOIN 
@@ -199,7 +199,7 @@ module.exports = {
           c.categories,
           plt.platforms
         FROM 
-          POSTS p
+          posts p
         JOIN 
           users u ON p.idUser = u.id
         LEFT JOIN 
@@ -349,13 +349,14 @@ module.exports = {
         INSERT INTO posts(id, idUser, title, entradilla, description)
         VALUES(?, ?, ?, ?, ?);
       `;
-        await db.execute(statement, [
+        const rows = await db.execute(statement, [
             post.id,
             post.idUser,
             post.title,
             post.entradilla,
             post.description,
         ]);
+        return rows;
     },
 
     async savePostPlatforms(postId, platforms) {
@@ -512,9 +513,9 @@ module.exports = {
 
     async createVote(vote) {
         const statement = `
-      INSERT INTO votes (id, idUser, idPost, votes)
-      VALUES (?, ?, ?, ?);
-      `;
+    INSERT INTO votes (id, idUser, idPost, votes)
+    VALUES (?, ?, ?, ?);
+    `;
         const [rows] = await db.execute(statement, [
             vote.id,
             vote.idUser,
@@ -545,12 +546,19 @@ module.exports = {
 
     async countVotes(postId) {
         const statement = `
-        SELECT COUNT(*) as votes FROM votes
-        WHERE postId = ?
-      `;
+      SELECT 
+        SUM(votes = 1) AS upvotes,
+        SUM(votes = 0) AS downvotes
+      FROM 
+        votes
+      WHERE 
+        idPost = ?;
+    `;
         const [rows] = await db.execute(statement, [postId]);
-        return rows[0].votes;
-    }, // Actualizado para contar los VOTOS, no likes. Posiblemente tengamos que darle una vuelta por el tema de sumar/restar el boolean.
+        console.log("Respuesta de countVotes: ", rows);
+
+        return rows[0];
+    },
 
     async countCommentsByPostId(postId) {
         const statement = `

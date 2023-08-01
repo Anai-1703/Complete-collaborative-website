@@ -1,5 +1,5 @@
 import PostList from "../components/PostList";
-import "./PostListPage.css";
+import "../styles/PostListPage.css";
 
 export function PostListPage() {
   return (
