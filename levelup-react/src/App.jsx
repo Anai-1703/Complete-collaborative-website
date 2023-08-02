@@ -14,8 +14,7 @@ import UserPage from "./pages/UserPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { PostListPage } from "./pages/PostListPage";
 import { UniquePostPage } from "./pages/UniquePostPage";
-import  NewPostPage from "./pages/NewPostPage";
-
+import NewPostPage from "./pages/NewPostPage";
 
 function App() {
   return (
