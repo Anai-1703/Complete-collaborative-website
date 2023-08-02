@@ -1,16 +1,21 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import '../styles/CommentForm.css';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { createComment } from "../services/createComment";
+import "../styles/CommentForm.css";
 
-const CommentForm = ({ onAddComment, postId }) => {
+const CommentForm = ({ postId }) => {
   const [comment, setComment] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(postId);
+    console.log(comment);
     // Pasar el postId al componente padre a través de la prop onAddComment, para llamarlo
-    onAddComment(postId, comment);
+    const response = await createComment(postId, comment);
     // Limpiar el campo del formulario después de agregar el comentario
+    console.log(response);
     setComment('');
+    
   };
 
   const handleChange = (event) => {

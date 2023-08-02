@@ -8,7 +8,7 @@ import "../styles/LoginForm.css"
 export function LoginForm() {
   const [formData, setFormData] = useState({
     email: '',
-    password: ' '
+    password: ''
 
   });
 
@@ -27,6 +27,9 @@ export function LoginForm() {
     // Lógica para enviar los datos del formulario al servidor
     try {
       const response = await sendLogin(formData);
+      console.log(response);
+      console.log(response.data.token);
+      
       saveToken(response.data.token); // Guardar el token en el localStorage
       // Redireccionar a la ruta principal
       window.location.href = '/';
