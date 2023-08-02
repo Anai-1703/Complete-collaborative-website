@@ -52,8 +52,8 @@ nav form button[type="submit"] {
 }
 
 .menu-dropdown {
-  bottom: unset;
-  top: 60px;
+  bottom: 60px;
+  top: unset;
   left: 10px;
   position: absolute;
   display: flex;
@@ -82,10 +82,18 @@ nav form button[type="submit"] {
   }
 
   nav .menu-dropdown {
-    bottom: unset;
-    top: unset;
+    top: 100%;
     left: 0;
-    position: relative;
+    position: absolute;
+    transform: translateY(0%);
+    flex-direction: column;
+    background-color: black;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    min-width: 100px;
+    min-height: 70px;
+    z-index: 1000;
+    align-items: flex-start;
   }
 }
 

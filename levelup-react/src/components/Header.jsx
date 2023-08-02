@@ -10,19 +10,15 @@ export function Header() {
 
   useEffect(() => {
     setCurrentLogo(isDarkMode ? logo2 : logo);
-    console.log("Logo cambiado:", currentLogo);
-  }, [isDarkMode, currentLogo]);
+  }, [isDarkMode]);
+
+  console.log("Logo actual:", currentLogo);
+
   return (
     <header>
       <Link className="main-title" to="/">
-
         <h1>
           <img src={currentLogo} alt="Level Up!" className="img-logo" />
-
-         
-       <h1>
-         
-
         </h1>
       </Link>
     </header>

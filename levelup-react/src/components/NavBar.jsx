@@ -53,12 +53,10 @@ export function NavBar() {
     setSearchQuery("");
   };
 
-
   const handleMenuClick = (e) => {
     e.stopPropagation(); // Evita que el evento se propague al elemento li
     setIsMenuOpen(!isMenuOpen);
   };
-  
 
   const handleLogout = () => {
     deleteToken();
