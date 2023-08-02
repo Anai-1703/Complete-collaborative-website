@@ -30,7 +30,7 @@ export async function fetchAPI(path, method = "get", payload, token) {
 
     console.log(method);
     console.log(host + path, requestInit);
-    console.log(requestInit.body?.photo?.type);
+    // console.log(requestInit.body?.photo?.type);
     const response = await fetch(host + path, requestInit);
     const result = await response.json();
 

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import CommentForm from '../forms/CommentForm';
-import Comment from "../components/Comment";
 import { createComment } from '../services/createComment';
 import { useParams } from 'react-router-dom';
 

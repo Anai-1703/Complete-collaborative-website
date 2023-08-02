@@ -15,7 +15,7 @@ body {
     margin: auto;
     padding: 8% 0 0;
     top: 50%;
-    left: 48%;
+    left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
     padding: 40px;
@@ -23,7 +23,7 @@ body {
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
     border-radius: 10px;
-    height: 45vh;
+    height: auto;
 }
 /* input login (, )*/
 .form input {
@@ -39,17 +39,21 @@ body {
 }
 
 /* Not registered?, Or register */
+/*
 .form .message {
     margin: 15px 0 0;
     color: #b3b3b3;
     font-size: 12px;
 }
+*/
 
 /* Create an account */
 .form .message a {
     color: #289bb8;
     text-decoration: none;
-    margin: 15px 0 0;
+    margin-bottom: 20px;
+    display: block; /* Add this line to make the link a block element */
+    margin-top: 20px; /* Add margin at the top of the link */
 }
 
 /***** Estilos para dispositivos móviles *****/
