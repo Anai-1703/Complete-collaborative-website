@@ -1,14 +1,17 @@
 const host = import.meta.env.VITE_API_HOST;
 
-export async function fetchAPI(path, method = "get", payload, token) {
+export async function fetchAPI(path, method = "get", payload) {
+    console.log(host);
+
     const requestInit = {
         method: method,
         headers: {},
     };
 
-    if (token) {
-        requestInit.headers["Authorization"] = `${token}`;
-    }
+    // const token = getToken();
+    // if (token) {
+    //     requestInit.headers["authorization"] = token;
+    // }
 
     if (method === "get" && payload) {
         const query = new URLSearchParams(payload).toString();
@@ -19,16 +22,14 @@ export async function fetchAPI(path, method = "get", payload, token) {
         requestInit.headers["Content-Type"] = "application/json";
         requestInit.body = JSON.stringify(payload);
     }
-    console.log(method);
-    console.log(host + "/" + path, requestInit);
-    const response = await fetch(host + "/" + path, requestInit);
+
+    const response = await fetch(host + path, requestInit);
+
     const result = await response.json();
 
     if (!result.success) {
-        console.log(result.error);
-        console.log(result.error.code);
         throw new Error(result.error.code);
     }
 
-    return result;
+    return result.data;
 }

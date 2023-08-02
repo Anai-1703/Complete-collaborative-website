@@ -1,0 +1,67 @@
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(#30142b, #2772a1);
+}
+/* cuadro login */
+.login-form {
+    position: absolute;
+    text-align: center;
+    margin: auto;
+    padding: 8% 0 0;
+    top: 50%;
+    left: 48%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    height: 45vh;
+}
+/* input login (, )*/
+.form input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 13px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+}
+
+/* Not registered?, Or register */
+.form .message {
+    margin: 15px 0 0;
+    color: #b3b3b3;
+    font-size: 12px;
+}
+
+/* Create an account */
+.form .message a {
+    color: #289bb8;
+    text-decoration: none;
+    margin: 15px 0 0;
+}
+
+/***** Estilos para dispositivos móviles *****/
+@media only screen and (max-width: 480px) {
+    .login-form {
+        width: 90%;
+        padding: 8% 40px 0;
+        max-width: 100%;
+    }
+
+    .form input {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+}

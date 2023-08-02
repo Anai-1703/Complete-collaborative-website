@@ -1,7 +1,9 @@
 import { fetchAPI } from "./fetchAPI";
-import { getUser } from "./getUser";
+import getUser from "./GetUser";
+
 const host = import.meta.env.VITE_API_HOST;
 console.log(host);
+
 export async function createComment(postId, newComment) {
     try {
         const token = getUser;

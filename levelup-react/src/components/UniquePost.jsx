@@ -8,7 +8,7 @@ import { getUserToken } from "../services/token/getUserToken";
 import { getTokenInfo } from "../services/token/getTokenInfo";
 import { getToken } from "../services/token/getToken";
 import CommentPage from "../pages/CommentPage";
-import "./UniquePost.css";
+import "../styles/UniquePost.css";
 const host = import.meta.env.VITE_API_HOST;
 
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './CommentForm.css';
+import '../styles/CommentForm.css';
 
 const CommentForm = ({ onAddComment, postId }) => {
   const [comment, setComment] = useState('');

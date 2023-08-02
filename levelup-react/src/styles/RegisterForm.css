@@ -7,67 +7,46 @@ body {
     font-family: sans-serif;
     background: linear-gradient(#30142b, #2772a1);
 }
-.login-form {
-    width: 400px;
-    padding: 8% 0 0;
-    margin: auto;
-}
 
-/* cuadro login */
-.form {
-    position: relative;
-    z-index: 1;
-    text-align: center;
+.register-form {
     position: absolute;
+    text-align: center;
+    margin: auto;
+    padding: 8% 0 0;
     top: 50%;
     left: 50%;
-    width: 400px;
-    padding: 40px;
+    width: 90%;
     transform: translate(-50%, -50%);
+    padding: 40px;
     background: rgba(0, 0, 0, 0.5);
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
     border-radius: 10px;
-}
 
-/* input login */
-.form input {
-    width: 100%;
-    padding: 10px 0;
-    font-size: 13px;
-    color: #fff;
-    margin-bottom: 30px;
-    border: none;
-    border-bottom: 1px solid #fff;
-    outline: none;
-    background: transparent;
-}
-h2 {
-    color: white;
-}
+    .form input {
+        width: 90%;
+        padding: 10px 0;
+        font-size: 13px;
+        color: #fff;
+        margin-bottom: 30px;
+        border: none;
+        border-bottom: 1px solid #fff;
+        outline: none;
+        background: transparent;
+    }
 
-/* Not registered? */
-.form .message {
-    margin: 15px 0 0;
-    color: #b3b3b3;
-    font-size: 12px;
-}
-
-/* Create an account */
-.form .message a {
-    color: #289bb8;
-    text-decoration: none;
-}
-.form .register-form {
+    /*
     display: block;
     border-radius: 10px;
     padding-bottom: 2em;
+    */
 }
 
 /* Sign in, recuadro login click */
 .btn {
     position: relative;
-    display: inline-block;
+    display: block;
+    margin: auto;
     padding: 10px 20px;
     color: #289bb8;
     font-size: 16px;

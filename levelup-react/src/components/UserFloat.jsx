@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getToken } from "../services/token/getToken";
 import { getUserToken } from "../services/token/getUserToken";
 import { getTokenInfo } from "../services/token/getTokenInfo";
-import { getUser } from "../services/GetUser";
+import  getUser  from "../services/GetUser";
 import { Link } from "react-router-dom";
 import { DefaultAvatar } from "./DefaultAvatar";
 

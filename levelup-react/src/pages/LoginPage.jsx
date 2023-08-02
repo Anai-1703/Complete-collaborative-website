@@ -1,4 +1,3 @@
-import "../index.css";
 import { LoginForm } from "../forms/LoginForm";
 
 export function LoginPage() {

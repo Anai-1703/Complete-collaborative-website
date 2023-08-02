@@ -127,18 +127,6 @@ h2 {
     justify-content: space-around;
 }
 
-@keyframes pulse {
-    0% {
-        transform: scale(0.9);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(0.9);
-    }
-}
-
 /* Estilos del boton de envío */
 .submit-button,
 .cancel-button {
@@ -153,6 +141,18 @@ h2 {
     letter-spacing: 2px;
     margin-bottom: 25px;
     animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.9);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(0.9);
+    }
 }
 
 .submit-button {

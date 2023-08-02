@@ -23,23 +23,23 @@ article {
 
 .user-avatar,
 .comment-avatar {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-  padding-left: 5px;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    padding-left: 5px;
 }
 
 .user-avatar img,
 .comment-avatar img {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-  padding-left: 5px;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    padding-left: 50px;
 }
 
 .user-name {
-  font-size: 0.7rem;
-  padding-left: 5px;
+    font-size: 0.7rem;
+    padding-left: 5px;
 }
 
 .user-interaction {
@@ -52,10 +52,8 @@ article {
     max-width: 35%;
 }
 
-
-
 .post-created-full {
-  text-align: end;
+    text-align: end;
 }
 
 .link-to-post {
@@ -83,7 +81,7 @@ article {
 }
 
 .post-entradilla {
-  font-size: 0.7rem;
+    font-size: 0.7rem;
 }
 
 .post-date {
@@ -99,23 +97,23 @@ article {
 }
 
 .buble {
-  background-color: #4a4949;
-  max-width: 100%;
-  word-wrap: break-word;
-  padding: 5px;
-  border-radius: 5px;
-  text-align: left;
-  margin-left: 10px;
+    background-color: #4a4949;
+    max-width: 100%;
+    word-wrap: break-word;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: left;
+    margin-left: 10px;
 }
 
 .comment-user {
-  margin: 0;
-  padding: 0;
-  text-align: left;
+    margin: 0;
+    padding: 0;
+    text-align: left;
 }
 
 .comment-text {
-  margin: 0;
-  padding: 0;
-  text-align: left;
+    margin: 0;
+    padding: 0;
+    text-align: left;
 }

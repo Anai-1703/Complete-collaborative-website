@@ -1,14 +1,14 @@
 
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { saveToken } from '../services/token/saveToken';
-import { sendLogin } from '../services/sendLogin';
-
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { saveToken } from "../services/token/saveToken";
+import { sendLogin } from "../services/sendLogin";
+import "../styles/LoginForm.css"
 
 export function LoginForm() {
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: ' '
 
   });
 
@@ -19,6 +19,7 @@ export function LoginForm() {
 
       [name]: value
     }));
+    console.log(value);
   };
 
   const handleSubmit = async (e) => {
@@ -36,11 +37,14 @@ export function LoginForm() {
   };
 
   return (
+   
     <form className="login-form" method="post" onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      <input 
+       <h2>Login</h2>
+       
+        <input 
         type="text" 
         name= "email"
+        className="email"
         placeholder="Email" 
         value={formData.email}
         onChange={handleChange}
@@ -49,13 +53,14 @@ export function LoginForm() {
       <input 
         type="password" 
         name="password"
-        placeholder="Password" 
-
+        className="password"
+        placeholder="Password"  
         value={formData.password}
         onChange={handleChange}
         required
       />
-
+      
+    <div className="form-btn">
       <button type="submit" className="btn">Sign in</button>  
       <p className="message">Not registered?{' '}
         <Link to="/guest-register"> Guest</Link>
@@ -63,6 +68,7 @@ export function LoginForm() {
       <p className="message">Or register as{' '} 
         <Link to="/register">Create an account</Link>
       </p>
+    </div>
     </form>
   );
 }
