@@ -1,32 +1,35 @@
 const host = import.meta.env.VITE_API_HOST;
 
-export async function fetchAPI(path, method = "get", payload, token) {
-    const requestInit = {
-        method: method,
-        headers: {},
-    };
+export async function fetchAPI(path, method = "get", payload) {
+  console.log(host);
 
-    if (token) {
-        requestInit.headers["Authorization"] = `${token}`;
-    }
-    console.log(requestInit);
+  const requestInit = {
+    method: method,
+    headers: {},
+  };
 
-    if (method === "get" && payload) {
-        const query = new URLSearchParams(payload).toString();
-        path += `?${query}`;
-    }
+  // const token = getToken();
+  // if (token) {
+  //     requestInit.headers["authorization"] = token;
+  // }
 
-    if (method !== "get" && method !== "delete" && payload) {
-        requestInit.headers["Content-Type"] = "application/json";
-        requestInit.body = JSON.stringify(payload);
-    }
-    console.log(host);
-    const response = await fetch(host + path, requestInit);
-    const result = await response.json();
+  if (method === "get" && payload) {
+    const query = new URLSearchParams(payload).toString();
+    path += `?${query}`;
+  }
 
-    if (!result.success) {
-        throw new Error(result.error.code);
-    }
+  if (method !== "get" && method !== "delete" && payload) {
+    requestInit.headers["Content-Type"] = "application/json";
+    requestInit.body = JSON.stringify(payload);
+  }
 
-    return result;
+  const response = await fetch(host + path, requestInit);
+
+  const result = await response.json();
+
+  if (!result.success) {
+    throw new Error(result.error.code);
+  }
+
+  return result.data;
 }
