@@ -6,7 +6,7 @@ import UserInfo from "../components/UserInfo.jsx";
 
 const UserPage = () => {
   const [user, setUser] = useState(null);
-  const token = localStorage.getItem("userToken"); // Suponiendo que has almacenado el token en el localStorage.
+  const token = localStorage.getItem("userToken"); 
   const { id } = useParams();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const UserPage = () => {
   }, [id, token]);
 
   if (!user) {
-    return <div>Loading...</div>; // O podrías mostrar un spinner o lo que prefieras mientras se obtienen los datos del usuario.
+    return <div>Loading...</div>; 
   }
 
   const isCurrentUser = false

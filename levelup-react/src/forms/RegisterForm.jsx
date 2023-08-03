@@ -119,6 +119,9 @@ export function RegisterForm() {
       <p className="message">
         Already registered? <Link to="/login">Sign In</Link>
       </p>
+      <p className="message">
+        <Link to="/tos">Términos y Condiciones de Level Up!</Link>
+      </p>
     </form>
   );
 }
