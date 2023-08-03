@@ -176,15 +176,15 @@ function UniquePost() {
       </div>
 
       {!hasComments &&
-      <>
+      <section className="post-comments-full">
         <p>No hay comentarios. ¡Se el primero en dejar uno!</p>
         <CommentForm postId={post.data.id} />
-      </>
+      </section>
       }
       {hasComments && (
         <section className="post-comments-full">
           {post.data.comments.map((comment, index) => (
-            <Link key={comment.id + 1} className="link-to-user-comment" to={`/users/${comment.idUser}`}>
+            <Link key={`${comment.idUser}-${index}`} className="link-to-user-comment" to={`/users/${comment.idUser}`}>
               <section key={`${comment.idUser}-${index}`} className="comment">
                 {comment.avatarURL ? (
                   <img
@@ -206,7 +206,7 @@ function UniquePost() {
               </section>
             </Link>
           ))}
-         <CommentForm postId={post.data.id} />
+          <CommentForm postId={post.data.id} />
         </section>
       )}
     </>
