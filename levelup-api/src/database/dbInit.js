@@ -192,13 +192,3 @@ async function createDatabaseTables(pool) {
 }
 
 initDB();
-
-/*
-INSERTS DE LA BBDD
-
-async function createDataForDataBase(pool) {
-
-
-createDatabaseTables();
-
-*/
