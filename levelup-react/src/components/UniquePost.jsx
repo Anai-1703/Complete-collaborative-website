@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getUniquePost } from "../services/getUniquePost";
-import { DefaultAvatar } from "./defaultAvatar.jsx";
+import { DefaultAvatar } from "./DefaultAvatar.jsx";
 import { UserInteraction } from "./UserInteraction";
 import { Link } from "react-router-dom";
-import { getUserToken } from "../services/token/getUserToken";
 import { getTokenInfo } from "../services/token/getTokenInfo";
 import { getToken } from "../services/token/getToken";
 import EditForm from "../forms/EditForm";
-
+import CommentForm from "../forms/CommentForm";
 
 const host = import.meta.env.VITE_API_HOST;
 
@@ -112,9 +111,8 @@ function UniquePost() {
   const hasComments = post.data.comments[0].idUser;
 
   const handleEditClick = () => {
-    // Mostrar el componente de control cuando se haga clic en "Editar"
-    setShowControlPanel(!showControlPanel); // Cambiar el estado de showControlPanel al contrario del valor actual
-    setIsExpanded(!showControlPanel); // Cambiar el estado de isExpanded al contrario del valor actual
+    setShowControlPanel(!showControlPanel);
+    setIsExpanded(!showControlPanel);
   };
 
   return (
@@ -169,9 +167,9 @@ function UniquePost() {
         </section>
       )}
 
-      <div className="contain-form">
+      <section className="contain-form">
         {showControlPanel && <EditForm postData={post.data} />}
-      </div>
+      </section>
 
       <div className="separador">
         <p>&nbsp;</p>
@@ -180,6 +178,7 @@ function UniquePost() {
       {!hasComments &&
       <>
         <p>No hay comentarios. ¡Se el primero en dejar uno!</p>
+        <CommentForm postId={post.data.id} />
       </>
       }
       {hasComments && (
@@ -207,7 +206,7 @@ function UniquePost() {
               </section>
             </Link>
           ))}
-          {/*aqui dejas el componente del comentario*/}
+         <CommentForm postId={post.data.id} />
         </section>
       )}
     </>
