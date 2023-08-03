@@ -3,7 +3,7 @@ import { UserInteraction } from "./UserInteraction";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getUserToken } from "../services/token/getUserToken";
-import { getTokenInfo } from "../services/token/getTokenInfo";
+// import { getTokenInfo } from "../services/token/getTokenInfo";
 import { getToken } from "../services/token/getToken";
 import UserEditForm from "../forms/UserEditForm";
 import '../styles/UserInfo.css'
@@ -19,7 +19,7 @@ const UserInfo = ({ user }) => {
 
   const token = getToken();
   const userToken = getUserToken();
-  const tokenInfo = getTokenInfo(token);
+  const tokenInfo = getUserToken();
 
   useEffect(() => {
     if (tokenInfo && userToken) {

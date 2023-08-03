@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import menuIcon from "../assets/svg/menu.svg";
 import { getToken } from "../services/token/getToken";
 import { getUserToken } from "../services/token/getUserToken";
-import { getTokenInfo } from "../services/token/getTokenInfo";
+// import { getTokenInfo } from "../services/token/getTokenInfo";
 import { deleteToken } from "../services/token/deleteToken";
 
 export function Menu() {
@@ -16,7 +16,7 @@ export function Menu() {
     const userToken = getUserToken();
 
     if (token && userToken) {
-        const tokenInfo = getTokenInfo(token);
+        const tokenInfo = getUserToken();
         if (tokenInfo) {
         setIsLoggedIn(true);
         }
@@ -26,7 +26,7 @@ export function Menu() {
     }, []);
     
     const handleMenuClick = (e) => {
-        e.stopPropagation(); // Evita que el evento se propague al elemento li
+        e.stopPropagation(); 
         setIsMenuOpen(!isMenuOpen);
     };
     
@@ -34,7 +34,7 @@ export function Menu() {
     const handleLogout = () => {
         deleteToken();
         setIsLoggedIn(false);
-        navigate("/"); // Redirige a la página de login después de hacer logout
+        navigate("/"); 
     };
     
 

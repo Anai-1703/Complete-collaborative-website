@@ -28,7 +28,7 @@ export function LoginForm() {
       const response = await sendLogin(formData);
       saveToken(response.data.token); // Guardar el token en el localStorage
       // Redireccionar a la ruta principal
-      window.location.href = '/';
+      // window.location.href = '/';
     } catch (error) {
       setShowErrorModal(true); // Mostrar el modal de error
       // Manejar el error de inicio de sesión

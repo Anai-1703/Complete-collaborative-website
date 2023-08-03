@@ -4,7 +4,8 @@ import { getUniquePost } from "../services/getUniquePost";
 import { DefaultAvatar } from "./DefaultAvatar.jsx";
 import { UserInteraction } from "./UserInteraction";
 import { Link } from "react-router-dom";
-import { getTokenInfo } from "../services/token/getTokenInfo";
+// import { getTokenInfo } from "../services/token/getTokenInfo";
+import { getUserToken } from "../services/token/getUserToken";
 import { getToken } from "../services/token/getToken";
 import EditForm from "../forms/EditForm";
 import CommentForm from "../forms/CommentForm";
@@ -67,7 +68,7 @@ function UniquePost() {
   }
 
   const token = getToken();
-  const tokenInfo = getTokenInfo(token);
+  const tokenInfo = getUserToken();
 
   const userIdFromToken = tokenInfo ? tokenInfo.id : null;
   const createdByUserId = post.data.idUser;
