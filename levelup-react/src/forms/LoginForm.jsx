@@ -23,14 +23,14 @@ export function LoginForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Lógica para enviar los datos del formulario al servidor
     try {
       const response = await sendLogin(formData);
-      saveToken(response.data.token); // Guardar el token en el localStorage
-      // Redireccionar a la ruta principal
-      // window.location.href = '/';
+      console.log(response);
+      const tokenSaved = saveToken(response.data.token); // Guardar el token en el localStorage
+      console.log(tokenSaved);
+      window.location.href = '/';
     } catch (error) {
-      setShowErrorModal(true); // Mostrar el modal de error
+      console.error(error);
       // Manejar el error de inicio de sesión
     }
   };

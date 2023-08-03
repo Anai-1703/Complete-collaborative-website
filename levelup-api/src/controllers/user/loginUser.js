@@ -7,10 +7,7 @@ const {
     validatePassword,
     generateJWT,
 } = require("../../services/cryptoServices.js");
-const {
-    invalidCredentials,
-    notAuthenticated,
-} = require("../../services/errorService.js");
+const { invalidCredentials } = require("../../services/errorService.js");
 
 async function loginUser(data) {
     const pool = getConnection();
@@ -22,7 +19,6 @@ async function loginUser(data) {
     const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [
         data.email,
     ]);
-    console.log(rows[0]);
 
     if (rows.length === 0) {
         throw invalidCredentials();
@@ -38,7 +34,6 @@ async function loginUser(data) {
     }
 
     const token = generateJWT(rows[0]);
-    console.log(token);
 
     const user = {
         id: rows[0].id,

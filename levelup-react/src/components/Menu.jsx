@@ -5,6 +5,8 @@ import { getToken } from "../services/token/getToken";
 import { getUserToken } from "../services/token/getUserToken";
 // import { getTokenInfo } from "../services/token/getTokenInfo";
 import { deleteToken } from "../services/token/deleteToken";
+import { notifyAuthChange } from "../services/auth";
+
 
 export function Menu() {
     const navigate = useNavigate();
@@ -26,7 +28,7 @@ export function Menu() {
     }, []);
     
     const handleMenuClick = (e) => {
-        e.stopPropagation(); 
+        e.stopPropagation(); // Evita que el evento se propague al elemento li
         setIsMenuOpen(!isMenuOpen);
     };
     
@@ -34,7 +36,8 @@ export function Menu() {
     const handleLogout = () => {
         deleteToken();
         setIsLoggedIn(false);
-        navigate("/"); 
+        notifyAuthChange(false);
+        navigate("/"); // Redirige a la página de login después de hacer logout
     };
     
 
