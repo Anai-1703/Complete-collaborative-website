@@ -1,16 +1,17 @@
 const host = import.meta.env.VITE_API_HOST;
 
-export async function fetchAPI(path, method = "get", payload, token) {
+export async function fetchAPI(path, method = "get", payload) {
+  console.log(host);
+
     const requestInit = {
         method: method,
         headers: {},
     };
-
+    
     console.log(payload);
 
     if (token) {
         requestInit.headers["Authorization"] = `${token}`;
-    }
 
     if (method === "get" && payload) {
         const query = new URLSearchParams(payload).toString();
