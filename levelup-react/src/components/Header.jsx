@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useThemeToggle from "../hooks/UseThemeToggle";
 import logo from "../assets/svg/titulo.svg";
-import logo2 from "../assets/svg/titulo2.svg";
+import logo2 from "../assets/svg/Titulo2.svg";
 
 export function Header() {
   const { isDarkMode } = useThemeToggle();
