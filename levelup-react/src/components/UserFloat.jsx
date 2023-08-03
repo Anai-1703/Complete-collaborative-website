@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getToken } from "../services/token/getToken";
 import { getUserToken } from "../services/token/getUserToken";
-import { getTokenInfo } from "../services/token/getTokenInfo";
+// import { getTokenInfo } from "../services/token/getTokenInfo";
 import { getUser } from "../services/getUser";
 import { Link } from "react-router-dom";
 import { DefaultAvatar } from "./DefaultAvatar";
@@ -24,7 +24,7 @@ const UserFloat = () => {
         const userToken = getUserToken();
     
         if (token && userToken) {
-            const tokenInfo = getTokenInfo(token);
+            const tokenInfo = getUserToken();
             const userId = tokenInfo.id;
     
             getUser(userId, userToken)

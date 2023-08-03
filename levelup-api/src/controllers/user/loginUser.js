@@ -22,6 +22,7 @@ async function loginUser(data) {
     const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [
         data.email,
     ]);
+    console.log(rows[0]);
 
     if (rows.length === 0) {
         throw invalidCredentials();
@@ -37,9 +38,16 @@ async function loginUser(data) {
     }
 
     const token = generateJWT(rows[0]);
+    console.log(token);
+
+    const user = {
+        id: rows[0].id,
+        nameMember: rows[0].nameMember,
+    };
 
     return {
-        token, // Añade el token en la respuesta
+        token,
+        user,
     };
 }
 
