@@ -5,35 +5,54 @@ import { getTokenInfo } from "../services/token/getTokenInfo";
 import { getUser } from "../services/getUser";
 import { Link } from "react-router-dom";
 import { DefaultAvatar } from "./DefaultAvatar";
+import { subscribeToAuthChanges, unsubscribeFromAuthChanges } from "../services/auth";
 import '../styles/UserFloat.css';
 
 const UserFloat = () => {
     const [user, setUser] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
 
     useEffect(() => {
+        subscribeToAuthChanges(handleAuthChange);
+        return () => {
+            unsubscribeFromAuthChanges(handleAuthChange);
+        };
+        }, []);
+    
+        useEffect(() => {
         const token = getToken();
         const userToken = getUserToken();
-
+    
         if (token && userToken) {
-        const tokenInfo = getTokenInfo(token);
-        const userId = tokenInfo.id;
-
-        getUser(userId, userToken)
+            const tokenInfo = getTokenInfo(token);
+            const userId = tokenInfo.id;
+    
+            getUser(userId, userToken)
             .then((userData) => {
-            setUser(userData);
+                setUser(userData);
             })
             .catch((error) => {
-            console.error("Error fetching user data:", error);
+                console.error("Error fetching user data:", error);
             });
+        } else {
+            setIsLoggedIn(false);
         }
-    }, []);
-
-    if (!user) {
-        return null; // No mostrar nada si no hay usuario o token válido
-    }
-
-    const userData =  user[0].user[0];
+        }, []);
     
+        const handleAuthChange = (isLoggedIn) => {
+        setIsLoggedIn(isLoggedIn);
+        };
+    
+        if (!isLoggedIn) {
+            return null;
+        }
+    
+        if (!user) {
+            return null;
+        }
+
+    const userData = user[0].user[0];
+
     return (
         <section className="user-float">
             <Link className="link-to-user-float" to={`/users/${userData.id}`}>
