@@ -46,9 +46,6 @@ body {
     margin-top: 20px; /* Add margin at the top of the link */
 }
 
-.footer-login {
-    background-color: red;
-}
 /***** Estilos para dispositivos móviles *****/
 @media only screen and (max-width: 480px) {
     .login-form {
@@ -89,7 +86,8 @@ body {
 /* Estilos para pantallas más grandes */
 @media only screen and (min-width: 781px) {
     .login-form {
-        max-width: 480px; /* Establece un ancho máximo para evitar desplazamientos en pantallas grandes */
+        min-width: 781px;
+        max-width: 1280px; /* Establece un ancho máximo para evitar desplazamientos en pantallas grandes */
         margin: auto; /* Centra el formulario horizontalmente */
     }
 }
