@@ -8,7 +8,7 @@ export async function sendPhotoToPost(photo, postId) {
 
         const response = await fetchAPI(
             `/posts/${postId}/photos`,
-            "post",
+            "PUT",
             photo,
             token
         );
