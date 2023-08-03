@@ -1,4 +1,7 @@
 export function getTokenInfo(token) {
+    if (!token || typeof token !== "string") {
+        return null;
+    }
     let payloadString;
     try {
         if (typeof token === "string") {
@@ -6,10 +9,9 @@ export function getTokenInfo(token) {
             const payloadBase64 = tokenParts[1];
             payloadString = atob(payloadBase64);
         } else {
-            throw new Error("Token is not a valid string.");
+            return null;
         }
     } catch (error) {
-        console.error("Error decoding token:", error);
         return null;
     }
     return JSON.parse(payloadString);

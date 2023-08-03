@@ -4,11 +4,10 @@ import { getUniquePost } from "../services/getUniquePost";
 import { DefaultAvatar } from "./DefaultAvatar.jsx";
 import { UserInteraction } from "./UserInteraction";
 import { Link } from "react-router-dom";
-import { getUserToken } from "../services/token/getUserToken";
 import { getTokenInfo } from "../services/token/getTokenInfo";
 import { getToken } from "../services/token/getToken";
 import EditForm from "../forms/EditForm";
-
+import CommentForm from "../forms/CommentForm";
 
 const host = import.meta.env.VITE_API_HOST;
 
@@ -112,9 +111,8 @@ function UniquePost() {
   const hasComments = post.data.comments[0].idUser;
 
   const handleEditClick = () => {
-    // Mostrar el componente de control cuando se haga clic en "Editar"
-    setShowControlPanel(!showControlPanel); // Cambiar el estado de showControlPanel al contrario del valor actual
-    setIsExpanded(!showControlPanel); // Cambiar el estado de isExpanded al contrario del valor actual
+    setShowControlPanel(!showControlPanel);
+    setIsExpanded(!showControlPanel);
   };
 
   return (
@@ -169,23 +167,24 @@ function UniquePost() {
         </section>
       )}
 
-      <div className="contain-form">
+      <section className="contain-form">
         {showControlPanel && <EditForm postData={post.data} />}
-      </div>
+      </section>
 
       <div className="separador">
         <p>&nbsp;</p>
       </div>
 
       {!hasComments &&
-      <>
+      <section className="post-comments-full">
         <p>No hay comentarios. ¡Se el primero en dejar uno!</p>
-      </>
+        <CommentForm postId={post.data.id} />
+      </section>
       }
       {hasComments && (
         <section className="post-comments-full">
           {post.data.comments.map((comment, index) => (
-            <Link key={comment.id + 1} className="link-to-user-comment" to={`/users/${comment.idUser}`}>
+            <Link key={`${comment.idUser}-${index}`} className="link-to-user-comment" to={`/users/${comment.idUser}`}>
               <section key={`${comment.idUser}-${index}`} className="comment">
                 {comment.avatarURL ? (
                   <img
@@ -207,7 +206,7 @@ function UniquePost() {
               </section>
             </Link>
           ))}
-          {/*aqui dejas el componente del comentario*/}
+          <CommentForm postId={post.data.id} />
         </section>
       )}
     </>

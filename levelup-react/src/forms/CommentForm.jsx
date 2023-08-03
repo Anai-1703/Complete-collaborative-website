@@ -1,35 +1,42 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { createComment } from "../services/createComment";
+import "../styles/CommentForm.css";
 
-const CommentForm = ({onAddComment}) => {
-  const [ newComment, setNewComment] = useState('');
+const CommentForm = ({ postId }) => {
+  const [comment, setComment] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Pasar el nuevo comentario al componente padre a través de la prop onAddComment
-    onAddComment(newComment);
+    console.log(postId);
+    console.log(comment);
+    // Pasar el postId al componente padre a través de la prop onAddComment, para llamarlo
+    const response = await createComment(postId, comment);
     // Limpiar el campo del formulario después de agregar el comentario
-    setNewComment('');
+    console.log(response);
+    setComment('');
   };
 
   const handleChange = (event) => {
-    setNewComment(event.target.value);
+    setComment(event.target.value);
   }
-  
+
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="comment">Agregar comentario:</label>
+      <div className="comment">
         <textarea
           type="text"
-          id="comment"
-          value={newComment}
+          name="comment"
+          placeholder="Agregar comentario"
+          value={comment}
           onChange={handleChange}
           required
         />
       </div>
-      <button type="submit">Agregar</button>
+      <button type="submit" className="btn">Agregar</button>
+      <Link to="/post/:id/comment"></Link>
     </form>
   );
 };
 
-export default CommentForm;
+export default CommentForm; 

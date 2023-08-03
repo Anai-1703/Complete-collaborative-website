@@ -1,11 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
-import { createNewPost } from '../services/createNewPost';
+import editPost from '../services/editPost';
 import Select from 'react-select';
 import '../styles/NewPostForm.css';
 
-const EditForm = ({postData}) => {
+const EditForm = ({postData, onChange}) => {
     console.log(postData);
-    const [text, setText] = useState(postData ? postData.text : '');
     const [photo, setPhoto] = useState(null);
     const [photoPreview, setPhotoPreview] = useState(postData ? postData.photo : null);
     const [title, setTitle] = useState(postData ? postData.title : '');
@@ -55,14 +54,9 @@ const EditForm = ({postData}) => {
             categories: categories.map((category) => category.value),
             photo: photo || null,
         };
+        onChange(editPostData);
 
-        console.log('Post titulo:', editPostData.title);
-        console.log('Post entradilla:', editPostData.entradilla);
-        console.log('Post descripcion:', editPostData.description);
-        console.log('Post plataformas:', editPostData.platforms);
-        console.log('Post categorias:', editPostData.categories);
-        const editedPost = await createNewPost(editPostData);
-
+        const editedPost = await editPost(editPostData);
 
         // Limpiar entradas después de enviarlo
         setTitle('');
@@ -70,7 +64,6 @@ const EditForm = ({postData}) => {
         setDescription('');
         setPlatform([]);
         setCategory([]);
-        setText('');
         setPhoto(null);
         setPhotoPreview(null);
 
@@ -81,7 +74,8 @@ const EditForm = ({postData}) => {
         setSubmitButtonClicked(true);
         setSubmitMessage('Submitted');
 
-            setSubmitMessage('Submitted');
+        setSubmitMessage('Submitted');
+        
         // Después de un tiempo, restablecer el estado de los botones
         setTimeout(() => {
         setSubmitMessage('');
@@ -93,10 +87,7 @@ const EditForm = ({postData}) => {
         }
     };
 
-    const handleTextChange = (event) => {
-        setText(event.target.value);
-    }; 
-    
+
     const handlePhotoChange = (event) => {
         const selectedPhoto = event.target.files[0];
         setPhoto(selectedPhoto);
@@ -119,8 +110,6 @@ const EditForm = ({postData}) => {
 
     const handleCancel = () => {
         // Limpiar el texto y la foto al hacer clic en "Cancelar"
-        
-        setText('');
         setPhoto(null);
         setPhotoPreview(null);
         
@@ -141,14 +130,14 @@ const EditForm = ({postData}) => {
         const handlePlatformChange = (selectedOptions) => {
         setPlatform(selectedOptions);
         };
-        
+
         const handleCategoryChange = (selectedOptions) => {
         setCategory(selectedOptions);
         };
 
     return (
         <form className="newPost-form" onSubmit={handleSubmit} >
-        <div className="newPost-container">
+        <section className="newPost-container">
             <h2>Create New Post</h2>
             <input
             type="text"
@@ -169,12 +158,12 @@ const EditForm = ({postData}) => {
             placeholder="Descripción (texto)"
             className="description"
             />
-            
+
             <label className="select-label-2">Platform:</label>
             <Select
                 className="platform-select"
                 value={platforms}
-                onChange={handlePlatformChange}    
+                onChange={handlePlatformChange}
                 options={[
                 { value: "PS4", label: "PS4" },
                 { value: "PS3", label: "PS3" },
@@ -195,13 +184,13 @@ const EditForm = ({postData}) => {
                 ]}
                 isMulti
             /> 
-    
+
             {/* Campo de la categoría */}
             <label className="select-label-1">Category:</label>
             <Select
-                className="category-select "
+                className="category-select"
                 value={categories}
-                onChange={handleCategoryChange}   
+                onChange={handleCategoryChange}
                 options={[
                 { value: "RPG", label: "RPG" },
                 { value: "MMO", label: "MMO" },
@@ -219,8 +208,7 @@ const EditForm = ({postData}) => {
                 ]}
                 isMulti
             />
-            
-        
+
             {photoPreview && (
             <div className="photo-preview-container">
                 <img src={photoPreview} alt="Preview" className="photo-preview" />
@@ -254,7 +242,7 @@ const EditForm = ({postData}) => {
             {cancelButtonClicked ? 'Canceled' : 'Cancel'}
             </button>
         </div>
-        </div>
+        </section>
         </form>
     );
 }
