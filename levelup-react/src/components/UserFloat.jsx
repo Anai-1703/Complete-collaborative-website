@@ -21,7 +21,9 @@ const UserFloat = () => {
     
         useEffect(() => {
         const token = getToken();
+        console.log(token);
         const userToken = getUserToken();
+        console.log(userToken);
     
         if (token && userToken) {
             const tokenInfo = getUserToken();

@@ -2,9 +2,10 @@ import { useState, useRef } from 'react';
 import { createNewPost } from '../services/createNewPost';
 import Select from 'react-select';
 import '../styles/NewPostForm.css';
+import Modal from '../components/Modal';
+
 
 const NewPostForm = () => {
-  const [text, setText] = useState('');
   const [photo, setPhoto] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
   const [title, setTitle] = useState('');
@@ -15,6 +16,8 @@ const NewPostForm = () => {
   const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
   const [cancelButtonClicked, setCancelButtonClicked] = useState(false);
   
+  const [showErrorModal, setShowErrorModal] = useState(false); // Nuevo estado para mostrar el Modal de error
+
   // Crear referencia, para el input de tipo "file"
   const fileInputRef = useRef();
 
@@ -25,7 +28,7 @@ const NewPostForm = () => {
     event.preventDefault();
 
     if (!title.trim() || !entradilla.trim() || !description.trim() || !platforms || !categories) {
-      alert('Please enter all fields.');
+      setShowErrorModal(true);
       return;
     }
     
@@ -105,8 +108,6 @@ console.log(createdPost)
 
   const handleCancel = () => {
     // Limpiar el texto y la foto al hacer clic en "Cancelar"
-    
-    setText('');
     setPhoto(null);
     setPhotoPreview(null);
     
@@ -133,6 +134,7 @@ console.log(createdPost)
     };
 
   return (
+    <>
     <form className="newPost-form" onSubmit={handleSubmit} >
       <div className="newPost-container">
         <h2>Create New Post</h2>
@@ -206,7 +208,6 @@ console.log(createdPost)
             ]}
             isMulti
           />
-        
       
         {photoPreview && (
           <div className="photo-preview-container">
@@ -243,6 +244,8 @@ console.log(createdPost)
       </div>
       </div>
     </form>
+    {showErrorModal && <Modal type="newpost" visible={true} onClose={() => setShowErrorModal(false)} />} {/* Mostrar el Modal de error si showErrorModal es true */}
+    </>
   );
 }
 
