@@ -13,6 +13,8 @@ const validateBody = require("../middlewares/validateBody.js");
 const registerPayload = require("../validators/registerPayload.js");
 const { getUserById, getPostByUserId } = require("../services/dbService.js");
 const { controlPanel } = require("../controllers/user/controlPanel.js");
+const { invalidCredentials } = require("../services/errorService.js");
+
 const router = Router();
 
 router.post("/register", json(), async (req, res) => {
@@ -21,8 +23,18 @@ router.post("/register", json(), async (req, res) => {
 });
 
 router.post("/login", json(), async (req, res) => {
-    const token = await loginUser(req.body);
-    sendResponse(res, { token });
+    try {
+        const token = await loginUser(req.body);
+        sendResponse(res, { token });
+    } catch (error) {
+        if (error.code === "INVALID_CREDENTIALS") {
+            // Si el error es una credencial inválida, enviamos una respuesta negativa
+            sendResponse(res, { error: "Invalid email or password" }, 400);
+        } else {
+            // Si el error no es una credencial inválida, enviamos una respuesta con error 500
+            sendResponse(res, { error: "Internal server error" }, 500);
+        }
+    }
 });
 
 router.get("/users/:id", json(), async (req, res) => {

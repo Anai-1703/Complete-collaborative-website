@@ -82,7 +82,7 @@ router.post(
 );
 
 // Agregar una foto a un post.
-router.post(
+router.put(
     "/posts/:id/photos",
     authGuard,
     handleAsyncError(async (req, res) => {
