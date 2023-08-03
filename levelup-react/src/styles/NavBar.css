@@ -1,15 +1,18 @@
 nav {
+  background-color: #f2f2f2;
   padding: 1px;
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
-  height: 50px;
+  height: 60px;
   display: flex;
   justify-content: flex-start;
+  z-index: 999;
 }
 
 nav ul {
-  list-style-type: none; /* Eliminar los puntos de la lista */
+  list-style-type: none;
   margin: 0;
   padding: 0;
   display: flex;
@@ -18,7 +21,6 @@ nav ul {
 
 nav ul li {
   margin-left: 10px;
-  list-style: none; /* Eliminar el estilo de la lista */
 }
 
 nav ul li a {
@@ -43,18 +45,16 @@ nav form button[type="submit"] {
   flex-shrink: 0;
 }
 
-.menu-icon, .search-button {
+.menu-icon {
   bottom: unset;
-  top: 5px;
-  left: 5px;
-  width: 40px;
-  height: 40px;
+  top: 10px;
+  left: 10px;
 }
 
 .menu-dropdown {
-  bottom: 100%;
-  right: 10px;
-  margin-right: 3%;
+  bottom: 60px;
+  top: unset;
+  left: 10px;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -64,33 +64,8 @@ nav form button[type="submit"] {
   padding: 5px;
   min-width: 100px;
   z-index: 1000;
-  align-items: flex-start; /* Alineamos los hijos a la izquierda del menú */
-  max-height: calc(100vh - 65px); /* Evita el overflow vertical */
-  overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
-
-  /* background-color: transparent; */
+  align-items: flex-start;
 }
-
-.menu-dropdown li {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.menu-dropdown li a {
-  text-decoration: none;
-  color: white;
-  padding: 5px;
-}
-
-.menu-dropdown li button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: white;
-  padding: 5px;
-}
-
 
 @media screen and (min-width: 1200px) {
   nav {
@@ -107,10 +82,18 @@ nav form button[type="submit"] {
   }
 
   nav .menu-dropdown {
-    bottom: unset;
-    top: unset;
+    top: 100%;
     left: 0;
-    position: relative;
+    position: absolute;
+    transform: translateY(0%);
+    flex-direction: column;
+    background-color: black;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    min-width: 100px;
+    min-height: 70px;
+    z-index: 1000;
+    align-items: flex-start;
   }
 }
 
