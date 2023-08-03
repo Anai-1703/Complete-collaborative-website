@@ -4,7 +4,7 @@ import { getUserToken } from "../services/token/getUserToken";
 import { getTokenInfo } from "../services/token/getTokenInfo";
 import { getUser } from "../services/getUser";
 import { Link } from "react-router-dom";
-import { DefaultAvatar } from "./DefaultAvatar";
+import { DefaultAvatar } from "./defaultAvatar";
 
 import '../styles/UserFloat.css';
 

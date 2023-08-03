@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllPosts } from "../services/getAllPost";
-import { DefaultAvatar } from "./DefaultAvatar.jsx";
+import { DefaultAvatar } from "./defaultAvatar.jsx";
 import { Link } from "react-router-dom";
 import { UserInteraction } from "./UserInteraction";
 

@@ -1,4 +1,4 @@
-import { DefaultAvatar } from "./DefaultAvatar";
+import { DefaultAvatar } from "./defaultAvatar";
 import { UserInteraction } from "./UserInteraction";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";

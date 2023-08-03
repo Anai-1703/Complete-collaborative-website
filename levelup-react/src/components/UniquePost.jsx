@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getUniquePost } from "../services/getUniquePost";
-import { DefaultAvatar } from "./DefaultAvatar.jsx";
+import { DefaultAvatar } from "./defaultAvatar.jsx";
 import { UserInteraction } from "./UserInteraction";
 import { Link } from "react-router-dom";
 import { getUserToken } from "../services/token/getUserToken";
