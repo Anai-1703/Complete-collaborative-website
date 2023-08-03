@@ -12,12 +12,11 @@ body {
 .login-form {
     position: absolute;
     text-align: center;
-    margin: auto;
-    padding: 8% 0 0;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 100%;
+    width: 90%;
+    max-width: 480px;
     padding: 40px;
     background: rgba(0, 0, 0, 0.5);
     box-sizing: border-box;
@@ -29,23 +28,14 @@ body {
 .form input {
     width: 100%;
     padding: 10px 0;
-    font-size: 13px;
+    font-size: 16px;
     color: #fff;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     border: none;
     border-bottom: 1px solid #fff;
     outline: none;
     background: transparent;
 }
-
-/* Not registered?, Or register */
-/*
-.form .message {
-    margin: 15px 0 0;
-    color: #b3b3b3;
-    font-size: 12px;
-}
-*/
 
 /* Create an account */
 .form .message a {
@@ -56,16 +46,50 @@ body {
     margin-top: 20px; /* Add margin at the top of the link */
 }
 
+.footer-login {
+    background-color: red;
+}
 /***** Estilos para dispositivos móviles *****/
 @media only screen and (max-width: 480px) {
     .login-form {
         width: 90%;
-        padding: 8% 40px 0;
+        max-width: 480px;
+        position: absolute;
+        text-align: center;
+
+        /*
+        padding: 8% 20px 0;
         max-width: 100%;
+        margin: auto;
+        */
     }
 
     .form input {
         font-size: 16px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
+    }
+}
+
+@media only screen and (min-width: 481px) {
+    /* Agrega aquí los estilos específicos para dispositivos móviles con 780px o menos */
+
+    .login-form {
+        width: 440px;
+        padding: 8% 20px 0; /* Ajusta el padding superior e inferior para dispositivos móviles */
+        max-width: 780px;
+        margin: auto;
+    }
+
+    .form input {
+        font-size: 16px;
+        margin-bottom: 15px; /* Ajusta el margen inferior para dispositivos móviles */
+    }
+}
+
+/* Estilos para pantallas más grandes */
+@media only screen and (min-width: 781px) {
+    .login-form {
+        max-width: 480px; /* Establece un ancho máximo para evitar desplazamientos en pantallas grandes */
+        margin: auto; /* Centra el formulario horizontalmente */
     }
 }

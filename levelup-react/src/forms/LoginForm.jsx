@@ -28,7 +28,7 @@ export function LoginForm() {
     e.preventDefault();
     setError(''); //limpiar cualquier mensajde de error previo
     setLoginError(false);  // Reiniciar el estado de error de inicio de sesión
-
+    const [footerColor, setFooterColor] = useState(''); // Color por defecto para el footer
     if (!formData.email || !formData.password) {
       setError("Invalid email or password."); // Mostrar mensaje de error si la contraseña está vacía
       return;
@@ -51,7 +51,7 @@ export function LoginForm() {
   };
 
   return (
-   
+   <div>
     <form className="login-form" method="post" onSubmit={handleSubmit}>
        <h2>Login</h2>
        
@@ -86,6 +86,10 @@ export function LoginForm() {
       </p>
     </div>
     </form>
+    <footer 
+      className="footer-login">     
+    </footer>
+    </div>
   );
 }
 
