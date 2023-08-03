@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import logo2 from "../assets/svg/titulo2.svg";
+import logo2 from "../assets/svg/Titulo2.svg";
 import Logo from "../assets/svg/titulo.svg";
 
 const UseThemeToggle = () => {
