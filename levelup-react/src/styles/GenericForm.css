@@ -10,14 +10,20 @@ body {
 }
 
 .form {
-    margin-top: 20px;
-    width: 97%;
-    left: 5px;
+    max-width: 480px;
+    position: relative;
+    left: auto;
+    text-align: center;
+    padding: 15px;
+    width: 100%;
     background: rgba(0, 0, 0, 0.5);
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
     border-radius: 10px;
+    display: block;
+    margin-top: 20px;
     height: auto;
     max-width: 480px;
+    box-sizing: border-box;
 }
 
 input {
@@ -29,7 +35,6 @@ input {
     border-bottom: 1px solid #fff;
     background: transparent;
     outline: none;
-    /* margin-bottom: 10px;  ####### Desplaza usuarios del navBar hacia abajo */
 }
 
 .form .message a {
@@ -67,6 +72,7 @@ input {
     position: absolute;
     display: block;
 }
+
 .btn span:nth-child(1) {
     top: 0;
     left: -100%;
@@ -148,12 +154,54 @@ input {
 @media only screen and (max-width: 480px) {
     .form {
         max-width: 480px;
-        position: absolute;
+        position: relative;
+        left: auto;
         text-align: center;
+        padding: 15px;
     }
 
     .form input {
         font-size: 16px;
         margin-bottom: 15px;
+    }
+}
+
+/***** Estilos para tablet ******/
+@media only screen and (min-width: 481px) and (max-width: 1024px) {
+    .form {
+        max-width: 800px;
+        margin: 0 auto; /* Centrar horizontalmente el formulario */
+        padding: 40px; /* Agregar un padding para mayor espacio */
+    }
+
+    .form input {
+        width: 100%;
+        padding: 10px 20px;
+        margin-bottom: 30px;
+    }
+
+    .form .btn {
+        margin-top: 10px;
+        width: 18%;
+    }
+}
+
+/***** Estilos para pantallas más grandes *****/
+@media only screen and (min-width: 1025px) and (max-width: 1280px) {
+    .form {
+        max-width: 960px;
+        margin: 50px auto; /* Centrar horizontalmente el formulario */
+        padding: 50px; /* Ajustar el padding para mayor espacio */
+    }
+
+    .form input {
+        width: 100%;
+        padding: 10px 20px;
+        margin-bottom: 30px;
+    }
+
+    .form .btn {
+        margin-top: 15px;
+        width: 15%;
     }
 }
