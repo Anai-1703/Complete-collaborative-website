@@ -1,4 +1,5 @@
-import "../index.css";
+import "../styles/index.css";
+import "..styles/GenericForm";
 import { LoginForm } from "../forms/LoginForm";
 
 export function LoginPage() {

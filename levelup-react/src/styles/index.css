@@ -11,16 +11,65 @@
     font-size: 18px;
     color-scheme: light dark;
     margin: 0 auto;
-    padding: 1rem;
-    text-align: center;
     /* Variables de Color */
     --color-background: #242424;
     --color-regular: #fffffa;
     --color-links: #5b63fb;
     --color-links-hover: #1520ef;
+    padding: 1rem;
+    text-align: center;
 }
 
-h2 {
-    color: #289bb8;
-    text-align: center;
+h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+}
+
+a {
+    font-weight: 500;
+    color: var(--color-links);
+    text-decoration: inherit;
+}
+
+a:hover {
+    color: var(--color-links-hover);
+}
+
+.main-title,
+a.main-title:hover {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+header,
+.main-title {
+    width: 300px;
+    height: 90px;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto; /* Esto centrará los elementos horizontalmente */
+}
+
+.h1-hidden {
+    display: none;
+}
+
+.img-logo {
+    width: 100%; /* Para que el SVG ocupe todo el ancho del contenedor a */
+    height: 100%; /* Para que el SVG ocupe todo el alto del contenedor a */
+    display: block; /* Hacer que la imagen ocupe todo el espacio del enlace a */
+    margin: auto; /* Centrar la imagen verticalmente dentro del enlace */
+    object-position: center center; /* Centrar el eje horizontal del SVG en el contenedor */
+    object-fit: cover;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
 }
