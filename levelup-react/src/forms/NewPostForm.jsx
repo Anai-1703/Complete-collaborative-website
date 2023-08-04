@@ -58,7 +58,6 @@ console.log(createdPost)
     setDescription('');
     setPlatform([]);
     setCategory([]);
-    setText('');
     setPhoto(null);
     setPhotoPreview(null);
 
@@ -74,17 +73,15 @@ console.log(createdPost)
     setTimeout(() => {
       setSubmitMessage('');
       setSubmitButtonClicked(false);
-    }, 1000); // Cambia 1000 por el tiempo deseado (en milisegundos) para mantener el estado cambiado
+    }, 1000);
 
-    
+    window.location.href = '/';
+
   }  catch (error) {
     console.error('Error al crear el post:', error.message);
     }
   };
 
-  const handleTextChange = (event) => {
-    setText(event.target.value);
-  }; 
   
   const handlePhotoChange = (event) => {
     const selectedPhoto = event.target.files[0];

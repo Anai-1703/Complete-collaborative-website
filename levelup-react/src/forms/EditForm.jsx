@@ -1,27 +1,26 @@
 import { useState, useRef, useEffect } from 'react';
 import editPost from '../services/editPost';
 import Select from 'react-select';
+import { getToken } from "../services/token/getToken";
 import '../styles/NewPostForm.css';
 
-const EditForm = ({postData, onChange}) => {
-    console.log(postData);
+const EditForm = ({ id, postData, onChange, setPostData, onEditClick }) => {
     const [photo, setPhoto] = useState(null);
     const [photoPreview, setPhotoPreview] = useState(postData ? postData.photo : null);
     const [title, setTitle] = useState(postData ? postData.title : '');
     const [entradilla, setSummary] = useState(postData ? postData.entradilla : '');
     const [description, setDescription] = useState(postData ? postData.description : '');
     const [platforms, setPlatform] = useState(
-        postData && Array.isArray(postData.platforms)
-        ? postData.platforms.map((platform) => ({ value: platform, label: platform }))
+        postData && typeof postData.platforms === 'string'
+        ? postData.platforms.split(',').map((platform) => ({ value: platform, label: platform }))
         : []
     );
-    
     const [categories, setCategory] = useState(
-        postData && Array.isArray(postData.categories)
-        ? postData.categories.map((category) => ({ value: category, label: category }))
+        postData && typeof postData.categories === 'string'
+        ? postData.categories.split(',').map((category) => ({ value: category, label: category }))
         : []
     );
-    
+
     const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
     const [cancelButtonClicked, setCancelButtonClicked] = useState(false);
 
@@ -30,6 +29,8 @@ const EditForm = ({postData, onChange}) => {
 
     const [submitMessage, setSubmitMessage] = useState('');
     const [cancelMessage, setCancelMessage] = useState('');
+
+    const token = getToken();
 
     useEffect(() => {
         if (postData && postData.photo) {
@@ -55,25 +56,17 @@ const EditForm = ({postData, onChange}) => {
             photo: photo || null,
         };
         onChange(editPostData);
+        console.log(editPostData);
 
-        const editedPost = await editPost(editPostData);
-
-        // Limpiar entradas después de enviarlo
-        setTitle('');
-        setSummary('');
-        setDescription('');
-        setPlatform([]);
-        setCategory([]);
-        setPhoto(null);
-        setPhotoPreview(null);
+        const editedPost = await editPost(id, editPostData, token);
+        console.log(editedPost);
+        setPostData({ ...postData, ...editPostData });
 
         // Resetea el valor del input de tipo "file" para eliminar el nombre de la foto  
         fileInputRef.current.value = '';
 
         // Establecer el estado de los botones
         setSubmitButtonClicked(true);
-        setSubmitMessage('Submitted');
-
         setSubmitMessage('Submitted');
         
         // Después de un tiempo, restablecer el estado de los botones
@@ -126,14 +119,14 @@ const EditForm = ({postData, onChange}) => {
     
     };
 
-        // Función para manejar el cambio de opciones seleccionadas
-        const handlePlatformChange = (selectedOptions) => {
-        setPlatform(selectedOptions);
-        };
+    // Función para manejar el cambio de opciones seleccionadas
+    const handlePlatformChange = (selectedOptions) => {
+    setPlatform(selectedOptions);
+    };
 
-        const handleCategoryChange = (selectedOptions) => {
-        setCategory(selectedOptions);
-        };
+    const handleCategoryChange = (selectedOptions) => {
+    setCategory(selectedOptions);
+    };
 
     return (
         <form className="newPost-form" onSubmit={handleSubmit} >
@@ -228,20 +221,22 @@ const EditForm = ({postData, onChange}) => {
             </label>
         </div>
         <div className="buttons-container">
-            <button 
-            type="submit" 
-            className={`submit-button ${submitButtonClicked ? 'submitted' : ''}`}
-            >
-            {submitButtonClicked ? 'Submitted' : 'Create New Post'}
-            </button>
-            <button
-            type="button"
-            onClick={handleCancel}
-            className={`cancel-button ${cancelButtonClicked ? 'canceled' : ''}`}
-            >
-            {cancelButtonClicked ? 'Canceled' : 'Cancel'}
-            </button>
-        </div>
+                {/* Cambiar el onClick para contracción del formulario */}
+                <button
+                    type="button"
+                    onClick={onEditClick} // Llamar a onEditClick para manejar la contracción/expansión
+                    className={`submit-button ${submitButtonClicked ? 'submitted' : ''}`}
+                >
+                    {submitButtonClicked ? 'Submitted' : 'Edit Post'}
+                </button>
+                <button
+                    type="button"
+                    onClick={handleCancel}
+                    className={`cancel-button ${cancelButtonClicked ? 'canceled' : ''}`}
+                >
+                    {cancelButtonClicked ? 'Canceled' : 'Cancel'}
+                </button>
+            </div>
         </section>
         </form>
     );
