@@ -45,6 +45,11 @@ body {
     display: block; /* Add this line to make the link a block element */
     margin-top: 20px; /* Add margin at the top of the link */
 }
+/*
+.footer-login {
+    background-color: red;
+}
+*/
 
 /***** Estilos para dispositivos móviles *****/
 @media only screen and (max-width: 480px) {

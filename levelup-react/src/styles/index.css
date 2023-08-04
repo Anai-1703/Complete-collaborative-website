@@ -11,14 +11,13 @@
     font-size: 18px;
     color-scheme: light dark;
     margin: 0 auto;
+    padding: 1rem;
+    text-align: center;
     /* Variables de Color */
-    /*
     --color-background: #242424;
     --color-regular: #fffffa;
     --color-links: #5b63fb;
-    --color-links-hover: #1520ef; */
-    padding: 1rem;
-    text-align: center;
+    --color-links-hover: #1520ef;
 }
 
 h2 {
