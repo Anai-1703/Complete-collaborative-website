@@ -3,24 +3,23 @@ import { UserInteraction } from "./UserInteraction";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getUserToken } from "../services/token/getUserToken";
-import { getTokenInfo } from "../services/token/getTokenInfo";
+// import { getTokenInfo } from "../services/token/getTokenInfo";
 import { getToken } from "../services/token/getToken";
 import UserEditForm from "../forms/UserEditForm";
 import '../styles/UserInfo.css'
 
-
 const host = import.meta.env.VITE_API_HOST;
-
 
 const UserInfo = ({ user }) => {
   const { id: urlUserId } = useParams();
   const [isLoggedInUser, setIsLoggedInUser] = useState(false);
   const [showControlPanel, setShowControlPanel] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false); // Nuevo estado para controlar si UserControlPanel está expandido o contraído
+  const [updatedUserData, setUpdatedUserData] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false); 
 
   const token = getToken();
   const userToken = getUserToken();
-  const tokenInfo = getTokenInfo(token);
+  const tokenInfo = getUserToken();
 
   useEffect(() => {
     if (tokenInfo && userToken) {
@@ -31,14 +30,19 @@ const UserInfo = ({ user }) => {
     }
   }, [tokenInfo, userToken, urlUserId]);
 
-  const userData = user[0].user[0];
+  const userData = updatedUserData || user[0].user[0];
   const userPost = user[1].posts;
 
   const handleEditClick = () => {
-    // Mostrar el componente de control cuando se haga clic en "Editar"
-    setShowControlPanel(!showControlPanel); // Cambiar el estado de showControlPanel al contrario del valor actual
-    setIsExpanded(!showControlPanel); // Cambiar el estado de isExpanded al contrario del valor actual
+    setShowControlPanel(!showControlPanel); 
+    setIsExpanded(!showControlPanel); 
   };
+
+  const handleControlPanelClose = () => {
+    setShowControlPanel(false);
+    setIsExpanded(false);
+  };
+  
 
   return (
     <>
@@ -68,7 +72,7 @@ const UserInfo = ({ user }) => {
         </section>
       </article>
 
-      {showControlPanel && <UserEditForm userData={userData} />}
+      {showControlPanel && <UserEditForm userData={userData} onUpdate={setUpdatedUserData} onClose={handleControlPanelClose} />}
 
       <section>
         <h3> Post de {userData.nameMember}</h3>
@@ -103,11 +107,8 @@ const UserInfo = ({ user }) => {
             <p className="post-date">{post.createdAt}</p>
         </section>
         </Link>
-
       </article>
         ))}
-
-
     </>
   );
 };

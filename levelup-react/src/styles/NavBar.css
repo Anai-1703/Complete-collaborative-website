@@ -1,123 +1,124 @@
 nav {
-    padding: 1px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 50px;
-    display: flex;
-    justify-content: flex-start;
+  padding: 1px;
+  bottom: 0;
+  width: 100%;
+  height: 5vh;
+  display: flex;
+  justify-content: flex-start;
+  z-index: 9999;
+  position: sticky;
+  top: 0;
 }
 
 nav ul {
-    list-style-type: none; /* Eliminar los puntos de la lista */
-    margin: 0;
-    padding: 0;
-    display: flex;
-    bottom: 0;
+  list-style-type: none; /* Eliminar los puntos de la lista */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  bottom: 0;
 }
 
 nav ul li {
-    margin-left: 10px;
-    list-style: none; /* Eliminar el estilo de la lista */
-    border-radius: 50px;
+  margin-left: 10px;
+  list-style: none; /* Eliminar el estilo de la lista */
 }
 
 nav ul li a {
-    text-decoration: none;
-    color: #333;
+  text-decoration: none;
+  color: #333;
 }
 
 nav form {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 nav form input[type="text"] {
-    height: 20px;
-    order: -1;
+  height: 20px;
+  order: -1;
 }
 
 nav form button[type="submit"] {
-    background: none;
-    border: none;
-    cursor: pointer;
-    flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
-.menu-icon,
-.search-button {
-    bottom: unset;
-    top: 5px;
-    left: 5px;
-    width: 40px;
-    height: 40px;
+.menu-icon, .search-button {
+  bottom: unset;
+  top: 5px;
+  left: 5px;
+  width: 40px;
+  height: 40px;
 }
 
 .menu-dropdown {
-    bottom: 100%;
-    right: 10px;
-    margin-right: 3%;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    background-color: black;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 5px;
-    min-width: 100px;
-    z-index: 1000;
-    align-items: flex-start; /* Alineamos los hijos a la izquierda del menú */
-    max-height: calc(100vh - 65px); /* Evita el overflow vertical */
-    overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
+  bottom: 100%;
+  right: 10px;
+  margin-right: 3%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  min-width: 100px;
+  z-index: 1000;
+  align-items: flex-start; /* Alineamos los hijos a la izquierda del menú */
+  max-height: calc(100vh - 65px); /* Evita el overflow vertical */
+  overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
 
-    /* background-color: transparent; */
+  /* background-color: transparent; */
 }
 
 .menu-dropdown li {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 .menu-dropdown li a {
-    text-decoration: none;
-    color: white;
-    padding: 5px;
+  text-decoration: none;
+  color: white;
+  padding: 5px;
 }
 
 .menu-dropdown li button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: white;
-    padding: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 5px;
 }
 
+
 @media screen and (min-width: 1200px) {
-    nav {
-        bottom: unset;
-        top: 0;
-        justify-content: flex-start;
-    }
+  nav {
+    bottom: unset;
+    top: 0;
+    justify-content: flex-start;
+  }
 
-    nav .menu-icon {
-        bottom: unset;
-        top: 10px;
-        right: unset;
-        left: 0;
-    }
+  nav .menu-icon {
+    bottom: unset;
+    top: 10px;
+    right: unset;
+    left: 0;
+  }
 
-    nav .menu-dropdown {
-        bottom: unset;
-        top: unset;
-        left: 0;
-        position: relative;
-    }
+  nav .menu-dropdown {
+    bottom: unset;
+    top: unset;
+    left: 0;
+    position: relative;
+  }
 }
 
 .search-button {
-    width: 25px;
-    height: 25px;
-    object-fit: contain;
-    padding-left: 5px;
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+  padding-left: 5px;
 }

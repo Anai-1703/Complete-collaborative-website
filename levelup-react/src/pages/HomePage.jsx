@@ -1,5 +1,5 @@
 import { PostListPage } from "./PostListPage";
-import "./index.css";
+
 export function HomePage() {
   return (
     <>

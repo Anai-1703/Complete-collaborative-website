@@ -15,7 +15,6 @@ const CommentForm = ({ postId }) => {
     // Limpiar el campo del formulario después de agregar el comentario
     console.log(response);
     setComment('');
-    
   };
 
   const handleChange = (event) => {
@@ -40,4 +39,4 @@ const CommentForm = ({ postId }) => {
   );
 };
 
-export default CommentForm;
+export default CommentForm; 

@@ -39,7 +39,7 @@ async function createDatabaseTables(pool) {
 
     await pool.query(`CREATE TABLE IF NOT EXISTS users(
         id CHAR(36) PRIMARY KEY,
-        nameMember VARCHAR(50) NOT NULL,
+        nameMember VARCHAR(15) NOT NULL UNIQUE,
         email VARCHAR(50) NOT NULL UNIQUE,
         password VARCHAR(100) NOT NULL,
         birthday TIMESTAMP NOT NULL,
@@ -192,13 +192,3 @@ async function createDatabaseTables(pool) {
 }
 
 initDB();
-
-/*
-INSERTS DE LA BBDD
-
-async function createDataForDataBase(pool) {
-
-
-createDatabaseTables();
-
-*/

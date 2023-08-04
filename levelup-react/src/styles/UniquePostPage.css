@@ -21,7 +21,7 @@ article {
 .user-detail-full {
     display: flex;
     align-items: center;
-    flex-direction: row;
+    flex-direction: row; 
 }
 
 .user-avatar-full,
@@ -85,6 +85,8 @@ article {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .tags-cat,
@@ -93,12 +95,33 @@ article {
     font-size: 0.6rem;
 }
 
+.section-editpost {
+    display: flex;
+    justify-content: flex-end;
+    align-self: flex-start; /* Mueve el elemento al extremo derecho y lo alinea arriba del contenedor padre */
+    width: 100%; /* Asegura que el elemento ocupe todo el ancho del contenedor */
+    margin-bottom: 10px;
+}
+
+
+.btn-editpost {
+    padding: 10px;
+    background-color: rgb(110, 36, 145);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    bottom: 5px;
+    right: 5px;
+}
+
 .separador {
     width: 80%;
     border-bottom: 2px solid black;
     margin: 0 auto;
-    margin-bottom: 1rem;
+    text-align: right;
 }
+
 
 .post-comments-full {
     width: 100%;
@@ -140,5 +163,16 @@ article {
     margin: 0;
     padding: 0;
     text-align: left;
-    color: white;
+    color: white
 }
+
+.contain-form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+/* Estilo opcional para agregar margen entre el formulario y los elementos hermanos */
+.contain-form > * + * {
+    margin-top: 20px;
+  }

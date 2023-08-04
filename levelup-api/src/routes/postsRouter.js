@@ -28,11 +28,7 @@ const viewUniqueComment = require("../controllers/post/viewUniqueComment.js");
 const toggleVote = require("../controllers/post/toggleVote.js");
 
 // Importamos las funciones que interactúan con la base de datos.
-const {
-    updatePost,
-    deletePost,
-    checkVote,
-} = require("../services/dbService.js");
+const { deletePost, countVotes } = require("../services/dbService.js");
 
 // Importamos los servicios necesarios.
 const fileService = require("../services/fileServices.js");
@@ -79,17 +75,20 @@ router.post(
             throw new Error("INVALID_CREDENTIALS");
         }
         const token = req.currentUser.token; // Obtiene el token de la propiedad token del objeto currentUser
-        await createPost(req.body, token, res); // Pasa res como parámetro
-        sendResponse(res, req.body, undefined, 201);
+        const post = await createPost(req.body, token, res); // Pasa res como parámetro
+        const fullPost = { ...req.body, ...post.newPost };
+        sendResponse(res, fullPost, undefined, 201);
     })
 );
 
 // Agregar una foto a un post.
-router.post(
+router.put(
     "/posts/:id/photos",
     authGuard,
     handleAsyncError(async (req, res) => {
-        await addPhoto(req.params.id, req.currentUser.id, req.files.photo);
+        const photo = req.files.photo;
+        console.log(photo);
+        await addPhoto(req.params.id, req.currentUser.id, photo);
         sendResponse(res);
     })
 );
@@ -205,8 +204,9 @@ router.post(
     json(),
     handleAsyncError(async (req, res) => {
         await toggleVote(req.params.id, req.currentUser.id, req.body.vote);
-
-        sendResponse(res, undefined, 200);
+        const votes = await countVotes(req.params.id);
+        console.log(votes);
+        sendResponse(res, votes, undefined, 200);
     })
 );
 

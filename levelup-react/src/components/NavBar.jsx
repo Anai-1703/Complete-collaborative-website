@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Toggle from "./Toggle";
 import searchIcon from "../assets/svg/lupa.svg";
 
-import "../styles/navBar.css";
+import "../styles/NavBar.css";
 import { Menu } from "./Menu";
 
 export function NavBar() {

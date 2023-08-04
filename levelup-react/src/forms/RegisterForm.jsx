@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { sendRegister } from "../services/sendRegister";
-import "../styles/RegisterForm.css";
 
 export function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -119,6 +118,9 @@ export function RegisterForm() {
       {/* Enlace para ir a LoginPage(inicio sesión) */}
       <p className="message">
         Already registered? <Link to="/login">Sign In</Link>
+      </p>
+      <p className="message">
+        <Link to="/tos">Términos y Condiciones de Level Up!</Link>
       </p>
     </form>
   );

@@ -2,19 +2,22 @@ import { useState, useRef } from 'react';
 import { createNewPost } from '../services/createNewPost';
 import Select from 'react-select';
 import '../styles/NewPostForm.css';
+import Modal from '../components/Modal';
+
 
 const NewPostForm = () => {
-  const [text, setText] = useState('');
   const [photo, setPhoto] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
   const [title, setTitle] = useState('');
-  const [entradilla, setEntradilla] = useState('');
+  const [entradilla, setSummary] = useState('');
   const [description, setDescription] = useState('');
   const [platforms, setPlatform] = useState([]);
   const [categories, setCategory] = useState([]);
   const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
   const [cancelButtonClicked, setCancelButtonClicked] = useState(false);
   
+  const [showErrorModal, setShowErrorModal] = useState(false); // Nuevo estado para mostrar el Modal de error
+
   // Crear referencia, para el input de tipo "file"
   const fileInputRef = useRef();
 
@@ -25,7 +28,7 @@ const NewPostForm = () => {
     event.preventDefault();
 
     if (!title.trim() || !entradilla.trim() || !description.trim() || !platforms || !categories) {
-      alert('Please enter all fields.');
+      setShowErrorModal(true);
       return;
     }
     
@@ -47,14 +50,14 @@ const NewPostForm = () => {
     const createdPost = await createNewPost(newPostData);
     // console.log("CreateD postTR: ", createdPost);
 
+console.log(createdPost)
 
     // Limpiar entradas después de enviarlo
     setTitle('');
-    setEntradilla('');
+    setSummary('');
     setDescription('');
     setPlatform([]);
     setCategory([]);
-    setText('');
     setPhoto(null);
     setPhotoPreview(null);
 
@@ -70,16 +73,15 @@ const NewPostForm = () => {
     setTimeout(() => {
       setSubmitMessage('');
       setSubmitButtonClicked(false);
-    }, 1000); // Cambia 1000 por el tiempo deseado (en milisegundos) para mantener el estado cambiado
+    }, 1000);
+
+    window.location.href = '/';
 
   }  catch (error) {
     console.error('Error al crear el post:', error.message);
     }
   };
 
-  const handleTextChange = (event) => {
-    setText(event.target.value);
-  }; 
   
   const handlePhotoChange = (event) => {
     const selectedPhoto = event.target.files[0];
@@ -103,8 +105,6 @@ const NewPostForm = () => {
 
   const handleCancel = () => {
     // Limpiar el texto y la foto al hacer clic en "Cancelar"
-    
-    setText('');
     setPhoto(null);
     setPhotoPreview(null);
     
@@ -131,6 +131,7 @@ const NewPostForm = () => {
     };
 
   return (
+    <>
     <form className="newPost-form" onSubmit={handleSubmit} >
       <div className="newPost-container">
         <h2>Create New Post</h2>
@@ -143,9 +144,9 @@ const NewPostForm = () => {
         />
         <textarea
           value={entradilla}
-          onChange={(e) => setEntradilla(e.target.value)}
+          onChange={(e) => setSummary(e.target.value)}
           placeholder="Entradilla (Resumen)"
-          className="entradilla"
+          className="summary"
         />
         <textarea
           value={description}
@@ -155,7 +156,7 @@ const NewPostForm = () => {
         />
         
         {/** Campo de la plataforma */}
-        <label className="select-label-2">Platform:</label>
+          <label className="select-label-2">Platform:</label>
           <Select
             className="platform-select"
             value={platforms}
@@ -182,7 +183,7 @@ const NewPostForm = () => {
           /> 
   
         {/* Campo de la categoría */}
-        <label className="select-label-1">Category:</label>
+          <label className="select-label-1">Category:</label>
           <Select
             className="category-select "
             value={categories}
@@ -204,7 +205,6 @@ const NewPostForm = () => {
             ]}
             isMulti
           />
-        
       
         {photoPreview && (
           <div className="photo-preview-container">
@@ -241,6 +241,8 @@ const NewPostForm = () => {
       </div>
       </div>
     </form>
+    {showErrorModal && <Modal type="newpost" visible={true} onClose={() => setShowErrorModal(false)} />} {/* Mostrar el Modal de error si showErrorModal es true */}
+    </>
   );
 }
 

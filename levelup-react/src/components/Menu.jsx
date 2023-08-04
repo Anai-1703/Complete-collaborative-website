@@ -3,8 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import menuIcon from "../assets/svg/menu.svg";
 import { getToken } from "../services/token/getToken";
 import { getUserToken } from "../services/token/getUserToken";
-import { getTokenInfo } from "../services/token/getTokenInfo";
+// import { getTokenInfo } from "../services/token/getTokenInfo";
 import { deleteToken } from "../services/token/deleteToken";
+import { notifyAuthChange } from "../services/auth";
+
 
 export function Menu() {
     const navigate = useNavigate();
@@ -16,7 +18,7 @@ export function Menu() {
     const userToken = getUserToken();
 
     if (token && userToken) {
-        const tokenInfo = getTokenInfo(token);
+        const tokenInfo = getUserToken();
         if (tokenInfo) {
         setIsLoggedIn(true);
         }
@@ -34,6 +36,7 @@ export function Menu() {
     const handleLogout = () => {
         deleteToken();
         setIsLoggedIn(false);
+        notifyAuthChange(false);
         navigate("/"); // Redirige a la página de login después de hacer logout
     };
     

@@ -2,14 +2,14 @@ import React from "react";
 import useThemeToggle from "../hooks/UseThemeToggle.jsx";
 import toggleLight from "../assets/svg/toggleLight.png";
 import toggleDark from "../assets/svg/toggleDark.png";
-import "../styles/Toggle.css";
+import "./Toggle.css";
 
 const Toggle = () => {
-  const { isDarkMode, ToggleTheme } = useThemeToggle(); // Asegúrate de que la función se llame "ToggleTheme"
+  const { isDarkMode, ToggleTheme } = useThemeToggle();
 
   const handleThemeChange = () => {
-    document.body.classList.toggle("dark-mode", !isDarkMode);
-    ToggleTheme(); // Aquí debes usar "ToggleTheme" para cambiar el tema
+    document.body.classList.toggle("darkMode", !isDarkMode);
+    ToggleTheme();
   };
 
   return (

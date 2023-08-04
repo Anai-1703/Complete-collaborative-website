@@ -4,22 +4,20 @@ import { getUniquePost } from "../services/getUniquePost";
 import { DefaultAvatar } from "./DefaultAvatar.jsx";
 import { UserInteraction } from "./UserInteraction";
 import { Link } from "react-router-dom";
-import { getTokenInfo } from "../services/token/getTokenInfo";
-import { getToken } from "../services/token/getToken";
-// import EditForm from "../forms/EditForm";
+import { getUserToken } from "../services/token/getUserToken";
+import EditForm from "../forms/EditForm";
 import CommentForm from "../forms/CommentForm";
 
 const host = import.meta.env.VITE_API_HOST;
-
 
 function UniquePost() {
   const [post, setPost] = useState({});
   const [showFullDate, setShowFullDate] = useState(false);
   const { id } = useParams();
-
   const [showControlPanel, setShowControlPanel] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false); 
-    
+  const [postData, setPostData] = useState(post.data);
+
   const formatDate = (dateString) => {
     const postDate = new Date(dateString);
     const now = new Date();
@@ -45,7 +43,6 @@ function UniquePost() {
     setPost({...post, upvotes, downvotes})
   }
 
-
   useEffect(() => {
     async function fetchPost() {
       try {
@@ -59,15 +56,11 @@ function UniquePost() {
     fetchPost();
   }, [id]);
 
-
-
-  
   if (!post.data) {
     return <div>Leveling Up Posts...</div>;
   }
 
-  const token = getToken();
-  const tokenInfo = getTokenInfo(token);
+  const tokenInfo = getUserToken();
 
   const userIdFromToken = tokenInfo ? tokenInfo.id : null;
   const createdByUserId = post.data.idUser;
@@ -111,8 +104,17 @@ function UniquePost() {
   const hasComments = post.data.comments[0].idUser;
 
   const handleEditClick = () => {
-    setShowControlPanel(!showControlPanel);
-    setIsExpanded(!showControlPanel);
+    if (isExpanded) {
+        setShowControlPanel(false); // Contraer el formulario al hacer clic en "Contraer"
+    } else {
+        setShowControlPanel(!showControlPanel); // Expandir el formulario al hacer clic en "Editar Post"
+    }
+    setIsExpanded(!isExpanded);
+};
+  
+  const handleFormSubmit = (formData) => {
+    // Actualizar el estado de postData con los datos editados
+    setPostData({ ...postData, ...formData });
   };
 
   return (
@@ -162,13 +164,22 @@ function UniquePost() {
       </section>
 
       {isCurrentUserPostCreator && (
-        <section className="section-editpost">
-          <button className="btn-editpost" onClick={handleEditClick}> {isExpanded ? "Contraer" : "Editar Post"}</button>
-        </section>
-      )}
+      <section className="section-editpost">
+        <button className="btn-editpost" onClick={handleEditClick}>
+          {isExpanded ? "Contraer" : "Editar Post"}
+        </button>
+      </section>
+    )}
 
       <section className="contain-form">
-        {showControlPanel && <EditForm postData={post.data} />}
+        {showControlPanel && (
+          <EditForm
+            id={id}
+            postData={post.data}
+            onChange={handleFormSubmit}
+            onEditClick={handleEditClick}
+          />
+        )}
       </section>
 
       <div className="separador">
@@ -176,15 +187,15 @@ function UniquePost() {
       </div>
 
       {!hasComments &&
-      <>
+      <section className="post-comments-full">
         <p>No hay comentarios. ¡Se el primero en dejar uno!</p>
         <CommentForm postId={post.data.id} />
-      </>
+      </section>
       }
       {hasComments && (
         <section className="post-comments-full">
           {post.data.comments.map((comment, index) => (
-            <Link key={comment.id + 1} className="link-to-user-comment" to={`/users/${comment.idUser}`}>
+            <Link key={`${comment.idUser}-${index}`} className="link-to-user-comment" to={`/users/${comment.idUser}`}>
               <section key={`${comment.idUser}-${index}`} className="comment">
                 {comment.avatarURL ? (
                   <img
@@ -206,7 +217,7 @@ function UniquePost() {
               </section>
             </Link>
           ))}
-         <CommentForm postId={post.data.id} />
+          <CommentForm postId={post.data.id} />
         </section>
       )}
     </>

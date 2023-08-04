@@ -1,6 +1,5 @@
 "use strict";
 
-
 module.exports = {
     invalidCredentials: () => {
         const error = new Error("You must enter a valid email and password");

@@ -7,10 +7,7 @@ const {
     validatePassword,
     generateJWT,
 } = require("../../services/cryptoServices.js");
-const {
-    invalidCredentials,
-    notAuthenticated,
-} = require("../../services/errorService.js");
+const { invalidCredentials } = require("../../services/errorService.js");
 
 async function loginUser(data) {
     const pool = getConnection();
@@ -38,8 +35,14 @@ async function loginUser(data) {
 
     const token = generateJWT(rows[0]);
 
+    const user = {
+        id: rows[0].id,
+        nameMember: rows[0].nameMember,
+    };
+
     return {
-        token, // Añade el token en la respuesta
+        token,
+        user,
     };
 }
 
