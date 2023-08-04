@@ -34,7 +34,7 @@ article {
     width: 20px;
     height: 20px;
     object-fit: contain;
-    padding-left: 50px;
+    padding-left: 5px;
 }
 
 .user-name {
@@ -51,6 +51,8 @@ article {
     flex: 0 0 35%; /* 35% del ancho, pero no crecerá ni se encogerá */
     max-width: 35%;
 }
+
+
 
 .post-created-full {
     text-align: end;
