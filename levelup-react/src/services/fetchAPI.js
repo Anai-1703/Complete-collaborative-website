@@ -11,8 +11,8 @@ export async function fetchAPI(path, method = "get", payload, token) {
     if (token) {
         requestInit.headers["Authorization"] = `${token}`;
     }
-
-    if (method === "get" && payload) {
+    // añadido el caso delete
+    if ((method === "get" && payload) || (method === "delete" && payload)) {
         const query = new URLSearchParams(payload).toString();
         path += `?${query}`;
     }
