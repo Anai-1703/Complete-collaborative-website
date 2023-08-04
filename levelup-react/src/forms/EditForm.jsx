@@ -2,7 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 import editPost from '../services/editPost';
 import Select from 'react-select';
 import { getToken } from "../services/token/getToken";
-import '../styles/NewPostForm.css';
+import "../styles/GenericForm.css";
+// import '../styles/NewPostForm.css';
 
 const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
     const [photo, setPhoto] = useState(null);

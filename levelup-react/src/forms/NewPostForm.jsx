@@ -1,9 +1,9 @@
 import { useState, useRef } from 'react';
 import { createNewPost } from '../services/createNewPost';
 import Select from 'react-select';
-import '../styles/NewPostForm.css';
 import Modal from '../components/Modal';
-
+import '../styles/GenericForm.css'
+// import '../styles/NewPostForm.css';
 
 const NewPostForm = () => {
   const [photo, setPhoto] = useState(null);
@@ -54,7 +54,7 @@ console.log(createdPost)
 
     // Limpiar entradas después de enviarlo
     setTitle('');
-    setSummary('');
+    setEntradilla('');
     setDescription('');
     setPlatform([]);
     setCategory([]);

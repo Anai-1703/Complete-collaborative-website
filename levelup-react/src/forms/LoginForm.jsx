@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { saveToken } from '../services/token/saveToken';
 import { sendLogin } from '../services/sendLogin';
 import Modal from '../components/Modal';
+import "../styles/GenericForm.css";
+// import "../styles/LoginForm.css";
 
 export function LoginForm() {
   const [formData, setFormData] = useState({
@@ -40,6 +42,7 @@ export function LoginForm() {
   
   return (
     <>
+      <section className="form">
       <form className="login-form" method="post" onSubmit={handleSubmit}>
         <h2>Login</h2>
         <input 
@@ -68,7 +71,9 @@ export function LoginForm() {
       <Link to="/tos">Términos y Condiciones de Level Up!</Link>
       </p>
       </form>
-      {showErrorModal && <Modal type="login" visible={showErrorModal} onClose={closeModal} />}    </>
+      {showErrorModal && <Modal type="login" visible={showErrorModal} onClose={closeModal} />}    
+      </section>
+  </>
   );
 }
 

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { createComment } from "../services/createComment";
-import "../styles/CommentForm.css";
+import "../styles/GenericForm.css";
+// import "../styles/CommentForm.css";
 
 const CommentForm = ({ postId }) => {
   const [comment, setComment] = useState('');
@@ -22,6 +23,7 @@ const CommentForm = ({ postId }) => {
   }
 
   return (
+    <section className="form">
     <form onSubmit={handleSubmit}>
       <div className="comment">
         <textarea
@@ -36,6 +38,7 @@ const CommentForm = ({ postId }) => {
       <button type="submit" className="btn">Agregar</button>
       <Link to="/post/:id/comment"></Link>
     </form>
+    </section>
   );
 };
 
