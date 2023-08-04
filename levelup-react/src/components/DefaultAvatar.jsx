@@ -1,11 +1,7 @@
-import PropTypes from 'prop-types';
-import defaultAvatarSvg from '../assets/svg/default-avatar.svg';
+import DefaultAvatarSvg from '../assets/svg/Default-avatar.svg';
 
 export function DefaultAvatar({ post }) {
     const className = post ? 'user-avatar' : 'user-avatar-full';
 
-    return <img className={className} src={defaultAvatarSvg} alt="Avatar" />;
+    return <img className={className} src={DefaultAvatarSvg} alt="Avatar" />;
 }
-DefaultAvatar.propTypes = {
-    post: PropTypes.bool,
-};
