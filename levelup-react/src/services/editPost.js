@@ -1,13 +1,12 @@
 import { fetchAPI } from "./fetchAPI";
-import { getToken } from "./token/getToken.js";
 
-const editUser = async (userId, userData) => {
+const editUser = async (postId, userData, token) => {
     try {
         console.log(userData);
-        console.log(userId);
-        const token = getToken();
+        console.log(postId);
+        console.log(token);
         const response = await fetchAPI(
-            `/users/${userId}`,
+            `/posts/${postId}`,
             "put",
             userData,
             token
