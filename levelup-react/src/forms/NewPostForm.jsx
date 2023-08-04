@@ -9,7 +9,7 @@ const NewPostForm = () => {
   const [photo, setPhoto] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
   const [title, setTitle] = useState('');
-  const [entradilla, setSummary] = useState('');
+  const [entradilla, setEntradilla] = useState('');
   const [description, setDescription] = useState('');
   const [platforms, setPlatform] = useState([]);
   const [categories, setCategory] = useState([]);

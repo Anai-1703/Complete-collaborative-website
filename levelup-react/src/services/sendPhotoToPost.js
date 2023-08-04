@@ -3,6 +3,7 @@ import { getToken } from "./token/getToken";
 
 export async function sendPhotoToPost(photo, postId) {
     try {
+        console.log("holaaa");
         const token = getToken();
         console.log(photo);
 

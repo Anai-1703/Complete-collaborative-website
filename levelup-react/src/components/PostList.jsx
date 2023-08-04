@@ -132,7 +132,7 @@ function PostList() {
                     </section>
                     </Link>
                     
-                    <section className="tags-full">
+                    {/* <section className="tags-full">
                         {(() => {
                             categories = post.categories.split(",");
                             platforms = post.platforms.split(",");
@@ -148,7 +148,7 @@ function PostList() {
                             <Link to={`${host}/searchplatform/${platform}`}>{platform}</Link>{' '}
                         </span>
                         ))}</p>
-                    </section>
+                    </section> */}
 
                     {post.lastComment && (
                     <>
