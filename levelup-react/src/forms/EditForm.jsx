@@ -4,7 +4,7 @@ import Select from 'react-select';
 import { getToken } from "../services/token/getToken";
 import '../styles/NewPostForm.css';
 
-const EditForm = ({ id, postData, onChange, setPostData, onEditClick }) => {
+const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
     const [photo, setPhoto] = useState(null);
     const [photoPreview, setPhotoPreview] = useState(postData ? postData.photo : null);
     const [title, setTitle] = useState(postData ? postData.title : '');
@@ -22,13 +22,11 @@ const EditForm = ({ id, postData, onChange, setPostData, onEditClick }) => {
     );
 
     const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
-    const [cancelButtonClicked, setCancelButtonClicked] = useState(false);
 
     // Crear referencia, para el input de tipo "file"
     const fileInputRef = useRef();
 
     const [submitMessage, setSubmitMessage] = useState('');
-    const [cancelMessage, setCancelMessage] = useState('');
 
     const token = getToken();
 
@@ -38,42 +36,51 @@ const EditForm = ({ id, postData, onChange, setPostData, onEditClick }) => {
         }
     }, [postData]);
     
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleSubmit = async () => {
+        // event.preventDefault();
 
         if (!title.trim() || !entradilla.trim() || !description.trim() || !platforms || !categories) {
         alert('Please enter all fields.');
         return;
         }
-        
         try {
-        const editPostData = {
-            title: title,
-            entradilla: entradilla,
-            description: description,
-            platforms: platforms.map((platform) => platform.value), 
-            categories: categories.map((category) => category.value),
-            photo: photo || null,
-        };
+        let editPostData;
+        if (photo === null) {
+            // Si photo es null, creamos editPostData sin la propiedad photo
+            editPostData = {
+                title: title,
+                entradilla: entradilla,
+                description: description,
+                platforms: platforms.map((platform) => platform.value), 
+                categories: categories.map((category) => category.value),
+            };
+        } else {
+            // Si photo no es null, creamos editPostData con la propiedad photo
+            editPostData = {
+                title: title,
+                entradilla: entradilla,
+                description: description,
+                platforms: platforms.map((platform) => platform.value), 
+                categories: categories.map((category) => category.value),
+                photo: photo,
+            };
+        }
+
         onChange(editPostData);
         console.log(editPostData);
 
         const editedPost = await editPost(id, editPostData, token);
         console.log(editedPost);
-        setPostData({ ...postData, ...editPostData });
+        // setPostData({ ...postData, ...editPostData });
 
         // Resetea el valor del input de tipo "file" para eliminar el nombre de la foto  
+        if (photo){
         fileInputRef.current.value = '';
+        }
 
         // Establecer el estado de los botones
         setSubmitButtonClicked(true);
         setSubmitMessage('Submitted');
-        
-        // Después de un tiempo, restablecer el estado de los botones
-        setTimeout(() => {
-        setSubmitMessage('');
-        setSubmitButtonClicked(false);
-        }, 1000); // Cambia 1000 por el tiempo deseado (en milisegundos) para mantener el estado cambiado
 
     }  catch (error) {
         console.error('Error al crear el post:', error.message);
@@ -99,24 +106,6 @@ const EditForm = ({ id, postData, onChange, setPostData, onEditClick }) => {
 
     const handleSelectFile = () => {
         fileInputRef.current.click(); // Simula el clic en el input de tipo "file"
-    };
-
-    const handleCancel = () => {
-        // Limpiar el texto y la foto al hacer clic en "Cancelar"
-        setPhoto(null);
-        setPhotoPreview(null);
-        
-        // Resetea el valor del input de tipo "file" para eliminar el nombre de la foto
-        fileInputRef.current.value = '';
-        setCancelButtonClicked(true);
-
-        setCancelMessage('Canceled');
-
-        setTimeout(() => {
-        setCancelMessage('');
-        setCancelButtonClicked(false);
-        }, 1000);
-    
     };
 
     // Función para manejar el cambio de opciones seleccionadas
@@ -224,18 +213,15 @@ const EditForm = ({ id, postData, onChange, setPostData, onEditClick }) => {
                 {/* Cambiar el onClick para contracción del formulario */}
                 <button
                     type="button"
-                    onClick={onEditClick} // Llamar a onEditClick para manejar la contracción/expansión
+                    onClick={(event) => {
+                        event.stopPropagation(); // Evitar la propagación del evento
+                        handleEditClick(); // Llama a la función proporcionada desde la prop handleEditClick
+                        handleSubmit(); // También llama a la función handleSubmit
+                    }}
                     className={`submit-button ${submitButtonClicked ? 'submitted' : ''}`}
-                >
+                    >
                     {submitButtonClicked ? 'Submitted' : 'Edit Post'}
-                </button>
-                <button
-                    type="button"
-                    onClick={handleCancel}
-                    className={`cancel-button ${cancelButtonClicked ? 'canceled' : ''}`}
-                >
-                    {cancelButtonClicked ? 'Canceled' : 'Cancel'}
-                </button>
+                    </button>
             </div>
         </section>
         </form>

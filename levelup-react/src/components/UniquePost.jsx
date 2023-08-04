@@ -103,18 +103,24 @@ function UniquePost() {
   
   const hasComments = post.data.comments[0].idUser;
 
+
   const handleEditClick = () => {
     if (isExpanded) {
         setShowControlPanel(false); // Contraer el formulario al hacer clic en "Contraer"
     } else {
+        handleFormSubmit(postData); // Llamar a handleFormSubmit con los datos actuales antes de expandir el formulario
         setShowControlPanel(!showControlPanel); // Expandir el formulario al hacer clic en "Editar Post"
     }
     setIsExpanded(!isExpanded);
-};
+} ;
   
-  const handleFormSubmit = (formData) => {
-    // Actualizar el estado de postData con los datos editados
-    setPostData({ ...postData, ...formData });
+  const handleFormSubmit = async (formData) => {
+    try {
+      setPostData({ ...post.data, ...formData }); // Actualizar solo el campo post.data con los datos editados
+      setShowControlPanel(false); // Cerrar el formulario después de enviar los datos
+    } catch (error) {
+      console.error('Error al editar el post:', error.message);
+    }
   };
 
   return (
@@ -178,6 +184,7 @@ function UniquePost() {
             postData={post.data}
             onChange={handleFormSubmit}
             onEditClick={handleEditClick}
+            handleEditClick={handleEditClick} // Envía la función handleEditClick como prop
           />
         )}
       </section>
