@@ -256,6 +256,7 @@ module.exports = {
           createdAt DESC;
     `;
         const [rows] = await db.execute(statement, [postId]);
+        console.log(rows);
         return rows[0];
     },
 
@@ -366,7 +367,6 @@ module.exports = {
                 })
             );
 
-            // Construir la consulta manualmente con los valores que deseamos insertar
             let values = "";
             platformIds.forEach((platformId, index) => {
                 values += `(${db.escape(postId)}, ${db.escape(platformId)})`;
@@ -425,13 +425,51 @@ module.exports = {
         }
     },
 
+    // Update Posts
+
     async updatePost(post) {
-        const statement = `
-        UPDATE posts
-        SET title = ?, description = ?
-        WHERE id = ?
-      `;
-        await db.execute(statement, [post.title, post.description, post.id]);
+        try {
+            const statement = `
+              UPDATE posts
+              SET title = ?, description = ?, entradilla = ?
+              WHERE id = ?
+          `;
+            await db.execute(statement, [
+                post.title,
+                post.description,
+                post.entradilla,
+                post.id,
+            ]);
+        } catch (error) {
+            console.error("Error en updatePostBasicInfo:", error);
+            throw error;
+        }
+    },
+
+    // Delete Categories
+    async deletePostCategories(postId) {
+        try {
+            const deleteStatement = `
+              DELETE FROM postcategories WHERE postId = ?
+          `;
+            await db.execute(deleteStatement, [postId]);
+        } catch (error) {
+            console.error("Error en deletePostCategories:", error);
+            throw error;
+        }
+    },
+
+    // Delete Platform
+    async deletePostPlatforms(postId) {
+        try {
+            const deleteStatement = `
+              DELETE FROM postplatforms WHERE postId = ?
+          `;
+            await db.execute(deleteStatement, [postId]);
+        } catch (error) {
+            console.error("Error en deletePostPlatforms:", error);
+            throw error;
+        }
     },
 
     async getCommentsByPostId(postId) {
