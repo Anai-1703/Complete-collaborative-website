@@ -572,6 +572,15 @@ module.exports = {
         const [rows] = await db.execute(statement, [userVote, idUser, idPost]);
     },
 
+    async deleteVoteByPostId(idPost) {
+        const statement = `
+    DELETE FROM votes
+    WHERE idPost = ?;
+    `;
+        const [rows] = await db.execute(statement, [idPost]);
+        return rows;
+    },
+
     async countVotes(postId) {
         const statement = `
       SELECT 
@@ -598,11 +607,11 @@ module.exports = {
     },
 
     async deletePost(postId) {
-        const statement = `
-        DELETE FROM posts
-        WHERE id = ?
-      `;
-        await db.execute(statement, [postId]);
+        // Desarrollar delete photo bien e implementarlo aqui
+        await db.execute("DELETE FROM postimages WHERE idPost = ?", [postId]);
+
+        // Mantener esta consulta, pues es la real
+        await db.execute("DELETE FROM posts WHERE id = ?", [postId]);
     },
 
     async updateComment(post) {
@@ -627,6 +636,14 @@ module.exports = {
         await db.execute(statement, [commentId]);
     },
 
+    async deleteCommentByPostId(postId) {
+        const statement = `
+      DELETE FROM postcomments
+      WHERE idPost = ?
+      `;
+        await db.execute(statement, [postId]);
+    },
+
     async savePhoto(photo) {
         const statement = `
         INSERT INTO postimages(id, idPost, imageURL)
@@ -646,7 +663,7 @@ module.exports = {
 
     async deletePhoto(photoId) {
         const statement = `
-        DELETE FROM post_photos
+        DELETE FROM postimages
         WHERE id = ?
       `;
         await db.execute(statement, [photoId]);
@@ -655,7 +672,7 @@ module.exports = {
     async getPhotosByPostId(postId) {
         const statement = `
         SELECT *
-        FROM post_photos as pp
+        FROM postimages as pp
         WHERE pp.postId = ?
       `;
         const [rows] = await db.execute(statement, [postId]);
