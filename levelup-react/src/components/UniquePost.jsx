@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { getUserToken } from "../services/token/getUserToken";
 import EditForm from "../forms/EditForm";
 import CommentForm from "../forms/CommentForm";
+import deletePost from "../services/deletePost";
 
 const host = import.meta.env.VITE_API_HOST;
 
@@ -123,6 +124,18 @@ function UniquePost() {
     }
   };
 
+
+  const handleDeleteClick = async () => {
+    try {
+      const postDeleted = await deletePost(id);
+      console.log(postDeleted);
+      // window.location.href = '/';
+    } catch (error) {
+      console.error("Error al eliminar el post:", error);
+    }
+  };
+
+
   return (
       <>
       <section className="user-detail-full">
@@ -163,7 +176,7 @@ function UniquePost() {
           {formattedDate}
         </p>
       </section>
-      
+
       <section className="tags-full">
         <p className="tags-cat">Categorías: {categoriesLinks}</p>
         <p className="tags-plat">Plataformas: {platformsLinks}</p>
@@ -174,18 +187,19 @@ function UniquePost() {
         <button className="btn-editpost" onClick={handleEditClick}>
           {isExpanded ? "Contraer" : "Editar Post"}
         </button>
+        <button className="btn-deletepost" onClick={handleDeleteClick}>Delete</button>
       </section>
     )}
 
       <section className="contain-form">
         {showControlPanel && (
-          <EditForm
-            id={id}
-            postData={post.data}
-            onChange={handleFormSubmit}
-            onEditClick={handleEditClick}
-            handleEditClick={handleEditClick} // Envía la función handleEditClick como prop
-          />
+            <EditForm
+              id={id}
+              postData={post.data}
+              onChange={handleFormSubmit}
+              onEditClick={handleEditClick}
+              handleEditClick={handleEditClick} // Envía la función handleEditClick como prop
+            />
         )}
       </section>
 

@@ -28,7 +28,7 @@ const viewUniqueComment = require("../controllers/post/viewUniqueComment.js");
 const toggleVote = require("../controllers/post/toggleVote.js");
 
 // Importamos las funciones que interactúan con la base de datos.
-const { deletePost, countVotes } = require("../services/dbService.js");
+const { countVotes } = require("../services/dbService.js");
 
 // Importamos los servicios necesarios.
 const fileService = require("../services/fileServices.js");
@@ -36,6 +36,7 @@ const handleAsyncError = require("../services/handleAsyncError.js");
 
 // Importamos la función que envía una respuesta al cliente.
 const sendResponse = require("../utils/sendResponse.js");
+const deletePost = require("../controllers/post/deletePost.js");
 
 // Obtener un listado de posts.
 router.get(
@@ -92,19 +93,6 @@ router.put(
         sendResponse(res);
     })
 );
-
-/*
-Prueba AddPhotos, ya que NO está fileUpload y podría ser necesario en el futuro
-router.post(
-    "/posts/:id/photos",
-    authGuard,
-    fileUpload(),
-    handleAsyncError(async (req, res) => {
-        await addPhoto(req.params.id, req.currentUser.id, req.files.photo);
-        sendResponse(res);
-    })
-);
-*/
 
 // Agregar un comentario a un post.
 router.post(
@@ -176,7 +164,7 @@ router.delete(
         if (!req.currentUser) {
             throw new Error("INVALID_CREDENTIALS");
         }
-        const token = req.currentUser.token; // Obtiene el token de la propiedad token del objeto currentUser
+        const token = req.currentUser.token;
         await deletePost(req.params.id, req.currentUser.id, req.body);
         sendResponse(res, undefined, 200);
     })

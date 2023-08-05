@@ -1,4 +1,4 @@
-import DefaultAvatarSvg from '../assets/svg/Default-avatar.svg';
+import DefaultAvatarSvg from '../assets/svg/default-avatar.svg';
 
 export function DefaultAvatar({ post }) {
     const className = post ? 'user-avatar' : 'user-avatar-full';

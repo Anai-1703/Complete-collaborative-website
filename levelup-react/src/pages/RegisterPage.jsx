@@ -3,10 +3,8 @@ import "../styles/index.css";
 // import "../styles/RegisterForm.css";
 export function RegisterPage() {
   return (
-    <div className="register-page">
-      <div className="form">
+    <section className="register-page">
         <RegisterForm />
-      </div>
-    </div>
+    </section>
   );
 }

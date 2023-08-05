@@ -4,9 +4,9 @@ import { LoginForm } from "../forms/LoginForm";
 
 export function LoginPage() {
   return (
-    <div className="login-page">
+
+    <section className="login-page">
         <LoginForm />
-      </div>
-    
-  );
+    </section>
+  )
 }
