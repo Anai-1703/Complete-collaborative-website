@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { sendRegister } from "../services/sendRegister";
 import "../styles/GenericForm.css";
-import "../styles/RegisterForm.css";
+
 
 export function RegisterForm() {
   const [formData, setFormData] = useState({
