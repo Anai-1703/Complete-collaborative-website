@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { sendRegister } from "../services/sendRegister";
 import "../styles/GenericForm.css";
 
-
 export function RegisterForm() {
   const [formData, setFormData] = useState({
     nameMember: "",
@@ -59,7 +58,6 @@ export function RegisterForm() {
   };
 
   return (
-    <section className="form">
     <form className="register-form" onSubmit={handleCreate}>
       <h2>Register</h2>
       <input
@@ -126,6 +124,5 @@ export function RegisterForm() {
         <Link to="/tos">Términos y Condiciones de Level Up!</Link>
       </p>
     </form>
-    </section>
   );
 }

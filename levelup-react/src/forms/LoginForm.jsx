@@ -38,6 +38,10 @@ export function LoginForm() {
 
   const closeModal = () => {
     setShowErrorModal(false);
+    setFormData({
+      email: '',
+      password: ''
+    })
   };
   
   return (
