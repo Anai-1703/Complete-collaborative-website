@@ -607,10 +607,6 @@ module.exports = {
     },
 
     async deletePost(postId) {
-        // Desarrollar delete photo bien e implementarlo aqui
-        await db.execute("DELETE FROM postimages WHERE idPost = ?", [postId]);
-
-        // Mantener esta consulta, pues es la real
         await db.execute("DELETE FROM posts WHERE id = ?", [postId]);
     },
 
@@ -667,6 +663,13 @@ module.exports = {
         WHERE id = ?
       `;
         await db.execute(statement, [photoId]);
+    },
+
+    async deletePhotoByPostId(postId) {
+        const statement = `
+      DELETE FROM postimages WHERE idPost = ?
+      `;
+        await db.execute(statement, [postId]);
     },
 
     async getPhotosByPostId(postId) {

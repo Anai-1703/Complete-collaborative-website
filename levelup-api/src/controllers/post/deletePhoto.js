@@ -1,13 +1,15 @@
+const { deletePhotoByPostId } = require("../../services/dbService");
 const fileService = require("../../services/fileServices");
 
-async function deletePhoto(dbphoto) {
-  try {
-    await fileService.deletePhoto(dbphoto);
-    console.log("deleted photo:", dbphoto.imageURL);
-  } catch (error) {
-    console.error("error deleting photo:", error);
-    throw error;
-  }
+async function deletePhoto(postId, photoId, dbphoto) {
+    try {
+        await fileService.deleteFile(postId, photoId); // Elimina la foto del sistema de archivos
+        await deletePhotoByPostId(postId);
+        console.log("Deleted photo:", dbphoto.imageURL);
+    } catch (error) {
+        console.error("Error deleting photo:", error);
+        throw error;
+    }
 }
 
 module.exports = deletePhoto;

@@ -94,19 +94,6 @@ router.put(
     })
 );
 
-/*
-Prueba AddPhotos, ya que NO está fileUpload y podría ser necesario en el futuro
-router.post(
-    "/posts/:id/photos",
-    authGuard,
-    fileUpload(),
-    handleAsyncError(async (req, res) => {
-        await addPhoto(req.params.id, req.currentUser.id, req.files.photo);
-        sendResponse(res);
-    })
-);
-*/
-
 // Agregar un comentario a un post.
 router.post(
     "/posts/:id/comments",

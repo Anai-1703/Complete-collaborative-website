@@ -28,13 +28,20 @@ async function saveFile(postId, photoId, photoFile) {
     return fileURL;
 }
 
-async function deletePhoto(dbphoto) {
-    const directory = path.join(__dirname, "../../public/photos");
-    const filePath = path.join(directory, dbphoto.imageURL);
-    await fsPromises.unlink(filePath);
+async function deleteFile(postId, photoId) {
+    const directory = path.join(__dirname, "../../public/photos", postId);
+    const filename = `${photoId}.webp`;
+    const filePath = path.join(directory, filename);
+
+    try {
+        await fs.unlink(filePath); // Elimina el archivo de la carpeta public
+    } catch (error) {
+        console.error("Error deleting file:", error);
+        throw error;
+    }
 }
 
 module.exports = {
     saveFile,
-    deletePhoto,
+    deleteFile,
 };

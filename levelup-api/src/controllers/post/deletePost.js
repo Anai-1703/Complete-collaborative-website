@@ -8,6 +8,7 @@ const {
     deletePostPlatforms,
     deleteCommentByPostId,
     deleteVoteByPostId,
+    deletePhotoByPostId,
 } = require("../../services/dbService.js");
 
 module.exports = async (postId, userId) => {
@@ -19,6 +20,7 @@ module.exports = async (postId, userId) => {
         await deleteCommentByPostId(postId);
         await deletePostCategories(postId);
         await deletePostPlatforms(postId);
+        await deletePhotoByPostId(postId);
         await deletePost(postId);
     }
 };
