@@ -59,13 +59,16 @@ export function Menu() {
                         </>
                     )}
                     {isLoggedIn && (
-                        <li>
-                        <button onClick={handleLogout}>Logout</button>
-                        </li>
+                        <>
+                            <li>
+                            <button onClick={handleLogout}>Logout</button>
+                            </li>
+                            <li>
+                                <Link to="/new-post">New Post</Link>
+                            </li>
+                        </>
                     )}
-                    <li>
-                        <Link to="/new-post">New Post</Link>
-                    </li>
+
                     </ul>
                 )}
             </li>

@@ -1,5 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { createNewPost } from '../services/createNewPost';
+import { getToken } from '../services/token/getToken';
 import Select from 'react-select';
 import Modal from '../components/Modal';
 import '../styles/GenericForm.css'
@@ -23,6 +24,14 @@ const NewPostForm = () => {
 
   const [submitMessage, setSubmitMessage] = useState('');
   const [cancelMessage, setCancelMessage] = useState('');
+  
+  useEffect(() => {
+    const userToken = getToken();
+    if (!userToken) {
+      // Si no hay token, redirige a /login
+      window.location.href = "/login";
+    }
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
