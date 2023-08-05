@@ -1,7 +1,7 @@
 import { fetchAPI } from "./fetchAPI";
 import { getToken } from "./token/getToken";
 
-const deleteUser = async (postId) => {
+const deletePost = async (postId) => {
     try {
         const token = getToken();
         const response = await fetchAPI(
@@ -13,8 +13,8 @@ const deleteUser = async (postId) => {
         console.log(response);
         return response;
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 };
 
-export default deleteUser;
+export default deletePost;

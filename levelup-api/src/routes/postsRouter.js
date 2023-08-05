@@ -177,9 +177,7 @@ router.delete(
         if (!req.currentUser) {
             throw new Error("INVALID_CREDENTIALS");
         }
-        console.log("empezamos a borrar cosas");
         const token = req.currentUser.token;
-        console.log(req.body);
         await deletePost(req.params.id, req.currentUser.id, req.body);
         sendResponse(res, undefined, 200);
     })

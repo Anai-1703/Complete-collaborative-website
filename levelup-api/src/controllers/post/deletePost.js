@@ -11,13 +11,14 @@ const {
 } = require("../../services/dbService.js");
 
 module.exports = async (postId, userId) => {
-    if ((await getPostById(postId)).userId != userId) {
+    const post = await getPostById(postId);
+    if (post.idUser != userId) {
         return errorService.unauthorizedUser();
+    } else {
+        await deleteVoteByPostId(postId);
+        await deleteCommentByPostId(postId);
+        await deletePostCategories(postId);
+        await deletePostPlatforms(postId);
+        await deletePost(postId);
     }
-    console.log("hola");
-    await deleteVoteByPostId(postId);
-    await deleteCommentByPostId(postId);
-    await deletePostCategories(postId);
-    await deletePostPlatforms(postId);
-    await deletePost(postId);
 };
