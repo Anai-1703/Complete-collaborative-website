@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import defaultAvatarSvg from '../assets/svg/default-avatar.svg';
 
 export function DefaultAvatar({ post }) {
@@ -6,6 +5,3 @@ export function DefaultAvatar({ post }) {
 
     return <img className={className} src={defaultAvatarSvg} alt="Avatar" />;
 }
-DefaultAvatar.propTypes = {
-    post: PropTypes.bool,
-};
