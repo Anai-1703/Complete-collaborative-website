@@ -3,10 +3,8 @@ import { LoginForm } from "../forms/LoginForm";
 
 export function LoginPage() {
   return (
-    <div className="login-page">
-      <div className="form">
+    <section className="login-page">
         <LoginForm />
-      </div>
-    </div>
+    </section>
   );
 }
