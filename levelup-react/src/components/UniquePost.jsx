@@ -39,9 +39,11 @@ function UniquePost() {
       return postDate.toLocaleDateString('es-ES');
     }
   };
-  
-  function updatePostVotes(upvotes, downvotes) {
-    setPost({...post, upvotes, downvotes})
+
+  function updatePostVotes(postId, upvotes, downvotes) {
+    if (post.id === postId) {
+      setPost({ ...post, data: { ...post.data, upvotes, downvotes } });
+    }
   }
 
   useEffect(() => {
@@ -149,7 +151,7 @@ function UniquePost() {
         </Link>
       </section>
       <section className="user-interaction-full">
-        <UserInteraction postId={post.data.id} upvotes={post.data.upvotes} downvotes={post.data.downvotes} updatePostVotes={updatePostVotes} />
+        <UserInteraction postId={post.data.id} initialUpvotes={post.data.upvotes} initialDownvotes={post.data.downvotes} updatePostVotes={updatePostVotes} />
       </section>
 
       <section className="post-text-full">

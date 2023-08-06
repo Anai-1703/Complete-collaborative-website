@@ -96,6 +96,7 @@ article {
     width: 100%;
     display: flex;
     align-items: flex-start;
+    padding-top: 0.3rem;
 }
 
 .buble {
@@ -118,4 +119,10 @@ article {
     margin: 0;
     padding: 0;
     text-align: left;
+}
+
+.no-comment-list {
+    font-size: 0.6rem;
+    margin: 0 auto;
+    padding: 0.4rem;
 }

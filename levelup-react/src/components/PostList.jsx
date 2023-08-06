@@ -3,12 +3,29 @@ import { getAllPosts } from "../services/getAllPost";
 import { DefaultAvatar } from "./DefaultAvatar.jsx";
 import { Link } from "react-router-dom";
 import { UserInteraction } from "./UserInteraction";
+import CommentForm from "../forms/CommentForm";
 
 const host = import.meta.env.VITE_API_HOST;
 
 // FALTA ARREGLAR EL HOVER!!! QUE MUESTRA LA MISMA FECHA QUE EN EL DOM
 function PostList() {
     const [posts, setPosts] = useState([]);
+
+    const handleShowCommentForm = (postId) => {
+        setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+            post.id === postId ? { ...post, showCommentForm: true } : post
+        )
+        );
+    };
+    
+    const handleHideCommentForm = (postId) => {
+        setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+            post.id === postId ? { ...post, showCommentForm: false } : post
+        )
+        );
+    };
 
     async function updatePostVotes(id, upvotes, downvotes) {
         try {
@@ -107,7 +124,15 @@ function PostList() {
                     </section>
                     </Link>
                     <section className="user-interaction">
-                        <UserInteraction postId={post.id} initialUpvotes={post.upvotes} initialDownvotes={post.downvotes} updatePostVotes={updatePostVotes}  />
+                        <UserInteraction
+                            postId={post.id}
+                            initialUpvotes={post.upvotes}
+                            initialDownvotes={post.downvotes}
+                            updatePostVotes={updatePostVotes}
+                            showCommentForm={post.showCommentForm}
+                            onShowCommentForm={() => handleShowCommentForm(post.id)}
+                            onHideCommentForm={() => handleHideCommentForm(post.id)}
+                        />
                     </section>
 
                     <Link className="link-to-post" to={`/posts/${post.id}`}>
@@ -132,7 +157,7 @@ function PostList() {
                     </section>
                     </Link>
                     
-                    {/* <section className="tags-full">
+                    <section className="tags-full">
                         {(() => {
                             categories = post.categories.split(",");
                             platforms = post.platforms.split(",");
@@ -148,16 +173,20 @@ function PostList() {
                             <Link to={`${host}/searchplatform/${platform}`}>{platform}</Link>{' '}
                         </span>
                         ))}</p>
-                    </section> */}
+                    </section>
 
-                    {post.lastComment && (
-                    <>
-                        <div className="separador">
-                            <p>&nbsp;</p>
-                        </div>
+                    <div className="separador">
+                        <p>&nbsp;</p>
+                    </div>
+
+                    {post.lastComment === null ? (
+                        <>
+                            <p className="no-comment-list">No hay comentarios. ¡Sé el primero en dejar uno!</p>
+                        </>
+                    ) : (
                         <section className="post-comments">
                             {post.commentUserAvatarURL ? (
-                            <img className="comment-avatar" src={post.commentUserAvatarURL} alt="Comment Avatar" />
+                                <img className="comment-avatar" src={post.commentUserAvatarURL} alt="Comment Avatar" />
                             ) : (
                                 <DefaultAvatar post={true} />
                             )}
@@ -166,10 +195,10 @@ function PostList() {
                                 <p className="comment-text">{post.lastComment}</p>
                             </section>
                         </section>
-                    </>
                     )}
+                    {/* Utiliza post.showCommentForm en lugar de showCommentForm */}
+                    {post.showCommentForm && <CommentForm />}
                 </article>
-                
             ))}
         </>
     );
