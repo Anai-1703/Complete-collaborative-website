@@ -6,11 +6,7 @@ console.log(host);
 
 export async function createComment(postId, comment) {
     try {
-        console.log(comment);
-        console.log(postId);
-
         const token = getToken();
-        console.log(token);
         // Llamar a la función fetchAPI con el método 'post' y enviar el nuevo comentario al servidor
         const response = await fetchAPI(
             `/posts/${postId}/comments`,

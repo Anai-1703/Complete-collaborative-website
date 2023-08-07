@@ -197,7 +197,7 @@ function PostList() {
                         </section>
                     )}
                     {/* Utiliza post.showCommentForm en lugar de showCommentForm */}
-                    {post.showCommentForm && <CommentForm />}
+                    {post.showCommentForm && <CommentForm postId={post.id} />}
                 </article>
             ))}
         </>

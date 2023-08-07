@@ -4,7 +4,7 @@ import { createComment } from "../services/createComment";
 import "../styles/GenericForm.css";
 // import "../styles/CommentForm.css";
 
-const CommentForm = ({ postId }) => {
+const CommentForm = ({ postId, onAddComment, setComments }) => {
   const [comment, setComment] = useState('');
 
   const handleSubmit = async (event) => {
@@ -13,9 +13,11 @@ const CommentForm = ({ postId }) => {
     console.log(comment);
     // Pasar el postId al componente padre a través de la prop onAddComment, para llamarlo
     const response = await createComment(postId, comment);
-    // Limpiar el campo del formulario después de agregar el comentario
+    
     console.log(response);
-    setComment('');
+  onAddComment(response);
+  setComments((prevComments) => [...prevComments, response]); // Agregar el nuevo comentario aquí
+  setComment('');
   };
 
   const handleChange = (event) => {
