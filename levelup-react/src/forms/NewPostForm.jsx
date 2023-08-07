@@ -165,6 +165,7 @@ console.log(createdPost)
         />
         
         {/** Campo de la plataforma */}
+        <div className="newPost-container">
           <label className="select-label-2">Platform:</label>
           <Select
             className="platform-select"
@@ -192,8 +193,10 @@ console.log(createdPost)
             ]}
             isMulti
           /> 
-  
+        </div>
+
         {/* Campo de la categoría */}
+        <div className="newPost-container">
           <label className="select-label-1">Category:</label>
           <Select
             className="category-select "
@@ -216,12 +219,16 @@ console.log(createdPost)
             ]}
             isMulti
           />
-      
-        {photoPreview && (
+        </div>
+        
           <div className="photo-preview-container">
-            <img src={photoPreview} alt="Preview" className="photo-preview" />
-          </div>
-        )}
+            {photoPreview && 
+            <img src={photoPreview} alt="Preview" className="photo-preview" />}
+            <label htmlFor="fileInput" className="file-input-button">
+          Select photo
+        </label>
+        </div>
+     
         <div className="custom-file-input">
           <input
             type="file"
@@ -231,9 +238,7 @@ console.log(createdPost)
             id="fileInput"
             className="photo-input"
           />
-        <label htmlFor="fileInput" className="file-input-button">
-          Select photo
-        </label>
+        
       </div>
       <div className="buttons-container">
         <button 
