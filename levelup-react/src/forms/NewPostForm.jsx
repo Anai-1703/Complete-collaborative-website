@@ -4,7 +4,7 @@ import { getToken } from '../services/token/getToken';
 import Select from 'react-select';
 import Modal from '../components/Modal';
 import '../styles/GenericForm.css'
-// import '../styles/NewPostForm.css';
+import '../styles/NewPostForm.css';
 
 const NewPostForm = () => {
   const [photo, setPhoto] = useState(null);
@@ -57,7 +57,7 @@ const NewPostForm = () => {
     console.log('Post plataformas:', newPostData.platforms);
     console.log('Post categorias:', newPostData.categories);
     const createdPost = await createNewPost(newPostData);
-    // console.log("CreateD postTR: ", createdPost);
+    // console.log("Created post: ", createdPost);
 
 console.log(createdPost)
 
@@ -141,7 +141,7 @@ console.log(createdPost)
 
   return (
     <>
-    <form className="newPost-form" onSubmit={handleSubmit} >
+    <section className="form" onSubmit={handleSubmit} >
       <div className="newPost-container">
         <h2>Create New Post</h2>
         <input
@@ -153,9 +153,9 @@ console.log(createdPost)
         />
         <textarea
           value={entradilla}
-          onChange={(e) => setSummary(e.target.value)}
+          onChange={(e) => setEntradilla(e.target.value)}
           placeholder="Entradilla (Resumen)"
-          className="summary"
+          className="entradilla"
         />
         <textarea
           value={description}
@@ -171,22 +171,24 @@ console.log(createdPost)
             value={platforms}
             onChange={handlePlatformChange}    
             options={[
-              { value: "PS4", label: "PS4" },
-              { value: "PS3", label: "PS3" },
-              { value: "PS2", label: "PS2" },
-              { value: "PSOne", label: "PSOne" },
+              { value: "PC", label: "Plataforma PC" },
+              { value: "PS5", label: "PlayStation 5" },
+              { value: "PS4", label: "PlayStation 4" },
+              { value: "PS3", label: "PlayStation 3" },
+              { value: "PS2", label: "PlayStation 2" },
+              { value: "PSOne", label: "PlayStation One" },
               { value: "Xbox Series", label: "Xbox Series" },
               { value: "Xbox One", label: "Xbox One" },
               { value: "Xbox 360", label: "Xbox 360" },
               { value: "Xbox Classic", label: "Xbox Classic" },
-              { value: "Switch", label: "Switch" },
-              { value: "WiiU", label: "Wii U" },
-              { value: "Wii", label: "Wii" },
-              { value: "N64", label: "N64" },
-              { value: "SNES", label: "SNES" },
-              { value: "NES", label: "NES" },
-              { value: "Moviles", label: "Moviles" },
-              { value: "Otras", label: "Otras" },
+              { value: "Switch", label: "Nintendo Switch" },
+              { value: "WiiU", label: "Nintendo Wii U" },
+              { value: "Wii", label: "Nintendo Wii" },
+              { value: "N64", label: "Nintendo 64" },
+              { value: "SNES", label: "Super Nintendo" },
+              { value: "NES", label: "Nintendo Entertainment System" },
+              { value: "Moviles", label: "Plataforma Móviles" },
+              { value: "Otras", label: "Otras Plataformas" },
             ]}
             isMulti
           /> 
@@ -198,7 +200,7 @@ console.log(createdPost)
             value={categories}
             onChange={handleCategoryChange}   
             options={[
-              { value: "RPG", label: "RPG" },
+              { value: "RPG", label: "Role-playing game" },
               { value: "MMO", label: "MMO" },
               { value: "Mundo Abierto", label: "Mundo Abierto" },
               { value: "Juegos De Mesa", label: "Juegos De Mesa" },
@@ -249,7 +251,7 @@ console.log(createdPost)
         </button>
       </div>
       </div>
-    </form>
+    </section>
     {showErrorModal && <Modal type="newpost" visible={true} onClose={() => setShowErrorModal(false)} />} {/* Mostrar el Modal de error si showErrorModal es true */}
     </>
   );
