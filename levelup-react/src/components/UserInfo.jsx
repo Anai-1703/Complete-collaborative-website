@@ -3,8 +3,6 @@ import { UserInteraction } from "./UserInteraction";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getUserToken } from "../services/token/getUserToken";
-// import { getTokenInfo } from "../services/token/getTokenInfo";
-import { getToken } from "../services/token/getToken";
 import UserEditForm from "../forms/UserEditForm";
 import '../styles/UserInfo.css'
 
@@ -17,18 +15,16 @@ const UserInfo = ({ user }) => {
   const [updatedUserData, setUpdatedUserData] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false); 
 
-  const token = getToken();
   const userToken = getUserToken();
-  const tokenInfo = getUserToken();
-
+  
   useEffect(() => {
-    if (tokenInfo && userToken) {
-      const authenticatedUserId = tokenInfo.id;
+    if (userToken) {
+      const authenticatedUserId = userToken.id;
       setIsLoggedInUser(authenticatedUserId === urlUserId);
     } else {
       setIsLoggedInUser(false);
     }
-  }, [tokenInfo, userToken, urlUserId]);
+  }, [userToken, urlUserId]);
 
   const userData = updatedUserData || user[0].user[0];
   const userPost = user[1].posts;
@@ -47,6 +43,7 @@ const UserInfo = ({ user }) => {
   return (
     <>
       <h2>Perfil de {userData.nameMember}</h2>
+      
       <article className="user-panel">
         <section className="user-id">
           {userData.avatarURL ? (

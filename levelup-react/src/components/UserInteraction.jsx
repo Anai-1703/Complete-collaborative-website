@@ -1,10 +1,16 @@
-
 import { sendVote } from '../services/sendVote';
 import { useState } from "react";
 import '../styles/UserInteraction.css';
 
-
-export function UserInteraction({ postId, initialUpvotes, initialDownvotes, updatePostVotes }) {
+export function UserInteraction({
+  postId,
+  initialUpvotes,
+  initialDownvotes,
+  updatePostVotes,
+  showCommentForm, // Estado para saber si el formulario de comentarios está visible
+  onShowCommentForm, // Función para mostrar el formulario de comentarios
+  onHideCommentForm, // Nueva función para ocultar el formulario de comentarios
+}) {
     const [upvotes, setUpvotes] = useState(Number(initialUpvotes) || 0);
     const [downvotes, setDownvotes] = useState(Number(initialDownvotes) || 0);
 
@@ -21,6 +27,18 @@ export function UserInteraction({ postId, initialUpvotes, initialDownvotes, upda
           console.error("Error al enviar el voto:", error);
       }
   };
+
+  const handleShowCommentForm = () => {
+    if (!showCommentForm) {
+        onShowCommentForm();
+    }
+};
+
+const handleHideCommentForm = () => {
+  if (typeof onHideCommentForm === 'function') {
+    onHideCommentForm();
+  }
+};
 
   return (
     <>
@@ -54,8 +72,8 @@ export function UserInteraction({ postId, initialUpvotes, initialDownvotes, upda
           />
         </svg>
       </div>
-      <div className="new-post-icon">
-        <svg className="new-post-btn"
+      <div className="new-comment-icon" onClick={showCommentForm ? handleHideCommentForm : onShowCommentForm}>
+        <svg className="new-comment-btn"
           width="24"
           height="24"
           viewBox="0 0 24 24"
