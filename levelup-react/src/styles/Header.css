@@ -1,12 +1,32 @@
-header {
+header,
+.main-title {
+  width: 300px;
+  height: 90px;
   display: flex;
-  flex-direction: column;
+  overflow: hidden;
   align-items: center;
-  justify-content: flex-start;
-  min-height: 100px;
-  margin-bottom: -10px;
+  justify-content: center;
+  margin: 0 auto;
+  position: sticky;
+  z-index: 2;
+  top: 0;
 }
 
+/*
+header,
+.main-title {
+    width: 300px;
+    height: 90px;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    position: sticky;
+    z-index: 2;
+    top: 0;
+}
+*/
 .main-title {
   margin-top: -10px;
 }

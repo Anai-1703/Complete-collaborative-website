@@ -20,6 +20,18 @@
     text-align: center;
 }
 
+#root {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+main {
+    flex: 1;
+    overflow-y: auto;
+}
+
 h1 {
     font-size: 3.2em;
     line-height: 1.1;
@@ -40,17 +52,6 @@ a.main-title:hover {
     color: inherit;
     text-decoration: none;
     cursor: pointer;
-}
-
-header,
-.main-title {
-    width: 300px;
-    height: 90px;
-    display: flex;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto; /* Esto centrará los elementos horizontalmente */
 }
 
 .h1-hidden {

@@ -1,6 +1,6 @@
 export function TOS() {
     return (
-    <>
+    <main>
         <h2>Términos y Condiciones de Uso - Level Up</h2>
         <p>Bienvenido/a a Level Up, una red social gaming que te permite conectar con amigos, compartir opiniones, información y noticias sobre videojuegos, y descubrir nuevas experiencias en el mundo de los videojuegos. Antes de registrarte y utilizar nuestros servicios, te pedimos que leas detenidamente los siguientes Términos y Condiciones. Al acceder y utilizar la plataforma de Level Up, aceptas cumplir con los términos descritos a continuación:</p>
         <h3>1. Registro y Datos del Usuario:</h3>
@@ -24,6 +24,6 @@ export function TOS() {
         <p>Si tienes alguna pregunta, comentario o inquietud sobre estos Términos y Condiciones, por favor contáctanos a través de la sección de soporte de Level Up.</p>
         <p>Fecha de entrada en vigencia: [Fecha de entrada en vigencia]</p>
         <p>Gracias por leer y aceptar nuestros Términos y Condiciones. ¡Disfruta de Level Up y comparte tu pasión por los videojuegos con la comunidad!</p>
-    </>
+    </main>
     );
 }

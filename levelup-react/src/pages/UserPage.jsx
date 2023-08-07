@@ -22,16 +22,11 @@ const UserPage = () => {
     return <div>Loading...</div>; // O podrías mostrar un spinner o lo que prefieras mientras se obtienen los datos del usuario.
   }
 
-  const isCurrentUser = false
 
   return (
-    <div>
-      {isCurrentUser ? (
-        <UserPanel user={user} />
-      ) : (
-        <UserInfo user={user} />
-      )}
-    </div>
+    <main>
+      <UserInfo user={user} />
+    </main>
   );
 };
 
