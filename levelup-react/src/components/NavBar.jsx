@@ -1,8 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import Toggle from "./Toggle";
 import searchIcon from "../assets/svg/lupa.svg";
-
 import "../styles/NavBar.css";
 import { Menu } from "./Menu";
 
@@ -38,26 +37,27 @@ export function NavBar() {
 
   return (
     <nav>
-      <ul>
-            <li>
-                <form onSubmit={handleSearchSubmit}>
-                    <input
-                    type="text"
-                    placeholder="Buscar"
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                    />
-                    <select value={searchOption} onChange={handleSearchOptionChange}>
-                    <option value="users">Usuarios</option>
-                    <option value="posts">Publicaciones</option>
-                    </select>
-                    <button className="search-button" type="submit">
-                    <img className="search-button" src={searchIcon} alt="Search" />
-                    </button>
-                </form>
-            </li>
+      <ul className="list-navbar-search">
+        <li>
+          <form className="search-form" onSubmit={handleSearchSubmit}>
+            <input
+            type="text"
+            placeholder="Buscar"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            />
+            <select value={searchOption} onChange={handleSearchOptionChange}>
+            <option value="users">Usuarios</option>
+            <option value="posts">Publicaciones</option>
+            </select>
+            <button className="search-button" type="submit">
+            <img className="search-button" src={searchIcon} alt="Search" />
+            </button>
+          </form>
+        </li>
       </ul>
       <Menu />
+
       {/* Colocar el componente Toggle fuera de los elementos <ul> y <li> */}
       <Toggle />
     </nav>

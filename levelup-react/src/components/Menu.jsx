@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import menuIcon from "../assets/svg/menu.svg";
 import { getToken } from "../services/token/getToken";
 import { getUserToken } from "../services/token/getUserToken";
-// import { getTokenInfo } from "../services/token/getTokenInfo";
 import { deleteToken } from "../services/token/deleteToken";
 import { notifyAuthChange } from "../services/auth";
 
@@ -43,7 +42,7 @@ export function Menu() {
 
 
     return (
-        <>
+        <ul className="menu">
             <li className="menu-navbar" onClick={handleMenuClick}>
                 <img className="menu-icon" src={menuIcon} alt="Menu" />
                 {isMenuOpen && (
@@ -72,7 +71,6 @@ export function Menu() {
                     </ul>
                 )}
             </li>
-
-        </>
+        </ul>
     )
 }
