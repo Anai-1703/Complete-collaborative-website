@@ -9,7 +9,7 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
     const [photo, setPhoto] = useState(null);
     const [photoPreview, setPhotoPreview] = useState(postData ? postData.photo : null);
     const [title, setTitle] = useState(postData ? postData.title : '');
-    const [entradilla, setSummary] = useState(postData ? postData.entradilla : '');
+    const [entradilla, setEntradilla] = useState(postData ? postData.entradilla : '');
     const [description, setDescription] = useState(postData ? postData.description : '');
     const [platforms, setPlatform] = useState(
         postData && typeof postData.platforms === 'string'
@@ -129,18 +129,29 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
             placeholder="Title"
             className="title"
             />
+
+            <div className="input.wrapper">
+            <input
+    type="text"
+    value={entradilla}
+    onChange={(e) => setEntradilla(e.target.value)}
+    placeholder="Entradilla (Resumen)"
+    className="summary"
+  />  
             <textarea
             value={entradilla}
-            onChange={(e) => setSummary(e.target.value)}
+            onChange={(e) => setEntradilla(e.target.value)}
             placeholder="Entradilla (Resumen)"
-            className="summary"
+            className="entradilla"
             />
+            </div>
             <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Descripción (texto)"
             className="description"
             />
+            
 
             <label className="select-label-2">Platform:</label>
             <Select
