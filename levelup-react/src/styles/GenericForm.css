@@ -5,6 +5,10 @@ html {
 body {
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+
+    align-items: center;
     font-family: sans-serif;
     background: linear-gradient(#30142b, #2772a1);
     background-attachment: fixed;
@@ -27,15 +31,26 @@ body {
     box-sizing: border-box;
 }
 
-input {
+.form h2 {
+    color: #289bb8;
+    padding-bottom: 20px;
+}
+input,
+textarea {
     width: 90%;
-    padding: 10px 20px;
+    padding: 0;
+    margin: 0;
     font-size: 16px;
     color: #fff;
     border: none;
     border-bottom: 1px solid #fff;
     background: transparent;
     outline: none;
+}
+
+textarea {
+    vertical-align: top;
+    padding-bottom: 0;
 }
 
 .form .message a {
@@ -171,14 +186,13 @@ input {
 @media only screen and (min-width: 481px) and (max-width: 1024px) {
     .form {
         max-width: 800px;
-        margin: 0 auto; /* Centrar horizontalmente el formulario */
         padding: 40px; /* Agregar un padding para mayor espacio */
     }
 
     .form input {
         width: 100%;
-        padding: 10px 20px;
-        margin-bottom: 30px;
+        /* padding: 10px 20px;
+        margin-bottom: 30px; */
     }
 
     .form .btn {

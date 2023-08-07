@@ -1,0 +1,157 @@
+.form {
+    overflow-x: hidden;
+}
+
+.select-label-2,
+.select-label-1 {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre la etiqueta y el Select */
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #289bb8;
+    text-align: left;
+}
+
+/* Espacio entre la etiqueta y el Select */
+/* Estilo personalizado para el campo de selección */
+.platform-select,
+.category-select {
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    /* overflow: hidden; */
+    color: #113a44;
+    padding: 10px;
+    font-size: 16px;
+    appearance: none; /* Elimina el estilo predeterminado del navegador */
+    -webkit-appearance: none; /* Agregar prefijo para compatibilidad con navegadores basados en WebKit */
+    -moz-appearance: none; /* Agregar prefijo para compatibilidad con navegadores basados en Gecko */
+    /* Ajusta el espaciado interno según tu preferencia */
+    width: fit-content;
+    max-height: none;
+    overflow-y: visible;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.platform-select,
+.category-select {
+}
+
+/* Estilos del contenedor para el input tipo "file"*/
+.custom-file-input {
+    width: 100%;
+    height: 60px;
+    margin-top: 30px;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 5px;
+    position: relative;
+}
+
+/* Estilos del botón para seleccionar photo */
+.file-input-button {
+    cursor: pointer;
+    background-color: #3b6f7c;
+    color: white;
+    border-radius: 5px;
+    font-size: 20px;
+    width: 98%;
+    height: 40px;
+    text-align: center;
+    padding: 8px;
+}
+
+/* Ocultar el input de tipo "file" */
+.photo-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Estilos de la foto previa */
+.photo-preview-container {
+    max-width: 100%;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.photo-preview {
+    width: 100%; /* La imagen se ajustará automáticamente al tamaño del contenedor */
+    object-fit: cover; /* Ajustar el tamaño de la imagen para cubrir el contenedor */
+    border-radius: 5px;
+}
+
+/* Estilos generales botones envio/cancelar */
+.buttons-container {
+    display: flex;
+    gap: 9px;
+    justify-content: space-around;
+}
+
+/* Estilos del boton de envío */
+.submit-button,
+.cancel-button {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    overflow: hidden;
+    transition: 0.5s;
+    margin-top: 15px;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.9);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(0.9);
+    }
+}
+
+.submit-button {
+    color: #289bb8;
+    background: transparent;
+    border: 2px solid #289bb8;
+    border-radius: 5px;
+}
+
+.submit-button:hover {
+    background: #289bb8;
+    color: #fff;
+}
+
+/* Estilos del botón de cancelar envío */
+.cancel-button {
+    color: #d64449;
+    background: transparent;
+    border: 2px solid #d64449;
+    border-radius: 5px;
+}
+
+.cancel-button:hover {
+    background: #d64449;
+    color: #fff;
+}
+
+.photo-preview-container {
+    max-width: 100%; /* Ancho completo del contenedor de la vista previa de la foto */
+}
