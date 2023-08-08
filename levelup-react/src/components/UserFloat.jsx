@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getToken } from "../services/token/getToken";
 import { getUserToken } from "../services/token/getUserToken";
-// import { getTokenInfo } from "../services/token/getTokenInfo";
 import { getUser } from "../services/getUser";
 import { Link } from "react-router-dom";
 import { DefaultAvatar } from "./DefaultAvatar";
@@ -54,7 +53,7 @@ const UserFloat = () => {
     const userData = user[0].user[0];
 
     return (
-        <section className="user-float user-float-grid">
+        <aside className="user-float">
             <Link className="link-to-user-float" to={`/users/${userData.id}`}>
                 {userData.avatarURL ? (
                 <img className="user-avatar" src={userData.avatarURL} alt="Avatar" />
@@ -83,7 +82,7 @@ const UserFloat = () => {
                 />
             </svg>
             </Link>
-        </section>
+        </aside>
     );
 };
 
