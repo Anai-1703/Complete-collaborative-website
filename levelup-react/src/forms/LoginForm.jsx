@@ -4,7 +4,7 @@ import { saveToken } from '../services/token/saveToken';
 import { sendLogin } from '../services/sendLogin';
 import Modal from '../components/Modal';
 import "../styles/GenericForm.css";
-// import "../styles/LoginForm.css";
+// import "../styles/index.css"
 
 export function LoginForm() {
   const [formData, setFormData] = useState({

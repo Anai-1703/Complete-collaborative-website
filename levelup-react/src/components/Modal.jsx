@@ -41,8 +41,9 @@ const Modal = ({ type, visible, onClose }) => {
             <li>La foto es opcional. ¡Puedes dejarlo en blanco!</li>
             <li>Elige al menos una categoría y al menos una plataforma</li>
           </ul>
-          <button onClick={closeModal}>Close</button>
-        </>
+          <button onClick={() => { onClose(); }}>Close</button>
+          {/* <button onClick={closeModal}>Close</button>*/}
+        </> 
         );
       default:
         return (

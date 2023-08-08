@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { sendRegister } from "../services/sendRegister";
 import "../styles/GenericForm.css";
+// import "../styles/index.css"
 
 export function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -39,6 +40,13 @@ export function RegisterForm() {
       return;
     }
 
+    // añadido Ana:
+     // Comparar las contraseñas para asegurarse de que coincidan
+  if (formData.password !== formData.repeatPassword) {
+    alert("Las contraseñas no coinciden");
+    return;
+  }
+  
     try {
       // Enviar los datos del formulario al servidor
       const response = await sendRegister(formData);

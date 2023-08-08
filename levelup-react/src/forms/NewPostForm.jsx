@@ -36,7 +36,10 @@ const NewPostForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    console.log('Submitinh form...');
+
     if (!title.trim() || !entradilla.trim() || !description.trim() || !platforms || !categories) {
+      console.log('missing data, showing error modal...');
       setShowErrorModal(true);
       return;
     }
@@ -204,7 +207,7 @@ console.log(createdPost)
             onChange={handleCategoryChange}   
             options={[
               { value: "RPG", label: "Role-playing game" },
-              { value: "MMO", label: "MMO" },
+              { value: "MMO", label: "Massively Multiplayer Online"  },
               { value: "Mundo Abierto", label: "Mundo Abierto" },
               { value: "Juegos De Mesa", label: "Juegos De Mesa" },
               { value: "Estrategia", label: "Estrategia" },

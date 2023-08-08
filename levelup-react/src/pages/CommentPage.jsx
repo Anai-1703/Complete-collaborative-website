@@ -2,8 +2,7 @@ import { useState } from 'react';
 import CommentForm from '../forms/CommentForm';
 import { createComment } from '../services/createComment';
 import { useParams } from 'react-router-dom';
-
-// import "./CommentPage.css";
+import ".-/styles/GenericForm.css";
 
 export default function CommentPage({ userAvatar }) {
     const [comments, setComments] = useState([]);
@@ -22,6 +21,19 @@ export default function CommentPage({ userAvatar }) {
             console.error("Error al agregar el comentario", error);
         }
     }
+
+        // añadido Ana:
+        const Comment = ({ comment, userAvatar, userName }) => {
+            return (
+              <div className="comment">
+                <img src={userAvatar} alt="Avatar" className="avatar" />
+                <p className="comment-text">{comment}</p>
+                {/* Agregar el nombre de usuario si es necesario */}
+                <p className="user-name">{userName}</p>
+              </div>
+            );
+          };
+
 
     return (
         <div className="comment-page">
