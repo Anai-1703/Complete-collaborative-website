@@ -16,15 +16,19 @@
     --color-regular: #fffffa;
     --color-links: #5b63fb;
     --color-links-hover: #1520ef;
-    padding: 1rem;
     text-align: center;
 }
 
-#root {
+body {
     display: flex;
     flex-direction: column;
     height: 100vh;
     overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    background: linear-gradient(#30142b, #2772a1);
+    background-attachment: fixed;
 }
 
 main {
@@ -68,9 +72,69 @@ a.main-title:hover {
 }
 
 footer {
-    position: fixed;
-    bottom: 0;
+    display: none;
     left: 0;
     width: 100%;
     padding: 10px;
+}
+
+
+@media (min-width: 700px) {
+    body {
+        display: grid;
+        grid-template-columns: 20% 40% 40%;
+        grid-template-rows: 90px calc(100vh - 95px) 50px;
+        grid-template-areas: 
+            'search titulo  float'
+            'menu    main    main'
+            'footer footer  footer';
+    }
+    .user-float {
+        grid-area: float;
+        width: 40%;
+    }
+    .search-form {
+        grid-area: search;
+    }
+    .full-menu {
+        grid-area: menu;
+        height: 100%;
+    }
+    header {
+        grid-area: titulo;
+    }
+    main {
+        grid-area: main;
+        height: calc(100vh - 95px);
+        /* justify-content: space-between; */
+    }
+    footer {
+        grid-area: footer;
+        display: inherit
+    }
+
+/* Definidos fuera del GRID
+*/
+
+main {
+    display: grid;
+    grid-template-rows: auto auto; /* Dos filas: h2 y section */
+    gap: 20px;
+    align-items: center; /* Centrar verticalmente */
+}
+
+h2 {
+    padding: 10px;
+}
+
+.posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    margin-right: 20px; /* Margen en el lado derecho */
+}
+
+
+
 }

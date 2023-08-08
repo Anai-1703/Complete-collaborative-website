@@ -65,14 +65,9 @@ nav form button[type="submit"] {
     flex-shrink: 0;
 }
 
-.menu {
-    list-style-type: none;
-    margin-left: auto;
-    position: relative;
-}
-
 .menu-navbar {
     position: relative; /* Para posicionar el menú desplegable correctamente */
+    margin-left: auto;
 }
 
 .menu-icon {
@@ -98,7 +93,7 @@ nav form button[type="submit"] {
     z-index: 1000;
     align-items: flex-start; /* Alineamos los hijos a la izquierda del menú */
     max-height: calc(100vh - 65px); /* Evita el overflow vertical */
-    overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
+    /* overflow-y: auto;  // Agrega una barra de desplazamiento vertical si es necesario */
 }
 
 .menu-dropdown li {
@@ -123,11 +118,7 @@ nav form button[type="submit"] {
 
 
 
-
-
-
-
-@media screen and (min-width: 1200px) {
+/* @media screen and (min-width: 1200px) {
     nav {
         bottom: unset;
         top: 0;
@@ -147,5 +138,4 @@ nav form button[type="submit"] {
         left: 0;
         position: relative;
     }
-}
-
+} */

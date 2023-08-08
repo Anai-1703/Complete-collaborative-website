@@ -40,10 +40,6 @@
     border-radius: 5px;
 }
 
-.platform-select,
-.category-select {
-}
-
 /* Estilos del contenedor para el input tipo "file"*/
 .custom-file-input {
     width: 100%;
