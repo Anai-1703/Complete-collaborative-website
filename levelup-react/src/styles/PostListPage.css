@@ -1,13 +1,16 @@
 article {
-    width: 100%;
+    min-width: 275px;
+    max-width: 400px;
+    height: 320px;
     padding: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     border: 1px solid rgb(110, 36, 145);
     border-radius: 1rem;
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
     background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .link-to-user {
@@ -51,8 +54,6 @@ article {
     flex: 0 0 35%; /* 35% del ancho, pero no crecerá ni se encogerá */
     max-width: 35%;
 }
-
-
 
 .post-created-full {
     text-align: end;

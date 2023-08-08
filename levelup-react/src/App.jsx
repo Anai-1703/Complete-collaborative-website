@@ -17,7 +17,7 @@ import UserFloat from "./components/UserFloat";
 import  NewPostPage from "./pages/NewPostPage";
 import { TOS } from "./pages/TOS";
 import { useEffect, useState } from "react";
-
+import { Footer } from "./components/Footer";
 
 function App() {
   const [showDefaultModal, setShowDefaultModal] = useState(true);
@@ -52,8 +52,8 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       {showDefaultModal && <Modal type="default" visible={true} onClose={hideDefaultModal} />}
+      <Footer />
       <NavBar />
-      {/* <Footer /> */}
     </>
   );
 }

@@ -150,7 +150,7 @@ function UniquePost() {
 
 
   return (
-      <>
+      <article className="unique-post-page">
       <section className="user-detail-full">
         <Link className="link-to-user" to={`/users/${post.data.idUser}`}>
           {post.avatarURL ? (
@@ -255,7 +255,7 @@ function UniquePost() {
           <CommentForm postId={post.data.id} onAddComment={addComment} setComments={setComments} />
         </section>
       )}
-    </>
+    </article>
   );
 }
 

@@ -54,7 +54,7 @@ const UserFloat = () => {
     const userData = user[0].user[0];
 
     return (
-        <section className="user-float">
+        <section className="user-float user-float-grid">
             <Link className="link-to-user-float" to={`/users/${userData.id}`}>
                 {userData.avatarURL ? (
                 <img className="user-avatar" src={userData.avatarURL} alt="Avatar" />

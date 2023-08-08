@@ -6,9 +6,7 @@ export function UniquePostPage() {
 
     return (
         <main>
-        <article>
             <UniquePost />
-        </article>
         </main>
     )
 }
