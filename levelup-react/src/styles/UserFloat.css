@@ -1,18 +1,19 @@
-.user-float {
-    padding: 15px;
-    margin: 5px;
+aside {
     border: 1px solid rgb(110, 36, 145);
-    border-radius: 1rem;
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
     background: rgba(0, 0, 0, 0.8);
-    position: fixed;
-    top: 0;
-    left: 0;
+    border-radius: 1rem;
+    padding: 15px;
+    margin: 5px;
     height: 25px;
     width: 40%;
+    max-width: 250px;
+    top: 0;
+    left: 0;
     display: flex;
+    position: fixed;
     align-items: center;
-    z-index: 9999;
+    z-index: 99;
 }
 
 .link-to-user-float {

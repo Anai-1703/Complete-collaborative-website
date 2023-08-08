@@ -3,7 +3,7 @@ article {
     max-width: 400px;
     height: 320px;
     padding: 20px;
-    margin-bottom: 20px;
+    margin: 15px;
     border: 1px solid rgb(110, 36, 145);
     border-radius: 1rem;
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);

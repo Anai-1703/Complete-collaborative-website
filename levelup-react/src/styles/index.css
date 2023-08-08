@@ -82,7 +82,7 @@ footer {
 @media (min-width: 700px) {
     body {
         display: grid;
-        grid-template-columns: 20% 40% 40%;
+        grid-template-columns: 20% 60% 20%;
         grid-template-rows: 90px calc(100vh - 95px) 50px;
         grid-template-areas: 
             'search titulo  float'
@@ -91,7 +91,12 @@ footer {
     }
     .user-float {
         grid-area: float;
-        width: 40%;
+        width: 320px;
+        top: 0;
+        right: 0;
+        left: auto;
+        position: fixed;
+        margin-right: 40px;
     }
     .search-form {
         grid-area: search;
@@ -117,24 +122,23 @@ footer {
 */
 
 main {
-    display: grid;
-    grid-template-rows: auto auto; /* Dos filas: h2 y section */
+    display: flex;
+    flex-direction: column;
     gap: 20px;
-    align-items: center; /* Centrar verticalmente */
+    align-items: center;
 }
 
+/* Estilos para el título (h2) */
 h2 {
     padding: 10px;
+    height: 2rem;
 }
 
+/* Estilos para la sección de posts */
 .posts {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    margin-right: 20px; /* Margen en el lado derecho */
+    align-items: flex-start; /* Alinear contenido arriba */
 }
-
-
-
 }
