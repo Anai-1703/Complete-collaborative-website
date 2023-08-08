@@ -152,7 +152,7 @@ h2 {
     }
     .user-float {
         grid-area: float;
-        width: 320px;
+        width: 200px;
         top: 0;
         right: 0;
         left: auto;

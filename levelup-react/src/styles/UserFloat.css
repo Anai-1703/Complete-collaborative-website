@@ -2,11 +2,13 @@ aside {
     border: 1px solid rgb(110, 36, 145);
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
     background: rgba(0, 0, 0, 0.9);
+    border-radius: 1rem;
     position: fixed;
     top: 0;
     left: 0;
     height: 25px;
-    width: 40%;
+    width: 35%;
+    margin: 10px 0 0 10px;
     display: flex;
     position: fixed;
     align-items: center;
@@ -18,6 +20,7 @@ aside {
     text-decoration: none;
     display: flex;
     align-items: center;
+    color: rgb(248, 224, 224);
 }
 
 .link-to-user-float > .user-avatar {
