@@ -80,20 +80,17 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
         onChange(editPostData);
         console.log(editPostData);
 
-
         // setPostData({ ...postData, ...editPostData });
-
-
 
         // Establecer el estado de los botones
         setSubmitButtonClicked(true);
         setSubmitMessage('Submitted');
 
+        window.location.href = '/';
     }  catch (error) {
         console.error('Error al crear el post:', error.message);
         }
     };
-
 
     const handlePhotoChange = (event) => {
         const selectedPhoto = event.target.files[0];

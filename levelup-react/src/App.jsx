@@ -18,6 +18,7 @@ import  NewPostPage from "./pages/NewPostPage";
 import { TOS } from "./pages/TOS";
 import { useEffect, useState } from "react";
 import { Footer } from "./components/Footer";
+import { Menu } from "./components/Menu";
 
 function App() {
   const [showDefaultModal, setShowDefaultModal] = useState(true);
@@ -54,6 +55,7 @@ function App() {
       {showDefaultModal && <Modal type="default" visible={true} onClose={hideDefaultModal} />}
       <Footer />
       <NavBar />
+      <Menu isMenuOpen={true} className="open-menu"/>
     </>
   );
 }

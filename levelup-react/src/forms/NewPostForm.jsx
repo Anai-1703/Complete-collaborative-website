@@ -77,12 +77,7 @@ console.log(createdPost)
     setSubmitButtonClicked(true);
     setSubmitMessage('Submitted');
 
-        setSubmitMessage('Submitted');
-    // Después de un tiempo, restablecer el estado de los botones
-    setTimeout(() => {
-      setSubmitMessage('');
-      setSubmitButtonClicked(false);
-    }, 1000);
+    setSubmitMessage('Submitted');
 
     window.location.href = '/';
 

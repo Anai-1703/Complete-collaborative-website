@@ -95,7 +95,6 @@ nav form button[type="submit"] {
     align-items: flex-start; /* Alineamos los hijos a la izquierda del menú */
     max-height: calc(100vh - 65px); /* Evita el overflow vertical */
     /* overflow-y: auto;  // Agrega una barra de desplazamiento vertical si es necesario */
-    /* overflow-y: auto;  // Agrega una barra de desplazamiento vertical si es necesario */
 }
 
 .menu-dropdown li {
