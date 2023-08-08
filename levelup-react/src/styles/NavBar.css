@@ -1,35 +1,56 @@
 nav {
     padding: 1px;
-    position: fixed;
-    bottom: 0;
     width: 100%;
-    height: 50px;
+    height: 50px; /* Aumenta la altura de la navbar */
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between; /* Centra horizontalmente */
+    align-items: center;
+    z-index: 2;
+    margin-bottom: 10px;
 }
 
-nav ul {
+.list-navbar-search {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
     list-style-type: none; /* Eliminar los puntos de la lista */
-    margin: 0;
-    padding: 0;
-    display: flex;
-    bottom: 0;
 }
 
-nav ul li {
-    margin-left: 10px;
-    list-style: none; /* Eliminar el estilo de la lista */
+.list-navbar-search li {
+    list-style-type: none;
+    margin-right: 20px;
     border-radius: 50px;
 }
 
-nav ul li a {
-    text-decoration: none;
-    color: #333;
-}
-
-nav form {
+.search-form {
     display: flex;
     align-items: center;
+    width: 100%; /* Para que ocupe todo el ancho disponible */
+    max-width: 500px; /* Un ancho máximo para mantener el formulario legible */
+}
+
+.search-form input {
+    flex: 1; /* El campo de búsqueda ocupa todo el espacio restante */
+    border: 1px solid gray;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.search-form select {
+    margin-left: 10px;
+}
+
+.search-button {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    padding-left: 5px;
+}
+
+.search-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 nav form input[type="text"] {
@@ -44,8 +65,12 @@ nav form button[type="submit"] {
     flex-shrink: 0;
 }
 
-.menu-icon,
-.search-button {
+.menu-navbar {
+    position: relative; /* Para posicionar el menú desplegable correctamente */
+    margin-left: auto;
+}
+
+.menu-icon {
     bottom: unset;
     top: 5px;
     left: 5px;
@@ -68,9 +93,7 @@ nav form button[type="submit"] {
     z-index: 1000;
     align-items: flex-start; /* Alineamos los hijos a la izquierda del menú */
     max-height: calc(100vh - 65px); /* Evita el overflow vertical */
-    overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
-
-    /* background-color: transparent; */
+    /* overflow-y: auto;  // Agrega una barra de desplazamiento vertical si es necesario */
 }
 
 .menu-dropdown li {
@@ -93,7 +116,13 @@ nav form button[type="submit"] {
     padding: 5px;
 }
 
-@media screen and (min-width: 1200px) {
+
+
+
+
+
+
+/* @media screen and (min-width: 1200px) {
     nav {
         bottom: unset;
         top: 0;
@@ -113,11 +142,5 @@ nav form button[type="submit"] {
         left: 0;
         position: relative;
     }
-}
+} */
 
-.search-button {
-    width: 25px;
-    height: 25px;
-    object-fit: contain;
-    padding-left: 5px;
-}

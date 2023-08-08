@@ -16,8 +16,10 @@ function UniquePost() {
   const [showFullDate, setShowFullDate] = useState(false);
   const { id } = useParams();
   const [showControlPanel, setShowControlPanel] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false); 
+  const [isExpanded, setIsExpanded] = useState(false);
   const [postData, setPostData] = useState(post.data);
+  const [comments, setComments] = useState(post?.data?.comments); 
+
 
   const formatDate = (dateString) => {
     const postDate = new Date(dateString);
@@ -58,6 +60,12 @@ function UniquePost() {
 
     fetchPost();
   }, [id]);
+  
+  useEffect(() => {
+    if (post.data) {
+      setComments(post.data.comments);
+    }
+  }, [post.data]);
 
   if (!post.data) {
     return <div>Leveling Up Posts...</div>;
@@ -106,6 +114,9 @@ function UniquePost() {
   
   const hasComments = post.data.comments[0].idUser;
 
+  const addComment = (newComment) => {
+    setComments([...comments, newComment]);
+  };
 
   const handleEditClick = () => {
     if (isExpanded) {
@@ -139,7 +150,7 @@ function UniquePost() {
 
 
   return (
-      <>
+      <article className="unique-post-page">
       <section className="user-detail-full">
         <Link className="link-to-user" to={`/users/${post.data.idUser}`}>
           {post.avatarURL ? (
@@ -200,7 +211,7 @@ function UniquePost() {
               postData={post.data}
               onChange={handleFormSubmit}
               onEditClick={handleEditClick}
-              handleEditClick={handleEditClick} // Envía la función handleEditClick como prop
+              handleEditClick={handleEditClick}
             />
         )}
       </section>
@@ -212,9 +223,10 @@ function UniquePost() {
       {!hasComments &&
       <section className="post-comments-full">
         <p>No hay comentarios. ¡Se el primero en dejar uno!</p>
-        <CommentForm postId={post.data.id} />
+        <CommentForm postId={post.data.id} onAddComment={addComment} setComments={setComments} />
       </section>
       }
+
       {hasComments && (
         <section className="post-comments-full">
           {post.data.comments.map((comment, index) => (
@@ -240,10 +252,10 @@ function UniquePost() {
               </section>
             </Link>
           ))}
-          <CommentForm postId={post.data.id} />
+          <CommentForm postId={post.data.id} onAddComment={addComment} setComments={setComments} />
         </section>
       )}
-    </>
+    </article>
   );
 }
 

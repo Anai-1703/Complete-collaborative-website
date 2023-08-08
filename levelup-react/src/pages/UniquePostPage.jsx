@@ -5,8 +5,8 @@ import "../styles/UniquePostPage.css";
 export function UniquePostPage() {
 
     return (
-        <article>
+        <main>
             <UniquePost />
-        </article>
+        </main>
     )
 }

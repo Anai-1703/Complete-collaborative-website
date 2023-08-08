@@ -8,9 +8,9 @@ const NewPostPage = () => {
   };
 
   return (
-    <>
+    <main>
       <NewPostForm onClose={handleClose} />
-    </>
+    </main>
   );
 };
 

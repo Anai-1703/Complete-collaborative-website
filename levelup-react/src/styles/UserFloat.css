@@ -4,16 +4,15 @@
     border: 1px solid rgb(110, 36, 145);
     border-radius: 1rem;
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.8);
     position: fixed;
     top: 0;
     left: 0;
-    width: 50%;
     height: 25px;
-    max-width: 50%;
+    width: 40%;
     display: flex;
     align-items: center;
-    z-index: 9999; /* Asegura que el UserFloat esté siempre por encima del contenido principal */
+    z-index: 9999;
 }
 
 .link-to-user-float {

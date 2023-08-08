@@ -1,4 +1,4 @@
-import "./App.css";
+import "./styles/Header.css"
 import { Routes, Route } from "react-router-dom";
 
 // import { Footer } from "./components/Footer";
@@ -17,7 +17,7 @@ import UserFloat from "./components/UserFloat";
 import  NewPostPage from "./pages/NewPostPage";
 import { TOS } from "./pages/TOS";
 import { useEffect, useState } from "react";
-
+import { Footer } from "./components/Footer";
 
 function App() {
   const [showDefaultModal, setShowDefaultModal] = useState(true);
@@ -39,22 +39,21 @@ function App() {
   return (
     <>
       <UserFloat /> 
-      <main>
-        <Header />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/posts" element={<PostListPage />} />
-          <Route path="/posts/:id" element={<UniquePostPage />} />
-          <Route path="/users/:id" element={<UserPage />} />
-          <Route path="/new-post" element={<NewPostPage />} />
-          <Route path="/tos" element={<TOS />}></Route>
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </main>
-      {showDefaultModal && <Modal type="default" visible={true} onClose={hideDefaultModal} />}        <NavBar />
-        {/* <Footer /> */}
+      <Header />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/posts" element={<PostListPage />} />
+        <Route path="/posts/:id" element={<UniquePostPage />} />
+        <Route path="/users/:id" element={<UserPage />} />
+        <Route path="/new-post" element={<NewPostPage />} />
+        <Route path="/tos" element={<TOS />}></Route>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+      {showDefaultModal && <Modal type="default" visible={true} onClose={hideDefaultModal} />}
+      <Footer />
+      <NavBar />
     </>
   );
 }
