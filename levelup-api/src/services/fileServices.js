@@ -28,13 +28,12 @@ async function saveFile(postId, photoId, photoFile) {
     return fileURL;
 }
 
-async function deleteFile(postId, photoId) {
+async function deleteFile(postId) {
     const directory = path.join(__dirname, "../../public/photos", postId);
-    const filename = `${photoId}.webp`;
-    const filePath = path.join(directory, filename);
+    const folderPath = path.join(directory);
 
     try {
-        await fs.unlink(filePath); // Elimina el archivo de la carpeta public
+        await fs.rmdir(folderPath, { recursive: true });
     } catch (error) {
         console.error("Error deleting file:", error);
         throw error;

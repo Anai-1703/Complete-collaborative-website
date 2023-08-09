@@ -94,6 +94,16 @@ router.put(
     })
 );
 
+router.delete(
+    "/posts/:id/photos",
+    authGuard,
+    handleAsyncError(async (req, res) => {
+        console.log(req.params.id);
+        await deletePhoto(req.params.id);
+        sendResponse(res);
+    })
+);
+
 // Agregar un comentario a un post.
 router.post(
     "/posts/:id/comments",
@@ -133,7 +143,6 @@ router.put(
         if (!req.currentUser) {
             throw new Error("INVALID_CREDENTIALS");
         }
-
         const token = req.currentUser.token; // Obtiene el token de la propiedad token del objeto currentUser
         await editPost(req.params.id, req.currentUser.id, req.body);
         sendResponse(res, undefined, 200);

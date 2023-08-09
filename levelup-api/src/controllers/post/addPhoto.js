@@ -2,10 +2,14 @@ const { generateUUID } = require("../../services/cryptoServices");
 const dbService = require("../../services/dbService");
 const errorService = require("../../services/errorService");
 const fileServices = require("../../services/fileServices");
+const deletePhoto = require("./deletePhoto");
 
 async function addPhoto(postId, userId, photo) {
     try {
+        console.log("Entrando en add photo");
         const post = await dbService.getPostById(postId);
+        const photoExists = postId[0].imageURL;
+        console.log(postId[0].imageURL);
 
         //verificar si el post existe
         if (!post) {
@@ -16,6 +20,12 @@ async function addPhoto(postId, userId, photo) {
         if (post.idUser !== userId) {
             errorService.unauthorizedUser();
         }
+        if (photoExists !== null && photoExists !== undefined) {
+            const response = await deletePhoto(postId);
+            console.log(response);
+        }
+
+        // const deletingPhoto = await deletePhoto(postId);
 
         //generar el id de la foto
         const photoId = generateUUID();

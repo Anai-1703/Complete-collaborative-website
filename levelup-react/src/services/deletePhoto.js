@@ -1,19 +1,18 @@
 import { fetchAPI } from "./fetchAPI";
 
-export async function sendPhotoToPost(photo, postId, token) {
+export async function deletePhoto(postId, token) {
     try {
-        console.log(photo);
         console.log(postId);
 
         const response = await fetchAPI(
             `/posts/${postId}/photos`,
-            "PUT",
-            photo,
+            "DELETE",
+            {},
             token
         );
         console.log(response);
         return response;
     } catch (error) {
-        throw new Error("Error al enviar la foto al post: " + error.message);
+        throw new Error("Error al eliminar la foto: " + error.message);
     }
 }

@@ -55,17 +55,12 @@ const NewPostForm = () => {
       };
 
     console.log('Post entradilla:', newPostData);
-    console.log('Post titulo:', newPostData.title);
     const createdPost = await createNewPost(newPostData);
-    console.log("Created post: ", createdPost);
 
-    // Resetea el valor del input de tipo "file" para eliminar el nombre de la foto  
-    fileInputRef.current.value = '';
-    // Establecer el estado de los botones
     setSubmitButtonClicked(true);
     setSubmitMessage('Submitted');
 
-    window.location.href = '/';
+    window.location.href = `/posts/${createdPost.data.id}`;
 
   }  catch (error) {
     console.error('Error al crear el post:', error.message);
@@ -166,7 +161,7 @@ const NewPostForm = () => {
               { value: "Xbox 360", label: "Xbox 360" },
               { value: "Xbox Classic", label: "Xbox Classic" },
               { value: "Switch", label: "Nintendo Switch" },
-              { value: "WiiU", label: "Nintendo Wii U" },
+              { value: "Wii U", label: "Nintendo Wii U" },
               { value: "Wii", label: "Nintendo Wii" },
               { value: "N64", label: "Nintendo 64" },
               { value: "SNES", label: "Super Nintendo" },
