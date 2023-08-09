@@ -4,7 +4,8 @@ import Select from 'react-select';
 import { getToken } from "../services/token/getToken";
 import "../styles/GenericForm.css";
 import { sendPhotoToPost } from '../services/sendPhotoToPost';
-// import '../styles/NewPostForm.css';
+import { deletePhoto } from '../services/deletePhoto';
+import Modal from '../components/Modal';
 
 const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
     const [photo, setPhoto] = useState(null);
@@ -23,6 +24,8 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
         : []
     );
 
+    const [showErrorModal, setShowErrorModal] = useState(false); // Nuevo estado para mostrar el Modal de error
+
     const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
 
     // Crear referencia, para el input de tipo "file"
@@ -39,54 +42,46 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
     }, [postData]);
     
     const handleSubmit = async () => {
-        // event.preventDefault();
-
         if (!title.trim() || !entradilla.trim() || !description.trim() || !platforms || !categories) {
-        alert('Please enter all fields.');
-        return;
+            setShowErrorModal(true);
+            return;
         }
+
         try {
-        let editPostData;
-        if (photo === null) {
-            // Si photo es null, creamos editPostData sin la propiedad photo
-            editPostData = {
-                title: title,
-                entradilla: entradilla,
-                description: description,
-                platforms: platforms.map((platform) => platform.value), 
-                categories: categories.map((category) => category.value),
-            };
+        const editPostData = {
+            title: title,
+            entradilla: entradilla,
+            description: description,
+            platforms: platforms.map((platform) => platform.value), 
+            categories: categories.map((category) => category.value),
+        };
 
-            const editedPost = await editPost(id, editPostData, token);
-            console.log(editedPost);
+        const editedPost = await editPost(id, editPostData, token);
+        console.log(editedPost);
 
-        } else {
-            // Si photo no es null, creamos editPostData con la propiedad photo
-            editPostData = {
-                title: title,
-                entradilla: entradilla,
-                description: description,
-                platforms: platforms.map((platform) => platform.value), 
-                categories: categories.map((category) => category.value),
-            };
+        if (postData.imageURL === null && photo !== null) {
+            try {
+                const photoSended = await sendPhotoToPost(photo, id, token);
+                console.log(photoSended);
+            } catch (error) {
+                console.error("Error sending photo:", error);
+            }
+        }
 
-            console.log(editPostData);
-            const editedPost = await editPost(id, editPostData, token);
-            console.log(editedPost);
-            const photoSended = await sendPhotoToPost(photo, id);
-            console.log(photoSended);
+        if (postData.imageURL !== null && photo !== null) {
+            try {
+                const deletePostPhoto = await deletePhoto(id, token);
+                const photoSended = await sendPhotoToPost(photo, id, token);
+            } catch (error) {
+                console.error("Error handling photos:", error);
+            }
         }
 
         onChange(editPostData);
-        console.log(editPostData);
-
-        // setPostData({ ...postData, ...editPostData });
-
-        // Establecer el estado de los botones
         setSubmitButtonClicked(true);
         setSubmitMessage('Submitted');
 
-        window.location.href = '/';
+        window.location.href = `/posts/${id}`;
     }  catch (error) {
         console.error('Error al crear el post:', error.message);
         }
@@ -122,9 +117,10 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
     };
 
     return (
+        <>
         <form className="newPost-form" onSubmit={handleSubmit} >
         <section className="newPost-container">
-            <h2>Create New Post</h2>
+            <h2>Edit Post</h2>
             <input
             type="text"
             value={title}
@@ -135,18 +131,12 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
 
             <div className="input.wrapper">
             <input
-    type="text"
-    value={entradilla}
-    onChange={(e) => setEntradilla(e.target.value)}
-    placeholder="Entradilla (Resumen)"
-    className="summary"
-  />  
-            <textarea
-            value={entradilla}
-            onChange={(e) => setEntradilla(e.target.value)}
-            placeholder="Entradilla (Resumen)"
-            className="entradilla"
-            />
+                type="text"
+                value={entradilla}
+                onChange={(e) => setEntradilla(e.target.value)}
+                placeholder="Entradilla (Resumen)"
+                className="summary"
+            />  
             </div>
             <textarea
             value={description}
@@ -154,7 +144,6 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
             placeholder="Descripción (texto)"
             className="description"
             />
-            
 
             <label className="select-label-2">Platform:</label>
             <Select
@@ -171,7 +160,7 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
                 { value: "Xbox 360", label: "Xbox 360" },
                 { value: "Xbox Classic", label: "Xbox Classic" },
                 { value: "Switch", label: "Switch" },
-                { value: "WiiU", label: "Wii U" },
+                { value: "Wii U", label: "Wii U" },
                 { value: "Wii", label: "Wii" },
                 { value: "N64", label: "N64" },
                 { value: "SNES", label: "SNES" },
@@ -212,20 +201,19 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
             </div>
             )}
             <div className="custom-file-input">
-            <input
-                type="file"
-                accept="image/*"
-                onChange={handlePhotoChange}
-                ref={fileInputRef}
-                id="fileInput"
-                className="photo-input"
-            />
-            <label htmlFor="fileInput" className="file-input-button">
-            Select photo
-            </label>
-        </div>
-        <div className="buttons-container">
-                {/* Cambiar el onClick para contracción del formulario */}
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handlePhotoChange}
+                    ref={fileInputRef}
+                    id="fileInput"
+                    className="photo-input"
+                />
+                <label htmlFor="fileInput" className="file-input-button">
+                Select photo
+                </label>
+            </div>
+            <div className="buttons-container">
                 <button
                     type="button"
                     onClick={(event) => {
@@ -236,10 +224,14 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
                     className={`submit-button ${submitButtonClicked ? 'submitted' : ''}`}
                     >
                     {submitButtonClicked ? 'Submitted' : 'Edit Post'}
-                    </button>
+                </button>
             </div>
         </section>
-        </form>
+    </form>
+        {/* Mostrar el Modal de error si showErrorModal es true */}
+        {showErrorModal && <Modal type="newpost" visible={true} onClose={() => setShowErrorModal(false)} />} 
+
+        </>
     );
 }
 

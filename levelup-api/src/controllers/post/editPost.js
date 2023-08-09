@@ -11,9 +11,9 @@ const {
 } = require("../../services/dbService.js");
 
 module.exports = async (postId, userId, postPayload) => {
-    console.log(postPayload);
+    // console.log(postPayload);
     const oldPost = await getPostById(postId);
-    console.log(oldPost);
+    // console.log(oldPost);
     if (oldPost.idUser !== userId) {
         return errorService.unauthorizedUser();
     }

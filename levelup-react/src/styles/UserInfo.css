@@ -2,6 +2,7 @@
     display: flex;
     justify-content: space-between;
     max-width: 100%;
+    margin: 5px 20px 20px 20px;
 }
 
 .user-id {
@@ -18,6 +19,7 @@
     flex-direction: column;
     align-items: flex-start;
     position: relative;
+    margin-left: 10px;
 }
 
 .panel-username {
@@ -80,3 +82,7 @@ p {
     margin: 0;
 }
 
+.p-aviso-post {
+    font-size: 0.5rem;
+    text-align: center;
+}

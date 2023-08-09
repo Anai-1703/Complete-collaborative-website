@@ -31,14 +31,15 @@ export async function createNewPost(newPostData) {
             console.log("post creado....");
             console.log(response);
             // Enviar la foto al post creado
-            const photoUpload = await sendPhotoToPost(photo, response.data.id);
+            const photoUpload = await sendPhotoToPost(
+                photo,
+                response.data.id,
+                token
+            );
             console.log(photoUpload);
-            // Manejar el resultado del envío de la foto aquí si es necesario
-
-            return response; // devuelve el nuevo post creado desde la api
+            return response;
         }
     } catch (error) {
-        // Manejar errores de la solicitud aquí si es necesario
         throw new Error("Error al crear el post: " + error.message);
     }
 }
