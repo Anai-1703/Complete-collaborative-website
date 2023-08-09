@@ -2,18 +2,6 @@ html {
     height: 100%;
 }
 
-body {
-    margin: 20px;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-
-    align-items: center;
-    font-family: sans-serif;
-    background: linear-gradient(#30142b, #2772a1);
-    background-attachment: fixed;
-}
-
 .form {
     max-width: 480px;
 
