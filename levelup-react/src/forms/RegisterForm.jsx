@@ -1,6 +1,8 @@
-import { useState } from "react";
+
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { sendRegister } from "../services/sendRegister";
+import { sendRegister, sendValidationEmail } from "../services/sendRegister"; // Asegúrate de importar correctamente esta función
+// También, asegúrate de tener la función generateVerificationCode implementada o utiliza una lógica adecuada
 
 export function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -44,7 +46,20 @@ export function RegisterForm() {
 
       // Manejar la respuesta del servidor
       if (response && response.success) {
-        alert("Registro exitoso. ¡Ahora puedes iniciar sesión!");
+        // Generar un código de verificación (puede ser aleatorio o generado por el servidor)
+        const verificationCode = generateVerificationCode(); // Cambia esto con tu lógica
+
+        // Enviar correo de verificación
+        await sendValidationEmail(
+          formData.email,
+          formData.nameMember,
+          verificationCode
+        );
+
+        alert(
+          "Registro exitoso. ¡Un correo de verificación ha sido enviado a tu dirección de correo electrónico!"
+        );
+
         // Redireccionar al usuario a la página de inicio de sesión
         window.location.href = "/login";
       }
@@ -115,7 +130,7 @@ export function RegisterForm() {
         Create
       </button>
 
-      {/* Enlace para ir a LoginPage(inicio sesión) */}
+      {/* Enlace para ir a LoginPage (inicio sesión) */}
       <p className="message">
         Already registered? <Link to="/login">Sign In</Link>
       </p>
