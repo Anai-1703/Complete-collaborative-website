@@ -42,7 +42,6 @@ a.main-title:hover {
   cursor: pointer;
 }
 
-
 header,
 .main-title {
   width: 300px;
@@ -64,7 +63,7 @@ header,
   display: block; /* Hacer que la imagen ocupe todo el espacio del enlace a */
   margin: auto; /* Centrar la imagen verticalmente dentro del enlace */
   object-position: center center; /* Centrar el eje horizontal del SVG en el contenedor */
-  object-fit:cover;
+  object-fit: cover;
 }
 
 footer {
@@ -337,51 +336,3 @@ h2 {
     margin-bottom: 30px;
   }
 }
-/***********************************/
-/* aquí finalizan los formularios  */
-/***********************************/
-
-/*
-CSS Genérico de React
-
-body {
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-*/
