@@ -70,12 +70,8 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
 
         if (postData.imageURL !== null && photo !== null) {
             try {
-                console.log("Before, there was a photo. We delete it.");
                 const deletePostPhoto = await deletePhoto(id, token);
-                console.log(deletePostPhoto);
-                console.log("Photo deleted. Now we upload a new photo.");
                 const photoSended = await sendPhotoToPost(photo, id, token);
-                console.log(photoSended);
             } catch (error) {
                 console.error("Error handling photos:", error);
             }
