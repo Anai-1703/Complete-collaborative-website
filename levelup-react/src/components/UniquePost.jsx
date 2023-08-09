@@ -142,7 +142,7 @@ function UniquePost() {
     try {
       const postDeleted = await deletePost(id);
       console.log(postDeleted);
-      // window.location.href = '/';
+      window.location.href = '/';
     } catch (error) {
       console.error("Error al eliminar el post:", error);
     }
