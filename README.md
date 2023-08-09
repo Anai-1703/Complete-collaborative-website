@@ -66,12 +66,18 @@ Y aquí está "LEVEL UP", la primera API dedicada a ese apasionante mundo.
 ##### Muro/timeline
 
 -   Validaciones:
-    -   Al publicar, se validaará que exista contenido en el "input" que lo requiera.
+    -   Al publicar, se validará que exista contenido en cada "input o textarea" que lo requiera.
 -   Comportamiento:
-    -   Al recargar la aplicación, si el usuario no está registrado, sólo podrá:
+    -   Al recargar la aplicación, si el usuario/a no está registrado/a, sólo podrá:
         -   Ver la lista de post
         -   Leer sólo un post que elija
-    -   Si al recargar la aplicación, el usuario puede loguearse porque está registrado, podrá:
+    -   Si al recargar la aplicación, el usuario/a puede loguearse porque está registrado/a, podrá:
+        -   Publicar Post
+        -   Dar y quitar like a una publicación (1)
+        -   Tener conteo de los likes a sus posts
+        -   Eliminar cualquier post publicado por el/ella
+        -   Al dar click para editar un post, será dirigido a la página para hacerlo y se guardarán los cambios
+        -   Al recargar la página se verán los post y/o comentarios creados o modificados
 
 ### 7.
 
