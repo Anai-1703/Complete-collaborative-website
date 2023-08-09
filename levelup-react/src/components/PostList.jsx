@@ -109,9 +109,9 @@ function PostList() {
     let platforms = null
 
     return (    
-        <section className="posts">
+        <section className="all-posts">
             {posts.map(post => (
-                    <article key={post.id}>
+                    <article className="preview-post" key={post.id}>
                         <Link className="link-to-user" to={`/users/${post.idUser}`}>
                         <section className="user-detail">
                             {post.avatarURL ? (

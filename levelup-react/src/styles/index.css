@@ -100,12 +100,13 @@ footer {
     }
     .search-menu {
         grid-area: search;
+        margin: 10px;
     }
     .full-menu {
         grid-area: menu;
         height: 100%;
+        margin: 15px;
     }
-
     header {
         grid-area: titulo;
     }
@@ -148,7 +149,7 @@ footer {
         padding: 10px;
     }
 
-    .posts {
+    .all-posts {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;

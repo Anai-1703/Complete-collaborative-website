@@ -1,6 +1,6 @@
 .unique-post-page {
-    width: 100%;
     height: 100%;
+    margin: 25px;
 }
 
 .link-to-user,
@@ -13,7 +13,7 @@
 .user-detail-full {
     display: flex;
     align-items: center;
-    flex-direction: row; 
+    flex-direction: row;
 }
 
 .user-avatar-full,
@@ -89,11 +89,10 @@
 .section-editpost {
     display: flex;
     justify-content: flex-end;
-    align-self: flex-start; /* Mueve el elemento al extremo derecho y lo alinea arriba del contenedor padre */
-    width: 100%; /* Asegura que el elemento ocupe todo el ancho del contenedor */
+    align-self: flex-start;
+    width: 100%;
     margin-bottom: 10px;
 }
-
 
 .btn-editpost {
     padding: 10px;
@@ -113,7 +112,6 @@
     margin-top: -25px;
 }
 
-
 .post-comments-full {
     width: 100%;
     flex-grow: 1;
@@ -126,11 +124,13 @@
     display: flex;
     align-items: flex-start;
     padding-bottom: 10px;
+    margin-top: 5px;
 }
 
 .comment-avatar {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }
 
 .buble-full {
@@ -138,12 +138,13 @@
     max-width: 100%;
     word-wrap: break-word;
     padding: 5px;
-    border-radius: 5px;
+    border-radius: 8px;
     text-align: left;
     margin-left: 10px;
 }
 
 .comment-user {
+    font-weight: bold;
     margin: 0;
     padding: 0;
     text-align: left;
@@ -154,7 +155,7 @@
     margin: 0;
     padding: 0;
     text-align: left;
-    color: white
+    color: white;
 }
 
 .contain-form {
@@ -166,4 +167,59 @@
 /* Estilo opcional para agregar margen entre el formulario y los elementos hermanos */
 .contain-form > * + * {
     margin-top: 20px;
+}
+
+/* Estilos para el botón de mostrar/ocultar comentarios */
+.comment-toggle-button {
+    background-color: #289bb8;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.comment-toggle-button:hover {
+    background-color: #1d7c94;
+}
+
+.comment-toggle-button:focus {
+    outline: none;
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f0f0f0; /* Color de fondo similar al formulario de Login/Register */
+}
+
+.comment-form button {
+    background-color: #289bb8;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.comment-form button:hover {
+    background-color: #1d7c94;
+}
+
+.comment-form button:focus {
+    outline: none;
+}
+
+@media (min-width: 700px) {
+    .unique-post-page {
+        width: 80%;
+        height: 100%;
+    }
 }

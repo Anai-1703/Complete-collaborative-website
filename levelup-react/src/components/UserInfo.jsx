@@ -74,9 +74,9 @@ const UserInfo = ({ user }) => {
       <section>
         <h3> Post de {userData.nameMember}</h3>
       </section>
-
+      <section className="all-posts">
       {userPost.map(post => (
-        <article key={post.id + 1} className="user-post-list">
+        <article key={post.id + 1} className="preview-post">
           <section className="user-detail">
               {post.avatarURL ? (
               <img className="user-avatar" src={post.avatarURL} alt="Avatar" />
@@ -106,6 +106,7 @@ const UserInfo = ({ user }) => {
         </Link>
       </article>
         ))}
+        </section>
     </>
   );
 };
