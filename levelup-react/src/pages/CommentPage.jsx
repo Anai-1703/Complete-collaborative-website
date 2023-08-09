@@ -2,19 +2,23 @@ import { useState } from 'react';
 import CommentForm from '../forms/CommentForm';
 import { createComment } from '../services/createComment';
 import { useParams } from 'react-router-dom';
-import ".-/styles/GenericForm.css";
+import "../styles/GenericForm.css";
 
-export default function CommentPage({ userAvatar }) {
+export default function CommentPage({ userAvatar  }) {
     const [comments, setComments] = useState([]);
     const { id } = useParams();
 
     const handleAddComment = async (postId, newComment) => {
         try {
-            await createComment(id, newComment);
+          const response = await createComment(id, newComment);
 
             setComments((prevComments) => [
                 ...prevComments,
-                { postId: id, comment: newComment, userAvatar }
+                { postId: id, 
+                  comment: newComment, 
+                  userAvatar, 
+                  nameMember: Response.nameMember
+                }
             ]);
 
         } catch (error) {
@@ -23,13 +27,12 @@ export default function CommentPage({ userAvatar }) {
     }
 
         // añadido Ana:
-        const Comment = ({ comment, userAvatar, userName }) => {
+        const Comment = ({ comment, userAvatar, nameMember }) => {
             return (
               <div className="comment">
                 <img src={userAvatar} alt="Avatar" className="avatar" />
                 <p className="comment-text">{comment}</p>
-                {/* Agregar el nombre de usuario si es necesario */}
-                <p className="user-name">{userName}</p>
+                <p className="user-name">{nameMember}</p>
               </div>
             );
           };

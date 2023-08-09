@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getUniquePost } from "../services/getUniquePost";
 import { DefaultAvatar } from "./DefaultAvatar.jsx";
 import { UserInteraction } from "./UserInteraction";
+import { Link } from "react-router-dom";
 import { getUserToken } from "../services/token/getUserToken";
 import EditForm from "../forms/EditForm";
 import CommentForm from "../forms/CommentForm";
 import deletePost from "../services/deletePost";
-// import "../styles/UniquePost.css";
+// import "../styles/UniquePost.css"
 const host = import.meta.env.VITE_API_HOST;
 
 function UniquePost() {
@@ -17,7 +18,7 @@ function UniquePost() {
   const [showControlPanel, setShowControlPanel] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [postData, setPostData] = useState(post.data);
-  const [comments, setComments] = useState(post?.data?.comments);
+  const [comments, setComments] = useState(post?.data?.comments); 
   const [showComments, setShowComments] = useState(false);
 
   const formatDate = (dateString) => {
@@ -59,7 +60,7 @@ function UniquePost() {
 
     fetchPost();
   }, [id]);
-
+  
   useEffect(() => {
     if (post.data) {
       setComments(post.data.comments);
@@ -67,21 +68,25 @@ function UniquePost() {
   }, [post.data]);
 
   if (!post.data) {
-    return <div>Cargando el post...</div>;
+    return <div>Leveling Up Posts...</div>;
   }
 
   const tokenInfo = getUserToken();
+
   const userIdFromToken = tokenInfo ? tokenInfo.id : null;
   const createdByUserId = post.data.idUser;
+
   const isCurrentUserPostCreator = userIdFromToken === createdByUserId;
+
+
   const formattedDate = formatDate(post.data.createdAt);
-  const fullDate = new Date(post.data.createdAt).toLocaleString("es-ES", {
+  const fullDate = new Date(post.data.createdAt).toLocaleString('es-ES', {
     weekday: 'long',
     day: 'numeric',
     month: 'long',
     year: 'numeric',
     hour: 'numeric',
-    minute: 'numeric'
+    minute: 'numeric',
   });
 
   const handleMouseEnter = () => {
@@ -107,10 +112,10 @@ function UniquePost() {
     </span>
   ));
   
-  const hasComments = post.data.comments.length > 0;
-  
+  const hasComments = post.data.comments[0].idUser;
+
   const addComment = (newComment) => {
-    setComments((prevComments) => [...prevComments, newComment]);
+     setComments ((prevComments) => [...prevComments, newComment]); // ([...comments, newComment]);
   };
 
   const toggleComments = () => {
@@ -119,22 +124,23 @@ function UniquePost() {
 
   const handleEditClick = () => {
     if (isExpanded) {
-      setShowControlPanel(false);
+        setShowControlPanel(false); // Contraer el formulario al hacer clic en "Contraer"
     } else {
-      handleFormSubmit(postData);
-      setShowControlPanel(!showControlPanel);
+        handleFormSubmit(postData); // Llamar a handleFormSubmit con los datos actuales antes de expandir el formulario
+        setShowControlPanel(!showControlPanel); // Expandir el formulario al hacer clic en "Editar Post"
     }
     setIsExpanded(!isExpanded);
-  };
-
+} ;
+  
   const handleFormSubmit = async (formData) => {
     try {
-      setPostData({ ...post.data, ...formData });
-      setShowControlPanel(false);
+      setPostData({ ...post.data, ...formData }); // Actualizar solo el campo post.data con los datos editados
+      setShowControlPanel(false); // Cerrar el formulario después de enviar los datos
     } catch (error) {
       console.error('Error al editar el post:', error.message);
     }
   };
+
 
   const handleDeleteClick = async () => {
     try {
@@ -145,11 +151,10 @@ function UniquePost() {
       console.error("Error al eliminar el post:", error);
     }
   };
-  
-  
-  
+
+
   return (
-    <article className="unique-post-page">
+      <article className="unique-post-page">
       <section className="user-detail-full">
         <Link className="link-to-user" to={`/users/${post.data.idUser}`}>
           {post.avatarURL ? (
@@ -160,7 +165,6 @@ function UniquePost() {
           <span className="user-name-full">{post.data.nameMember}</span>
         </Link>
       </section>
-
       <section className="user-interaction-full">
         <UserInteraction postId={post.data.id} initialUpvotes={post.data.upvotes} initialDownvotes={post.data.downvotes} updatePostVotes={updatePostVotes} />
       </section>
@@ -196,23 +200,23 @@ function UniquePost() {
       </section>
 
       {isCurrentUserPostCreator && (
-        <section className="section-editpost">
-          <button className="btn-editpost" onClick={handleEditClick}>
-            {isExpanded ? "Contraer" : "Editar Post"}
-          </button>
-          <button className="btn-deletepost" onClick={handleDeleteClick}>Eliminar</button>
-        </section>
-      )}
+      <section className="section-editpost">
+        <button className="btn-editpost" onClick={handleEditClick}>
+          {isExpanded ? "Contraer" : "Editar Post"}
+        </button>
+        <button className="btn-deletepost" onClick={handleDeleteClick}>Delete</button>
+      </section>
+    )}
 
       <section className="contain-form">
         {showControlPanel && (
-          <EditForm
-            id={id}
-            postData={post.data}
-            onChange={handleFormSubmit}
-            onEditClick={handleEditClick}
-            handleEditClick={handleEditClick}
-          />
+            <EditForm
+              id={id}
+              postData={post.data}
+              onChange={handleFormSubmit}
+              onEditClick={handleEditClick}
+              handleEditClick={handleEditClick}
+            />
         )}
       </section>
 
@@ -221,56 +225,13 @@ function UniquePost() {
       </div>
 
       <section className="post-comments-full">
-        <button onClick={toggleComments} className="btn-show-comments">
-          {showComments ? "Ocultar Comentarios" : "Mostrar Comentarios"}
-        </button>
-        {showComments && (
-          <div className="comment-container">
-            <div className="comment-scroll-container">
-              <div className="comment-scroll-content">
-                {post.data.comments.map((comment, index) => (
-                  <Link
-                    key={`${comment.idUser}-${index}`}
-                    className="link-to-user-comment"
-                    to={`/users/${comment.idUser}`}
-                  >
-                    <section key={`${comment.idUser}-${index}`} className="comment">
-                      {comment.avatarURL ? (
-                        <img
-                          className="comment-avatar"
-                          src={comment.avatarURL}
-                          alt="Avatar de Comentario"
-                        />
-                      ) : (
-                        <DefaultAvatar />
-                      )}
-                      <section className="buble-full">
-                        {comment.nameMember && (
-                          <span className="comment-user">{comment.nameMember}</span>
-                        )}
-                        {comment.comment && (
-                          <p className="comment-text">{comment.comment}</p>
-                        )}
-                      </section>
-                    </section>
-                  </Link>
-                ))}
-              </div>
-            </div>
-            <CommentForm postId={post.data.id} onAddComment={addComment} setComments={setComments} />
-          </div>
-        )}
-      </section>
-
-      {!hasComments && (
-        <section className="post-comments-full">
-          <p>No hay comentarios. ¡Sé el primero en dejar uno!</p>
-          <CommentForm postId={post.data.id} onAddComment={addComment} setComments={setComments} />
-        </section>
-      )}
-
-      {hasComments && (
-        <section className="post-comments-full">
+      <button onClick={toggleComments} className="btn-show-comments">
+        {showComments ? "Ocultar Comentarios" : "Mostrar Comentarios"}
+      </button>
+      {showComments && (
+        <div className="comment-container">
+          <div className="comment-scroll-container">
+              <div className="comment-scroll-content"></div>
           {post.data.comments.map((comment, index) => (
             <Link
               key={`${comment.idUser}-${index}`}
@@ -278,11 +239,32 @@ function UniquePost() {
               to={`/users/${comment.idUser}`}
             >
               <section key={`${comment.idUser}-${index}`} className="comment">
+                  {/* ... Código de comentarios ... */}
+            </section>
+              </Link>
+            ))}
+            </div>
+            <CommentForm postId={post.data.id} onAddComment={addComment} setComments={setComments} />
+          </div>
+        )}
+      </section>
+      {!hasComments &&
+      <section className="post-comments-full">
+        <p>No hay comentarios. ¡Se el primero en dejar uno!</p>
+        <CommentForm postId={post.data.id} onAddComment={addComment} setComments={setComments} />
+      </section>
+      }
+
+      {hasComments && (
+        <section className="post-comments-full">
+          {post.data.comments.map((comment, index) => (
+            <Link key={`${comment.idUser}-${index}`} className="link-to-user-comment" to={`/users/${comment.idUser}`}>
+              <section key={`${comment.idUser}-${index}`} className="comment">
                 {comment.avatarURL ? (
                   <img
                     className="comment-avatar"
                     src={comment.avatarURL}
-                    alt="Avatar de Comentario"
+                    alt="Comment Avatar"
                   />
                 ) : (
                   <DefaultAvatar />
@@ -299,7 +281,7 @@ function UniquePost() {
             </Link>
           ))}
           <CommentForm postId={post.data.id} onAddComment={addComment} setComments={setComments} />
-        </section>
+    </section>
       )}
     </article>
   );

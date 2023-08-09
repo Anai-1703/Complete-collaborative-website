@@ -112,6 +112,11 @@ console.log(createdPost)
 
   const handleCancel = () => {
     // Limpiar el texto y la foto al hacer clic en "Cancelar"
+    setTitle('');
+    setEntradilla('');
+    setDescription('');
+    setPlatform([]);
+    setCategory([]);
     setPhoto(null);
     setPhotoPreview(null);
     
@@ -139,8 +144,8 @@ console.log(createdPost)
 
   return (
     <>
-    <section className="form" onSubmit={handleSubmit} >
-      <div className="newPost-container">
+    <div className="form custom-form " onSubmit={handleSubmit} >
+      <form className="newPost-container">
         <h2>Create New Post</h2>
         <input
           type="text"
@@ -254,8 +259,8 @@ console.log(createdPost)
           {cancelButtonClicked ? 'Canceled' : 'Cancel'}
         </button>
       </div>
-      </div>
-    </section>
+      </form>
+    </div>
     {showErrorModal && <Modal type="newpost" visible={true} onClose={() => setShowErrorModal(false)} />} {/* Mostrar el Modal de error si showErrorModal es true */}
     </>
   );

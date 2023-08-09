@@ -66,7 +66,7 @@ export function RegisterForm() {
   };
 
   return (
-    <section className="form">
+    <div className="form custom-form">
     <form className="register-form" onSubmit={handleCreate}>
       <h2>Register</h2>
       <input
@@ -133,6 +133,6 @@ export function RegisterForm() {
         <Link to="/tos">Términos y Condiciones de Level Up!</Link>
       </p>
     </form>
-    </section>
+    </div>
   );
 }

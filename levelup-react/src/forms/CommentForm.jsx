@@ -15,10 +15,12 @@ const CommentForm = ({ postId, onAddComment, setComments }) => {
     const response = await createComment(postId, comment);
     
     console.log(response);
-  onAddComment(response);
-  setComments((prevComments) => [...prevComments, response]); // Agregar el nuevo comentario aquí
-  setComment('');
-  };
+    if (typeof onAddComment === 'function') {
+      onAddComment(response);
+        setComments((prevComments) => [...prevComments, response]); // Agregar el nuevo comentario aquí
+        setComment('');
+  }
+};
 
   const handleChange = (event) => {
     setComment(event.target.value);
@@ -27,7 +29,7 @@ const CommentForm = ({ postId, onAddComment, setComments }) => {
   return (
     <section className="form">
     <form onSubmit={handleSubmit}>
-      <div className="comment">
+      <div className="commentForm">
         <textarea
           type="text"
           name="comment"
@@ -37,8 +39,8 @@ const CommentForm = ({ postId, onAddComment, setComments }) => {
           required
         />
       </div>
-      <button type="submit" className="btn">Agregar</button>
-      <Link to="/post/:id/comment"></Link>
+      <button type="submit" className="btnComment">Agregar</button>
+      <Link to={`/post/:id/comment`}></Link>
     </form>
     </section>
   );

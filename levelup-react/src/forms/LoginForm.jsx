@@ -46,7 +46,7 @@ export function LoginForm() {
   
   return (
     <>
-      <section className="form">
+      <div className="form custom-form">
       <form className="login-form" method="post" onSubmit={handleSubmit}>
         <h2>Login</h2>
         <input 
@@ -76,7 +76,7 @@ export function LoginForm() {
       </p>
       </form>
       {showErrorModal && <Modal type="login" visible={showErrorModal} onClose={closeModal} />}    
-      </section>
+      </div>
   </>
   );
 }
