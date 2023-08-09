@@ -81,3 +81,8 @@ p {
 .panel-user-detail p {
     margin: 0;
 }
+
+.p-aviso-post {
+    font-size: 0.5rem;
+    text-align: center;
+}
