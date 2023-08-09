@@ -4,6 +4,7 @@ import Select from 'react-select';
 import { getToken } from "../services/token/getToken";
 import "../styles/GenericForm.css";
 import { sendPhotoToPost } from '../services/sendPhotoToPost';
+import Modal from '../components/Modal';
 // import '../styles/NewPostForm.css';
 
 const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
@@ -22,6 +23,8 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
         ? postData.categories.split(',').map((category) => ({ value: category, label: category }))
         : []
     );
+
+    const [showErrorModal, setShowErrorModal] = useState(false); // Nuevo estado para mostrar el Modal de error
 
     const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
 
@@ -42,9 +45,10 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
         // event.preventDefault();
 
         if (!title.trim() || !entradilla.trim() || !description.trim() || !platforms || !categories) {
-        alert('Please enter all fields.');
-        return;
+            setShowErrorModal(true);
+            return;
         }
+
         try {
         let editPostData;
         if (photo === null) {
@@ -212,20 +216,19 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
             </div>
             )}
             <div className="custom-file-input">
-            <input
-                type="file"
-                accept="image/*"
-                onChange={handlePhotoChange}
-                ref={fileInputRef}
-                id="fileInput"
-                className="photo-input"
-            />
-            <label htmlFor="fileInput" className="file-input-button">
-            Select photo
-            </label>
-        </div>
-        <div className="buttons-container">
-                {/* Cambiar el onClick para contracción del formulario */}
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handlePhotoChange}
+                    ref={fileInputRef}
+                    id="fileInput"
+                    className="photo-input"
+                />
+                <label htmlFor="fileInput" className="file-input-button">
+                Select photo
+                </label>
+            </div>
+            <div className="buttons-container">
                 <button
                     type="button"
                     onClick={(event) => {
@@ -236,10 +239,10 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
                     className={`submit-button ${submitButtonClicked ? 'submitted' : ''}`}
                     >
                     {submitButtonClicked ? 'Submitted' : 'Edit Post'}
-                    </button>
+                </button>
             </div>
         </section>
-        </form>
+    </form>
     );
 }
 
