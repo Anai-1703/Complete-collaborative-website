@@ -73,33 +73,39 @@ a.main-title:hover {
 
 footer {
     display: none;
-    left: 0;
-    width: 100%;
-    padding: 10px;
 }
 
+.open-menu {
+    display: none;
+}
 
 @media (min-width: 700px) {
     body {
         display: grid;
         grid-template-columns: 20% 40% 40%;
         grid-template-rows: 90px calc(100vh - 95px) 50px;
-        grid-template-areas: 
-            'search titulo  float'
-            'menu    main    main'
-            'footer footer  footer';
+        grid-template-areas:
+            "search titulo  float"
+            "menu    main    main"
+            "footer footer  footer";
     }
     .user-float {
         grid-area: float;
-        width: 40%;
+        width: 200px;
+        top: 0;
+        right: 0;
+        left: auto;
+        position: fixed;
+        margin-right: 40px;
     }
-    .search-form {
+    .search-menu {
         grid-area: search;
     }
     .full-menu {
         grid-area: menu;
         height: 100%;
     }
+
     header {
         grid-area: titulo;
     }
@@ -110,31 +116,42 @@ footer {
     }
     footer {
         grid-area: footer;
-        display: inherit
+        display: flex;
+        height: 2rem;
+        width: 100%;
+        padding: 10px;
+        z-index: 2;
     }
 
-/* Definidos fuera del GRID
+    /* Definidos fuera del GRID
 */
+    .menu-navbar {
+        display: none;
+    }
 
-main {
-    display: grid;
-    grid-template-rows: auto auto; /* Dos filas: h2 y section */
-    gap: 20px;
-    align-items: center; /* Centrar verticalmente */
-}
+    section .menu-dropdown {
+        background-color: rgba(128, 128, 128, 0.5);
+        position: initial;
+        margin: 0;
+        width: auto;
+        height: auto;
+    }
 
-h2 {
-    padding: 10px;
-}
+    main {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
 
-.posts {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    justify-content: center;
-    margin-right: 20px; /* Margen en el lado derecho */
-}
+    h2 {
+        padding: 10px;
+    }
 
-
-
+    .posts {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start; /* Alinear contenido arriba */
+    }
 }

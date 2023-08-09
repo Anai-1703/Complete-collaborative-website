@@ -80,12 +80,7 @@ console.log(createdPost)
     setSubmitButtonClicked(true);
     setSubmitMessage('Submitted');
 
-        setSubmitMessage('Submitted');
-    // Después de un tiempo, restablecer el estado de los botones
-    setTimeout(() => {
-      setSubmitMessage('');
-      setSubmitButtonClicked(false);
-    }, 1000);
+    setSubmitMessage('Submitted');
 
     window.location.href = '/';
 
@@ -226,12 +221,13 @@ console.log(createdPost)
         
           <div className="photo-preview-container">
             {photoPreview && 
-            <img src={photoPreview} alt="Preview" className="photo-preview" />}
+            <img src={photoPreview} alt="Preview" 
+            className="photo-preview" />}
             <label htmlFor="fileInput" className="file-input-button">
           Select photo
         </label>
         </div>
-     
+
         <div className="custom-file-input">
           <input
             type="file"
@@ -241,8 +237,8 @@ console.log(createdPost)
             id="fileInput"
             className="photo-input"
           />
-        
       </div>
+
       <div className="buttons-container">
         <button 
           type="submit" 

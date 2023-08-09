@@ -6,6 +6,7 @@ export async function sendPhotoToPost(photo, postId) {
         console.log("holaaa");
         const token = getToken();
         console.log(photo);
+        console.log(postId);
 
         const response = await fetchAPI(
             `/posts/${postId}/photos`,

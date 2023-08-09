@@ -37,7 +37,7 @@ export function Menu({ isMenuOpen }) {
             {isMenuOpen && (
                 <>
                 {!isLoggedIn && (
-                    <ul className="menu-dropdown menu-large">
+                    <ul className="menu-dropdown">
                         <li>
                             <Link to="/login">Login</Link>
                         </li>
@@ -47,7 +47,7 @@ export function Menu({ isMenuOpen }) {
                         </ul>
                 )}
                 {isLoggedIn && (
-                    <ul className="menu-dropdown menu-large">
+                    <ul className="menu-dropdown">
                         <li>
                         <button onClick={handleLogout}>Logout</button>
                         </li>

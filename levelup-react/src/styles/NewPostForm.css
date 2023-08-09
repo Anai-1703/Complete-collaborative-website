@@ -38,6 +38,8 @@
     padding: 10px;
     font-size: 16px;
     border-radius: 5px;
+    margin-bottom: 20px;
+    border-radius: 5px;
 }
 
 /* Estilos del contenedor para el input tipo "file"*/

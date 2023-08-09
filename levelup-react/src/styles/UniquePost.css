@@ -52,7 +52,7 @@
   
   /* Estilos para el formulario de comentarios (si se muestran) */
   .comment-form {
-    display: ${showCommentForm ? 'block' : 'none'};
+    /* display: ${showCommentForm ? 'block' : 'none'}; */
     margin-top: 20px;
   }
   

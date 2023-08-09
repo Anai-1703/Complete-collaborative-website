@@ -3,6 +3,7 @@ import editPost from '../services/editPost';
 import Select from 'react-select';
 import { getToken } from "../services/token/getToken";
 import "../styles/GenericForm.css";
+import { sendPhotoToPost } from '../services/sendPhotoToPost';
 // import '../styles/NewPostForm.css';
 
 const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
@@ -55,6 +56,10 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
                 platforms: platforms.map((platform) => platform.value), 
                 categories: categories.map((category) => category.value),
             };
+
+            const editedPost = await editPost(id, editPostData, token);
+            console.log(editedPost);
+
         } else {
             // Si photo no es null, creamos editPostData con la propiedad photo
             editPostData = {
@@ -63,31 +68,29 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
                 description: description,
                 platforms: platforms.map((platform) => platform.value), 
                 categories: categories.map((category) => category.value),
-                photo: photo,
             };
+
+            console.log(editPostData);
+            const editedPost = await editPost(id, editPostData, token);
+            console.log(editedPost);
+            const photoSended = await sendPhotoToPost(photo, id);
+            console.log(photoSended);
         }
 
         onChange(editPostData);
         console.log(editPostData);
 
-        const editedPost = await editPost(id, editPostData, token);
-        console.log(editedPost);
         // setPostData({ ...postData, ...editPostData });
-
-        // Resetea el valor del input de tipo "file" para eliminar el nombre de la foto  
-        if (photo){
-        fileInputRef.current.value = '';
-        }
 
         // Establecer el estado de los botones
         setSubmitButtonClicked(true);
         setSubmitMessage('Submitted');
 
+        window.location.href = '/';
     }  catch (error) {
         console.error('Error al crear el post:', error.message);
         }
     };
-
 
     const handlePhotoChange = (event) => {
         const selectedPhoto = event.target.files[0];

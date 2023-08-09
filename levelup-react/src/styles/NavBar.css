@@ -68,6 +68,7 @@ nav form button[type="submit"] {
 .menu-navbar {
     position: relative; /* Para posicionar el menú desplegable correctamente */
     margin-left: auto;
+    margin-left: auto;
 }
 
 .menu-icon {
@@ -143,4 +144,3 @@ nav form button[type="submit"] {
         position: relative;
     }
 } */
-

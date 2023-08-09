@@ -1,18 +1,18 @@
-.user-float {
-    padding: 15px;
-    margin: 5px;
+aside {
     border: 1px solid rgb(110, 36, 145);
-    border-radius: 1rem;
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 1rem;
     position: fixed;
     top: 0;
     left: 0;
     height: 25px;
-    width: 40%;
+    width: 35%;
+    margin: 10px 0 0 10px;
     display: flex;
+    position: fixed;
     align-items: center;
-    z-index: 9999;
+    z-index: 99;
 }
 
 .link-to-user-float {
@@ -20,6 +20,7 @@
     text-decoration: none;
     display: flex;
     align-items: center;
+    color: rgb(248, 224, 224);
 }
 
 .link-to-user-float > .user-avatar {
