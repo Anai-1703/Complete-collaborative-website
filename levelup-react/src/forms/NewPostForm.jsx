@@ -33,8 +33,8 @@ const NewPostForm = () => {
     }
   }, []);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async () => {
+    // event.preventDefault();
 
     console.log('Submitinh form...');
 
@@ -43,7 +43,7 @@ const NewPostForm = () => {
       setShowErrorModal(true);
       return;
     }
-    
+
     try {
       const newPostData = {
         title: title,
@@ -54,32 +54,15 @@ const NewPostForm = () => {
         photo: photo || null,
       };
 
+    console.log('Post entradilla:', newPostData);
     console.log('Post titulo:', newPostData.title);
-    console.log('Post entradilla:', newPostData.entradilla);
-    console.log('Post descripcion:', newPostData.description);
-    console.log('Post plataformas:', newPostData.platforms);
-    console.log('Post categorias:', newPostData.categories);
     const createdPost = await createNewPost(newPostData);
-    // console.log("Created post: ", createdPost);
-
-console.log(createdPost)
-
-    // Limpiar entradas después de enviarlo
-    setTitle('');
-    setEntradilla('');
-    setDescription('');
-    setPlatform([]);
-    setCategory([]);
-    setPhoto(null);
-    setPhotoPreview(null);
+    console.log("Created post: ", createdPost);
 
     // Resetea el valor del input de tipo "file" para eliminar el nombre de la foto  
     fileInputRef.current.value = '';
-
     // Establecer el estado de los botones
     setSubmitButtonClicked(true);
-    setSubmitMessage('Submitted');
-
     setSubmitMessage('Submitted');
 
     window.location.href = '/';
@@ -89,7 +72,6 @@ console.log(createdPost)
     }
   };
 
-  
   const handlePhotoChange = (event) => {
     const selectedPhoto = event.target.files[0];
     setPhoto(selectedPhoto);
@@ -112,14 +94,17 @@ console.log(createdPost)
 
   const handleCancel = () => {
     // Limpiar el texto y la foto al hacer clic en "Cancelar"
+    setTitle('');
+    setEntradilla('');
+    setDescription('');
+    setPlatform([]);
+    setCategory([]);
     setPhoto(null);
     setPhotoPreview(null);
-    
     // Resetea el valor del input de tipo "file" para eliminar el nombre de la foto
     fileInputRef.current.value = '';
     setCancelButtonClicked(true);
-
-      setCancelMessage('Canceled');
+    setCancelMessage('Canceled');
 
     setTimeout(() => {
       setCancelMessage('');
@@ -243,6 +228,10 @@ console.log(createdPost)
         <button 
           type="submit" 
           className={`submit-button ${submitButtonClicked ? 'submitted' : ''}`}
+          onClick={(event) =>{
+            event.stopPropagation();
+            handleSubmit();
+          }}
         >
           {submitButtonClicked ? 'Submitted' : 'Create New Post'}
         </button>
