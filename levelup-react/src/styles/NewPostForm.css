@@ -1,6 +1,6 @@
-/* .form {
+.form {
     overflow-x: hidden;
-} */
+}
 
 .select-container {
     .select-container {
@@ -24,6 +24,7 @@
 .select-label-2,
 .select-label-1 {
     color: #289bb8;
+    margin-top: 10px;
     text-align: left;
     flex: 1;
     margin-right: 10px;
@@ -38,8 +39,7 @@
     padding: 10px;
     font-size: 16px;
     border-radius: 5px;
-    margin-bottom: 20px;
-    border-radius: 5px;
+    margin-bottom: 30px; /* 20px */
 }
 
 /* Estilos del contenedor para el input tipo "file"*/
@@ -192,13 +192,13 @@
     .newPost-container {
         max-width: 960px;
         margin: 50px auto;
-        padding: 20px;
+        padding: 50px;
     }
 
     /* Estilos específicos para los campos de entrada en pantallas más grandes */
     .newPost-container input {
         width: 100%;
-        padding: 5px;
+        padding: 10px 20px;
         margin-bottom: 30px;
     }
 

@@ -2,53 +2,66 @@ html {
     height: 100%;
 }
 
-.form.custom-form {
-    min-width: 300px;
+/* body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    background: linear-gradient(#30142b, #2772a1);
+    background-attachment: fixed;
+} */
+
+main { 
+    margin-top: -10px;
+}
+.register-page,
+.login-page {
+    padding-top: 30px;
+}
+.form {
     max-width: 700px;
     position: relative;
-    padding: 20px;
-    padding-top: 30px;
+    left: auto;
+    text-align: center;
+    padding: 15px;
+    width: 100%;
     background: rgba(0, 0, 0, 0.5);
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
-    border-radius: 20px;
-    box-sizing: border-box;
+    border-radius: 10px;
     display: block;
-}
-main {
-    margin: 93px 0 0 0;
-}
-.form h2 {
-    color: #289bb8;
-    padding-bottom: 20px;
+    margin-top: 20px;
+    height: auto;
+    max-width: 480px;
+    box-sizing: border-box;
 }
 
-/**    también para uniquePost*/
+.form h2 {
+    color: #289bb8;
+    /* padding-bottom: 20px; */
+}
 input,
 textarea {
     width: 90%;
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    height:30px;
+    color: #fff;
     border: none;
     border-bottom: 1px solid #fff;
-    margin-bottom: 25px;
     background: transparent;
-    font-size: 16px;
-    color: #fff;
     outline: none;
 }
-.form {
-    display: flex;
-    margin: 95px;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid (0, 0, 0, 0.6);
-    background-color: rgb(74, 31, 31);
-}
+
 
 textarea {
     vertical-align: top;
-    padding-bottom: 0;
+    padding-top: 10px;
 }
 
-.message a {
+.form .message a {
     color: #289bb8;
     text-decoration: none;
     margin-bottom: 50px;
@@ -159,25 +172,6 @@ textarea {
     100% {
         bottom: 100%;
     }
-}
-
-.btnComment {
-    background-color: #289bb8;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    font-size: 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-}
-
-.btnComment:hover {
-    background-color: #1d7c94;
-}
-
-.btnComment:focus {
-    outline: none;
 }
 
 /***** Estilos para tamaño de pantalla mayor a 701px  ******/

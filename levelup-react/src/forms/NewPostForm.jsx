@@ -119,7 +119,7 @@ const NewPostForm = () => {
 
   return (
     <>
-    <div className="form custom-form " onSubmit={handleSubmit} >
+    <div className="form-custom-form " onSubmit={handleSubmit} >
       <form className="newPost-container">
         <h2>Create New Post</h2>
         <input

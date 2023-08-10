@@ -8,7 +8,7 @@ import { getUserToken } from "../services/token/getUserToken";
 import EditForm from "../forms/EditForm";
 import CommentForm from "../forms/CommentForm";
 import deletePost from "../services/deletePost";
-// import "../styles/UniquePost.css"
+import "../styles/UniquePost.css"
 const host = import.meta.env.VITE_API_HOST;
 
 function UniquePost() {
@@ -224,7 +224,8 @@ function UniquePost() {
         <p>&nbsp;</p>
       </div>
 
-      <section className="post-comments-full">
+        {/*** Mostrar/ocultar comentarios  */}
+      {/* <section className="post-comments-full">
       <button onClick={toggleComments} className="btn-show-comments">
         {showComments ? "Ocultar Comentarios" : "Mostrar Comentarios"}
       </button>
@@ -239,7 +240,7 @@ function UniquePost() {
               to={`/users/${comment.idUser}`}
             >
               <section key={`${comment.idUser}-${index}`} className="comment">
-                  {/* ... Código de comentarios ... */}
+                 
             </section>
               </Link>
             ))}
@@ -247,7 +248,9 @@ function UniquePost() {
             <CommentForm postId={post.data.id} onAddComment={addComment} setComments={setComments} />
           </div>
         )}
-      </section>
+      </section> */}
+
+
       {!hasComments &&
       <section className="post-comments-full">
         <p>No hay comentarios. ¡Se el primero en dejar uno!</p>

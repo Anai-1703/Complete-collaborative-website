@@ -7,7 +7,7 @@ import { getUserToken } from "../services/token/getUserToken";
 import EditForm from "../forms/EditForm";
 import CommentForm from "../forms/CommentForm";
 import deletePost from "../services/deletePost";
-// import "../styles/UniquePost.css";
+import "../styles/UniquePostPage.css";
 const host = import.meta.env.VITE_API_HOST;
 
 function UniquePost() {
