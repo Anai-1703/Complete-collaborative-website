@@ -256,7 +256,6 @@ module.exports = {
           createdAt DESC;
     `;
         const [rows] = await db.execute(statement, [postId]);
-        console.log(rows);
         return rows[0];
     },
 
@@ -592,8 +591,6 @@ module.exports = {
         idPost = ?;
     `;
         const [rows] = await db.execute(statement, [postId]);
-        console.log("Respuesta de countVotes: ", rows);
-
         return rows[0];
     },
 
@@ -624,7 +621,6 @@ module.exports = {
     },
 
     async deleteComment(commentId) {
-        console.log("dbService: commentId: ", commentId);
         const statement = `
         DELETE FROM postcomments
         WHERE id = ?
@@ -693,4 +689,171 @@ module.exports = {
 
         return rows.length > 0;
     },
+
+    async searchCategory(cat) {
+        const statement = `
+        SELECT 
+          p.id, 
+          p.title, 
+          p.entradilla, 
+          p.idUser, 
+          p.createdAt, 
+          u.nameMember, 
+          u.avatarURL,
+          pc.comments AS lastComment,
+          pc.idUser AS commentUserId,
+          uc.avatarURL AS commentUserAvatarURL,
+          uc.nameMember AS commentUserNameMember,
+          pi.imageURL,
+          v.upvotes,
+          v.downvotes,
+          GROUP_CONCAT(DISTINCT c.category) AS categories,
+          GROUP_CONCAT(DISTINCT plt.platform) AS platforms
+        FROM 
+          posts p
+        JOIN 
+          users u ON p.idUser = u.id
+        LEFT JOIN 
+          (SELECT 
+              idPost, MAX(createdAt) AS ultimoComentarioFecha
+          FROM 
+              postcomments
+          GROUP BY 
+              idPost) AS subquery ON p.id = subquery.idPost
+        LEFT JOIN 
+          postcomments pc ON subquery.idPost = pc.idPost AND subquery.ultimoComentarioFecha = pc.createdAt
+        LEFT JOIN
+          users uc ON pc.idUser = uc.id
+        LEFT JOIN
+          postimages pi ON p.id = pi.idPost
+        LEFT JOIN
+          (SELECT 
+              idPost,
+              SUM(votes = 1) AS upvotes,
+              SUM(votes = 0) AS downvotes
+          FROM
+              votes
+          GROUP BY
+              idPost) AS v ON p.id = v.idPost
+        LEFT JOIN
+          postcategories pcats ON p.id = pcats.postId
+        LEFT JOIN
+          categories c ON pcats.categoryId = c.id
+        LEFT JOIN
+          postplatforms pplat ON p.id = pplat.postId
+        LEFT JOIN
+          platforms plt ON pplat.platformId = plt.id
+        WHERE
+          p.id IN (SELECT pcats.postId FROM postcategories pcats JOIN categories c ON pcats.categoryId = c.id WHERE c.category = ?)
+        GROUP BY 
+          p.id, 
+          p.title, 
+          p.entradilla, 
+          p.idUser, 
+          p.createdAt, 
+          u.nameMember, 
+          u.avatarURL,
+          pc.comments,
+          pc.idUser,
+          uc.avatarURL,
+          uc.nameMember,
+          pi.imageURL,
+          v.upvotes,
+          v.downvotes
+        ORDER BY 
+          createdAt DESC;
+        `;
+        const [rows] = await db.execute(statement, [cat]);
+        return rows;
+    },
+
+    async searchPlatform(plat) {
+        const statement = `
+        SELECT 
+          p.id, 
+          p.title, 
+          p.entradilla, 
+          p.idUser, 
+          p.createdAt, 
+          u.nameMember, 
+          u.avatarURL,
+          pc.comments AS lastComment,
+          pc.idUser AS commentUserId,
+          uc.avatarURL AS commentUserAvatarURL,
+          uc.nameMember AS commentUserNameMember,
+          pi.imageURL,
+          v.upvotes,
+          v.downvotes,
+          c.categories,
+          plt.platforms
+        FROM 
+          posts p
+        JOIN 
+          users u ON p.idUser = u.id
+        LEFT JOIN 
+          (SELECT 
+            idPost, MAX(createdAt) AS ultimoComentarioFecha
+          FROM 
+            postcomments
+          GROUP BY 
+            idPost) AS subquery ON p.id = subquery.idPost
+        LEFT JOIN 
+          postcomments pc ON subquery.idPost = pc.idPost AND subquery.ultimoComentarioFecha = pc.createdAt
+        LEFT JOIN
+          users uc ON pc.idUser = uc.id
+        LEFT JOIN
+          postimages pi ON p.id = pi.idPost
+        LEFT JOIN
+          (SELECT 
+            idPost,
+            SUM(votes = 1) AS upvotes,
+            SUM(votes = 0) AS downvotes
+          FROM
+            votes
+          GROUP BY
+            idPost) AS v ON p.id = v.idPost
+        LEFT JOIN
+          (SELECT 
+            pcats.postId,
+            GROUP_CONCAT(DISTINCT c.category) AS categories
+          FROM
+            postcategories pcats
+          JOIN
+            categories c ON pcats.categoryId = c.id
+          GROUP BY
+            pcats.postId) AS c ON p.id = c.postId
+        LEFT JOIN
+          (SELECT 
+            pplat.postId,
+            GROUP_CONCAT(DISTINCT plt.platform) AS platforms
+          FROM
+            postplatforms pplat
+          JOIN
+            platforms plt ON pplat.platformId = plt.id
+          GROUP BY
+            pplat.postId) AS plt ON p.id = plt.postId
+        WHERE
+          p.id IN (
+              SELECT 
+                pplat2.postId
+              FROM
+                postplatforms pplat2
+              JOIN
+                platforms plt2 ON pplat2.platformId = plt2.id
+              WHERE
+                plt2.platform = ?
+          )
+        ORDER BY 
+          createdAt DESC;
+      `;
+        const [rows] = await db.execute(statement, [plat]);
+        return rows;
+    },
 };
+
+/*
+        SELECT pplat.postId
+        FROM postplatforms pplat
+        JOIN platforms p ON pplat.platformId = p.id
+        WHERE p.platform = ?;    
+*/

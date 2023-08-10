@@ -97,13 +97,13 @@ function UniquePost() {
 
   const categoriesLinks = categories.map(category => (
     <span key={category}>
-      <Link to={`${host}/searchcat/${category}`}>{category}</Link>{' '}
+      <Link to={`/searchcat/${category}`}>{category}</Link>{' '}
     </span>
   ));
   
   const platformsLinks = platforms.map(platform => (
     <span key={platform}>
-      <Link to={`${host}/searchplatform/${platform}`}>{platform}</Link>{' '}
+      <Link to={`/searchplatform/${platform}`}>{platform}</Link>{' '}
     </span>
   ));
   
@@ -139,7 +139,6 @@ function UniquePost() {
   const handleDeleteClick = async () => {
     try {
       const postDeleted = await deletePost(id);
-      console.log(postDeleted);
       window.location.href = '/';
     } catch (error) {
       console.error("Error al eliminar el post:", error);

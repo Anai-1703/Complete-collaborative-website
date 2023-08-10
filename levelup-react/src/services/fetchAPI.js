@@ -6,15 +6,12 @@ export async function fetchAPI(path, method = "get", payload, token) {
         headers: {},
     };
 
-    console.log(payload);
-
     if (token) {
         requestInit.headers["Authorization"] = `${token}`;
     }
 
     // añadido el caso delete
     if ((method === "get" && payload) || (method === "delete" && payload)) {
-        console.log("ha llegado al if de delete");
         const query = new URLSearchParams(payload).toString();
         path += `?${query}`;
     }
@@ -30,9 +27,6 @@ export async function fetchAPI(path, method = "get", payload, token) {
         requestInit.body = form;
     }
 
-    console.log(method);
-    console.log(host + path, requestInit);
-    // console.log(requestInit.body?.photo?.type);
     const response = await fetch(host + path, requestInit);
     const result = await response.json();
 

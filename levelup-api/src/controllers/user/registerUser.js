@@ -66,7 +66,6 @@ module.exports = async (userData) => {
         expiraTimestamp,
     };
     await saveValidationCode(validationCode);
-    console.log("email: ", user.email);
     await sendValidationEmail(user.email, user.nameMember, validationCode.code);
 
     return {

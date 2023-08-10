@@ -13,7 +13,7 @@ const UserPage = () => {
     getUser(id, token)
       .then((userData) => setUser(userData))
       .catch((error) => {
-        console.log(error);
+        console.error(error);
         // Manejo de errores, por ejemplo, mostrar un mensaje de error o redirigir a una página de error.
       });
   }, [id, token]);
