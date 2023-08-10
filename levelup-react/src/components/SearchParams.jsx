@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { DefaultAvatar } from "./DefaultAvatar.jsx";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { UserInteraction } from "./UserInteraction.jsx";
 import CommentForm from "../forms/CommentForm.jsx";
 import { getSearchParam } from "../services/getSearchParam.js";
 
 const host = import.meta.env.VITE_API_HOST;
 
-// FALTA ARREGLAR EL HOVER!!! QUE MUESTRA LA MISMA FECHA QUE EN EL DOM
 function SearchParams() {
     const [posts, setPosts] = useState([]);
+    const location = useLocation();
 
     async function updatePostVotes(id, upvotes, downvotes) {
         try {
@@ -31,23 +31,31 @@ function SearchParams() {
     useEffect(() => {
         async function fetchQuery() {
             try {
-                const url = window.location.href;
-                const searchType = url.split('/')[3]; // Obtiene el tipo de búsqueda desde la URL
-                const parameter = url.split('/')[4]; // Obtiene el parámetro desde la URL
-                const data = await getSearchParam(searchType, parameter);
+                const url = location.pathname;
+                console.log("Veamos la URL");
+                console.log(url);
+                const searchSegments = url.split('/'); // Divide la URL en segmentos
+                const searchTypeIndex = searchSegments.indexOf('searchplatform') !== -1 ? searchSegments.indexOf('searchplatform') : searchSegments.indexOf('searchcat');
 
-                const postsWithDate = data.map((post) => ({
-                ...post,
-                formattedDate: formatDate(post.createdAt),
-                showFullDate: false,
-                }));
-                setPosts(postsWithDate);
+                if (searchTypeIndex !== -1) {
+                    const searchType = searchSegments[searchTypeIndex]; // Obtiene el tipo de búsqueda desde el segmento correspondiente
+                    const parameter = searchSegments[searchTypeIndex + 1]; // Obtiene el parámetro desde el siguiente segmento
+            
+                    const data = await getSearchParam(searchType, parameter);
+            
+                    const postsWithDate = data.map((post) => ({
+                        ...post,
+                        formattedDate: formatDate(post.createdAt),
+                        showFullDate: false,
+                    }));
+                    setPosts(postsWithDate);
+                }
             } catch (error) {
                 console.error("Error fetching posts:", error);
             }
         }
         fetchQuery();
-        }, []);
+        }, [location]);
 
 
     const formatDate = (dateString) => {
