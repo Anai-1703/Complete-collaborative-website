@@ -38,9 +38,13 @@ const NewPostForm = () => {
 
     console.log('Submitinh form...');
 
-    if (!title.trim() || !entradilla.trim() || !description.trim() || !platforms || !categories) {
+    if (!title.trim() || !entradilla.trim() || !description.trim() || platforms.length === 0|| categories.length === 0 ) {
       console.log('missing data, showing error modal...');
       setShowErrorModal(true);
+
+      setTimeout(() => {
+        setShowErrorModal(false);
+      }, 20000);
       return;
     }
 
@@ -137,7 +141,7 @@ const NewPostForm = () => {
         />
         <textarea
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={(e) => setDescription(e.target.value)}// 
           placeholder="Descripción (texto)"
           className="description"
         />
@@ -203,7 +207,7 @@ const NewPostForm = () => {
             {photoPreview && 
             <img src={photoPreview} alt="Preview" 
             className="photo-preview" />}
-            <label htmlFor="fileInput" className="file-input-button">
+            <label htmlFor="fileInput" className="file-input-button" onClick={handleSelectFile}>
           Select photo
         </label>
         </div>

@@ -1,60 +1,112 @@
-.form {
-    overflow-x: hidden;
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Ajusta esto según tus necesidades */
+}
+.newPost-container {
+    max-width: 100%;
+    max-height: 68vh;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+}
+h2 {
+    color: #289bb8;
+    margin-top: 20px;
 }
 
 .select-container {
-    .select-container {
-        display: flex;
-        flex-direction: column; /* Apila los campos uno debajo del otro */
-        margin-top: 10px;
-        margin-bottom: 20px;
-        max-width: 100%;
-        max-height: 500px;
-        overflow-y: auto;
-        align-items: center; /* Centrar elementos horizontalmente */
-    }
-
-    .select-field {
-        display: flex;
-        align-items: center;
-        gap: 10px; /* Espacio entre el label y el Select */
-    }
+    display: flex;
+    flex-direction: column; /* Apila los campos uno debajo del otro */
+    margin-top: 50px;
+    margin-bottom: 20px;
+    max-width: 100%;
+    overflow-y: auto;
+    align-items: center; /* Centrar elementos horizontalmente */
 }
-
 .select-label-2,
 .select-label-1 {
     color: #289bb8;
-    margin-top: 10px;
+    margin-top: 50px;
     text-align: left;
+    padding-left: 10px;
     flex: 1;
     margin-right: 10px;
 }
+/* Estilos para las listas desplegables */
+.react-select {
+    width: 100%;
+}
 
-/* Espacio entre la etiqueta y el Select */
-/* Estilo personalizado para el campo de selección */
+/* Estilo para las opciones en la lista desplegable */
+.react-select__option {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.react-select__option:hover {
+    background-color: #f0f0f0;
+}
+
+/* Estilo para la opción seleccionada en la lista desplegable */
+.react-select__option--is-selected {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Estilo para el contenedor de la lista desplegable */
+.react-select__control {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+}
+
+/* Estilo para el menú desplegable */
+.react-select__menu {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: -4px;
+    z-index: 999;
+}
+
+/* Estilo para las opciones en el menú desplegable */
+.react-select__menu-list {
+    max-height: 200px;
+    overflow-y: auto;
+    /* position: absolute; */
+}
 .platform-select,
 .category-select {
     width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow-y: auto;
     color: #113a44;
     padding: 10px;
     font-size: 16px;
     border-radius: 5px;
-    margin-bottom: 30px; /* 20px */
+    margin-bottom: 30px;
 }
 
-/* Estilos del contenedor para el input tipo "file"*/
 .custom-file-input {
     width: 100%;
-    height: 60px;
-    margin-top: 0px;
+    height: 50px;
+    margin-top: 0;
+    margin-bottom: 20px;
     font-size: 16px;
     color: #fff;
     border-radius: 5px;
     position: relative;
 }
-
 /* Estilos del botón para seleccionar photo */
 .file-input-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
     background-color: #3b6f7c;
     color: white;
@@ -62,12 +114,10 @@
     font-size: 20px;
     width: fit-content;
     height: 40px;
-    text-align: center;
-    padding: 8px;
+    padding: 18px;
     margin-top: 10px;
-    margin: 0 auto;
+    margin: 30px auto;
 }
-
 /* Ocultar el input de tipo "file" */
 .photo-input {
     position: absolute;
@@ -80,7 +130,6 @@
 }
 
 /* Estilos de la foto previa */
-
 .photo-preview {
     width: 100%; /* La imagen se ajustará automáticamente al tamaño del contenedor */
     object-fit: cover; /* Ajustar el tamaño de la imagen para cubrir el contenedor */
@@ -98,6 +147,7 @@
 /* Estilos del boton de envío */
 .submit-button,
 .cancel-button {
+    min-width: fit fit-content;
     position: relative;
     display: inline-block;
     padding: 10px 20px;
@@ -113,13 +163,13 @@
 
 @keyframes pulse {
     0% {
-        transform: scale(0.9);
+        transform: scale(0.8);
     }
     50% {
-        transform: scale(1.05);
+        transform: scale(0.95);
     }
     100% {
-        transform: scale(0.9);
+        transform: scale(0.8);
     }
 }
 
@@ -146,65 +196,4 @@
 .cancel-button:hover {
     background: #d64449;
     color: #fff;
-}
-
-/* Estilos específicos para dispositivos móviles */
-@media only screen and (max-width: 480px) {
-    .newPost-container {
-        max-width: 480px;
-        padding: 15px;
-    }
-
-    /* Estilos específicos para los campos de entrada en dispositivos móviles */
-    .newPost-container input {
-        font-size: 16px;
-        margin-bottom: 15px;
-    }
-
-    /* Estilos específicos para los botones en dispositivos móviles */
-    .newPost-container .btn {
-        margin-top: 10px;
-        width: 100%; /* Ajustar ancho al 100% en dispositivos móviles */
-    }
-}
-
-/* Estilos específicos para tablets */
-@media only screen and (min-width: 481px) and (max-width: 1024px) {
-    .newPost-container {
-        max-width: 800px;
-        padding: 40px;
-    }
-
-    /* Estilos específicos para los campos de entrada en tablets */
-    .newPost-container input {
-        width: 100%;
-    }
-
-    /* Estilos específicos para los botones en tablets */
-    .newPost-container .btn {
-        margin-top: 10px;
-        width: 18%;
-    }
-}
-
-/* Estilos específicos para pantallas más grandes */
-@media only screen and (min-width: 1025px) and (max-width: 1280px) {
-    .newPost-container {
-        max-width: 960px;
-        margin: 50px auto;
-        padding: 50px;
-    }
-
-    /* Estilos específicos para los campos de entrada en pantallas más grandes */
-    .newPost-container input {
-        width: 100%;
-        padding: 10px 20px;
-        margin-bottom: 30px;
-    }
-
-    /* Estilos específicos para los botones en pantallas más grandes */
-    .newPost-container .btn {
-        margin-top: 15px;
-        width: 15%;
-    }
 }
