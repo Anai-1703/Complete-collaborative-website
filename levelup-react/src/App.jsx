@@ -50,9 +50,11 @@ function App() {
         <Route path="/users/:id" element={<UserPage />} />
         <Route path="/new-post" element={<NewPostPage />} />
         <Route path="/tos" element={<TOS />}></Route>
+        <Route path="/searchcat/:cat" element={<PostListPage />}></Route>
+        <Route path="/searchplatform/:plat" element={<PostListPage />}></Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      {showDefaultModal && <Modal type="default" visible={true} onClose={hideDefaultModal} />}
+      {/* {showDefaultModal && <Modal type="default" visible={true} onClose={hideDefaultModal} />} */}
       <Footer />
       <NavBar />
       <Menu isMenuOpen={true} className="open-menu"/>

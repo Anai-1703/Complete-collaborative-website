@@ -28,7 +28,11 @@ const viewUniqueComment = require("../controllers/post/viewUniqueComment.js");
 const toggleVote = require("../controllers/post/toggleVote.js");
 
 // Importamos las funciones que interactúan con la base de datos.
-const { countVotes } = require("../services/dbService.js");
+const {
+    countVotes,
+    searchCategory,
+    searchPlatform,
+} = require("../services/dbService.js");
 
 // Importamos los servicios necesarios.
 const fileService = require("../services/fileServices.js");
@@ -207,4 +211,23 @@ router.post(
     })
 );
 
+// búsquedas por categoria
+router.get(
+    "/searchcat/:cat",
+    handleAsyncError(async (req, res) => {
+        const cat = req.params.cat;
+        const getCategories = await searchCategory(cat);
+        sendResponse(res, getCategories, undefined, 200);
+    })
+);
+
+// búsquedas por plataforma
+router.get(
+    "/searchplatform/:plat",
+    handleAsyncError(async (req, res) => {
+        const plat = req.params.plat;
+        const getPlatform = await searchPlatform(plat);
+        sendResponse(res, getPlatform, undefined, 200);
+    })
+);
 module.exports = router;
