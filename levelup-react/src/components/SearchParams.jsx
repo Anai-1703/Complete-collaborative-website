@@ -32,8 +32,6 @@ function SearchParams() {
         async function fetchQuery() {
             try {
                 const url = location.pathname;
-                console.log("Veamos la URL");
-                console.log(url);
                 const searchSegments = url.split('/'); // Divide la URL en segmentos
                 const searchTypeIndex = searchSegments.indexOf('searchplatform') !== -1 ? searchSegments.indexOf('searchplatform') : searchSegments.indexOf('searchcat');
 

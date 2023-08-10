@@ -58,7 +58,7 @@ export function RegisterForm() {
         window.location.href = "/login";
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       alert(
         "Hubo un error en el registro. Por favor, inténtalo de nuevo más tarde."
       );

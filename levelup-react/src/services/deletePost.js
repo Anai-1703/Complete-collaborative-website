@@ -10,7 +10,6 @@ const deletePost = async (postId) => {
             {},
             token
         );
-        console.log(response);
         return response;
     } catch (error) {
         console.error(error);

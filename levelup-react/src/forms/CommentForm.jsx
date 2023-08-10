@@ -9,15 +9,11 @@ const CommentForm = ({ postId, onAddComment, setComments }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(postId);
-    console.log(comment);
-    // Pasar el postId al componente padre a través de la prop onAddComment, para llamarlo
     const response = await createComment(postId, comment);
-    
-    console.log(response);
-  onAddComment(response);
-  setComments((prevComments) => [...prevComments, response]); // Agregar el nuevo comentario aquí
-  setComment('');
+  
+    onAddComment(response);
+    setComments((prevComments) => [...prevComments, response]); // Agregar el nuevo comentario aquí
+    setComment('');
   };
 
   const handleChange = (event) => {

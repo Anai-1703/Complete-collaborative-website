@@ -92,7 +92,6 @@ router.put(
     authGuard,
     handleAsyncError(async (req, res) => {
         const photo = req.files.photo;
-        console.log(photo);
         await addPhoto(req.params.id, req.currentUser.id, photo);
         sendResponse(res);
     })
@@ -102,7 +101,6 @@ router.delete(
     "/posts/:id/photos",
     authGuard,
     handleAsyncError(async (req, res) => {
-        console.log(req.params.id);
         await deletePhoto(req.params.id);
         sendResponse(res);
     })
@@ -206,7 +204,6 @@ router.post(
     handleAsyncError(async (req, res) => {
         await toggleVote(req.params.id, req.currentUser.id, req.body.vote);
         const votes = await countVotes(req.params.id);
-        console.log(votes);
         sendResponse(res, votes, undefined, 200);
     })
 );

@@ -65,6 +65,6 @@ module.exports = async (data, token, res) => {
         };
     } catch (error) {
         sendResponse(error);
-        console.log("error al canto");
+        console.error("error al crear post");
     }
 };

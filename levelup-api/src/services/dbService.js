@@ -256,7 +256,6 @@ module.exports = {
           createdAt DESC;
     `;
         const [rows] = await db.execute(statement, [postId]);
-        console.log(rows);
         return rows[0];
     },
 
@@ -592,8 +591,6 @@ module.exports = {
         idPost = ?;
     `;
         const [rows] = await db.execute(statement, [postId]);
-        console.log("Respuesta de countVotes: ", rows);
-
         return rows[0];
     },
 
@@ -624,7 +621,6 @@ module.exports = {
     },
 
     async deleteComment(commentId) {
-        console.log("dbService: commentId: ", commentId);
         const statement = `
         DELETE FROM postcomments
         WHERE id = ?

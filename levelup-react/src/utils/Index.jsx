@@ -29,7 +29,7 @@ const handleSubmit = async (e) => {
       // La solicitud se realizó correctamente, puedes realizar acciones adicionales, como mostrar un mensaje de éxito o redirigir a otra página.
     } catch (error) {
       // La solicitud falló, puedes mostrar un mensaje de error o realizar acciones adicionales de manejo de errores.
-      console.log(error);
+      console.error(error);
     }
   };
 }

@@ -27,9 +27,7 @@ export function LoginForm() {
     e.preventDefault();
     try {
       const response = await sendLogin(formData);
-      console.log(response);
       const tokenSaved = saveToken(response.data.token); // Guardar el token en el localStorage
-      console.log(tokenSaved);
       window.location.href = '/';
     } catch (error) {
       setShowErrorModal(true);

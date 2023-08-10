@@ -141,7 +141,6 @@ function UniquePost() {
   const handleDeleteClick = async () => {
     try {
       const postDeleted = await deletePost(id);
-      console.log(postDeleted);
       window.location.href = '/';
     } catch (error) {
       console.error("Error al eliminar el post:", error);

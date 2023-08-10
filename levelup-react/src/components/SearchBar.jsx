@@ -17,13 +17,10 @@ export function SearchBar() {
 
     const handleSearchSubmit = (e) => {
         e.preventDefault();
-        // console.log("Search query:", searchQuery);
-        // console.log("Search option:", searchOption);
         if (searchOption === "users") {
             navigate("/users");
         } else if (searchOption === "posts") {
           // Aquí puedes redirigir a la página de publicaciones si tienes una ruta configurada para ella
-          // navigate("/posts");
         }
         setSearchQuery("");
     };

@@ -57,12 +57,10 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
         };
 
         const editedPost = await editPost(id, editPostData, token);
-        console.log(editedPost);
 
         if (postData.imageURL === null && photo !== null) {
             try {
                 const photoSended = await sendPhotoToPost(photo, id, token);
-                console.log(photoSended);
             } catch (error) {
                 console.error("Error sending photo:", error);
             }

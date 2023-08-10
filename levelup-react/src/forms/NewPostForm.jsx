@@ -34,12 +34,8 @@ const NewPostForm = () => {
   }, []);
 
   const handleSubmit = async () => {
-    // event.preventDefault();
-
-    console.log('Submitinh form...');
 
     if (!title.trim() || !entradilla.trim() || !description.trim() || !platforms || !categories) {
-      console.log('missing data, showing error modal...');
       setShowErrorModal(true);
       return;
     }
@@ -54,7 +50,6 @@ const NewPostForm = () => {
         photo: photo || null,
       };
 
-    console.log('Post entradilla:', newPostData);
     const createdPost = await createNewPost(newPostData);
 
     setSubmitButtonClicked(true);
