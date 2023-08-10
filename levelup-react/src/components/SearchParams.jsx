@@ -1,31 +1,15 @@
 import { useEffect, useState } from "react";
-import { getAllPosts } from "../services/getAllPost";
 import { DefaultAvatar } from "./DefaultAvatar.jsx";
-import { Link } from "react-router-dom";
-import { UserInteraction } from "./UserInteraction";
-import CommentForm from "../forms/CommentForm";
+import { Link, useLocation } from "react-router-dom";
+import { UserInteraction } from "./UserInteraction.jsx";
+import CommentForm from "../forms/CommentForm.jsx";
+import { getSearchParam } from "../services/getSearchParam.js";
 
 const host = import.meta.env.VITE_API_HOST;
 
-// FALTA ARREGLAR EL HOVER!!! QUE MUESTRA LA MISMA FECHA QUE EN EL DOM
-function PostList() {
+function SearchParams() {
     const [posts, setPosts] = useState([]);
-
-    const handleShowCommentForm = (postId) => {
-        setPosts((prevPosts) =>
-        prevPosts.map((post) =>
-            post.id === postId ? { ...post, showCommentForm: true } : post
-        )
-        );
-    };
-    
-    const handleHideCommentForm = (postId) => {
-        setPosts((prevPosts) =>
-        prevPosts.map((post) =>
-            post.id === postId ? { ...post, showCommentForm: false } : post
-        )
-        );
-    };
+    const location = useLocation();
 
     async function updatePostVotes(id, upvotes, downvotes) {
         try {
@@ -45,21 +29,31 @@ function PostList() {
     }
     
     useEffect(() => {
-        async function fetchPosts() {
+        async function fetchQuery() {
             try {
-                const data = await getAllPosts();
-                const postsWithDate = data.map((post) => ({
-                ...post,
-                formattedDate: formatDate(post.createdAt),
-                showFullDate: false,
-                }));
-                setPosts(postsWithDate);
+                const url = location.pathname;
+                const searchSegments = url.split('/'); // Divide la URL en segmentos
+                const searchTypeIndex = searchSegments.indexOf('searchplatform') !== -1 ? searchSegments.indexOf('searchplatform') : searchSegments.indexOf('searchcat');
+
+                if (searchTypeIndex !== -1) {
+                    const searchType = searchSegments[searchTypeIndex]; // Obtiene el tipo de búsqueda desde el segmento correspondiente
+                    const parameter = searchSegments[searchTypeIndex + 1]; // Obtiene el parámetro desde el siguiente segmento
+            
+                    const data = await getSearchParam(searchType, parameter);
+            
+                    const postsWithDate = data.map((post) => ({
+                        ...post,
+                        formattedDate: formatDate(post.createdAt),
+                        showFullDate: false,
+                    }));
+                    setPosts(postsWithDate);
+                }
             } catch (error) {
                 console.error("Error fetching posts:", error);
             }
         }
-        fetchPosts();
-        }, []);
+        fetchQuery();
+        }, [location]);
 
 
     const formatDate = (dateString) => {
@@ -129,8 +123,6 @@ function PostList() {
                                 initialDownvotes={post.downvotes}
                                 updatePostVotes={updatePostVotes}
                                 showCommentForm={post.showCommentForm}
-                                onShowCommentForm={() => handleShowCommentForm(post.id)}
-                                onHideCommentForm={() => handleHideCommentForm(post.id)}
                             />
                         </section>
 
@@ -204,4 +196,4 @@ function PostList() {
     );
 }
 
-export default PostList;
+export default SearchParams;

@@ -3,8 +3,6 @@ const fs = require("fs/promises");
 const sharp = require("sharp");
 
 async function saveFile(postId, photoId, photoFile) {
-    console.log("foto en fileservices");
-    console.log(photoFile);
     const directory = path.join(__dirname, "../../public/photos", postId);
 
     await fs.mkdir(directory, { recursive: true });

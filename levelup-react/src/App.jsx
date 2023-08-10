@@ -19,6 +19,7 @@ import { TOS } from "./pages/TOS";
 import { useEffect, useState } from "react";
 import { Footer } from "./components/Footer";
 import { Menu } from "./components/Menu";
+import { SearchParamsPage } from "./pages/SearchParamsPage";
 
 function App() {
   const [showDefaultModal, setShowDefaultModal] = useState(true);
@@ -50,9 +51,11 @@ function App() {
         <Route path="/users/:id" element={<UserPage />} />
         <Route path="/new-post" element={<NewPostPage />} />
         <Route path="/tos" element={<TOS />}></Route>
+        <Route path="/searchcat/:cat" element={<SearchParamsPage />}></Route>
+        <Route path="/searchplatform/:plat" element={<SearchParamsPage />}></Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      {showDefaultModal && <Modal type="default" visible={true} onClose={hideDefaultModal} />}
+      {/* {showDefaultModal && <Modal type="default" visible={true} onClose={hideDefaultModal} />} */}
       <Footer />
       <NavBar />
       <Menu isMenuOpen={true} className="open-menu"/>
