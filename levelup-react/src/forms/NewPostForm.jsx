@@ -28,6 +28,7 @@ const NewPostForm = () => {
   useEffect(() => {
     const userToken = getToken();
     if (!userToken) {
+      // Si no hay token, redirige a /login
       window.location.href = "/login";
     }
   }, []);
@@ -50,7 +51,7 @@ const NewPostForm = () => {
       };
 
     const createdPost = await createNewPost(newPostData);
-      console.log(newPostData);
+
     setSubmitButtonClicked(true);
     setSubmitMessage('Submitted');
 
@@ -113,8 +114,8 @@ const NewPostForm = () => {
 
   return (
     <>
-    <div className="form custom-form " onSubmit={handleSubmit} >
-      <form className="newPost-container">
+    <div className="form" onSubmit={handleSubmit} >
+      <div className="newPost-container">
         <h2>Create New Post</h2>
         <input
           type="text"
@@ -232,7 +233,7 @@ const NewPostForm = () => {
           {cancelButtonClicked ? 'Canceled' : 'Cancel'}
         </button>
       </div>
-      </form>
+      </div>
     </div>
     {showErrorModal && <Modal type="newpost" visible={true} onClose={() => setShowErrorModal(false)} />} {/* Mostrar el Modal de error si showErrorModal es true */}
     </>

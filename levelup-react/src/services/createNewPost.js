@@ -5,18 +5,15 @@ import { getToken } from "./token/getToken";
 export async function createNewPost(newPostData) {
     try {
         const token = getToken();
-        console.log("hola");
+
         // Comprobar si newPostData.photo es null o no
         if (newPostData.photo === null) {
-            console.log("foto es null");
-            console.log(newPostData);
             const response = await fetchAPI(
                 `/posts`,
                 "post",
                 newPostData,
                 token
             );
-            console.log(response);
             return response;
         } else {
             // Crear un nuevo objeto newPostDataWithoutPhoto sin la propiedad photo

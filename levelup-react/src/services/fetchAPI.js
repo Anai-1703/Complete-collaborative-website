@@ -5,6 +5,7 @@ export async function fetchAPI(path, method = "get", payload, token) {
         method: method,
         headers: {},
     };
+
     if (token) {
         requestInit.headers["Authorization"] = `${token}`;
     }
@@ -26,12 +27,7 @@ export async function fetchAPI(path, method = "get", payload, token) {
         requestInit.body = form;
     }
 
-    console.log("resumiendo:");
-    console.log(host);
-    console.log(path);
-    console.log(requestInit);
     const response = await fetch(host + path, requestInit);
-    console.log(response);
     const result = await response.json();
 
     if (!result.success) {
