@@ -14,9 +14,7 @@ html {
     box-sizing: border-box;
     display: block;
 }
-main {
-    margin: 93px 0 0 0;
-}
+
 .form h2 {
     color: #289bb8;
     padding-bottom: 20px;
@@ -34,13 +32,13 @@ textarea {
     color: #fff;
     outline: none;
 }
+
 .form {
     display: flex;
-    margin: 95px;
     margin-top: 5px;
     border-radius: 5px;
     border: 1px solid (0, 0, 0, 0.6);
-    background-color: rgb(74, 31, 31);
+    /* background-color: rgb(74, 31, 31); */
 }
 
 textarea {

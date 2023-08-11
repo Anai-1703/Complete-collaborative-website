@@ -28,7 +28,6 @@ const NewPostForm = () => {
   useEffect(() => {
     const userToken = getToken();
     if (!userToken) {
-      // Si no hay token, redirige a /login
       window.location.href = "/login";
     }
   }, []);
@@ -51,7 +50,7 @@ const NewPostForm = () => {
       };
 
     const createdPost = await createNewPost(newPostData);
-
+      console.log(newPostData);
     setSubmitButtonClicked(true);
     setSubmitMessage('Submitted');
 

@@ -32,10 +32,11 @@ body {
 main {
     flex: 1;
     overflow-y: auto;
-    display: flex;
-    /* justify-content: center; Centrar horizontalmente el contenido */
-    align-items: center;
+    /* display: flex;
+    /* justify-content: center; 
+    align-items: center; */
 }
+
 h1 {
     font-size: 3.2em;
     line-height: 1.1;
