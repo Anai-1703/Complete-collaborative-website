@@ -196,7 +196,7 @@ let platforms = null
               {post.formattedDate}
             </p>
         </section>
-
+        </Link>
 
         <section className="tags-full">
             {(() => {
@@ -206,12 +206,12 @@ let platforms = null
             })()}
             <p className="tags-cat">Categorías: {categories.map((category) => (
             <span key={category}>
-                <Link to={`${host}/searchcat/${category}`}>{category}</Link>{' '}
+                <Link to={`/searchcat/${category}`}>{category}</Link>{' '}
             </span>
             ))}</p>
             <p className="tags-plat">Plataformas: {platforms.map((platform) => (
             <span key={platform}>
-                <Link to={`${host}/searchplatform/${platform}`}>{platform}</Link>{' '}
+                <Link to={`/searchplatform/${platform}`}>{platform}</Link>{' '}
             </span>
             ))}</p>
         </section>
@@ -220,7 +220,8 @@ let platforms = null
             <p>&nbsp;</p>
         </div>
 
-        <p className="p-aviso-post">Para ver los comentarios, haz click en el post</p>
+        <Link className="link-to-post" to={`/posts/${post.id}`}>
+          <p className="p-aviso-post">Para ver los comentarios, haz click en el post</p>
         </Link>
 
       </article>

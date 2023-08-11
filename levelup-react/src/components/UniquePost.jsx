@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
+import { useParams, useLocation, Link } from "react-router-dom";
 import { getUniquePost } from "../services/getUniquePost";
 import { DefaultAvatar } from "./DefaultAvatar.jsx";
 import { UserInteraction } from "./UserInteraction";
@@ -17,8 +17,9 @@ function UniquePost() {
   const [showControlPanel, setShowControlPanel] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [postData, setPostData] = useState(post.data);
-  const [comments, setComments] = useState(post?.data?.comments);
-  const [showComments, setShowComments] = useState(false);
+  const [comments, setComments] = useState(post?.data?.comments); 
+  const location = useLocation();
+  const commentInputRef = useRef(null);
 
   const formatDate = (dateString) => {
     const postDate = new Date(dateString);
@@ -66,9 +67,19 @@ function UniquePost() {
     }
   }, [post.data]);
 
+  useEffect(() => {
+    // Verifica si la propiedad focus está presente en la ubicación del historial
+    if (location.state && location.state.focus) {
+      // Enfoca en el input de comentario
+      commentInputRef.current.focus();
+    }
+  }, [location.state]);
+
   if (!post.data) {
     return <div>Cargando el post...</div>;
   }
+
+
 
   const tokenInfo = getUserToken();
   const userIdFromToken = tokenInfo ? tokenInfo.id : null;
@@ -220,45 +231,8 @@ function UniquePost() {
       </div>
 
       <section className="post-comments-full">
-        <button onClick={toggleComments} className="btn-show-comments">
-          {showComments ? "Ocultar Comentarios" : "Mostrar Comentarios"}
-        </button>
-        {showComments && (
-          <div className="comment-container">
-            <div className="comment-scroll-container">
-              <div className="comment-scroll-content">
-                {post.data.comments.map((comment, index) => (
-                  <Link
-                    key={`${comment.idUser}-${index}`}
-                    className="link-to-user-comment"
-                    to={`/users/${comment.idUser}`}
-                  >
-                    <section key={`${comment.idUser}-${index}`} className="comment">
-                      {comment.avatarURL ? (
-                        <img
-                          className="comment-avatar"
-                          src={comment.avatarURL}
-                          alt="Avatar de Comentario"
-                        />
-                      ) : (
-                        <DefaultAvatar />
-                      )}
-                      <section className="buble-full">
-                        {comment.nameMember && (
-                          <span className="comment-user">{comment.nameMember}</span>
-                        )}
-                        {comment.comment && (
-                          <p className="comment-text">{comment.comment}</p>
-                        )}
-                      </section>
-                    </section>
-                  </Link>
-                ))}
-              </div>
-            </div>
-            <CommentForm postId={post.data.id} onAddComment={addComment} setComments={setComments} />
-          </div>
-        )}
+        <p>No hay comentarios. ¡Se el primero en dejar uno!</p>
+        <CommentForm postId={post.data.id} onAddComment={addComment} setComments={setComments} />
       </section>
 
       {!hasComments && (
@@ -297,7 +271,12 @@ function UniquePost() {
               </section>
             </Link>
           ))}
-          <CommentForm postId={post.data.id} onAddComment={addComment} setComments={setComments} />
+          <CommentForm
+            postId={post.data.id}
+            onAddComment={addComment}
+            setComments={setComments}
+            ref={commentInputRef} // Pasa la referencia aquí
+          />
         </section>
       )}
     </article>

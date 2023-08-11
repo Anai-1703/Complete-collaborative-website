@@ -3,7 +3,6 @@ import { getAllPosts } from "../services/getAllPost";
 import { DefaultAvatar } from "./DefaultAvatar.jsx";
 import { Link } from "react-router-dom";
 import { UserInteraction } from "./UserInteraction";
-import CommentForm from "../forms/CommentForm";
 
 const host = import.meta.env.VITE_API_HOST;
 
@@ -180,10 +179,13 @@ function PostList() {
 
                         {post.lastComment === null ? (
                             <>
-                                <p className="no-comment-list">No hay comentarios. ¡Sé el primero en dejar uno!</p>
+                                <Link className="link-to-post" to={{ pathname: `/posts/${post.id}`, state: { focus: true } }}>
+                                    <p className="no-comment-list">No hay comentarios. ¡Sé el primero en dejar uno!</p>
+                                </Link>
                             </>
                         ) : (
-                            <section className="post-comments">
+                            <Link className="link-to-post" to={{ pathname: `/posts/${post.id}`, state: { focus: true } }}>
+                                <section className="post-comments">
                                 {post.commentUserAvatarURL ? (
                                     <img className="comment-avatar" src={post.commentUserAvatarURL} alt="Comment Avatar" />
                                 ) : (
@@ -194,9 +196,8 @@ function PostList() {
                                     <p className="comment-text">{post.lastComment}</p>
                                 </section>
                             </section>
+                            </Link>
                         )}
-                        {/* Utiliza post.showCommentForm en lugar de showCommentForm */}
-                        {post.showCommentForm && <CommentForm postId={post.id} />}
                     </article>
             ))}
         </section>
