@@ -1,18 +1,26 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { createComment } from "../services/createComment";
 import "../styles/GenericForm.css";
-// import "../styles/CommentForm.css";
 
-const CommentForm = ({ postId, onAddComment, setComments }) => {
+const CommentForm = React.forwardRef(({ postId, onAddComment, setComments }, ref) => {
   const [comment, setComment] = useState('');
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state && location.state.focus) {
+      setTimeout(() => {
+        ref.current.focus();
+      }, 100);
+    }
+  }, [location.state, ref]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const response = await createComment(postId, comment);
   
     onAddComment(response);
-    setComments((prevComments) => [...prevComments, response]); // Agregar el nuevo comentario aquí
+    setComments((prevComments) => [...prevComments, response]);
     setComment('');
   };
 
@@ -22,22 +30,26 @@ const CommentForm = ({ postId, onAddComment, setComments }) => {
 
   return (
     <section className="form">
-    <form onSubmit={handleSubmit}>
-      <div className="comment">
-        <textarea
-          type="text"
-          name="comment"
-          placeholder="Agregar comentario"
-          value={comment}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <button type="submit" className="btn">Agregar</button>
-      <Link to="/post/:id/comment"></Link>
-    </form>
+      <form onSubmit={handleSubmit}>
+        <div className="comment">
+          <textarea
+            ref={ref}
+            id="commentTextarea"
+            type="text"
+            name="comment"
+            placeholder="Agregar comentario"
+            value={comment}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <button type="submit" className="btn">Agregar</button>
+        {/* No necesitas este Link aquí */}
+      </form>
     </section>
   );
-};
+});
 
-export default CommentForm; 
+CommentForm.displayName = "CommentForm";
+
+export default CommentForm;

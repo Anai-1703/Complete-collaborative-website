@@ -1,5 +1,6 @@
 import { sendVote } from '../services/sendVote';
 import { useState } from "react";
+// import { Link } from "react-router-dom";
 import '../styles/UserInteraction.css';
 
 export function UserInteraction({
@@ -7,10 +8,7 @@ export function UserInteraction({
   initialUpvotes,
   initialDownvotes,
   updatePostVotes,
-  showCommentForm, // Estado para saber si el formulario de comentarios está visible
-  onShowCommentForm, // Función para mostrar el formulario de comentarios
-  onHideCommentForm, // Nueva función para ocultar el formulario de comentarios
-}) {
+  }) {
     const [upvotes, setUpvotes] = useState(Number(initialUpvotes) || 0);
     const [downvotes, setDownvotes] = useState(Number(initialDownvotes) || 0);
 
@@ -28,17 +26,6 @@ export function UserInteraction({
       }
   };
 
-  const handleShowCommentForm = () => {
-    if (!showCommentForm) {
-        onShowCommentForm();
-    }
-};
-
-const handleHideCommentForm = () => {
-  if (typeof onHideCommentForm === 'function') {
-    onHideCommentForm();
-  }
-};
 
   return (
     <>
@@ -72,7 +59,8 @@ const handleHideCommentForm = () => {
           />
         </svg>
       </div>
-      <div className="new-comment-icon" onClick={showCommentForm ? handleHideCommentForm : onShowCommentForm}>
+      <div className="new-comment-icon">
+      {/* <Link className="new-comment-btn" to={`/posts/${postId}`}>
         <svg className="new-comment-btn"
           width="24"
           height="24"
@@ -91,6 +79,7 @@ const handleHideCommentForm = () => {
             fill="blue"
           />
         </svg>
+        </Link> */}
       </div>
     </>
   );

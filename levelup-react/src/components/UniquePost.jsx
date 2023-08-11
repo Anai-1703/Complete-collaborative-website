@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import { getUniquePost } from "../services/getUniquePost";
 import { DefaultAvatar } from "./DefaultAvatar.jsx";
 import { UserInteraction } from "./UserInteraction";
@@ -19,7 +19,8 @@ function UniquePost() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [postData, setPostData] = useState(post.data);
   const [comments, setComments] = useState(post?.data?.comments); 
-
+  const location = useLocation();
+  const commentInputRef = useRef(null);
 
   const formatDate = (dateString) => {
     const postDate = new Date(dateString);
@@ -67,9 +68,19 @@ function UniquePost() {
     }
   }, [post.data]);
 
+  useEffect(() => {
+    // Verifica si la propiedad focus está presente en la ubicación del historial
+    if (location.state && location.state.focus) {
+      // Enfoca en el input de comentario
+      commentInputRef.current.focus();
+    }
+  }, [location.state]);
+
   if (!post.data) {
     return <div>Leveling Up Posts...</div>;
   }
+
+
 
   const tokenInfo = getUserToken();
 
@@ -222,7 +233,12 @@ function UniquePost() {
       {!hasComments &&
       <section className="post-comments-full">
         <p>No hay comentarios. ¡Se el primero en dejar uno!</p>
-        <CommentForm postId={post.data.id} onAddComment={addComment} setComments={setComments} />
+        <CommentForm
+          postId={post.data.id}
+          onAddComment={addComment}
+          setComments={setComments}
+          ref={commentInputRef} // Pasa la referencia aquí
+        />
       </section>
       }
 
@@ -251,7 +267,12 @@ function UniquePost() {
               </section>
             </Link>
           ))}
-          <CommentForm postId={post.data.id} onAddComment={addComment} setComments={setComments} />
+          <CommentForm
+            postId={post.data.id}
+            onAddComment={addComment}
+            setComments={setComments}
+            ref={commentInputRef} // Pasa la referencia aquí
+          />
         </section>
       )}
     </article>
