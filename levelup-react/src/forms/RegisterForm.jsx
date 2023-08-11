@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { sendRegister, sendValidationEmail } from "../services/sendRegister"; // Asegúrate de importar correctamente esta función
@@ -46,8 +45,8 @@ export function RegisterForm() {
 
       // Manejar la respuesta del servidor
       if (response && response.success) {
-        // Generar un código de verificación (puede ser aleatorio o generado por el servidor)
-        const verificationCode = generateVerificationCode(); // Cambia esto con tu lógica
+        // Generar un código de verificación
+        const verificationCode = generateVerificationCode();
 
         // Enviar correo de verificación
         await sendValidationEmail(
