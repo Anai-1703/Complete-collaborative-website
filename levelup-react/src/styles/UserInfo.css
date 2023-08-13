@@ -1,7 +1,7 @@
 .user-panel {
     display: flex;
     justify-content: space-between;
-    max-width: 100%;
+    min-width: 250px;
     margin: 5px 20px 20px 20px;
 }
 
@@ -85,4 +85,10 @@ p {
 .p-aviso-post {
     font-size: 0.5rem;
     text-align: center;
+}
+
+@media (min-width: 700px) {
+    .user-panel {
+        width: 500px;
+    }
 }

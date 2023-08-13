@@ -2,10 +2,9 @@ import { useState } from 'react';
 import CommentForm from '../forms/CommentForm';
 import { createComment } from '../services/createComment';
 import { useParams } from 'react-router-dom';
-import "../styles/GenericForm.css";
-import "../styles/Comment.css";
+import ".-/styles/GenericForm.css";
 
-export default function CommentPage({ userAvatar  }) {
+export default function CommentPage({ userAvatar }) {
     const [comments, setComments] = useState([]);
     const { id } = useParams();
 

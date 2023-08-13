@@ -28,7 +28,14 @@ main {
     height: auto;
     overflow-y: auto;
     padding: 20px;
+    padding-top: 30px;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+    border-radius: 20px;
+    box-sizing: border-box;
+    display: block;
 }
+
 .form h2 {
     color: #289bb8;
 }

@@ -31,21 +31,20 @@ const CommentForm = React.forwardRef(({ postId, onAddComment, setComments }, ref
 
   return (
     <section className="form">
-      <form onSubmit={handleSubmit}>
-        <div className="comment">
-          <textarea
-            ref={ref}
-            id="commentTextarea"
-            type="text"
-            name="comment"
-            placeholder="Agregar comentario"
-            value={comment}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit" className="btn">Agregar</button>
-      </form>
+    <form onSubmit={handleSubmit}>
+      <div className="commentForm">
+        <textarea
+          type="text"
+          name="comment"
+          placeholder="Agregar comentario"
+          value={comment}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <button type="submit" className="btnComment">Agregar</button>
+      <Link to={`/post/:id/comment`}></Link>
+    </form>
     </section>
   );
 });

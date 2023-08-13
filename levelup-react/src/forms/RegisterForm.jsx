@@ -66,7 +66,7 @@ export function RegisterForm() {
   };
 
   return (
-    <div className="form custom-form">
+    <div className="form">
     <form className="register-form" onSubmit={handleCreate}>
       <h2>Register</h2>
       <input
