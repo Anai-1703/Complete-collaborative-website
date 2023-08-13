@@ -3,8 +3,9 @@
     max-width: 100%;
     max-height: auto;
     overflow-y: auto;
-    background: rgba(124, 82, 40, 0.6);
     border: 2px solid white;
+    background: rgba(107, 50, 50, 0.5);
+    box-shadow: rgba(107, 50, 50, 0.6);
     border-radius: 10px;
     padding: 20px;
 }
@@ -15,13 +16,13 @@
     margin-bottom: 80px;
     overflow-y: auto;
     align-items: center;
-}
+}*/
 .select-field {
     display: flex;
     align-items: center;
-    gap: 10px; 
+    gap: 10px;
     margin-bottom: 50px;
-} */
+}
 h2 {
     margin-top: 20px;
     margin-bottom: 30px;
