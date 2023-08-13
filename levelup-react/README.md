@@ -4,14 +4,53 @@ Plataforma de noticias colaborativas, en la que los usuarios pudieran compartir 
 
 ## Índice
 
+-   [Utilidades para el usuario](#utilidades-para-el-usuario)
 -   [Instalación y configuración](#instalación-y-configuración)
 -   [Uso](#uso)
 -   [Endpoints](#endpoints)
 -   [Autenticación](#autenticación)
--
--
+-   [Criterios de aceptación](criterios-de-aceptación)-
 -   [Contacto](#contacto)
--   [Futuras implementaciones](#futuras -implementaciones)
+-   [Futuras implementaciones](#futuras-implementaciones)
+
+## Utilidades para el usuario
+
+-   Debe ser responsive y verse en distintos dispositivos de varios tamaños.
+-   Se hicieron test de cada nueva implementación.
+-   Testeo manual buscando errores e imperfecciones.
+-   Se hicieron pruebas de usabilidad.
+-   Como usuario nuevo debo poder crear una cuenta con: nombre, email, password y birthday, para poder iniciar sesión.
+-   En el momento de loguearme, si el email o el password no es válido, veré un mensaje de error para volver a introducir las credenciales.
+
+### Creación de cuenta de usuario
+
+-   Login:
+
+    -   Creación de cuenta de acceso y autenticación con cuenta de correo y contraseña.
+
+-   Validaciones:
+    -   No puede haber usuarios repetidos.
+    -   La cuenta de un usuario debe ser un correo electrónico válido. - La contraseña (introducida en el input) debe ser secreta.
+-   Comportamiento:
+    -   Al enviarse el formulario de registro o inicio de sesión, debe validarse.
+    *   Si hay errores, se mostrarán mensajes descriptivos para ayudar al usuario a corregirlos.
+
+### Muro/timeline
+
+-   Validaciones:
+    -   Al publicar, se validará que exista contenido en cada "input o textarea" que lo requiera.
+-   Comportamiento:
+    -   Al recargar la aplicación, si el usuario/a no está registrado/a, sólo podrá:
+        -   Ver la lista de post
+        -   Leer sólo un post que elija
+    -   Si al recargar la aplicación, el usuario/a puede loguearse porque está registrado/a, podrá:
+        -   Publicar Post
+        -   Dar y quitar like a una publicación (1)
+        -   Tener conteo de los likes a sus posts
+        -   Eliminar cualquier post publicado por el/ella
+        -   Al dar click para editar un post, será dirigido a la página para hacerlo y se guardarán los cambios
+        -   Al recargar la página se verán los post y/o comentarios creados o modificados
+        -
 
 ## Instalación y configuración
 
@@ -54,14 +93,24 @@ npm install
 -   [sharp](https://www.npmjs.com/package/sharp): Biblioteca para el procesamiento de imágenes.
     -En estos enlaces encontrarás más información sobre cada una de ellas.
 
-5. Una vez en el directorio raíz de tu proyecto, y tras instalar las dependencias, ejecuta el siguiente comando para iniciar el archivo "dbInit.js":
-   (Asegúrate de tener "Node.js" instalado en tu sistema antes de ejecutar el comando. )
+5. Copia el archivo de ejemplo de variables de entorno
+
+```bash
+cp .env.example .env
+```
+
+    Abre el archivo ".env" en el editor de texto (VSC u otro) y completa las variables de entorno necesarias.
+    Agrega valores reales para cada una de ellas.
+    Cuando tengas configuradas las variables de entorno en el archivo ".env" puedes iniciar el proyecto.
+
+6.  Una vez en el directorio raíz de tu proyecto, y tras instalar las dependencias, ejecuta el siguiente comando para iniciar el archivo "dbInit.js":
+    (Asegúrate de tener "Node.js" instalado en tu sistema antes de ejecutar el comando. )
 
 ```bash
 node src/database/dbInit.js
 ```
 
-6. Iniciamos el servidor (dependiendo del navegador) para "levelup-api":
+7. Iniciamos el servidor (dependiendo del navegador) para "levelup-api":
 
 ```bash
 npm start
@@ -85,7 +134,7 @@ npm install
 
     Ahora configuramos "levelup-react"
 
-7.  Instalar las dependencias, para "levelup-react con el siguiente comando:
+8.  Instalar las dependencias, para "levelup-react con el siguiente comando:
 
 ```bash
 npm install
@@ -106,14 +155,24 @@ npm install
 
     En estos enlaces encontrarás más información sobre cada una de ellas.
 
-8. Abre otro terminal en tu sistema operativo
-9. Navega hasta el directorio raíz de tu proyecto utilizando el comando "cd" (cambiar directorio). Por ejemplo:
+9. Abre otro terminal en tu sistema operativo
+10. Navega hasta el directorio raíz de tu proyecto utilizando el comando "cd" (cambiar directorio). Por ejemplo:
 
 ```bash
 cd ruta/a/tu/levelup-react
 ```
 
-10. Inicia el servidor para "levelup-react":
+11. Copia el archivo de ejemplo de variables de entorno
+
+```bash
+cp .env.example .env
+```
+
+    Abre el archivo ".env" en el editor de texto (VSC u otro) y completa las variables de entorno necesarias.
+    Agrega valores reales para cada una de ellas.
+    Cuando tengas configuradas las variables de entorno en el archivo ".env" puedes iniciar el proyecto.
+
+12. Inicia el servidor para "levelup-react":
 
 ```bash
 npm run dev
@@ -183,6 +242,11 @@ DELETE /posts/id - Solicitud "Delete Post"
    JWT es un estándar para tokens seguros y compactos. Se emite un JWT después de que el usuario se autentique y luego verificarlo en el servidor en cada solicitud subsiguiente. Los JWTs contienen información codificada, como el usuario
 3. Autenticación de API Key:
    Permite a los usuarios autenticarse utilizando una clave secreta única proporcionada por ti.
+
+## Criterios de aceptación:
+
+-   La API es pública, para ser probada.
+-   El diseño debe ser resposive, para móviles de hasta 480px, tablets de hasta 1024px y portatil de hasta 1280px.
 
 ## Contacto
 
