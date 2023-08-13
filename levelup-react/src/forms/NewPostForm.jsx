@@ -36,12 +36,7 @@ const NewPostForm = () => {
   const handleSubmit = async () => {
 
     if (!title.trim() || !entradilla.trim() || !description.trim() || platforms.length === 0|| categories.length === 0) {
-      console.log('missing data, showing error modal...');
       setShowErrorModal(true);
-
-      setTimeout(() => {
-        setShowErrorModal(false);
-      }, 20000);
       return;
     }
 

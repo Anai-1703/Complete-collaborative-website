@@ -13,8 +13,6 @@ export function Header() {
     setCurrentLogo(isDarkMode ? logo2 : logo);
   }, [isDarkMode]);
 
-  console.log("Logo actual:", currentLogo);
-
   return (
     <header>
       <Link className="main-title" to="/">

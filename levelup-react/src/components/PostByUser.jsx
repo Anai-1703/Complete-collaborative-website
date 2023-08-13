@@ -1,1 +1,0 @@
-// pendiente modularizar UserInfo y hacer aqui la lógica de los posts

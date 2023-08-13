@@ -1,21 +1,21 @@
 header,
 .main-title {
-  width: 300px;
-  height: 90px;
-  display: flex;
-  overflow: hidden;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  position: sticky;
-  z-index: 2;
-  top: 0;
+    width: 300px;
+    height: 90px;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    position: sticky;
+    z-index: 2;
+    top: 0;
 }
 
 .main-title {
-  margin-top: -10px;
+    margin-top: -10px;
 }
 
 .img-logo {
-  width: 200px;
+    width: 200px;
 }

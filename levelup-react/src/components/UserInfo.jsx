@@ -196,7 +196,7 @@ let platforms = null
               {post.formattedDate}
             </p>
         </section>
-
+        </Link>
 
         <section className="tags-full">
             {(() => {
@@ -220,6 +220,7 @@ let platforms = null
             <p>&nbsp;</p>
         </div>
 
+        <Link className="link-to-post" to={`/posts/${post.id}`}>
         <p className="p-aviso-post">Para ver los comentarios, haz click en el post</p>
         </Link>
 
