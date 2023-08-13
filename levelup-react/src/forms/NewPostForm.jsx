@@ -114,7 +114,7 @@ const NewPostForm = () => {
 
   return (
     <>
-    <div className="form custom-form " onSubmit={handleSubmit} >
+    <div className="form-custom-form " onSubmit={handleSubmit} >
       <form className="newPost-container">
         <h2>Create New Post</h2>
         <input
@@ -233,10 +233,12 @@ const NewPostForm = () => {
           {cancelButtonClicked ? 'Canceled' : 'Cancel'}
         </button>
       </div>
-      </div>
+      
+      </form>
     </div>
     {showErrorModal && <Modal type="newpost" visible={true} onClose={() => setShowErrorModal(false)} />} {/* Mostrar el Modal de error si showErrorModal es true */}
     </>
+   
   );
 }
 

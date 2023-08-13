@@ -219,7 +219,7 @@ let platforms = null
         <div className="separador">
             <p>&nbsp;</p>
         </div>
-
+        <Link className="link-to-post" to={`/posts/${post.id}`}>
         <p className="p-aviso-post">Para ver los comentarios, haz click en el post</p>
         </Link>
 

@@ -6,9 +6,6 @@ main {
     margin-top: 100px;
 }
 
-.form .custon-form {
-    margin-top: 500px;
-}
 .register-page,
 .login-page {
     padding-top: 30px;
@@ -24,16 +21,12 @@ main {
     padding: 15px;
     width: 100%;
     background: rgba(107, 50, 50, 0.5);
+    box-shadow: 0 15px 25px rgba(107, 50, 50, 0.6);
     border: 2px solid white;
     height: auto;
     overflow-y: auto;
     padding: 20px;
     padding-top: 30px;
-    background: rgba(0, 0, 0, 0.5);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
-    border-radius: 20px;
-    box-sizing: border-box;
-    display: block;
 }
 
 .form h2 {
