@@ -126,6 +126,29 @@ npm run dev
 3. Parámetros de la Solicitud: Explica los parámetros que se pueden incluir en las solicitudes y cómo se deben formatear.
 4. Respuestas Exitosas y Errores: Proporciona ejemplos de respuestas exitosas y posibles códigos de error.
 
+## Usuarios Anónimos
+
+¿Qué pueden hacer los usuarios anónimos?
+
+1. Visitar el sitio web.
+2. Ver el listado de posts y navegar por las categorías y plataformas.
+3. Ver los posts al detalle, incluídos sus comentarios.
+4. Ver la información pública de otros usuarios.
+5. Registrarse
+6. Log-In
+
+## Usuarios Registrados
+
+¿Qué pueden hacer los usuarios registrados?
+
+1. Lo mismo que los anónimos +
+2. Crear posts, con o sin foto
+3. Editar los posts que ellos mismos han creado
+4. Eliminar los posts que ellos mismos han creado
+5. Dejar comentarios en sus propios posts o en otros.
+6. Votar todos los posts.
+7. Editar su panel de usuario
+
 ## Endpoints
 
 Solicitudes GET:
