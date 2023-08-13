@@ -1,5 +1,7 @@
 const Loading = () => {
-  return <div></div>;
+  return <div>
+    {/* pendiente implementación */}
+  </div>;
 };
 
 export default Loading;

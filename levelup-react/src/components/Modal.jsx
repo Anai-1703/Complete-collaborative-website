@@ -42,7 +42,6 @@ const Modal = ({ type, visible, onClose }) => {
             <li>Elige al menos una categoría y al menos una plataforma</li>
           </ul>
           <button onClick={() => { onClose(); }}>Close</button>
-          {/* <button onClick={closeModal}>Close</button>*/}
         </> 
         );
       default:

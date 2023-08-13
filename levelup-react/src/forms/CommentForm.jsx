@@ -17,6 +17,7 @@ const CommentForm = React.forwardRef(({ postId, onAddComment, setComments }, ref
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     const response = await createComment(postId, comment);
   
     onAddComment(response);
@@ -30,22 +31,20 @@ const CommentForm = React.forwardRef(({ postId, onAddComment, setComments }, ref
 
   return (
     <section className="form">
-      <form onSubmit={handleSubmit}>
-        <div className="comment">
-          <textarea
-            ref={ref}
-            id="commentTextarea"
-            type="text"
-            name="comment"
-            placeholder="Agregar comentario"
-            value={comment}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit" className="btn">Agregar</button>
-        {/* No necesitas este Link aquí */}
-      </form>
+    <form onSubmit={handleSubmit}>
+      <div className="commentForm">
+        <textarea
+          type="text"
+          name="comment"
+          placeholder="Agregar comentario"
+          value={comment}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <button type="submit" className="btnComment">Agregar</button>
+      <Link to={`/post/:id/comment`}></Link>
+    </form>
     </section>
   );
 });

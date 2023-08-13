@@ -35,7 +35,7 @@ const NewPostForm = () => {
 
   const handleSubmit = async () => {
 
-    if (!title.trim() || !entradilla.trim() || !description.trim() || !platforms || !categories) {
+    if (!title.trim() || !entradilla.trim() || !description.trim() || platforms.length === 0|| categories.length === 0) {
       setShowErrorModal(true);
       return;
     }
@@ -114,8 +114,8 @@ const NewPostForm = () => {
 
   return (
     <>
-    <div className="form" onSubmit={handleSubmit} >
-      <div className="newPost-container">
+    <div className="form custom-form " onSubmit={handleSubmit} >
+      <form className="newPost-container">
         <h2>Create New Post</h2>
         <input
           type="text"
@@ -132,7 +132,7 @@ const NewPostForm = () => {
         />
         <textarea
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={(e) => setDescription(e.target.value)}// 
           placeholder="Descripción (texto)"
           className="description"
         />
@@ -198,7 +198,7 @@ const NewPostForm = () => {
             {photoPreview && 
             <img src={photoPreview} alt="Preview" 
             className="photo-preview" />}
-            <label htmlFor="fileInput" className="file-input-button">
+            <label htmlFor="fileInput" className="file-input-button" onClick={handleSelectFile}>
           Select photo
         </label>
         </div>

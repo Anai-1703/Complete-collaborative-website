@@ -10,12 +10,16 @@ article {
     justify-content: space-between;
     flex-wrap: wrap;
 }
-
+.all-posts {
+    margin-top: 60px;
+}
 .preview-post {
     margin: 15px 20px 20px 15px;
     min-width: 275px;
     max-width: 400px;
     height: 320px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .link-to-user {
@@ -104,7 +108,9 @@ article {
     align-items: flex-start;
     padding-top: 0.3rem;
 }
-
+.post-comments-full {
+    margin: 10px 27px 0;
+}
 .buble {
     background-color: #4a4949;
     max-width: 100%;
@@ -125,6 +131,7 @@ article {
     margin: 0;
     padding: 0;
     text-align: left;
+    width: 320px;
 }
 
 .no-comment-list {
@@ -133,5 +140,17 @@ article {
     padding: 0.4rem;
 }
 
-@media (min-width: 700px) {
+@media (max-width: 700px) {
+    .all-posts {
+        max-height: none;
+        height: auto;
+        overflow-y: auto;
+        display: block;
+        margin-top: 10px;
+    }
+    .preview-post {
+        width: 100%;
+        margin: o;
+        margin-bottom: 20px;
+    }
 }

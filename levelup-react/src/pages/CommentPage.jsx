@@ -10,7 +10,8 @@ export default function CommentPage({ userAvatar }) {
 
     const handleAddComment = async (postId, newComment) => {
         try {
-            await createComment(id, newComment);
+
+            const response = await createComment(id, newComment);
 
             setComments((prevComments) => [
                 ...prevComments,
@@ -22,24 +23,22 @@ export default function CommentPage({ userAvatar }) {
         }
     }
 
-        // añadido Ana:
-        const Comment = ({ comment, userAvatar, userName }) => {
-            return (
-              <div className="comment">
+         const Comment = ({ comment, userAvatar, nameMember }) => {
+             return (
+               <div className="comment">
                 <img src={userAvatar} alt="Avatar" className="avatar" />
                 <p className="comment-text">{comment}</p>
-                {/* Agregar el nombre de usuario si es necesario */}
-                <p className="user-name">{userName}</p>
-              </div>
-            );
-          };
+                 <p className="user-name">{nameMember}</p>
+               </div>
+             );
+           };
 
 
     return (
         <div className="comment-page">
             <h1>Posts</h1>
             <div className="comments-list">
-                {/* Mostrar comentarios existentes*/}
+
                 {comments.map((commentData, index) => (
                     <Comment
                         key={index}
