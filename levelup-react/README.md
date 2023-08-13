@@ -128,19 +128,29 @@ npm run dev
 
 ## Endpoints
 
-POST /register, para el registro del usuario
-POST /login, para loguearse
-POST /posts, para añadir un post
-POST /posts/id/comments
-POST /posts/id/votes
+Solicitudes GET:
+GET /posts - Solicitud "Get All Posts"
+GET /posts/:id - Solicitud "Get Post By ID"
+GET /posts/:id/comments - Solicitud "Get Comment from Post ID"
+GET /users/:id - Solicitud "Get User By ID"
+GET /searchcat/:cat - Solicitud "Get Posts By Category"
+GET /searchplatform/:plat - Solicitud "Get Posts By Platform"
 
-GET /posts
-GET /posts/id
-GET /posts/id/comments
+Solicitudes POST:
+POST /register - Solicitud "Register User"
+POST /login - Solicitud "Login". Recieve Token
+POST /posts - Solicitud "Create Post" (json only)
+** Send Photo as PUT **
+POST /posts/:id/comments - Solicitud "Create Comment"
+POST /posts/:id/votes - Solicitud "Vote" (up/down)
 
-PUT /posts/id
-PUT /users/id/controlpanel
-DELETE /posts/id
+Solicitudes PUT (Edit):
+PUT /posts/:id - Solicitud "Edit Post" (json only)
+PUT /posts/:id/photos - Solicitud "Add/Edit Photo"
+PUT /users/:id/controlpanel - Solicitud "Edit User"
+
+Solicitudes DELETE:
+DELETE /posts/id - Solicitud "Delete Post"
 
 ## Autenticación
 
