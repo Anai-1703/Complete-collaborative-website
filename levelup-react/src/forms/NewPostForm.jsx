@@ -233,12 +233,10 @@ const NewPostForm = () => {
           {cancelButtonClicked ? 'Canceled' : 'Cancel'}
         </button>
       </div>
-      
       </form>
     </div>
     {showErrorModal && <Modal type="newpost" visible={true} onClose={() => setShowErrorModal(false)} />} {/* Mostrar el Modal de error si showErrorModal es true */}
     </>
-   
   );
 }
 

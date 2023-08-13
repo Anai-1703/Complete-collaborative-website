@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { createComment } from "../services/createComment";
 import "../styles/GenericForm.css";
+
 
 const CommentForm = React.forwardRef(({ postId, onAddComment, setComments }, ref) => {
   const [comment, setComment] = useState('');
@@ -43,7 +44,6 @@ const CommentForm = React.forwardRef(({ postId, onAddComment, setComments }, ref
         />
       </div>
       <button type="submit" className="btnComment">Agregar</button>
-      <Link to={`/post/:id/comment`}></Link>
     </form>
     </section>
   );
