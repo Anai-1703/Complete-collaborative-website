@@ -2,10 +2,10 @@
 
 require("dotenv").config();
 const path = require("path");
+const cors = require("cors");
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const morgan = require("morgan");
-const cors = require("cors");
 const appRouter = require("./src/routes/appRouter.js");
 const sendError = require("./src/utils/sendError.js");
 const validateToken = require("./src/middlewares/validateToken.js");
@@ -13,6 +13,7 @@ const validateToken = require("./src/middlewares/validateToken.js");
 const app = express();
 const PORT = 3000;
 
+// app.use(cors());
 app.use(
     cors({
         origin: [
@@ -22,6 +23,7 @@ app.use(
             "http://localhost:5173",
             "http://localhost:3000",
         ],
+        methods: ["GET", "POST", "PUT", "DELETE"],
     })
 );
 

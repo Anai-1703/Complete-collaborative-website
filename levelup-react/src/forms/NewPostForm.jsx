@@ -1,8 +1,17 @@
+// Importamos los hooks.
 import { useState, useRef, useEffect } from 'react';
-import { createNewPost } from '../services/createNewPost';
-import { getToken } from '../services/token/getToken';
+import { Navigate } from 'react-router-dom'
+
+// Importamos los componentes.
 import Select from 'react-select';
 import Modal from '../components/Modal';
+
+// Importamos los servicios.
+import { createNewPost } from '../services/createNewPost';
+import { getToken } from '../services/token/getToken';
+import { sendPhotoToPost } from '../services/sendPhotoToPost';
+
+// Importamos los estilos.
 import '../styles/GenericForm.css'
 import '../styles/NewPostForm.css';
 
@@ -14,28 +23,31 @@ const NewPostForm = () => {
   const [description, setDescription] = useState('');
   const [platforms, setPlatform] = useState([]);
   const [categories, setCategory] = useState([]);
-  const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
-  const [cancelButtonClicked, setCancelButtonClicked] = useState(false);
-  
+
+  const [loading, setLoading] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false); // Nuevo estado para mostrar el Modal de error
-
-  // Crear referencia, para el input de tipo "file"
-  const fileInputRef = useRef();
-
   const [submitMessage, setSubmitMessage] = useState('');
   const [cancelMessage, setCancelMessage] = useState('');
   
+  // Crear referencia, para el input de tipo "file"
+  const fileInputRef = useRef();
+
+  // Obtenemos el token.
+  const token = getToken();
+
   useEffect(() => {
-    const userToken = getToken();
-    if (!userToken) {
+    if (!token) {
       // Si no hay token, redirige a /login
-      window.location.href = "/login";
+      <Navigate to='/login' />
     }
-  }, []);
+  }, [token]);
 
-  const handleSubmit = async () => {
+  // Función que maneja el envío del formulario.
+  const handleSubmit = async (e) => {
+    // Cancelamos el comportamiento por defecto del formulario.
+    e.preventDefault();
 
-    if (!title.trim() || !entradilla.trim() || !description.trim() || !platforms || !categories) {
+    if (!title || !entradilla || !description || !platforms || !categories) {
       setShowErrorModal(true);
       return;
     }
@@ -45,27 +57,56 @@ const NewPostForm = () => {
         title: title,
         entradilla: entradilla,
         description: description,
-        platforms: platforms.map((platform) => platform.value), 
+        platforms: platforms.map((platform) => platform.value),
         categories: categories.map((category) => category.value),
-        photo: photo || null,
       };
+    
+      setLoading(true);
+      
+      setSubmitMessage('Enviando...');
+    
+      const createdPost = await createNewPost(newPostData);
+    
+      if (createdPost.success) {
+        const postId = createdPost.data.id;
+        console.log(createdPost);
+        console.log("postId", postId);
 
-    const createdPost = await createNewPost(newPostData);
-
-    setSubmitButtonClicked(true);
-    setSubmitMessage('Submitted');
-
-    window.location.href = `/posts/${createdPost.data.id}`;
-
-  }  catch (error) {
-    console.error('Error al crear el post:', error.message);
+        if (photo == null) {
+          window.location.href = `/posts/${postId}`;
+          // usar navigate
+        }
+    
+        if (photo !== null) {
+          console.log("El post tiene foto...");
+          console.log(photo);
+          console.log(postId);
+          console.log(token);
+          console.log("------");
+    
+          const photoSended = await sendPhotoToPost(photo, postId, token);
+    
+          if (photoSended.success) {
+            console.log("Photo sent successfully:", photoSended.success);
+            window.location.href = `/posts/${postId}`;
+            setSubmitMessage('Enviando');
+          } else {
+            console.error("Error sending photo:", photoSended.error);
+            // You might want to handle the photo sending error here
+          }
+        }
+      } else {
+        console.error("Error creating the post:", createdPost.error);
+      }
+    } catch (error) {
+      console.log(error);
+      console.error('Error al crear el post:', error.message);
     }
   };
 
   const handlePhotoChange = (event) => {
     const selectedPhoto = event.target.files[0];
     setPhoto(selectedPhoto);
-
     // Mostrar la vista previa de la foto seleccionada
     if (selectedPhoto) {
       const reader = new FileReader();
@@ -79,7 +120,7 @@ const NewPostForm = () => {
   }; 
 
   const handleSelectFile = () => {
-    fileInputRef.current.click(); // Simula el clic en el input de tipo "file"
+    fileInputRef.current.click();
   };
 
   const handleCancel = () => {
@@ -91,19 +132,17 @@ const NewPostForm = () => {
     setCategory([]);
     setPhoto(null);
     setPhotoPreview(null);
-    // Resetea el valor del input de tipo "file" para eliminar el nombre de la foto
     fileInputRef.current.value = '';
-    setCancelButtonClicked(true);
+    setLoading(true);
     setCancelMessage('Canceled');
 
     setTimeout(() => {
       setCancelMessage('');
-      setCancelButtonClicked(false);
+      setLoading(false);
     }, 1000);
   
   };
 
-    // Función para manejar el cambio de opciones seleccionadas
     const handlePlatformChange = (selectedOptions) => {
       setPlatform(selectedOptions);
     };
@@ -145,7 +184,7 @@ const NewPostForm = () => {
             value={platforms}
             onChange={handlePlatformChange}    
             options={[
-              { value: "PC", label: "Plataforma PC" },
+              { value: "PC", label: "PC" },
               { value: "PS5", label: "PlayStation 5" },
               { value: "PS4", label: "PlayStation 4" },
               { value: "PS3", label: "PlayStation 3" },
@@ -153,15 +192,15 @@ const NewPostForm = () => {
               { value: "PSOne", label: "PlayStation One" },
               { value: "Xbox Series", label: "Xbox Series" },
               { value: "Xbox One", label: "Xbox One" },
-              { value: "Xbox 360", label: "Xbox 360" },
+              { value: "Xbox360", label: "Xbox 360" },
               { value: "Xbox Classic", label: "Xbox Classic" },
               { value: "Switch", label: "Nintendo Switch" },
               { value: "Wii U", label: "Nintendo Wii U" },
               { value: "Wii", label: "Nintendo Wii" },
               { value: "N64", label: "Nintendo 64" },
-              { value: "SNES", label: "Super Nintendo" },
-              { value: "NES", label: "Nintendo Entertainment System" },
-              { value: "Moviles", label: "Plataforma Móviles" },
+              { value: "SNES", label: "Super Nintendo (SNES)" },
+              { value: "NES", label: "Nintendo Entertainment System (NES)" },
+              { value: "Moviles", label: "Móviles / SmartPhones" },
               { value: "Otras", label: "Otras Plataformas" },
             ]}
             isMulti
@@ -217,20 +256,19 @@ const NewPostForm = () => {
       <div className="buttons-container">
         <button 
           type="submit" 
-          className={`submit-button ${submitButtonClicked ? 'submitted' : ''}`}
+          className={`submit-button ${loading ? 'submitted' : ''}`}
           onClick={(event) =>{
             event.stopPropagation();
-            handleSubmit();
           }}
         >
-          {submitButtonClicked ? 'Submitted' : 'Create New Post'}
+          {loading ? 'Submitted' : 'Create New Post'}
         </button>
         <button
           type="button"
           onClick={handleCancel}
-          className={`cancel-button ${cancelButtonClicked ? 'canceled' : ''}`}
+          className={`cancel-button ${loading ? 'canceled' : ''}`}
         >
-          {cancelButtonClicked ? 'Canceled' : 'Cancel'}
+          {loading ? 'Canceled' : 'Cancel'}
         </button>
       </div>
       </form>

@@ -5,7 +5,7 @@ import "../styles/Toggle.css"
 
 const Toggle = () => {
   const { isDarkMode, ToggleTheme } = useThemeToggle();
-
+  // evitar el uso del document.body
   const handleThemeChange = () => {
     document.body.classList.toggle("darkMode", !isDarkMode);
     ToggleTheme();

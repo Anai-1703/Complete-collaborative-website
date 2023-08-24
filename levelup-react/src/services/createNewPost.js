@@ -1,38 +1,29 @@
-import { fetchAPI } from "./fetchAPI";
-import { sendPhotoToPost } from "./sendPhotoToPost";
 import { getToken } from "./token/getToken";
+
+const host = import.meta.env.VITE_API_HOST;
 
 export async function createNewPost(newPostData) {
     try {
         const token = getToken();
 
-        // Comprobar si newPostData.photo es null o no
-        if (newPostData.photo === null) {
-            const response = await fetchAPI(
-                `/posts`,
-                "post",
-                newPostData,
-                token
-            );
-            return response;
-        } else {
-            // Crear un nuevo objeto newPostDataWithoutPhoto sin la propiedad photo
-            const { photo, ...newPostDataWithoutPhoto } = newPostData;
-            const response = await fetchAPI(
-                `/posts`,
-                "post",
-                newPostDataWithoutPhoto,
-                token
-            );
-            // Enviar la foto al post creado
-            const photoUpload = await sendPhotoToPost(
-                photo,
-                response.data.id,
-                token
-            );
-            return response;
+        const response = await fetch(`${host}/posts`, {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: token,
+            },
+            body: JSON.stringify(newPostData),
+        });
+
+        const body = await response.json();
+
+        if (!response.ok) {
+            // Hacemos algo con el error.
         }
+
+        return body;
     } catch (error) {
+        console.log(error);
         throw new Error("Error al crear el post: " + error.message);
     }
 }
