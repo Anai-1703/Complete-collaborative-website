@@ -3,10 +3,10 @@ import { getAllPosts } from "../services/getAllPost";
 import { DefaultAvatar } from "./DefaultAvatar.jsx";
 import { Link } from "react-router-dom";
 import { UserInteraction } from "./UserInteraction";
+import Loading from "./Loading";
 
 const host = import.meta.env.VITE_API_HOST;
 
-// FALTA ARREGLAR EL HOVER!!! QUE MUESTRA LA MISMA FECHA QUE EN EL DOM
 function PostList() {
     const [posts, setPosts] = useState([]);
 
@@ -107,7 +107,11 @@ function PostList() {
     let categories = null
     let platforms = null
 
-    return (    
+    if (!posts) {
+        return <Loading />;
+    }
+
+    return (
         <section className="all-posts">
             {posts.map(post => (
                     <article className="preview-post" key={post.id}>

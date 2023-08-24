@@ -5,6 +5,7 @@ import { DefaultAvatar } from "./DefaultAvatar.jsx";
 import { UserInteraction } from "./UserInteraction";
 import { Link } from "react-router-dom";
 import { getUserToken } from "../services/token/getUserToken";
+import Loading from "./Loading";
 import EditForm from "../forms/EditForm";
 import CommentForm from "../forms/CommentForm";
 import deletePost from "../services/deletePost";
@@ -77,10 +78,8 @@ function UniquePost() {
   }, [location.state]);
 
   if (!post.data) {
-    return <div>Leveling Up Posts...</div>;
+    return <Loading />;
   }
-
-
 
   const tokenInfo = getUserToken();
 
@@ -157,116 +156,84 @@ function UniquePost() {
       console.error("Error al eliminar el post:", error);
     }
   };
+  
+
 
 
   return (
       <article className="unique-post-page">
-      <section className="user-detail-full">
-        <Link className="link-to-user" to={`/users/${post.data.idUser}`}>
-          {post.avatarURL ? (
-            <img className="user-avatar-full" src={post.data.avatarURL} alt="Avatar" />
-          ) : (
-            <DefaultAvatar post={false} />
+        <section className="user-detail-full">
+          <Link className="link-to-user" to={`/users/${post.data.idUser}`}>
+            {post.avatarURL ? (
+              <img className="user-avatar-full" src={post.data.avatarURL} alt="Avatar" />
+            ) : (
+              <DefaultAvatar post={false} />
+            )}
+            <span className="user-name-full">{post.data.nameMember}</span>
+          </Link>
+        </section>
+        <section className="user-interaction-full">
+          <UserInteraction postId={post.data.id} initialUpvotes={post.data.upvotes} initialDownvotes={post.data.downvotes} updatePostVotes={updatePostVotes} />
+        </section>
+
+        <section className="post-text-full">
+          <h3 className="post-title-full">{post.data.title}</h3>
+          <p className="post-entradilla-full">{post.data.entradilla}</p>
+          <p className="post-description-full">{post.data.description}</p>
+        </section>
+
+        <section className="post-content-full">
+          {post.data.imageURL ? (
+            <figure className="post-images-full">
+              <img src={`${host}${post.data.imageURL}`} alt={`Photo ${post.data.title}`} />
+            </figure>
+          ) : null}
+        </section>
+
+        <section className="post-date-full">
+          <p
+            className="post-created-full"
+            title={showFullDate ? fullDate : null}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            {formattedDate}
+          </p>
+        </section>
+
+        <section className="tags-full">
+          <p className="tags-cat">Categorías: {categoriesLinks}</p>
+          <p className="tags-plat">Plataformas: {platformsLinks}</p>
+        </section>
+
+        {isCurrentUserPostCreator && (
+        <section className="section-editpost">
+          <button className="btn-editpost" onClick={handleEditClick}>
+            {isExpanded ? "Contraer" : "Editar Post"}
+          </button>
+          <button className="btn-deletepost" onClick={handleDeleteClick}>Delete</button>
+        </section>
+      )}
+
+        <section className="contain-form">
+          {showControlPanel && (
+              <EditForm
+                id={id}
+                postData={post.data}
+                onChange={handleFormSubmit}
+                onEditClick={handleEditClick}
+                handleEditClick={handleEditClick}
+              />
           )}
-          <span className="user-name-full">{post.data.nameMember}</span>
-        </Link>
-      </section>
-      <section className="user-interaction-full">
-        <UserInteraction postId={post.data.id} initialUpvotes={post.data.upvotes} initialDownvotes={post.data.downvotes} updatePostVotes={updatePostVotes} />
-      </section>
+        </section>
 
-      <section className="post-text-full">
-        <h3 className="post-title-full">{post.data.title}</h3>
-        <p className="post-entradilla-full">{post.data.entradilla}</p>
-        <p className="post-description-full">{post.data.description}</p>
-      </section>
+        <div className="separador">
+          <p>&nbsp;</p>
+        </div>
 
-      <section className="post-content-full">
-        {post.data.imageURL ? (
-          <figure className="post-images-full">
-            <img src={`${host}${post.data.imageURL}`} alt={`Photo ${post.data.title}`} />
-          </figure>
-        ) : null}
-      </section>
-
-      <section className="post-date-full">
-        <p
-          className="post-created-full"
-          title={showFullDate ? fullDate : null}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          {formattedDate}
-        </p>
-      </section>
-
-      <section className="tags-full">
-        <p className="tags-cat">Categorías: {categoriesLinks}</p>
-        <p className="tags-plat">Plataformas: {platformsLinks}</p>
-      </section>
-
-      {isCurrentUserPostCreator && (
-      <section className="section-editpost">
-        <button className="btn-editpost" onClick={handleEditClick}>
-          {isExpanded ? "Contraer" : "Editar Post"}
-        </button>
-        <button className="btn-deletepost" onClick={handleDeleteClick}>Delete</button>
-      </section>
-    )}
-
-      <section className="contain-form">
-        {showControlPanel && (
-            <EditForm
-              id={id}
-              postData={post.data}
-              onChange={handleFormSubmit}
-              onEditClick={handleEditClick}
-              handleEditClick={handleEditClick}
-            />
-        )}
-      </section>
-
-      <div className="separador">
-        <p>&nbsp;</p>
-      </div>
-
-      {!hasComments &&
-      <section className="post-comments-full">
-        <p>No hay comentarios. ¡Se el primero en dejar uno!</p>
-        <CommentForm
-          postId={post.data.id}
-          onAddComment={addComment}
-          setComments={setComments}
-          ref={commentInputRef} // Pasa la referencia aquí
-        />
-      </section>
-      }
-
-      {hasComments && (
+        {!hasComments &&
         <section className="post-comments-full">
-          {post.data.comments.map((comment, index) => (
-            <Link key={`${comment.idUser}-${index}`} className="link-to-user-comment" to={`/users/${comment.idUser}`}>
-              <section key={`${comment.idUser}-${index}`} className="comment">
-                {comment.avatarURL ? (
-                  <img
-                    className="comment-avatar"
-                    src={comment.avatarURL}
-                    alt="Comment Avatar"
-                  />
-                ) : (
-                  <DefaultAvatar />
-                )}
-                <section className="buble-full">
-                  {comment.nameMember && (
-                    <span className="comment-user">{comment.nameMember}</span>
-                  )}
-                  {comment.comment && (
-                    <p className="comment-text">{comment.comment}</p>
-                  )}
-                </section>
-              </section>
-            </Link>
-          ))}
+          <p>No hay comentarios. ¡Se el primero en dejar uno!</p>
           <CommentForm
             postId={post.data.id}
             onAddComment={addComment}
@@ -274,7 +241,41 @@ function UniquePost() {
             ref={commentInputRef} // Pasa la referencia aquí
           />
         </section>
-      )}
+        }
+
+        {hasComments && (
+          <section className="post-comments-full">
+            {post.data.comments.map((comment, index) => (
+              <Link key={`${comment.idUser}-${index}`} className="link-to-user-comment" to={`/users/${comment.idUser}`}>
+                <section key={`${comment.idUser}-${index}`} className="comment">
+                  {comment.avatarURL ? (
+                    <img
+                      className="comment-avatar"
+                      src={comment.avatarURL}
+                      alt="Comment Avatar"
+                    />
+                  ) : (
+                    <DefaultAvatar />
+                  )}
+                  <section className="buble-full">
+                    {comment.nameMember && (
+                      <span className="comment-user">{comment.nameMember}</span>
+                    )}
+                    {comment.comment && (
+                      <p className="comment-text">{comment.comment}</p>
+                    )}
+                  </section>
+                </section>
+              </Link>
+            ))}
+            <CommentForm
+              postId={post.data.id}
+              onAddComment={addComment}
+              setComments={setComments}
+              ref={commentInputRef} // Pasa la referencia aquí
+            />
+          </section>
+        )}
     </article>
   );
 }
