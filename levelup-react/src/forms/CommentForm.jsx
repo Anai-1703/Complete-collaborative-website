@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { createComment } from "../services/createComment";
 import "../styles/GenericForm.css";
+import "../styles/UniquePostPage.css";
 
 const CommentForm = React.forwardRef(({ postId, onAddComment, setComments }, ref) => {
   const [comment, setComment] = useState('');

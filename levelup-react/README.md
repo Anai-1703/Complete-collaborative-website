@@ -52,6 +52,45 @@ Plataforma de noticias colaborativas, en la que los usuarios pudieran compartir 
         -   Al recargar la página se verán los post y/o comentarios creados o modificados
         -
 
+## Utilidades para el usuario
+
+-   Debe ser responsive y verse en distintos dispositivos de varios tamaños.
+-   Se hicieron test de cada nueva implementación.
+-   Testeo manual buscando errores e imperfecciones.
+-   Se hicieron pruebas de usabilidad.
+-   Como usuario nuevo debo poder crear una cuenta con: nombre, email, password y birthday, para poder iniciar sesión.
+-   En el momento de loguearme, si el email o el password no es válido, veré un mensaje de error para volver a introducir las credenciales.
+
+### Creación de cuenta de usuario
+
+-   Login:
+
+    -   Creación de cuenta de acceso y autenticación con cuenta de correo y contraseña.
+
+-   Validaciones:
+    -   No puede haber usuarios repetidos.
+    -   La cuenta de un usuario debe ser un correo electrónico válido. - La contraseña (introducida en el input) debe ser secreta.
+-   Comportamiento:
+    -   Al enviarse el formulario de registro o inicio de sesión, debe validarse.
+    *   Si hay errores, se mostrarán mensajes descriptivos para ayudar al usuario a corregirlos.
+
+### Muro/timeline
+
+-   Validaciones:
+    -   Al publicar, se validará que exista contenido en cada "input o textarea" que lo requiera.
+-   Comportamiento:
+    -   Al recargar la aplicación, si el usuario/a no está registrado/a, sólo podrá:
+        -   Ver la lista de post
+        -   Leer sólo un post que elija
+    -   Si al recargar la aplicación, el usuario/a puede loguearse porque está registrado/a, podrá:
+        -   Publicar Post
+        -   Dar y quitar like a una publicación (1)
+        -   Tener conteo de los likes a sus posts
+        -   Eliminar cualquier post publicado por el/ella
+        -   Al dar click para editar un post, será dirigido a la página para hacerlo y se guardarán los cambios
+        -   Al recargar la página se verán los post y/o comentarios creados o modificados
+        -
+
 ## Instalación y configuración
 
 Asegúrate de tener [Node.js](https://nodejs.org/) instalado, sigue las instrucciones de la web oficial en el enlace:
@@ -168,7 +207,7 @@ cd ruta/a/tu/levelup-react
 cp .env.example .env
 ```
 
-    Abre el archivo ".env" en el editor de texto (VSC u otro) y completa las variables de entorno necesarias.
+    Crea el archivo ".env" en el editor de texto (VSC u otro) y completa las variables de entorno necesarias.
     Agrega valores reales para cada una de ellas.
     Cuando tengas configuradas las variables de entorno en el archivo ".env" puedes iniciar el proyecto.
 
@@ -185,54 +224,21 @@ npm run dev
 3. Parámetros de la Solicitud: Explica los parámetros que se pueden incluir en las solicitudes y cómo se deben formatear.
 4. Respuestas Exitosas y Errores: Proporciona ejemplos de respuestas exitosas y posibles códigos de error.
 
-## Usuarios Anónimos
-
-¿Qué pueden hacer los usuarios anónimos?
-
-1. Visitar el sitio web.
-2. Ver el listado de posts y navegar por las categorías y plataformas.
-3. Ver los posts al detalle, incluídos sus comentarios.
-4. Ver la información pública de otros usuarios.
-5. Registrarse
-6. Log-In
-
-## Usuarios Registrados
-
-¿Qué pueden hacer los usuarios registrados?
-
-1. Lo mismo que los anónimos +
-2. Crear posts, con o sin foto
-3. Editar los posts que ellos mismos han creado
-4. Eliminar los posts que ellos mismos han creado
-5. Dejar comentarios en sus propios posts o en otros.
-6. Votar todos los posts.
-7. Editar su panel de usuario
-
 ## Endpoints
 
-Solicitudes GET:
-GET /posts - Solicitud "Get All Posts"
-GET /posts/:id - Solicitud "Get Post By ID"
-GET /posts/:id/comments - Solicitud "Get Comment from Post ID"
-GET /users/:id - Solicitud "Get User By ID"
-GET /searchcat/:cat - Solicitud "Get Posts By Category"
-GET /searchplatform/:plat - Solicitud "Get Posts By Platform"
+POST /register, para el registro del usuario
+POST /login, para loguearse
+POST /posts, para añadir un post
+POST /posts/id/comments
+POST /posts/id/votes
 
-Solicitudes POST:
-POST /register - Solicitud "Register User"
-POST /login - Solicitud "Login". Recieve Token
-POST /posts - Solicitud "Create Post" (json only)
-** Send Photo as PUT **
-POST /posts/:id/comments - Solicitud "Create Comment"
-POST /posts/:id/votes - Solicitud "Vote" (up/down)
+GET /posts
+GET /posts/id
+GET /posts/id/comments
 
-Solicitudes PUT (Edit):
-PUT /posts/:id - Solicitud "Edit Post" (json only)
-PUT /posts/:id/photos - Solicitud "Add/Edit Photo"
-PUT /users/:id/controlpanel - Solicitud "Edit User"
-
-Solicitudes DELETE:
-DELETE /posts/id - Solicitud "Delete Post"
+PUT /posts/id
+PUT /users/id/controlpanel
+DELETE /posts/id
 
 ## Autenticación
 
