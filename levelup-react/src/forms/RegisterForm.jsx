@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { sendRegister } from "../services/sendRegister";
 import "../styles/GenericForm.css";
 // import "../styles/index.css"
@@ -54,8 +54,7 @@ export function RegisterForm() {
       // Manejar la respuesta del servidor
       if (response && response.success) {
         alert("Registro exitoso. ¡Ahora puedes iniciar sesión!");
-        // Redireccionar al usuario a la página de inicio de sesión
-        window.location.href = "/login";
+        <Navigate to="/login" />
       }
     } catch (error) {
       console.error(error);

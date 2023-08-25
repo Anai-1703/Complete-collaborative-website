@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, Navigate } from "react-router-dom";
 import { getUniquePost } from "../services/getUniquePost";
 import { DefaultAvatar } from "./DefaultAvatar.jsx";
 import { UserInteraction } from "./UserInteraction";
@@ -9,52 +9,37 @@ import Loading from "./Loading";
 import EditForm from "../forms/EditForm";
 import CommentForm from "../forms/CommentForm";
 import deletePost from "../services/deletePost";
+import UserDetail from "./UserDetail";
+import PostText from "./PostText";
+import PostImage from "./PostImage";
+import PostDate from "./PostDate";
 
-const host = import.meta.env.VITE_API_HOST;
+// const host = import.meta.env.VITE_API_HOST;
 
 function UniquePost() {
   const [post, setPost] = useState({});
-  const [showFullDate, setShowFullDate] = useState(false);
+
   const { id } = useParams();
   const [showControlPanel, setShowControlPanel] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [postData, setPostData] = useState(post.data);
   const [comments, setComments] = useState(post?.data?.comments); 
+  
   const location = useLocation();
   const commentInputRef = useRef(null);
 
-  const formatDate = (dateString) => {
-    const postDate = new Date(dateString);
-    const now = new Date();
-  
-    const timeDiffInMinutes = Math.floor((now - postDate) / (1000 * 60));
-    const timeDiffInHours = Math.floor(timeDiffInMinutes / 60);
-    const timeDiffInDays = Math.floor(timeDiffInHours / 24);
-  
-    if (timeDiffInMinutes < 5) {
-      return 'hace un momento';
-    } else if (timeDiffInMinutes < 60) {
-      return `hace ${timeDiffInMinutes} ${timeDiffInMinutes === 1 ? 'minuto' : 'minutos'}`;
-    } else if (timeDiffInHours < 24) {
-      return `hace ${timeDiffInHours} ${timeDiffInHours === 1 ? 'hora' : 'horas'}`;
-    } else if (timeDiffInDays < 5) {
-      return `hace ${timeDiffInDays} ${timeDiffInDays === 1 ? 'día' : 'días'}`;
-    } else {
-      return postDate.toLocaleDateString('es-ES');
-    }
-  };
-
   function updatePostVotes(postId, upvotes, downvotes) {
     if (post.id === postId) {
-      setPost({ ...post, data: { ...post.data, upvotes, downvotes } });
+    setPost({ ...post, data: { ...post.data, upvotes, downvotes } });
     }
-  }
+}
 
   useEffect(() => {
     async function fetchPost() {
       try {
         const data = await getUniquePost(id);
         setPost(data);
+        setComments(data?.data?.comments || []);
       } catch (error) {
         console.error("Error fetching post:", error);
       }
@@ -88,25 +73,6 @@ function UniquePost() {
 
   const isCurrentUserPostCreator = userIdFromToken === createdByUserId;
 
-
-  const formattedDate = formatDate(post.data.createdAt);
-  const fullDate = new Date(post.data.createdAt).toLocaleString('es-ES', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-  });
-
-  const handleMouseEnter = () => {
-    setShowFullDate(true);
-  };
-
-  const handleMouseLeave = () => {
-    setShowFullDate(false);
-  };
-
   const categories = post.data.categories.split(",");
   const platforms = post.data.platforms.split(",");
 
@@ -125,7 +91,7 @@ function UniquePost() {
   const hasComments = post.data.comments[0].idUser;
 
   const addComment = (newComment) => {
-    setComments([...comments, newComment]);
+    setComments((prevComments) => [...prevComments, newComment]);
   };
 
   const handleEditClick = () => {
@@ -151,7 +117,7 @@ function UniquePost() {
   const handleDeleteClick = async () => {
     try {
       const postDeleted = await deletePost(id);
-      window.location.href = '/';
+      <Navigate to="/" />
     } catch (error) {
       console.error("Error al eliminar el post:", error);
     }
@@ -162,35 +128,18 @@ function UniquePost() {
 
   return (
       <article className="unique-post-page">
-        <section className="user-detail-full">
-          <Link className="link-to-user" to={`/users/${post.data.idUser}`}>
-            {post.avatarURL ? (
-              <img className="user-avatar-full" src={post.data.avatarURL} alt="Avatar" />
-            ) : (
-              <DefaultAvatar post={false} />
-            )}
-            <span className="user-name-full">{post.data.nameMember}</span>
-          </Link>
-        </section>
+        <UserDetail post={post}>
+        </UserDetail>
         <section className="user-interaction-full">
           <UserInteraction postId={post.data.id} initialUpvotes={post.data.upvotes} initialDownvotes={post.data.downvotes} updatePostVotes={updatePostVotes} />
         </section>
 
-        <section className="post-text-full">
-          <h3 className="post-title-full">{post.data.title}</h3>
-          <p className="post-entradilla-full">{post.data.entradilla}</p>
-          <p className="post-description-full">{post.data.description}</p>
-        </section>
+        <PostText post={post} />
 
-        <section className="post-content-full">
-          {post.data.imageURL ? (
-            <figure className="post-images-full">
-              <img src={`${host}${post.data.imageURL}`} alt={`Photo ${post.data.title}`} />
-            </figure>
-          ) : null}
-        </section>
+        <PostImage post={post} />
 
-        <section className="post-date-full">
+        <PostDate post={post} />
+        {/* <section className="post-date-full">
           <p
             className="post-created-full"
             title={showFullDate ? fullDate : null}
@@ -199,7 +148,7 @@ function UniquePost() {
           >
             {formattedDate}
           </p>
-        </section>
+        </section> */}
 
         <section className="tags-full">
           <p className="tags-cat">Categorías: {categoriesLinks}</p>
@@ -272,7 +221,7 @@ function UniquePost() {
               postId={post.data.id}
               onAddComment={addComment}
               setComments={setComments}
-              ref={commentInputRef} // Pasa la referencia aquí
+              ref={commentInputRef}
             />
           </section>
         )}
