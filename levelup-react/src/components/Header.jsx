@@ -12,7 +12,7 @@ export function Header() {
   useEffect(() => {
     setCurrentLogo(isDarkMode ? logo2 : logo);
   }, [isDarkMode]);
-
+  
   return (
     <header>
       <Link className="main-title" to="/">

@@ -11,7 +11,7 @@ const editUser = async (postId, editPostData, token) => {
         return response;
     } catch (error) {
         console.error("Error updating user:", error);
-        throw error;
+        throw new Error("Error al editar el post: " + error.message);
     }
 };
 
