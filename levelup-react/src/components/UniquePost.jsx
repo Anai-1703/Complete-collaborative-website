@@ -14,19 +14,12 @@ import Tags from "./Tags";
 import Separador from "./Separador";
 import Comments from "./Comments";
 import EditAndDeleteBtn from "./EditAndDeleteBtn";
+import CommentForm from "../forms/CommentForm";
 
 
 function UniquePost() {
   const [post, setPost] = useState({});
-
   const { id } = useParams();
-
-
-  function updatePostVotes(postId, upvotes, downvotes) {
-    if (post.id === postId) {
-    setPost({ ...post, data: { ...post.data, upvotes, downvotes } });
-    }
-}
 
   useEffect(() => {
     async function fetchPost() {
@@ -40,13 +33,26 @@ function UniquePost() {
     fetchPost();
   }, [id]);
 
-
-
-
   if (!post.data) {
     return <Loading />;
   }
 
+  
+  function updatePostVotes(postId, upvotes, downvotes) {
+    if (post.id === postId) {
+    setPost({ ...post, data: { ...post.data, upvotes, downvotes } });
+    }
+  }
+
+  const addComment = (newComment) => {
+    setPost(prevPost => ({
+      ...prevPost,
+      data: {
+        ...prevPost.data,
+        comments: [...prevPost.data.comments, newComment]
+      }
+    }));
+  };
 
   const categories = post.data.categories.split(",");
   const platforms = post.data.platforms.split(",");
@@ -63,7 +69,6 @@ function UniquePost() {
     </span>
   ));
 
-
   return (
     <article className="unique-post-page">
       <UserDetail post={post}></UserDetail>
@@ -74,7 +79,11 @@ function UniquePost() {
       <Tags categoriesLinks={categoriesLinks} platformsLinks={platformsLinks} />
       <EditAndDeleteBtn post={post}/>
       <Separador />
-      <Comments post={post}/>
+      <Comments post={post} />
+      <CommentForm
+        postId={post.data.id}
+        onAddComment={addComment}
+      />
     </article>
   );
 }

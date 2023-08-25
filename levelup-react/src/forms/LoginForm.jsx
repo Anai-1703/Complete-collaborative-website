@@ -45,35 +45,35 @@ export function LoginForm() {
   return (
     <>
       <section className="form">
-      <form className="login-form" method="post" onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        <input 
-          type="text" 
-          name= "email"
-          placeholder="Email" 
-          value={formData.email}
-          onChange={handleChange}
-          required 
-        />
-        <input 
-          type="password" 
-          name="password"
-          placeholder="Password" 
+        <form className="login-form" method="post" onSubmit={handleSubmit}>
+          <h2>Login</h2>
+          <input 
+            type="text" 
+            name= "email"
+            placeholder="Email" 
+            value={formData.email}
+            onChange={handleChange}
+            required 
+          />
+          <input 
+            type="password" 
+            name="password"
+            placeholder="Password" 
 
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
 
-        <button type="submit" className="btn">Sign in</button>  
-        <p className="message">¿No estás registrado?{' '}
-          <Link to="/register">¡Regístrate!</Link>
+          <button type="submit" className="btn">Sign in</button>  
+          <p className="message">¿No estás registrado?{' '}
+            <Link to="/register">¡Regístrate!</Link>
+          </p>
+          <p className="message">
+        <Link to="/tos">Términos y Condiciones de Level Up!</Link>
         </p>
-        <p className="message">
-      <Link to="/tos">Términos y Condiciones de Level Up!</Link>
-      </p>
-      </form>
-      {showErrorModal && <Modal type="login" visible={showErrorModal} onClose={closeModal} />}    
+        </form>
+        {showErrorModal && <Modal type="login" visible={showErrorModal} onClose={closeModal} />}    
       </section>
   </>
   );

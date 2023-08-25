@@ -1,26 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useState } from "react";
 import { createComment } from "../services/createComment";
 import "../styles/GenericForm.css";
 
-const CommentForm = React.forwardRef(({ postId, onAddComment, setComments }, ref) => {
+const CommentForm = ({ postId, onAddComment }) => {
   const [comment, setComment] = useState('');
-  const location = useLocation();
-
-  useEffect(() => {
-    if (location.state && location.state.focus) {
-      setTimeout(() => {
-        ref.current.focus();
-      }, 100);
-    }
-  }, [location.state, ref]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const response = await createComment(postId, comment);
   
     onAddComment(response);
-    setComments((prevComments) => [...prevComments, response]);
     setComment('');
   };
 
@@ -33,7 +22,6 @@ const CommentForm = React.forwardRef(({ postId, onAddComment, setComments }, ref
       <form onSubmit={handleSubmit}>
         <div className="commentForm">
           <textarea
-            ref={ref}
             id="commentTextarea"
             type="text"
             name="comment"
@@ -47,7 +35,7 @@ const CommentForm = React.forwardRef(({ postId, onAddComment, setComments }, ref
       </form>
     </section>
   );
-});
+};
 
 CommentForm.displayName = "CommentForm";
 
