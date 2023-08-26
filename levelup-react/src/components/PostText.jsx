@@ -1,14 +1,14 @@
 
 
-function PostText({post}) {
+function PostText({post, postText, postTitle, postEntradilla, postDescription }) {
 
 
     return(
 
-        <section className="post-text-full">
-            <h3 className="post-title-full">{post.data.title}</h3>
-            <p className="post-entradilla-full">{post.data.entradilla}</p>
-            <p className="post-description-full">{post.data.description}</p>
+        <section className={postText}>
+            <h3 className={postTitle}>{post.title}</h3>
+            <p className={postEntradilla}>{post.entradilla}</p>
+            <p className={postDescription}>{post.description}</p>
         </section>
     )
 }

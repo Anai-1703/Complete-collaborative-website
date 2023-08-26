@@ -30,11 +30,6 @@ body,
     padding-left: 5px;
 }
 
-.user-interaction-full {
-    display: flex;
-    align-items: center;
-}
-
 .post-title-full {
     font-size: 1.5rem;
 }

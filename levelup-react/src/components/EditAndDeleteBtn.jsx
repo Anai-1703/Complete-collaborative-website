@@ -9,13 +9,13 @@ import deletePost from "../services/deletePost";
 function EditAndDeleteBtn({post}) {
     const [showControlPanel, setShowControlPanel] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
-    const [postData, setPostData] = useState(post.data);
+    const [postData, setPostData] = useState(post);
 
     const { id } = useParams();
 
     const tokenInfo = getUserToken();
     const userIdFromToken = tokenInfo ? tokenInfo.id : null;
-    const createdByUserId = post.data.idUser;
+    const createdByUserId = post.idUser;
     const isCurrentUserPostCreator = userIdFromToken === createdByUserId;
 
     const handleEditClick = () => {
@@ -30,7 +30,7 @@ function EditAndDeleteBtn({post}) {
 
     const handleFormSubmit = async (formData) => {
         try {
-          setPostData({ ...post.data, ...formData }); // Actualizar solo el campo post.data con los datos editados
+          setPostData({ ...post, ...formData }); // Actualizar solo el campo post con los datos editados
           setShowControlPanel(false); // Cerrar el formulario después de enviar los datos
         } catch (error) {
             console.error('Error al editar el post:', error.message);
@@ -62,7 +62,7 @@ function EditAndDeleteBtn({post}) {
             {showControlPanel && (
                 <EditForm
                 id={id}
-                postData={post.data}
+                postData={post}
                 onChange={handleFormSubmit}
                 onEditClick={handleEditClick}
                 handleEditClick={handleEditClick}

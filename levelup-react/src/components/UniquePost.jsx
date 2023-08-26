@@ -71,15 +71,15 @@ function UniquePost() {
 
   return (
     <article className="unique-post-page">
-      <UserDetail post={post}></UserDetail>
+      <UserDetail post={post.data} className1="user-detail-full" className2="user-avatar-full" className3="user-name-full" size={false}></UserDetail>
       <UserInteraction postId={post.data.id} initialUpvotes={post.data.upvotes} initialDownvotes={post.data.downvotes} updatePostVotes={updatePostVotes} />
-      <PostText post={post} />
-      <PostImage post={post} />
-      <PostDate post={post} />
+      <PostText post={post.data} postText="post-text-full" postTitle="post-title-full" postEntradilla="post-entradilla-full" postDescription="post-description-full"/>
+      <PostImage post={post.data} postContent="post-content-full" postImages="post-images-full" img="img-full" />
+      <PostDate post={post.data}  />
       <Tags categoriesLinks={categoriesLinks} platformsLinks={platformsLinks} />
-      <EditAndDeleteBtn post={post}/>
+      <EditAndDeleteBtn post={post.data}/>
       <Separador />
-      <Comments post={post} />
+      <Comments post={post.data} />
       <CommentForm
         postId={post.data.id}
         onAddComment={addComment}

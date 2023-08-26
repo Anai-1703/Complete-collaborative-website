@@ -1,14 +1,14 @@
 
 const host = import.meta.env.VITE_API_HOST;
 
-function PostImage({post}) {
+function PostImage({post, postContent, postImages, img}) {
 
 
     return(
-        <section className="post-content-full">
-            {post.data.imageURL ? (
-            <figure className="post-images-full">
-                <img src={`${host}${post.data.imageURL}`} alt={`Photo ${post.data.title}`} />
+        <section className={postContent}>
+            {post.imageURL ? (
+            <figure className={postImages}>
+                <img className={img} src={`${host}${post.imageURL}`} alt={`Photo ${post.title}`} />
             </figure>
             ) : null}
         </section>

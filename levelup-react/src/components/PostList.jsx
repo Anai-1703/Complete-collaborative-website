@@ -5,6 +5,16 @@ import { Link } from "react-router-dom";
 import { UserInteraction } from "./UserInteraction";
 import Loading from "./Loading";
 
+import UserDetail from "./UserDetail";
+import PostText from "./PostText";
+import PostImage from "./PostImage";
+import PostDate from "./PostDate";
+import Tags from "./Tags";
+import Separador from "./Separador";
+import Comments from "./Comments";
+import EditAndDeleteBtn from "./EditAndDeleteBtn";
+import CommentForm from "../forms/CommentForm";
+
 const host = import.meta.env.VITE_API_HOST;
 
 function PostList() {
@@ -30,7 +40,6 @@ function PostList() {
         try {
             const index = posts.findIndex((post) => post.id === id);
             if (index !== -1) {
-                // Actualizar los votos del post en el estado
                 const updatedPost = { ...posts[index], upvotes, downvotes };
                 setPosts((prevPosts) => {
                     const updatedPosts = [...prevPosts];
@@ -47,12 +56,7 @@ function PostList() {
         async function fetchPosts() {
             try {
                 const data = await getAllPosts();
-                const postsWithDate = data.map((post) => ({
-                ...post,
-                formattedDate: formatDate(post.createdAt),
-                showFullDate: false,
-                }));
-                setPosts(postsWithDate);
+                setPosts(data);
             } catch (error) {
                 console.error("Error fetching posts:", error);
             }
@@ -60,49 +64,6 @@ function PostList() {
         fetchPosts();
         }, []);
 
-
-    const formatDate = (dateString) => {
-        const postDate = new Date(dateString);
-        const now = new Date();
-    
-        const timeDiffInMinutes = Math.floor((now - postDate) / (1000 * 60));
-        const timeDiffInHours = Math.floor(timeDiffInMinutes / 60);
-        const timeDiffInDays = Math.floor(timeDiffInHours / 24);
-    
-        if (timeDiffInMinutes < 5) {
-        return 'hace un momento';
-        } else if (timeDiffInMinutes < 60) {
-        return `hace ${timeDiffInMinutes} ${timeDiffInMinutes === 1 ? 'minuto' : 'minutos'}`;
-        } else if (timeDiffInHours < 24) {
-        return `hace ${timeDiffInHours} ${timeDiffInHours === 1 ? 'hora' : 'horas'}`;
-        } else if (timeDiffInDays < 5) {
-        return `hace ${timeDiffInDays} ${timeDiffInDays === 1 ? 'día' : 'días'}`;
-        } else {
-        return postDate.toLocaleDateString('es-ES');
-        }
-    };
-
-    const handleMouseEnter = (postId) => {
-        const index = posts.findIndex((post) => post.id === postId);
-        if (index !== -1) {
-        setPosts((prevPosts) => {
-            const updatedPosts = [...prevPosts];
-            updatedPosts[index].showFullDate = true;
-            return updatedPosts;
-        });
-        }
-    };
-    
-    const handleMouseLeave = (postId) => {
-        const index = posts.findIndex((post) => post.id === postId);
-        if (index !== -1) {
-        setPosts((prevPosts) => {
-            const updatedPosts = [...prevPosts];
-            updatedPosts[index].showFullDate = false;
-            return updatedPosts;
-        });
-        }
-    };
 
     let categories = null
     let platforms = null
@@ -115,55 +76,31 @@ function PostList() {
         <section className="all-posts">
             {posts.map(post => (
                     <article className="preview-post" key={post.id}>
-                        <Link className="link-to-user" to={`/users/${post.idUser}`}>
-                        <section className="user-detail">
-                            {post.avatarURL ? (
-                            <img className="user-avatar" src={post.avatarURL} alt="Avatar" />
-                            ) : (
-                            <DefaultAvatar post={true} />
-                            )}
-                            <span className="user-name">{post.nameMember}</span>
-                        </section>
-                        </Link>
-                        <section className="user-interaction">
-                            <UserInteraction
-                                postId={post.id}
-                                initialUpvotes={post.upvotes}
-                                initialDownvotes={post.downvotes}
-                                updatePostVotes={updatePostVotes}
-                                showCommentForm={post.showCommentForm}
-                                onShowCommentForm={() => handleShowCommentForm(post.id)}
-                                onHideCommentForm={() => handleHideCommentForm(post.id)}
-                            />
-                        </section>
+                        <UserDetail post={post} className1="user-detail" className2="user-avatar" className3="user-name" size={true}></UserDetail>
+                        <UserInteraction
+                            postId={post.id}
+                            initialUpvotes={post.upvotes}
+                            initialDownvotes={post.downvotes}
+                            updatePostVotes={updatePostVotes}
+                            showCommentForm={post.showCommentForm}
+                            onShowCommentForm={() => handleShowCommentForm(post.id)}
+                            onHideCommentForm={() => handleHideCommentForm(post.id)}
+                        />
 
                         <Link className="link-to-post" to={`/posts/${post.id}`}>
-                        {post.imageURL ? (
-                        <section className="post-content">
-                            <figure className="post-images">
-                                <img src={`${host}${post.imageURL}`} alt={`Photo about ${post.title}`} />
-                            </figure>
-                        </section>
-                        ) : null}
-                        <section className="post-text">
-                            <h3 className="post-title">{post.title}</h3>
-                            <p className="post-entradilla">{post.entradilla}</p>
-                            <p
-                            className="post-date"
-                            title={post.showFullDate ? formatDate(post.createdAt) : null}
-                            onMouseEnter={() => handleMouseEnter(post.id)}
-                            onMouseLeave={() => handleMouseLeave(post.id)}
-                        >
-                            {post.formattedDate}
-                        </p>
-                        </section>
+
+                            <PostImage post={post} postContent="post-content" postImages="post-images" img="img-preview" />
+                            <PostText post={post} postText="post-text" postTitle="post-title" postEntradilla="post-entradilla" postDescription="post-description" />
+                            <PostDate post={post} postText="post-text-full" postTitle="post-title-full" postEntradilla="post-entradilla-full" postDescription="post-description-full" />
                         </Link>
-                        
+
+                        {/* <Tags categoriesLinks={categoriesLinks} platformsLinks={platformsLinks} /> */}
+
                         <section className="tags-full">
                             {(() => {
                                 categories = post.categories.split(",");
                                 platforms = post.platforms.split(",");
-                                return null;
+                                // return null;
                             })()}
                             <p className="tags-cat">Categorías: {categories.map((category) => (
                             <span key={category}>
@@ -177,9 +114,7 @@ function PostList() {
                             ))}</p>
                         </section>
 
-                        <div className="separador">
-                            <p>&nbsp;</p>
-                        </div>
+                        <Separador />
 
                         {post.lastComment === null ? (
                             <>

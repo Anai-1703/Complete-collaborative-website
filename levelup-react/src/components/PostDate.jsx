@@ -26,8 +26,8 @@ function PostDate({post}) {
     };
     
 
-    const formattedDate = formatDate(post.data.createdAt);
-    const fullDate = new Date(post.data.createdAt).toLocaleString('es-ES', {
+    const formattedDate = formatDate(post.createdAt);
+    const fullDate = new Date(post.createdAt).toLocaleString('es-ES', {
         weekday: 'long',
         day: 'numeric',
         month: 'long',

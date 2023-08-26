@@ -3,22 +3,18 @@ import { Link } from "react-router-dom";
 import { DefaultAvatar } from "./DefaultAvatar.jsx";
 
 
-function UserDetail({post}) {
-
+function UserDetail({ post, className1, className2, className3, size }) {
     return(
-        <>
-            <section className="user-detail-full">
-                <Link className="link-to-user" to={`/users/${post.data.idUser}`}>
-                    {post.avatarURL ? (
-                    <img className="user-avatar-full" src={post.data.avatarURL} alt="Avatar" />
-                    ) : (
-                    <DefaultAvatar post={false} />
-                    )}
-                    <span className="user-name-full">{post.data.nameMember}</span>
-                </Link>
-            </section>
-
-        </>
+        <section className={className1}>
+            <Link className="link-to-user" to={`/users/${post.idUser}`}>
+                {post.avatarURL ? (
+                <img className={className2} src={post.avatarURL} alt="Avatar" />
+                ) : (
+                <DefaultAvatar size={size} />
+                )}
+                <span className={className3}>{post.nameMember}</span>
+            </Link>
+        </section>
     )
 }
 

@@ -29,7 +29,7 @@ export function UserInteraction({
 
   return (
     <>
-      <section className="user-interaction-full">
+      <section className="user-interaction">
         <div className="votes">
           <span>{upvotes}</span>
           <svg className="up-vote-btn"

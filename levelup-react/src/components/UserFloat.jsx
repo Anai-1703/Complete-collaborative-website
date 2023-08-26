@@ -58,7 +58,7 @@ const UserFloat = () => {
                 {userData.avatarURL ? (
                 <img className="user-avatar" src={userData.avatarURL} alt="Avatar" />
                 ) : (
-                <DefaultAvatar post={true} />
+                <DefaultAvatar size={true} />
                 )}
                 <span className="user-name-float">{userData.nameMember}</span>
             </Link>
