@@ -1,7 +1,5 @@
 import { sendVote } from '../services/sendVote';
 import { useState } from "react";
-// import { Link } from "react-router-dom";
-import '../styles/UserInteraction.css';
 
 export function UserInteraction({
   postId,

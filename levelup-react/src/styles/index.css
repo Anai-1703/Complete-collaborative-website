@@ -29,6 +29,7 @@ body {
     background-attachment: fixed;
     margin: auto 20px;
 }
+
 main {
     flex: 1;
     overflow-y: auto;
@@ -156,6 +157,7 @@ footer {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        align-items: flex-start; /* Alinear contenido arriba */
+        align-items: flex-start;
+        margin-top: 10px;
     }
 }

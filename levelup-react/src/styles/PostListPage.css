@@ -4,7 +4,7 @@ article {
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
     background: rgba(0, 0, 0, 0.5);
     padding: 20px;
-    height: auto;
+    max-height: 100%;
     max-width: 800px;
     display: flex;
     justify-content: space-between;
@@ -54,6 +54,7 @@ article {
 .user-interaction {
     display: flex;
     align-items: center;
+    font-size: 0.5rem;
 }
 
 .post-content {
