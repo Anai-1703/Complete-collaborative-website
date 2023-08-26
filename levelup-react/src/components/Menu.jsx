@@ -38,13 +38,13 @@ export function Menu({ isMenuOpen }) {
                 <>
                 {!isLoggedIn && (
                     <ul className="menu-dropdown">
-                        <li>
+                        <li className={window.location.pathname === "/login" ? "menu-active" : ""}>
                             <Link to="/login">Login</Link>
                         </li>
-                        <li>
+                        <li className={window.location.pathname === "/register" ? "menu-active" : ""}>
                             <Link to="/register">Registro</Link>
                         </li>
-                        </ul>
+                    </ul>
                 )}
                 {isLoggedIn && (
                     <ul className="menu-dropdown">
