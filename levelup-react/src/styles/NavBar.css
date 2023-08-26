@@ -116,25 +116,3 @@ nav form button[type="submit"] {
     color: white;
     padding: 5px;
 }
-
-/* @media screen and (min-width: 1200px) {
-    nav {
-        bottom: unset;
-        top: 0;
-        justify-content: flex-start;
-    }
-
-    nav .menu-icon {
-        bottom: unset;
-        top: 10px;
-        right: unset;
-        left: 0;
-    }
-
-    nav .menu-dropdown {
-        bottom: unset;
-        top: unset;
-        left: 0;
-        position: relative;
-    }
-} */

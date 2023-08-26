@@ -10,9 +10,7 @@ article {
     justify-content: space-between;
     flex-wrap: wrap;
 }
-.all-posts {
-    margin-top: 60px;
-}
+
 .preview-post {
     margin: 15px 20px 20px 15px;
     min-width: 275px;
@@ -28,7 +26,6 @@ article {
 }
 
 .user-detail {
-    flex: 1;
     display: flex;
     align-items: center;
 }
@@ -85,7 +82,8 @@ article {
 }
 
 .post-text {
-    flex: 1; /* Ocupar el resto del ancho disponible */
+    margin-left: 2px;
+    flex: 1;
 }
 
 .post-title {
@@ -98,11 +96,6 @@ article {
     font-size: 0.7rem;
 }
 
-.post-date {
-    padding-top: 0.3rem;
-    font-size: 0.3rem;
-}
-
 .post-comments {
     font-size: 0.6rem;
     width: 100%;
@@ -110,12 +103,14 @@ article {
     align-items: flex-start;
     padding-top: 0.3rem;
 }
+
 .post-comments-full {
     margin: 10px 27px 0;
 }
+
 .buble {
     background-color: #4a4949;
-    max-width: 100%;
+    max-width: 90%;
     word-wrap: break-word;
     padding: 5px;
     border-radius: 5px;
@@ -143,13 +138,6 @@ article {
 }
 
 @media (max-width: 700px) {
-    .all-posts {
-        max-height: none;
-        height: auto;
-        overflow-y: auto;
-        display: block;
-        margin-top: 10px;
-    }
     .preview-post {
         width: 100%;
         margin: o;

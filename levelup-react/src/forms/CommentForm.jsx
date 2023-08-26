@@ -19,9 +19,8 @@ const CommentForm = ({ postId, onAddComment }) => {
   }
 
   return (
-    <section className="form">
-      <form onSubmit={handleSubmit}>
-        <div className="commentForm">
+
+      <form className="commentForm" onSubmit={handleSubmit}>
           <textarea
             id="commentTextarea"
             type="text"
@@ -31,10 +30,8 @@ const CommentForm = ({ postId, onAddComment }) => {
             onChange={handleChange}
             required
           />
-        </div>
         <button type="submit" className="btnComment">Agregar</button>
       </form>
-    </section>
   );
 };
 

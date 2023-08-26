@@ -9,11 +9,7 @@ import UserDetail from "./UserDetail";
 import PostText from "./PostText";
 import PostImage from "./PostImage";
 import PostDate from "./PostDate";
-import Tags from "./Tags";
 import Separador from "./Separador";
-import Comments from "./Comments";
-import EditAndDeleteBtn from "./EditAndDeleteBtn";
-import CommentForm from "../forms/CommentForm";
 
 const host = import.meta.env.VITE_API_HOST;
 
@@ -76,7 +72,8 @@ function PostList() {
         <section className="all-posts">
             {posts.map(post => (
                     <article className="preview-post" key={post.id}>
-                        <UserDetail post={post} className1="user-detail" className2="user-avatar" className3="user-name" size={true}></UserDetail>
+                        <UserDetail post={post} userDetail="user-detail" userAvatar="user-avatar" userName="user-name" size={true}></UserDetail>
+                        <PostDate post={post} />
                         <UserInteraction
                             postId={post.id}
                             initialUpvotes={post.upvotes}
@@ -88,10 +85,9 @@ function PostList() {
                         />
 
                         <Link className="link-to-post" to={`/posts/${post.id}`}>
-
                             <PostImage post={post} postContent="post-content" postImages="post-images" img="img-preview" />
                             <PostText post={post} postText="post-text" postTitle="post-title" postEntradilla="post-entradilla" postDescription="post-description" />
-                            <PostDate post={post} postText="post-text-full" postTitle="post-title-full" postEntradilla="post-entradilla-full" postDescription="post-description-full" />
+
                         </Link>
 
                         {/* <Tags categoriesLinks={categoriesLinks} platformsLinks={platformsLinks} /> */}
