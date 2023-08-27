@@ -5,11 +5,33 @@ import { UserInteraction } from "./UserInteraction.jsx";
 import CommentForm from "../forms/CommentForm.jsx";
 import { getSearchParam } from "../services/getSearchParam.js";
 
+import UserDetail from "./UserDetail";
+import PostText from "./PostText";
+import PostImage from "./PostImage";
+import PostDate from "./PostDate";
+import Separador from "./Separador";
+
 const host = import.meta.env.VITE_API_HOST;
 
 function SearchParams() {
     const [posts, setPosts] = useState([]);
     const location = useLocation();
+
+    const handleShowCommentForm = (postId) => {
+        setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+            post.id === postId ? { ...post, showCommentForm: true } : post
+        )
+        );
+    };
+    
+    const handleHideCommentForm = (postId) => {
+        setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+            post.id === postId ? { ...post, showCommentForm: false } : post
+        )
+        );
+    };
 
     async function updatePostVotes(id, upvotes, downvotes) {
         try {
@@ -106,53 +128,27 @@ function SearchParams() {
         <section className="all-posts">
             {posts.map(post => (
                     <article className="preview-post" key={post.id}>
-                        <Link className="link-to-user" to={`/users/${post.idUser}`}>
-                        <section className="user-detail">
-                            {post.avatarURL ? (
-                            <img className="user-avatar" src={post.avatarURL} alt="Avatar" />
-                            ) : (
-                            <DefaultAvatar post={true} />
-                            )}
-                            <span className="user-name">{post.nameMember}</span>
-                        </section>
-                        </Link>
-                        <section className="user-interaction">
-                            <UserInteraction
-                                postId={post.id}
-                                initialUpvotes={post.upvotes}
-                                initialDownvotes={post.downvotes}
-                                updatePostVotes={updatePostVotes}
-                                showCommentForm={post.showCommentForm}
-                            />
-                        </section>
+                        <UserDetail post={post} userDetail="user-detail" userAvatar="user-avatar" userName="user-name" size={true}></UserDetail>
+                        <UserInteraction
+                            postId={post.id}
+                            initialUpvotes={post.upvotes}
+                            initialDownvotes={post.downvotes}
+                            updatePostVotes={updatePostVotes}
+                            showCommentForm={post.showCommentForm}
+                            onShowCommentForm={() => handleShowCommentForm(post.id)}
+                            onHideCommentForm={() => handleHideCommentForm(post.id)}
+                        />
 
                         <Link className="link-to-post" to={`/posts/${post.id}`}>
-                        {post.imageURL ? (
-                        <section className="post-content">
-                            <figure className="post-images">
-                                <img src={`${host}${post.imageURL}`} alt={`Photo about ${post.title}`} />
-                            </figure>
-                        </section>
-                        ) : null}
-                        <section className="post-text">
-                            <h3 className="post-title">{post.title}</h3>
-                            <p className="post-entradilla">{post.entradilla}</p>
-                            <p
-                            className="post-date"
-                            title={post.showFullDate ? formatDate(post.createdAt) : null}
-                            onMouseEnter={() => handleMouseEnter(post.id)}
-                            onMouseLeave={() => handleMouseLeave(post.id)}
-                        >
-                            {post.formattedDate}
-                        </p>
-                        </section>
+                            <PostImage post={post} postContent="post-content" postImages="post-images" img="img-preview" />
+                            <PostText post={post} postText="post-text" postTitle="post-title" postEntradilla="post-entradilla" postDescription="post-description" />
                         </Link>
                         
                         <section className="tags-full">
                             {(() => {
                                 categories = post.categories.split(",");
                                 platforms = post.platforms.split(",");
-                                return null;
+                                // return null;
                             })()}
                             <p className="tags-cat">Categorías: {categories.map((category) => (
                             <span key={category}>
@@ -166,28 +162,31 @@ function SearchParams() {
                             ))}</p>
                         </section>
 
-                        <div className="separador">
-                            <p>&nbsp;</p>
-                        </div>
+                        <Separador />
 
                         {post.lastComment === null ? (
                             <>
+                            <Link className="link-to-post" to={{ pathname: `/posts/${post.id}`, state: { focus: true } }}>
                                 <p className="no-comment-list">No hay comentarios. ¡Sé el primero en dejar uno!</p>
-                            </>
+                            </Link>
+                        </>
                         ) : (
+                            <Link className="link-to-post" to={{ pathname: `/posts/${post.id}`, state: { focus: true } }}>
+
                             <section className="post-comments">
                                 {post.commentUserAvatarURL ? (
                                     <img className="comment-avatar" src={post.commentUserAvatarURL} alt="Comment Avatar" />
                                 ) : (
-                                    <DefaultAvatar post={true} />
+                                    <DefaultAvatar size={true} />
                                 )}
                                 <section className="buble">
                                     <span className="comment-user">{post.commentUserNameMember}</span>
                                     <p className="comment-text">{post.lastComment}</p>
                                 </section>
                             </section>
+                            </Link>
+
                         )}
-                        {/* Utiliza post.showCommentForm en lugar de showCommentForm */}
                         {post.showCommentForm && <CommentForm postId={post.id} />}
                     </article>
             ))}
