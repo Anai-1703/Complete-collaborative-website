@@ -6,6 +6,13 @@ import { getUserToken } from "../services/token/getUserToken";
 import UserEditForm from "../forms/UserEditForm";
 import '../styles/UserInfo.css'
 
+import UserDetail from "./UserDetail";
+import PostText from "./PostText";
+import PostImage from "./PostImage";
+import PostDate from "./PostDate";
+import Separador from "./Separador";
+import UserCard from "./UserCard";
+
 const host = import.meta.env.VITE_API_HOST;
 
 const UserInfo = ({ user }) => {
@@ -121,24 +128,11 @@ let platforms = null
   return (
     <>
       <h2>Perfil de {userData.nameMember}</h2>
-      
       <article className="user-panel">
-        <section className="user-id">
-          {userData.avatarURL ? (
-            <img className="user-avatar-full" src={userData.avatarURL} alt="Avatar" />
-          ) : (
-            <DefaultAvatar post={false} className="userinfo-avatar" />
-          )}
-          <p className="panel-username">{userData.nameMember}</p>
-          <p className="panel-role">{userData.role}</p>
-        </section>
+        <UserCard userData={userData} />
+
 
         <section className="panel-user-detail">
-          <p className="panel-bio-title">Biografía:</p>
-          <p className="panel-bio">{userData.biography || "No Definido"}</p>
-
-          <p className="panel-country-title">Pais:</p>
-          <p className="panel-country">{userData.country || "No Definido"}</p>
           {isLoggedInUser ? (
             <button className="btn-edit" onClick={handleEditClick}>
               {isExpanded ? "Contraer" : "Editar"}
@@ -152,51 +146,27 @@ let platforms = null
       <section>
         <h3> Post de {userData.nameMember}</h3>
       </section>
+
       <section className="all-posts">
       {userPost.map(post => (
         <article key={post.id + 1} className="preview-post">
-          <section className="user-detail">
-              {post.avatarURL ? (
-              <img className="user-avatar" src={post.avatarURL} alt="Avatar" />
-              ) : (
-              <DefaultAvatar post={true} />
-              )}
-              <span className="user-name">{post.nameMember}</span>
-          </section>
-
-        <section className="user-interaction">
+          <UserDetail post={post} userDetail="user-detail" userAvatar="user-avatar" userName="user-name" size={true}></UserDetail>
+          <PostDate post={post} />
           <UserInteraction
-            postId={post.id}
-            initialUpvotes={post.upvotes}
-            initialDownvotes={post.downvotes}
-            updatePostVotes={updatePostVotes}
-            showCommentForm={post.showCommentForm}
-            onShowCommentForm={() => handleShowCommentForm(post.id)}
-            onHideCommentForm={() => handleHideCommentForm(post.id)}
+              postId={post.id}
+              initialUpvotes={post.upvotes}
+              initialDownvotes={post.downvotes}
+              updatePostVotes={updatePostVotes}
+              showCommentForm={post.showCommentForm}
+              onShowCommentForm={() => handleShowCommentForm(post.id)}
+              onHideCommentForm={() => handleHideCommentForm(post.id)}
           />
-        </section>
 
-        <Link className="link-to-post" to={`/posts/${post.id}`}>
-        {post.imageURL ? (
-        <section className="post-content">
-            <figure className="post-images">
-                <img src={`${host}${post.imageURL}`} alt={`Photo about ${post.title}`} />
-            </figure>
-        </section>
-        ) : null}
-        <section className="post-text">
-            <h3 className="post-title">{post.title}</h3>
-            <p className="post-entradilla">{post.entradilla}</p>
-            <p
-              className="post-date"
-              title={post.showFullDate ? formatDate(post.createdAt) : null}
-              onMouseEnter={() => handleMouseEnter(post.id)}
-              onMouseLeave={() => handleMouseLeave(post.id)}
-            >
-              {post.formattedDate}
-            </p>
-        </section>
-        </Link>
+
+          <Link className="link-to-post" to={`/posts/${post.id}`}>
+            <PostImage post={post} postContent="post-content" postImages="post-images" img="img-preview" />
+            <PostText post={post} postText="post-text" postTitle="post-title" postEntradilla="post-entradilla" />
+          </Link>
 
         <section className="tags-full">
             {(() => {
@@ -216,9 +186,7 @@ let platforms = null
             ))}</p>
         </section>
 
-        <div className="separador">
-            <p>&nbsp;</p>
-        </div>
+        <Separador />
 
         <Link className="link-to-post" to={`/posts/${post.id}`}>
           <p className="p-aviso-post">Para ver los comentarios, haz click en el post</p>

@@ -29,10 +29,12 @@ body {
     background-attachment: fixed;
     margin: auto 20px;
 }
-
 main {
     flex: 1;
     overflow-y: auto;
+    /* display: flex;
+    /* justify-content: center; 
+    align-items: center; */
 }
 
 h1 {
@@ -60,11 +62,11 @@ a.main-title:hover {
     display: none;
 }
 .img-logo {
-    width: 100%;
-    height: 100%;
-    display: block;
-    margin: auto;
-    object-position: center center;
+    width: 100%; /* Para que el SVG ocupe todo el ancho del contenedor a */
+    height: 100%; /* Para que el SVG ocupe todo el alto del contenedor a */
+    display: block; /* Hacer que la imagen ocupe todo el espacio del enlace a */
+    margin: auto; /* Centrar la imagen verticalmente dentro del enlace */
+    object-position: center center; /* Centrar el eje horizontal del SVG en el contenedor */
     object-fit: cover;
 }
 
@@ -109,6 +111,7 @@ footer {
     main {
         grid-area: main;
         height: calc(100vh - 95px);
+        /* justify-content: space-between; */
     }
     footer {
         grid-area: footer;
@@ -133,15 +136,6 @@ footer {
         height: auto;
     }
 
-    .menu-dropdown li:hover {
-        background: rgba(128, 128, 128, 0.9);
-        color: #fff;
-        border-radius: 5px;
-        box-shadow: 0 0 5px rgba(128, 128, 128, 0.5),
-            0 0 25px rgba(128, 128, 128, 0.5), 0 0 50px rgba(128, 128, 128, 0.5),
-            0 0 100px rgba(128, 128, 128, 0.5);
-    }
-
     main {
         display: flex;
         flex-direction: column;
@@ -157,7 +151,6 @@ footer {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        align-items: flex-start;
-        margin-top: 10px;
+        align-items: flex-start; /* Alinear contenido arriba */
     }
 }

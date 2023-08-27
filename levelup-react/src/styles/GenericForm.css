@@ -175,10 +175,6 @@ textarea {
 
 /***** Estilos para tamaño de pantalla mayor a 701px  ******/
 @media only screen and (min-width: 701px) {
-    body {
-        overflow-x: hidden;
-    }
-
     .form .custom-form {
         margin: 0 auto;
         max-width: none;

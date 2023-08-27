@@ -11,8 +11,6 @@ import PostImage from "./PostImage";
 import PostDate from "./PostDate";
 import Separador from "./Separador";
 
-const host = import.meta.env.VITE_API_HOST;
-
 function PostList() {
     const [posts, setPosts] = useState([]);
 
@@ -87,10 +85,7 @@ function PostList() {
                         <Link className="link-to-post" to={`/posts/${post.id}`}>
                             <PostImage post={post} postContent="post-content" postImages="post-images" img="img-preview" />
                             <PostText post={post} postText="post-text" postTitle="post-title" postEntradilla="post-entradilla" postDescription="post-description" />
-
                         </Link>
-
-                        {/* <Tags categoriesLinks={categoriesLinks} platformsLinks={platformsLinks} /> */}
 
                         <section className="tags-full">
                             {(() => {
@@ -124,7 +119,7 @@ function PostList() {
                                 {post.commentUserAvatarURL ? (
                                     <img className="comment-avatar" src={post.commentUserAvatarURL} alt="Comment Avatar" />
                                 ) : (
-                                    <DefaultAvatar post={true} />
+                                    <DefaultAvatar size={true} />
                                 )}
                                 <section className="buble">
                                     <span className="comment-user">{post.commentUserNameMember}</span>
@@ -132,6 +127,7 @@ function PostList() {
                                 </section>
                             </section>
                             </Link>
+                            
                         )}
                     </article>
             ))}

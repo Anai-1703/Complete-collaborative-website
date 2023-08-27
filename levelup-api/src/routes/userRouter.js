@@ -41,7 +41,7 @@ router.get("/users/:id", json(), async (req, res) => {
     const user = await getUserById(req.params.id);
     const posts = await getPostByUserId(req.params.id);
     const userAndPost = [{ user }, { posts }];
-    sendResponse(res, userAndPost, undefined, 201);
+    sendResponse(res, userAndPost, undefined, 200);
 });
 
 // EN DESARROLLO

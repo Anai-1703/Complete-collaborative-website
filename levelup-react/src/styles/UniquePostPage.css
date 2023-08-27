@@ -1,8 +1,8 @@
 html,
 body,
 .unique-post-page {
-    height: auto;
-    margin: 40px 25px;
+    height: 100%;
+    margin: 40px 25px 25px;
 }
 
 .link-to-user,
@@ -79,6 +79,7 @@ body,
     flex: 1;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .tags-full {

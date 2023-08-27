@@ -3,6 +3,7 @@
     justify-content: space-between;
     min-width: 250px;
     margin: 5px 20px 20px 20px;
+    height: 200px;
 }
 
 .user-id {
@@ -10,7 +11,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 .panel-user-detail {
@@ -27,8 +27,13 @@
     font-weight: bold;
 }
 
+.user-rank {
+    font-size: 0.6rem;
+    margin-bottom: 0;
+}
+
 .panel-role {
-    font-size: 0.5rem;
+    font-size: 0.4rem;
 }
 
 .user-avatar-full {
@@ -57,6 +62,8 @@ p {
 .panel-bio,
 .panel-country {
     font-size: 0.5rem;
+    text-align: left;
+    margin-left: 3px;
 }
 
 .btn-edit {
@@ -78,13 +85,15 @@ p {
     margin-bottom: 10px; /* Espacio entre los párrafos y el botón */
 }
 
-.panel-user-detail p {
-    margin: 0;
+.panel-user-detail > p {
+    margin-bottom: 10px;
 }
 
 .p-aviso-post {
     font-size: 0.5rem;
-    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5rem;
 }
 
 @media (min-width: 700px) {

@@ -264,8 +264,7 @@ module.exports = {
         SELECT 
           p.id, 
           p.title, 
-          p.entradilla, 
-          p.description,
+          p.entradilla,
           p.idUser, 
           p.createdAt, 
           u.nameMember, 
@@ -316,7 +315,6 @@ module.exports = {
           p.id, 
           p.title, 
           p.entradilla, 
-          p.description,
           p.idUser, 
           p.createdAt, 
           u.nameMember, 
