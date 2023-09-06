@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { sendRegister } from "../services/sendRegister";
 import "../styles/GenericForm.css";
 // import "../styles/index.css"
 
 export function RegisterForm() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     nameMember: "",
     email: "",
@@ -54,7 +55,7 @@ export function RegisterForm() {
       // Manejar la respuesta del servidor
       if (response && response.success) {
         alert("Registro exitoso. ¡Ahora puedes iniciar sesión!");
-        <Navigate to="/login" />
+        navigate("/login");
       }
     } catch (error) {
       console.error(error);

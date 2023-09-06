@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { getUserToken } from "../services/token/getUserToken";
 
@@ -10,6 +10,7 @@ function EditAndDeleteBtn({post}) {
     const [showControlPanel, setShowControlPanel] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
     const [postData, setPostData] = useState(post);
+    const navigate = useNavigate();
 
     const { id } = useParams();
 
@@ -39,8 +40,8 @@ function EditAndDeleteBtn({post}) {
 
     const handleDeleteClick = async () => {
         try {
-            const postDeleted = await deletePost(id);
-            <Navigate to="/" />
+            await deletePost(id);
+            navigate("/");
         } catch (error) {
             console.error("Error al eliminar el post:", error);
         }
