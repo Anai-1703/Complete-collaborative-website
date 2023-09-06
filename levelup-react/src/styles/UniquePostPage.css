@@ -4,6 +4,10 @@ body,
     height: 100%;
 }
 
+.unique-post-page {
+    margin-top: 50px;
+}
+
 .link-to-user,
 .link-to-user-comment {
     text-decoration: none;

@@ -9,8 +9,18 @@ header,
     position: sticky;
     z-index: 2;
     top: 0;
+    clip-path: polygon(
+        0px 0px,
+        350px 0px,
+        350px 100%,
+        0px 100%
+    ); /* Recorta el enlace a partir del pixel 200 en horizontal */
 }
 
 .main-title {
     margin-top: -10px;
+}
+
+.logo-container {
+    z-index: -1;
 }
