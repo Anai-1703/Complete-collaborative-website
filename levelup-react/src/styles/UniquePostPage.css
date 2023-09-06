@@ -200,13 +200,6 @@ body,
     color: aliceblue;
 }
 
-.comment-text {
-    margin: 0;
-    padding: 0;
-    text-align: left;
-    color: white;
-}
-
 /* Estilo opcional para agregar margen entre el formulario y los elementos hermanos */
 .contain-form > * + * {
     margin-top: 20px;

@@ -37,7 +37,6 @@ function SearchParams() {
         try {
             const index = posts.findIndex((post) => post.id === id);
             if (index !== -1) {
-                // Actualizar los votos del post en el estado
                 const updatedPost = { ...posts[index], upvotes, downvotes };
                 setPosts((prevPosts) => {
                     const updatedPosts = [...prevPosts];
@@ -54,12 +53,12 @@ function SearchParams() {
         async function fetchQuery() {
             try {
                 const url = location.pathname;
-                const searchSegments = url.split('/'); // Divide la URL en segmentos
+                const searchSegments = url.split('/'); 
                 const searchTypeIndex = searchSegments.indexOf('searchplatform') !== -1 ? searchSegments.indexOf('searchplatform') : searchSegments.indexOf('searchcat');
 
                 if (searchTypeIndex !== -1) {
-                    const searchType = searchSegments[searchTypeIndex]; // Obtiene el tipo de búsqueda desde el segmento correspondiente
-                    const parameter = searchSegments[searchTypeIndex + 1]; // Obtiene el parámetro desde el siguiente segmento
+                    const searchType = searchSegments[searchTypeIndex];
+                    const parameter = searchSegments[searchTypeIndex + 1];
             
                     const data = await getSearchParam(searchType, parameter);
             

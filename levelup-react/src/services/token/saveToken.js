@@ -3,6 +3,6 @@
 export function saveToken(tokenResponse) {
     const token = tokenResponse.token;
     const userData = tokenResponse.user;
-    localStorage.setItem("USER_TOKEN", token);
-    localStorage.setItem("USER", JSON.stringify(userData));
+    localStorage.setItem("LU_USER_TOKEN", token);
+    localStorage.setItem("LU_USER", JSON.stringify(userData));
 }

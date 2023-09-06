@@ -32,9 +32,6 @@ body {
 main {
     flex: 1;
     overflow-y: auto;
-    /* display: flex;
-    /* justify-content: center; 
-    align-items: center; */
 }
 
 h1 {
@@ -67,7 +64,7 @@ a.main-title:hover {
     display: block; /* Hacer que la imagen ocupe todo el espacio del enlace a */
     margin: auto; /* Centrar la imagen verticalmente dentro del enlace */
     object-position: center center; /* Centrar el eje horizontal del SVG en el contenedor */
-    object-fit: cover;
+    object-fit: contain;
 }
 
 footer {
@@ -83,7 +80,7 @@ footer {
         grid-template-columns: 20% 40% 40%;
         grid-template-rows: 90px calc(100vh - 95px) 50px;
         grid-template-areas:
-            "search titulo  float"
+            "search titulo  titulo"
             "menu    main    main"
             "footer footer  footer";
     }
@@ -152,5 +149,10 @@ footer {
         flex-wrap: wrap;
         justify-content: center;
         align-items: flex-start; /* Alinear contenido arriba */
+    }
+
+    header,
+    .main-title {
+        width: 350px;
     }
 }

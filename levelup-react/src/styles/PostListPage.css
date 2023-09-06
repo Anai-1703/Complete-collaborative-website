@@ -129,7 +129,7 @@ article {
     margin: 0;
     padding: 0;
     text-align: left;
-    width: 320px;
+    width: auto;
 }
 
 .no-comment-list {

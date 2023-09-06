@@ -1,9 +1,8 @@
 header,
 .main-title {
-    width: 300px;
+    width: 250px;
     height: 90px;
     display: flex;
-
     align-items: center;
     justify-content: center;
     margin: 0 auto;
@@ -14,8 +13,4 @@ header,
 
 .main-title {
     margin-top: -10px;
-}
-
-.img-logo {
-    width: 200px;
 }
