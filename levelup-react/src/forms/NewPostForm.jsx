@@ -69,8 +69,6 @@ const NewPostForm = () => {
     
       if (createdPost.success) {
         const postId = createdPost.data.id;
-        console.log(createdPost);
-        console.log("postId", postId);
 
         if (photo == null) {
           window.location.href = `/posts/${postId}`;
@@ -78,16 +76,9 @@ const NewPostForm = () => {
         }
     
         if (photo !== null) {
-          console.log("El post tiene foto...");
-          console.log(photo);
-          console.log(postId);
-          console.log(token);
-          console.log("------");
-    
           const photoSended = await sendPhotoToPost(photo, postId, token);
     
           if (photoSended.success) {
-            console.log("Photo sent successfully:", photoSended.success);
             window.location.href = `/posts/${postId}`;
             setSubmitMessage('Enviando');
           } else {
@@ -99,8 +90,8 @@ const NewPostForm = () => {
         console.error("Error creating the post:", createdPost.error);
       }
     } catch (error) {
-      console.log(error);
       console.error('Error al crear el post:', error.message);
+      console.error(error);
     }
   };
 
