@@ -25,7 +25,7 @@ body {
     justify-content: center;
     align-items: center;
     font-family: sans-serif;
-    background: linear-gradient(#30142b, #2772a1);
+    background: linear-gradient(#2772a1, #30142b);
     background-attachment: fixed;
     margin: auto 20px;
 }
