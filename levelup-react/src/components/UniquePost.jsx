@@ -21,6 +21,7 @@ function UniquePost() {
   const [post, setPost] = useState({});
   const { id } = useParams();
 
+
   useEffect(() => {
     async function fetchPost() {
       try {
@@ -43,16 +44,6 @@ function UniquePost() {
     setPost({ ...post, data: { ...post.data, upvotes, downvotes } });
     }
   }
-
-  const addComment = (newComment) => {
-    setPost(prevPost => ({
-      ...prevPost,
-      data: {
-        ...prevPost.data,
-        comments: [...prevPost.data.comments, newComment]
-      }
-    }));
-  };
 
   const categories = post.data.categories.split(",");
   const platforms = post.data.platforms.split(",");
@@ -80,10 +71,7 @@ function UniquePost() {
       <EditAndDeleteBtn post={post.data}/>
       <Separador />
       <Comments post={post.data} />
-      <CommentForm
-        postId={post.data.id}
-        onAddComment={addComment}
-      />
+      <CommentForm postId={post.data.id} />
     </article>
   );
 }

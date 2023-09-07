@@ -3,17 +3,16 @@ import { createComment } from "../services/createComment";
 import "../styles/GenericForm.css";
 import "../styles/UniquePostPage.css";
 
-const CommentForm = ({ postId, onAddComment }) => {
+const CommentForm = ({ postId }) => {
   const [comment, setComment] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await createComment(postId, comment);
-  
-    onAddComment(response);
+    await createComment(postId, comment);
+    window.location.href = `/posts/${postId}`; // Cambiar por Navigate 
     setComment('');
   };
-
+  
   const handleChange = (event) => {
     setComment(event.target.value);
   }
