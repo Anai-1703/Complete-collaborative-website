@@ -22,14 +22,12 @@ export async function fetchAPI(path, method = "get", body, token) {
     }
 
     if (method !== "get" && method !== "delete" && body.type) {
-        console.log("Subiendo la foto...");
         const form = new FormData();
         form.append("photo", body);
         requestInit.body = form;
     }
 
     const response = await fetch(host + path, requestInit);
-    console.log("La respuesta: ", response);
     const result = await response.json();
 
     if (!result.success) {

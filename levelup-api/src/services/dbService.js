@@ -71,7 +71,6 @@ module.exports = {
     },
 
     async saveValidationCode(code) {
-        console.log(code);
         const statement = `
         INSERT INTO validation(id, idUser, code)
         VALUES(?, ?, ?)

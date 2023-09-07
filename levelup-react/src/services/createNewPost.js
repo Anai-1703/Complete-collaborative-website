@@ -23,7 +23,7 @@ export async function createNewPost(newPostData) {
 
         return body;
     } catch (error) {
-        console.log(error);
+        console.error(error);
         throw new Error("Error al crear el post: " + error.message);
     }
 }

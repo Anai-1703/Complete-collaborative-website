@@ -29,7 +29,7 @@ export function Menu({ isMenuOpen }) {
         deleteToken();
         setIsLoggedIn(false);
         notifyAuthChange(false);
-        navigate("/"); // Redirige a la página de login después de hacer logout
+        navigate("/");
     };
 
     return (
