@@ -6,6 +6,7 @@
     border: 2px solid white;
     background: rgba(107, 50, 50, 0.5);
     box-shadow: rgba(107, 50, 50, 0.6);
+    /* background: linear-gradient(#4f768f, #30142b); */
     border-radius: 10px;
     padding: 20px;
 }
