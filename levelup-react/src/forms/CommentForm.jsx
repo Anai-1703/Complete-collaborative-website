@@ -1,17 +1,19 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { createComment } from "../services/createComment";
 import "../styles/GenericForm.css";
 import "../styles/UniquePostPage.css";
 
 const CommentForm = ({ postId, onAddComment }) => {
   const [comment, setComment] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const response = await createComment(postId, comment);
-  
     onAddComment(response);
     setComment('');
+    navigate(`/posts/${postId}`);
   };
 
   const handleChange = (event) => {
