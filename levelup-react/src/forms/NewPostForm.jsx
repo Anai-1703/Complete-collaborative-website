@@ -195,6 +195,7 @@ const NewPostForm = () => {
               { value: "Otras", label: "Otras Plataformas" },
             ]}
             isMulti
+            classNamePrefix="custom-option"
           /> 
         </div>
 
@@ -221,6 +222,7 @@ const NewPostForm = () => {
               { value: "Puzzle", label: "Puzzle" },
             ]}
             isMulti
+            classNamePrefix="custom-option"
           />
         </div>
         

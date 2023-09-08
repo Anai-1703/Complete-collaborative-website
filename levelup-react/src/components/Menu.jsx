@@ -4,6 +4,7 @@ import { getToken } from "../services/token/getToken";
 import { getUserToken } from "../services/token/getUserToken";
 import { deleteToken } from "../services/token/deleteToken";
 import { notifyAuthChange } from "../services/auth";
+import "../styles/index.css";
 
 
 export function Menu({ isMenuOpen }) {

@@ -1,37 +1,50 @@
-.newPost-container {
-    margin-top: 47px;
-    max-width: 100%;
-    max-height: auto;
-    overflow-y: auto;
-    border: 2px solid white;
-    background: rgba(107, 50, 50, 0.5);
-    box-shadow: rgba(107, 50, 50, 0.6);
-    /* background: linear-gradient(#4f768f, #30142b); */
-    border-radius: 10px;
-    padding: 20px;
+.form {
+    overflow-x: hidden;
 }
 
-.select-field {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 50px;
+.form-custom-form {
+    background: rgba(107, 50, 50, 0.5);
+    box-shadow: 0 15px 25px rgba(107, 50, 50, 0.6);
+    border: 2px solid rgb(162, 78, 201);
+    border-radius: 10px;
+    margin-top: 125px;
+    padding: 20px;
 }
 h2 {
-    margin-top: 20px;
     margin-bottom: 30px;
+}
+
+.select-container {
+    .newPost-container {
+        display: flex;
+        flex-direction: column; /* Apila los campos uno debajo del otro */
+
+        margin-bottom: 20px;
+        width: 100%;
+        height: auto;
+        overflow-y: auto;
+        /* align-items: center; */
+        /* Centrar elementos horizontalmente */
+    }
+
+    .select-field {
+        display: flex;
+        align-items: center;
+        gap: 10px; /* Espacio entre el label y el Select */
+    }
 }
 .newPost-container input::placeholder,
 .newPost-container textarea::placeholder {
     color: white;
 }
+
 .select-label-2,
 .select-label-1 {
     color: white;
+    margin-top: 10px;
     text-align: left;
     flex: 1;
     margin-right: 10px;
-    margin-top: 30px;
 }
 
 /* Espacio entre la etiqueta y el Select */
@@ -39,12 +52,11 @@ h2 {
 .platform-select,
 .category-select {
     width: 100%;
-    color: rgba(128, 128, 135, 0.6);
+    color: #113a44;
     padding: 10px;
     font-size: 16px;
     border-radius: 5px;
-    margin-bottom: 50px;
-    border-radius: 5px;
+    margin-bottom: 30px; /* 20px */
 }
 
 /* Estilos del contenedor para el input tipo "file"*/
@@ -52,7 +64,6 @@ h2 {
     width: 100%;
     height: 60px;
     margin-top: 0px;
-    margin-bottom: 20px;
     font-size: 16px;
     color: #fff;
     border-radius: 5px;
@@ -60,12 +71,7 @@ h2 {
 }
 
 /* Estilos del botón para seleccionar photo */
-
 .file-input-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
     cursor: pointer;
     background-color: #3b6f7c;
     color: white;
@@ -75,8 +81,8 @@ h2 {
     height: 40px;
     text-align: center;
     padding: 8px;
-    /* margin-top: 10px; */
-    margin: 30px auto -20px;
+    margin-top: 10px;
+    margin: 0 auto;
 }
 
 /* Ocultar el input de tipo "file" */
@@ -96,8 +102,7 @@ h2 {
     width: 100%; /* La imagen se ajustará automáticamente al tamaño del contenedor */
     object-fit: cover; /* Ajustar el tamaño de la imagen para cubrir el contenedor */
     border-radius: 5px;
-    /* margin: 30px auto; */
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 /* Estilos generales botones envio/cancelar */
@@ -105,8 +110,6 @@ h2 {
     display: flex;
     gap: 9px;
     justify-content: space-around;
-    margin-top: -10px;
-    margin-bottom: 20px;
 }
 
 /* Estilos del boton de envío */
@@ -121,7 +124,7 @@ h2 {
     transition: 0.5s;
     margin-top: 15px;
     letter-spacing: 2px;
-
+    margin-bottom: 25px;
     animation: pulse 2s infinite;
 }
 
@@ -163,18 +166,23 @@ h2 {
 }
 
 /* Estilos específicos para dispositivos móviles */
-@media only screen and (max-width: 480px) {
+@media only screen and (min-width: 280px) and (max-width: 480px) {
     .newPost-container {
+        width: 100%;
         max-width: 480px;
-        padding: 15px;
+        padding: 10px;
     }
-
+    .select-field {
+        gap: 5px; /* Reducir el espacio entre elementos */
+    }
+    .elemento-oculto {
+        display: none; /* Ocultar elementos innecesarios */
+    }
     /* Estilos específicos para los campos de entrada en dispositivos móviles */
     .newPost-container input {
-        font-size: 16px;
-        margin-bottom: 15px;
+        font-size: 14px;
+        /* margin-bottom: 15px; */
     }
-
     /* Estilos específicos para los botones en dispositivos móviles */
     .newPost-container .btn {
         margin-top: 10px;
@@ -206,13 +214,13 @@ h2 {
     .newPost-container {
         max-width: 960px;
         margin: 50px auto;
-        padding: 20px;
+        padding: 50px;
     }
 
     /* Estilos específicos para los campos de entrada en pantallas más grandes */
     .newPost-container input {
         width: 100%;
-        padding: 5px;
+        padding: 10px 20px;
         margin-bottom: 30px;
     }
 

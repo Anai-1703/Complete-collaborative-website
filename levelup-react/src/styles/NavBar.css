@@ -99,7 +99,7 @@ nav form button[type="submit"] {
 .menu-dropdown li {
     list-style-type: none;
     margin: 0;
-    padding: 0;
+    padding: 5px;
 }
 
 .menu-dropdown li a {
@@ -114,4 +114,14 @@ nav form button[type="submit"] {
     cursor: pointer;
     color: white;
     padding: 5px;
+    font-size: 18px;
+}
+
+.menu-dropdown li:hover {
+    background: rgba(128, 128, 128, 0.9);
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(128, 128, 128, 0.5),
+        0 0 25px rgba(128, 128, 128, 0.5), 0 0 50px rgba(128, 128, 128, 0.5),
+        0 0 100px rgba(128, 128, 128, 0.5);
 }
