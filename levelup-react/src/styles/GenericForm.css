@@ -4,7 +4,7 @@ html {
 
 .register-page,
 .login-page {
-    padding-top: 30px;
+    padding-top: 45px;
 }
 .form {
     margin-top: 20px;
@@ -15,8 +15,8 @@ html {
     color: #fff;
     padding: 15px;
     width: 80%;
-    background: rgba(107, 50, 50, 0.5);
-    box-shadow: 0 15px 25px rgba(107, 50, 50, 0.6);
+    background: rgba(136, 89, 89, 0.5);
+    box-shadow: 0 15px 25px rgba(136, 89, 89, 0.6);
     border: 2px solid rgb(162, 78, 201);
     height: auto;
     overflow-y: auto;
@@ -24,7 +24,7 @@ html {
 }
 
 .form h2 {
-    color: #289bb8;
+    color: rgb(181, 127, 206);
 }
 
 .commentForm {
@@ -47,7 +47,6 @@ textarea {
     border-bottom: 1px solid #fff;
     background: transparent;
     font-size: 16px;
-    color: white;
     padding: 0;
     margin: 10px;
     margin-left: 0;
@@ -59,7 +58,7 @@ textarea {
     vertical-align: top;
 }
 .form .message a {
-    color: #289bb8;
+    color: rgb(181, 127, 206);
     text-decoration: none;
     margin-bottom: 50px;
 }
@@ -72,7 +71,7 @@ textarea {
     position: relative;
     display: inline-block;
     padding: 10px 20px;
-    color: #289bb8;
+    color: rgb(181, 127, 206);
     font-size: 16px;
     text-decoration: none;
     overflow: hidden;
@@ -84,11 +83,11 @@ textarea {
     border-radius: 5px;
 }
 .btn:hover {
-    background: #289bb8;
+    background: #b57fce;
     color: #fff;
     border-radius: 10px;
-    box-shadow: 0 0 5px #289bb8, 0 0 25px #289bb8, 0 0 50px #289bb8,
-        0 0 100px #289bb8;
+    box-shadow: 0 0 5px #b57fce, 0 0 25px #b57fce, 0 0 50px #b57fce,
+        0 0 100px #b57fce;
 }
 
 .btn span {

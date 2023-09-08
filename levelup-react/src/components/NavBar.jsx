@@ -5,7 +5,7 @@ import "../styles/NavBar.css";
 import { Menu } from "./Menu";
 import menuIcon from "../assets/svg/menu.svg";
 import { SearchBar } from "./SearchBar";
-
+import "../styles/NavBar.css";
 export function NavBar() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
