@@ -76,18 +76,10 @@ function UniquePost() {
     return <Loading />;
   }
 
-  console.log("------------");
-  console.log(postData);
   const tokenInfo = getUserToken();
-  console.log(tokenInfo);
   const userIdFromToken = tokenInfo ? tokenInfo.id : null;
-  console.log(userIdFromToken);
-  console.log(post);
   const createdByUserId = post.data.idUser;
-  console.log(createdByUserId);
   const isCurrentUserPostCreator = userIdFromToken === createdByUserId;
-  console.log(isCurrentUserPostCreator);
-
 
   function updatePostVotes(postId, upvotes, downvotes) {
     if (post.id === postId) {

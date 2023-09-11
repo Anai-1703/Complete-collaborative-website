@@ -11,11 +11,11 @@ import PostImage from "./PostImage";
 import PostDate from "./PostDate";
 import Separador from "./Separador";
 
-const host = import.meta.env.VITE_API_HOST;
 
 function SearchParams() {
     const [posts, setPosts] = useState([]);
     const location = useLocation();
+    const [searchType, searchTerm] = parseSearchTypeAndTerm(location.pathname);
 
     const handleShowCommentForm = (postId) => {
         setPosts((prevPosts) =>
@@ -123,74 +123,101 @@ function SearchParams() {
     let categories = null
     let platforms = null
 
+
+    function parseSearchTypeAndTerm(pathname) {
+        const searchSegments = pathname.split('/');
+        const searchTypeIndex = searchSegments.indexOf('searchplatform') !== -1 ? searchSegments.indexOf('searchplatform') : searchSegments.indexOf('searchcat');
+        if (searchTypeIndex !== -1 && searchSegments.length > searchTypeIndex + 1) {
+            const searchType = searchSegments[searchTypeIndex];
+            const searchTerm = decodeURIComponent(searchSegments[searchTypeIndex + 1]); // Decodificar el término de búsqueda
+            return [searchType, searchTerm];
+        }
+        return ['', ''];
+    }
+
+    // Función para obtener el título según el tipo de búsqueda
+    function getTitleBySearchType(searchType, searchTerm) {
+        switch (searchType) {
+            case 'searchplatform':
+                return `Plataforma: ${searchTerm}`;
+            case 'searchcat':
+                return `Categoría: ${searchTerm}`;
+            default:
+                return '';
+        }
+    }
+
     return (    
-        <section className="all-posts">
-            {posts.map(post => (
-                    <article className="preview-post" key={post.id}>
-                        <UserDetail post={post} userDetail="user-detail" userAvatar="user-avatar" userName="user-name" size={true}></UserDetail>
-                        <UserInteraction
-                            postId={post.id}
-                            initialUpvotes={post.upvotes}
-                            initialDownvotes={post.downvotes}
-                            updatePostVotes={updatePostVotes}
-                            showCommentForm={post.showCommentForm}
-                            onShowCommentForm={() => handleShowCommentForm(post.id)}
-                            onHideCommentForm={() => handleHideCommentForm(post.id)}
-                        />
+        <>
+            <h2>{getTitleBySearchType(searchType, searchTerm)}</h2>
+            <section className="all-posts">
+                {posts.map(post => (
+                        <article className="preview-post" key={post.id}>
+                            <UserDetail post={post} userDetail="user-detail" userAvatar="user-avatar" userName="user-name" size={true}></UserDetail>
+                            <PostDate post={post} />
+                            <UserInteraction
+                                postId={post.id}
+                                initialUpvotes={post.upvotes}
+                                initialDownvotes={post.downvotes}
+                                updatePostVotes={updatePostVotes}
+                                showCommentForm={post.showCommentForm}
+                                onShowCommentForm={() => handleShowCommentForm(post.id)}
+                                onHideCommentForm={() => handleHideCommentForm(post.id)}
+                            />
 
-                        <Link className="link-to-post" to={`/posts/${post.id}`}>
-                            <PostImage post={post} postContent="post-content" postImages="post-images" img="img-preview" />
-                            <PostText post={post} postText="post-text" postTitle="post-title" postEntradilla="post-entradilla" postDescription="post-description" />
-                        </Link>
-                        
-                        <section className="tags-full">
-                            {(() => {
-                                categories = post.categories.split(",");
-                                platforms = post.platforms.split(",");
-                                // return null;
-                            })()}
-                            <p className="tags-cat">Categorías: {categories.map((category) => (
-                            <span key={category}>
-                                <Link to={`/searchcat/${category}`}>{category}</Link>{' '}
-                            </span>
-                            ))}</p>
-                            <p className="tags-plat">Plataformas: {platforms.map((platform) => (
-                            <span key={platform}>
-                                <Link to={`/searchplatform/${platform}`}>{platform}</Link>{' '}
-                            </span>
-                            ))}</p>
-                        </section>
-
-                        <Separador />
-
-                        {post.lastComment === null ? (
-                            <>
-                            <Link className="link-to-post" to={{ pathname: `/posts/${post.id}`, state: { focus: true } }}>
-                                <p className="no-comment-list">No hay comentarios. ¡Sé el primero en dejar uno!</p>
+                            <Link className="link-to-post" to={`/posts/${post.id}`}>
+                                <PostImage post={post} postContent="post-content" postImages="post-images" img="img-preview" />
+                                <PostText post={post} postText="post-text" postTitle="post-title" postEntradilla="post-entradilla" postDescription="post-description" />
                             </Link>
-                        </>
-                        ) : (
-                            <Link className="link-to-post" to={{ pathname: `/posts/${post.id}`, state: { focus: true } }}>
-
-                            <section className="post-comments">
-                                {post.commentUserAvatarURL ? (
-                                    <img className="comment-avatar" src={post.commentUserAvatarURL} alt="Comment Avatar" />
-                                ) : (
-                                    <DefaultAvatar size={true} />
-                                )}
-                                <section className="buble">
-                                    <span className="comment-user">{post.commentUserNameMember}</span>
-                                    <p className="comment-text">{post.lastComment}</p>
-                                </section>
+                            
+                            <section className="tags-full">
+                                {(() => {
+                                    categories = post.categories.split(",");
+                                    platforms = post.platforms.split(",");
+                                    // return null;
+                                })()}
+                                <p className="tags-cat">Categorías: {categories.map((category) => (
+                                <span key={category}>
+                                    <Link to={`/searchcat/${category}`}>{category}</Link>{' '}
+                                </span>
+                                ))}</p>
+                                <p className="tags-plat">Plataformas: {platforms.map((platform) => (
+                                <span key={platform}>
+                                    <Link to={`/searchplatform/${platform}`}>{platform}</Link>{' '}
+                                </span>
+                                ))}</p>
                             </section>
-                            </Link>
 
-                        )}
-                        {post.showCommentForm && <CommentForm postId={post.id} />}
-                    </article>
-            ))}
-        </section>
+                            <Separador />
 
+                            {post.lastComment === null ? (
+                                <>
+                                <Link className="link-to-post" to={{ pathname: `/posts/${post.id}`, state: { focus: true } }}>
+                                    <p className="no-comment-list">No hay comentarios. ¡Sé el primero en dejar uno!</p>
+                                </Link>
+                            </>
+                            ) : (
+                                <Link className="link-to-post" to={{ pathname: `/posts/${post.id}`, state: { focus: true } }}>
+
+                                <section className="post-comments">
+                                    {post.commentUserAvatarURL ? (
+                                        <img className="comment-avatar" src={post.commentUserAvatarURL} alt="Comment Avatar" />
+                                    ) : (
+                                        <DefaultAvatar size={true} />
+                                    )}
+                                    <section className="buble">
+                                        <span className="comment-user">{post.commentUserNameMember}</span>
+                                        <p className="comment-text">{post.lastComment}</p>
+                                    </section>
+                                </section>
+                                </Link>
+
+                            )}
+                            {post.showCommentForm && <CommentForm postId={post.id} />}
+                        </article>
+                ))}
+            </section>
+        </>
     );
 }
 

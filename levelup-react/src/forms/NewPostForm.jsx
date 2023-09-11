@@ -154,12 +154,13 @@ const NewPostForm = () => {
           placeholder="Title"
           className="title"
         />
-        <textarea
+        <input
           value={entradilla}
           onChange={(e) => setEntradilla(e.target.value)}
           placeholder="Entradilla (Resumen)"
           className="entradilla"
         />
+        
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}

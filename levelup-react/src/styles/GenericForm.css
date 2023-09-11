@@ -50,13 +50,20 @@ textarea {
     padding: 0;
     margin: 10px;
     margin-left: 0;
-    height: 30px;
     outline: none;
+}
+
+input {
+    height: 30px;
 }
 
 textarea {
     vertical-align: top;
+    min-height: 10rem;
+    height: auto;
+    resize: vertical;
 }
+
 .form .message a {
     color: rgb(181, 127, 206);
     text-decoration: none;
