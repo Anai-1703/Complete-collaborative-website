@@ -23,18 +23,14 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
         ? postData.categories.split(',').map((category) => ({ value: category, label: category }))
         : []
     );
-
     const [showErrorModal, setShowErrorModal] = useState(false); // Nuevo estado para mostrar el Modal de error
-
     const [submitButtonClicked, setSubmitButtonClicked] = useState(false);
-
+    const [submitMessage, setSubmitMessage] = useState('');
     // Crear referencia, para el input de tipo "file"
     const fileInputRef = useRef();
-
-    const [submitMessage, setSubmitMessage] = useState('');
-
     const token = getToken();
 
+    
     useEffect(() => {
         if (postData && postData.photo) {
             setPhotoPreview(postData.photo);
@@ -115,7 +111,7 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
     };
 
     return (
-        <>
+        <div className="form-custom-form " >
         <form className="newPost-form" onSubmit={handleSubmit} >
         <section className="newPost-container">
             <h2>Edit Post</h2>
@@ -229,7 +225,7 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
         {/* Mostrar el Modal de error si showErrorModal es true */}
         {showErrorModal && <Modal type="newpost" visible={true} onClose={() => setShowErrorModal(false)} />} 
 
-        </>
+        </div>
     );
 }
 

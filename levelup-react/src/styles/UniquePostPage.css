@@ -209,6 +209,14 @@ body,
 }
 
 /* Estilo opcional para agregar margen entre el formulario y los elementos hermanos */
+.contain-form {
+    border: 1px solid white;
+    border-radius: 5px;
+    display: flex;
+    margin: 0 auto;
+    padding: 10px;
+}
+
 .contain-form > * + * {
     margin-top: 20px;
 }
