@@ -133,10 +133,10 @@ const EditForm = ({ id, postData, onChange, onEditClick, handleEditClick }) => {
             />  
             </div>
             <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Descripción (texto)"
-            className="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Descripción (texto)"
+                className="description big-textarea"
             />
 
             <label className="select-label-2">Platform:</label>

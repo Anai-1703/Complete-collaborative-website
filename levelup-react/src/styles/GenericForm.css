@@ -57,11 +57,15 @@ input {
     height: 30px;
 }
 
-textarea {
+.big-textarea {
     vertical-align: top;
     min-height: 10rem;
     height: auto;
     resize: vertical;
+}
+
+.comment-form > #commentTextarea {
+    min-height: 3rem;
 }
 
 .form .message a {

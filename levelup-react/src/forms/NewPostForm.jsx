@@ -165,7 +165,7 @@ const NewPostForm = () => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Descripción (texto)"
-          className="description"
+          className="description big-textarea"
         />
         
         {/** Campo de la plataforma */}
