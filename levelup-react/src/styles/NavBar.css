@@ -14,6 +14,8 @@ nav {
     display: flex;
     align-items: center;
     list-style-type: none; /* Eliminar los puntos de la lista */
+    margin-left: 10px;
+    margin-right: 30px;
 }
 
 .list-navbar-search li {
@@ -84,13 +86,6 @@ nav form button[type="submit"] {
     height: 40px;
 }
 
-section .menu-dropdown {
-    background-color: rgb(139, 112, 112);
-    position: initial;
-    margin: 0;
-    width: auto;
-    height: auto;
-}
 .menu-dropdown {
     bottom: 100%;
     right: 10px;
@@ -140,4 +135,39 @@ section .menu-dropdown {
     box-shadow: 0 0 5px rgba(128, 128, 128, 0.5),
         0 0 25px rgba(128, 128, 128, 0.5), 0 0 50px rgba(128, 128, 128, 0.5),
         0 0 100px rgba(128, 128, 128, 0.5);
+}
+/* Estilos para pantallas de hasta 700px  */
+@media (max-width: 700px) {
+    nav {
+        flex-direction: column; /* Cambia la dirección del flex a columna */
+        align-items: center; /* Centra verticalmente los elementos */
+        margin-left: -10px;
+    }
+
+    .menu-navbar {
+        margin-left: 240px; /* Ajusta el margen izquierdo para centrar el menú */
+        margin-right: 0;
+        margin-top: -80px;
+    }
+
+    /* Agrega cualquier otro estilo específico que necesites para pantallas más pequeñas */
+}
+
+/* Estilos para pantallas de más de 700px */
+@media (min-width: 701px) {
+    nav {
+        flex-direction: column; /* Cambia la dirección del flex a columna */
+        align-items: center; /* Centra verticalmente los elementos */
+    }
+
+    .list-navbar-search {
+        margin-left: 20px; /* Ajusta el margen izquierdo para centrar */
+        margin-bottom: 10px; /* Agrega margen inferior para separar del menú */
+    }
+
+    .menu-navbar {
+        margin-left: 40px; /* Ajusta el margen izquierdo */
+        margin-right: auto; /* Ajusta margen derecho para centrar */
+        margin-top: 10px; /* Añade margen superior para separar de .list-navbar-search */
+    }
 }
