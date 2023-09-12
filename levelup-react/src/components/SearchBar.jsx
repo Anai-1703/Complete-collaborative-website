@@ -34,10 +34,10 @@ export function SearchBar() {
                 value={searchQuery}
                 onChange={handleSearchChange}
             />
-            <select value={searchOption} onChange={handleSearchOptionChange}>
+            {/* <select value={searchOption} onChange={handleSearchOptionChange}>
                 <option value="users">Usuarios</option>
                 <option value="posts">Publicaciones</option>
-            </select>
+            </select> */}
             <button className="search-button" type="submit">
                 <img className="search-button" src={searchIcon} alt="Search" />
             </button>

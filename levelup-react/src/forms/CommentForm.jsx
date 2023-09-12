@@ -21,19 +21,18 @@ const CommentForm = ({ postId }) => {
   }
 
   return (
-
-      <form className="commentForm" onSubmit={handleSubmit}>
-          <textarea
-            id="commentTextarea"
-            type="text"
-            name="comment"
-            placeholder="Agregar comentario"
-            value={comment}
-            onChange={handleChange}
-            required
-          />
-        <button type="submit" className="btnComment">Agregar</button>
-      </form>
+    <form className="commentForm" onSubmit={handleSubmit}>
+      <textarea
+        id="commentTextarea"
+        type="text"
+        name="comment"
+        placeholder="Agregar comentario"
+        value={comment}
+        onChange={handleChange}
+        required
+      />
+      <button type="submit" className="btnComment">Agregar</button>
+    </form>
   );
 };
 

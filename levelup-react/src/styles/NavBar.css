@@ -73,7 +73,7 @@ nav form button[type="submit"] {
 }
 
 .menu-navbar {
-    position: relative; /* Para posicionar el menú desplegable correctamente */
+    position: relative;
     margin-left: auto;
     margin-right: auto;
 }
@@ -93,12 +93,12 @@ nav form button[type="submit"] {
     position: absolute;
     display: flex;
     flex-direction: column;
-    /* background-color: black; */
     background: rgb(136, 89, 89);
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 5px;
-    min-width: 100px;
+    min-width: 125px;
+    min-height: 100px;
     z-index: 1000;
     align-items: flex-start; /* Alineamos los hijos a la izquierda del menú */
     max-height: calc(100vh - 65px); /* Evita el overflow vertical */
@@ -136,7 +136,7 @@ nav form button[type="submit"] {
         0 0 25px rgba(128, 128, 128, 0.5), 0 0 50px rgba(128, 128, 128, 0.5),
         0 0 100px rgba(128, 128, 128, 0.5);
 }
-/* Estilos para pantallas de hasta 700px  */
+
 @media (max-width: 700px) {
     nav {
         flex-direction: column; /* Cambia la dirección del flex a columna */
@@ -149,8 +149,6 @@ nav form button[type="submit"] {
         margin-right: 0;
         margin-top: -80px;
     }
-
-    /* Agrega cualquier otro estilo específico que necesites para pantallas más pequeñas */
 }
 
 /* Estilos para pantallas de más de 700px */

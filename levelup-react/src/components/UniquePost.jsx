@@ -16,6 +16,7 @@ import Tags from "./Tags";
 import Comments from "./Comments";
 import CommentForm from "../forms/CommentForm";
 import EditForm from "../forms/EditForm";
+import { getToken } from "../services/token/getToken";
 
 function UniquePost() {
   const [post, setPost] = useState({});
@@ -75,7 +76,7 @@ function UniquePost() {
   if (!post.data) {
     return <Loading />;
   }
-
+  const token = getToken();
   const tokenInfo = getUserToken();
   const userIdFromToken = tokenInfo ? tokenInfo.id : null;
   const createdByUserId = post.data.idUser;
@@ -132,7 +133,7 @@ function UniquePost() {
       <section className="comment-section">
         <h3>Comentarios</h3>
         <Comments post={post.data} />
-        <CommentForm postId={post.data.id} />
+        {token && <CommentForm postId={post.data.id} />}
       </section>
     </>
   );

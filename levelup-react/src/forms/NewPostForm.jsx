@@ -83,7 +83,6 @@ const NewPostForm = () => {
             setSubmitMessage('Enviando');
           } else {
             console.error("Error sending photo:", photoSended.error);
-            // You might want to handle the photo sending error here
           }
         }
       } else {
@@ -267,7 +266,7 @@ const NewPostForm = () => {
       </div>
       </form>
     </div>
-    {showErrorModal && <Modal type="login" visible={showErrorModal} onClose={closeModal} autoCloseTimeout={null} />} {/* Mostrar el Modal de error si showErrorModal es true */}
+    {showErrorModal && <Modal type="login" visible={showErrorModal} autoCloseTimeout={null} />} {/* Mostrar el Modal de error si showErrorModal es true */}
     </>
   );
 }

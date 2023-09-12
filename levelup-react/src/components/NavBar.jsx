@@ -19,11 +19,8 @@ export function NavBar() {
       <SearchBar />
       <section className="menu-navbar" onClick={handleMenuClick}>
         <img className="menu-icon" src={menuIcon} alt="Menu" />
-        {/* Pasar el estado de apertura del menú como prop */}
         <Menu isMenuOpen={isMenuOpen} />
       </section>
-
-      {/* Colocar el componente Toggle fuera de los elementos <ul> y <li> */}
       <Toggle />
     </nav>
   );
