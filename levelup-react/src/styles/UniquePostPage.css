@@ -208,6 +208,7 @@ body,
 
 .delete-area {
     display: flex;
+    margin-top: -50px;
     margin-left: auto;
 }
 

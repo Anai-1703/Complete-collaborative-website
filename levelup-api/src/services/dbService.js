@@ -185,6 +185,7 @@ module.exports = {
           u.avatarURL,
           JSON_ARRAYAGG(
             JSON_OBJECT(
+              'idComment', pc.id,
               'comment', pc.comments,
               'avatarURL', uc.avatarURL,
               'nameMember', uc.nameMember,
