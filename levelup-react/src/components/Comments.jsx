@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 
 import { DefaultAvatar } from "./DefaultAvatar.jsx";
+import { getUserToken } from "../services/token/getUserToken.js";
 
 function Comments({ post }) {
     const hasComments = post.comments[0].idUser;
-
+    const userInfo = getUserToken();
     return(
         <>
 
@@ -17,6 +18,7 @@ function Comments({ post }) {
             {hasComments && (
             <section className="post-comments-full">
                 {post.comments.map((comment, index) => (
+                    <>
                 <Link key={`${comment.idUser}-${index}`} className="link-to-user-comment" to={`/users/${comment.idUser}`}>
                     <section key={`${comment.idUser}-${index}`} className="comment">
                     {comment.avatarURL ? (
@@ -38,6 +40,13 @@ function Comments({ post }) {
                         </section>
                     </section>
                 </Link>
+                <section className="delete-area">
+                    {comment.idUser === userInfo.id && (
+                        <button className="btn-deletepost" >Delete</button>
+                    )}
+                </section>
+                </>
+
                 ))}
             </section>
         )} 
