@@ -37,7 +37,6 @@ function App() {
     setShowDefaultModal(false);
   };
 
-
   return (
     <>
       <UserFloat /> 
@@ -55,7 +54,7 @@ function App() {
         <Route path="/searchplatform/:plat" element={<SearchParamsPage />}></Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      {showDefaultModal && <Modal type="default" visible={true} onClose={hideDefaultModal} autoCloseTimeout={2000} />}
+      {showDefaultModal && <Modal type="default" visible={true} autoCloseTimeout={2000} />}
       <Footer />
       <NavBar />
       <Menu isMenuOpen={true} className="open-menu"/>

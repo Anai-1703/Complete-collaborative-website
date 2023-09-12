@@ -25,10 +25,8 @@ const handleSubmit = async (e) => {
       if (!response.ok) {
         throw new Error('Registration failed.');
       }
-  
-      // La solicitud se realizó correctamente, puedes realizar acciones adicionales, como mostrar un mensaje de éxito o redirigir a otra página.
+
     } catch (error) {
-      // La solicitud falló, puedes mostrar un mensaje de error o realizar acciones adicionales de manejo de errores.
       console.error(error);
     }
   };
