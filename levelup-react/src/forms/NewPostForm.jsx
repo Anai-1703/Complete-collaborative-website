@@ -267,7 +267,7 @@ const NewPostForm = () => {
       </div>
       </form>
     </div>
-    {showErrorModal && <Modal type="newpost" visible={true} onClose={() => setShowErrorModal(false)} />} {/* Mostrar el Modal de error si showErrorModal es true */}
+    {showErrorModal && <Modal type="login" visible={showErrorModal} onClose={closeModal} autoCloseTimeout={null} />} {/* Mostrar el Modal de error si showErrorModal es true */}
     </>
   );
 }

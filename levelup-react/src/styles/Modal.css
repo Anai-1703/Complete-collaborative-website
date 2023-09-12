@@ -16,3 +16,65 @@
     width: 80%;
     height: 100%;
 }
+
+@keyframes colorChange {
+    0%,
+    16% {
+        color: var(--color1);
+    }
+    16%,
+    32% {
+        color: var(--color2);
+    }
+    32%,
+    48% {
+        color: var(--color3);
+    }
+    48%,
+    64% {
+        color: var(--color4);
+    }
+    64%,
+    80% {
+        color: var(--color5);
+    }
+    80%,
+    96% {
+        color: var(--color3);
+    }
+    96%,
+    100% {
+        color: var(--color2);
+    }
+}
+
+.Modal-Title {
+    animation: colorChange 2s infinite alternate;
+    --color1: white;
+    --color2: green;
+    --color3: black;
+    --color4: #681ad6;
+    --color5: #e7dd21;
+    color: var(--color1);
+    animation-duration: 0.4s;
+    animation-timing-function: linear;
+}
+
+@keyframes progressBarAnimation {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+.loading-bar {
+    width: 100%;
+    height: 20px;
+    background-color: whiteSmoke;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5) inset;
+    animation: progressBarAnimation 2s linear;
+}

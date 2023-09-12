@@ -73,7 +73,7 @@ export function LoginForm() {
         <Link to="/tos">Términos y Condiciones de Level Up!</Link>
         </p>
         </form>
-        {showErrorModal && <Modal type="login" visible={showErrorModal} onClose={closeModal} />}    
+        {showErrorModal && <Modal type="login" visible={showErrorModal} onClose={closeModal} autoCloseTimeout={null} />}
       </section>
   </>
   );
