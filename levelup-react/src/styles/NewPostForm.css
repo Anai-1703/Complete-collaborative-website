@@ -19,13 +19,10 @@ h2 {
     .newPost-container {
         display: flex;
         flex-direction: column; /* Apila los campos uno debajo del otro */
-
         margin-bottom: 20px;
         width: 100%;
         height: auto;
         overflow-y: auto;
-        /* align-items: center; */
-        /* Centrar elementos horizontalmente */
     }
 
     .select-field {
@@ -57,7 +54,6 @@ h2 {
     padding: 10px;
     font-size: 16px;
     border-radius: 5px;
-    margin-bottom: 30px; /* 20px */
 }
 
 /* Estilos del contenedor para el input tipo "file"*/
@@ -222,7 +218,7 @@ h2 {
     .newPost-container input {
         width: 100%;
         padding: 10px 20px;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
 
     /* Estilos específicos para los botones en pantallas más grandes */
