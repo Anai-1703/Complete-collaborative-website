@@ -25,7 +25,7 @@ const NewPostForm = () => {
   const [categories, setCategory] = useState([]);
 
   const [loading, setLoading] = useState(false);
-  const [showErrorModal, setShowErrorModal] = useState(false); // Nuevo estado para mostrar el Modal de error
+  const [showErrorModal, setShowErrorModal] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
   const [cancelMessage, setCancelMessage] = useState('');
   
@@ -266,7 +266,7 @@ const NewPostForm = () => {
       </div>
       </form>
     </div>
-    {showErrorModal && <Modal type="login" visible={showErrorModal} autoCloseTimeout={null} />} {/* Mostrar el Modal de error si showErrorModal es true */}
+    {showErrorModal && <Modal type="newpost" visible={showErrorModal} autoCloseTimeout={null} />} {/* Mostrar el Modal de error si showErrorModal es true */}
     </>
   );
 }

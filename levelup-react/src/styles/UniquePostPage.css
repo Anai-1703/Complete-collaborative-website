@@ -208,8 +208,11 @@ body,
 
 .delete-area {
     display: flex;
-    margin-top: -50px;
+}
+
+.btn-deletepost {
     margin-left: auto;
+    margin-top: -10px;
 }
 
 /* Estilo opcional para agregar margen entre el formulario y los elementos hermanos */

@@ -2,10 +2,13 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { sendRegister } from "../services/sendRegister";
 import "../styles/GenericForm.css";
+import Modal from "../components/Modal";
 // import "../styles/index.css"
 
 export function RegisterForm() {
   const navigate = useNavigate();
+  const [showErrorModal, setShowErrorModal] = useState(false);
+
   const [formData, setFormData] = useState({
     nameMember: "",
     email: "",
@@ -41,7 +44,6 @@ export function RegisterForm() {
       return;
     }
 
-    // añadido Ana:
      // Comparar las contraseñas para asegurarse de que coincidan
   if (formData.password !== formData.repeatPassword) {
     alert("Las contraseñas no coinciden");
@@ -59,6 +61,8 @@ export function RegisterForm() {
       }
     } catch (error) {
       console.error(error);
+      // setShowErrorModal(true);
+      // <Modal type="register-error" visible={showErrorModal} autoCloseTimeout={null} />
       alert(
         "Hubo un error en el registro. Por favor, inténtalo de nuevo más tarde."
       );

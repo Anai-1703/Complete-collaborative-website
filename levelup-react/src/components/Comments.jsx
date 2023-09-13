@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { DefaultAvatar } from "./DefaultAvatar.jsx";
 import { getUserToken } from "../services/token/getUserToken.js";
 import { deleteComment } from "../services/deleteComment.js";
+import Modal from './Modal.jsx';
 
 function Comments({ post }) {
     const [isDeleted, setIsDeleted] = useState(false);
@@ -11,7 +12,6 @@ function Comments({ post }) {
     const userInfo = getUserToken();
 
     const idPost = post.id;
-    console.log(idPost);
 
     const handleDeleteClick = async (idComment) => {
         try {
@@ -23,7 +23,8 @@ function Comments({ post }) {
             console.error('Error al eliminar el comentario.');
         }
         } catch (err) {
-        console.error('Error en la solicitud de eliminación:', err);
+            <Modal type="error-photo" visible={true} autoCloseTimeout={2000} />
+            console.error('Error en la solicitud de eliminación:', err);
         }
     };
 
@@ -62,11 +63,13 @@ function Comments({ post }) {
                             </section>
                         </section>
                     </Link>
-                    {comment.idUser === userInfo.id && (
+                    {userInfo ? (
                     <section className="delete-area">
-                        {console.log(comment.idComment)}
-                        <button className="btn-deletepost" onClick={() => handleDeleteClick(comment.idComment)}>Delete</button>                    </section>
-                    )}
+                        {comment.idUser === userInfo.id && (
+                            <button className="btn-deletepost" onClick={() => handleDeleteClick(comment.idComment)}>Delete</button>
+                        )}
+                    </section>
+                    ) : null}
                 </>
                 ))}
             </section>
@@ -76,3 +79,12 @@ function Comments({ post }) {
 }
 
 export default Comments;
+
+
+// {userInfo ? (
+//     <section className="delete-area">
+//         {comment.idUser === userInfo.id && (
+//             <button className="btn-deletepost" onClick={() => handleDeleteClick(comment.idComment)}>Delete</button>
+//         )}
+//     </section>
+//     ) : null}

@@ -14,7 +14,7 @@ const UseThemeToggle = () => {
   useEffect(() => {
     if (isDarkMode) {
       document.body.style.backgroundImage =
-        "linear-gradient(to bottom, #ed5c0e, #5f2607)";
+        "linear-gradient(to bottom, #FF5733, #5f2607)";
       setLogo(logo2);
     } else {
       document.body.style.backgroundImage = "";
